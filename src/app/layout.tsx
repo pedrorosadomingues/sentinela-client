@@ -4,6 +4,12 @@ import "./global.css";
 export const metadata: Metadata = {
   title: "Vestiq - Fashion.AI",
   description: "Vestiq - Fashion.AI",
+  icons: [
+    {
+      url: "/img/logo.png",
+      href: "/img/logo.png",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -13,11 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`antialiased`}>{children}</body>
     </html>
   );
 }
