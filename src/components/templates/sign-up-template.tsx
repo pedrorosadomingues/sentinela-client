@@ -8,7 +8,7 @@ import login from "@/services/auth/login";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
-export default function LoginTemplate() {
+export default function SignUpTemplate() {
   // const locale = router.locale;
   // const t = locale === "pt-br" ? ptBR : en;
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -53,6 +53,18 @@ export default function LoginTemplate() {
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="mb-5">
             <TextField
+              label="Name"
+              variant="filled"
+              name="name"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              className="w-full"
+              type="email"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <TextField
               label="Email"
               variant="filled"
               name="email"
@@ -77,16 +89,13 @@ export default function LoginTemplate() {
           </div>
           <div className="ml-auto mb-5">
             <Button type="submit" variant="contained" disabled={isLoading}>
-              Login
+              Register
             </Button>
           </div>
         </form>
-        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-up">
-          Dont have an account? Sign up here.
-        </a>
-        <a className="flex justify-center mt-5 text-sm" href="/">
-          Forgot your password? Click here.
-        </a>
+        <a
+        className="flex justify-center mt-5 text-sm" 
+        href="/pages/login"> Back to login </a>
       </div>
     </div>
   );
