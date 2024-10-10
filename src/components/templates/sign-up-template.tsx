@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import login from "@/services/auth/login";
+import signUp from "@/services/user/sign-up";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
@@ -17,20 +17,23 @@ export default function SignUpTemplate() {
     initialValues: {
       email: "",
       password: "",
+      name: "",
     },
     onSubmit: async () => {
       setIsLoading(true);
       try {
-        const response = await login(
-          formik.values.email,
-          formik.values.password
-        );
+        const response = await signUp({
+          name: formik.values.name,
+          email: formik.values.email,
+          password: formik.values.password,
+        });
 
         if (response.status === 200) {
+          alert("User created successfully");
           window.location.href = "/";
         } else {
           alert(
-            "Erro ao fazer login:" + JSON.stringify(response.message.error)
+            "Error creating user:" + JSON.stringify(response.message?.error)
           );
         }
       } catch (error) {
@@ -57,9 +60,9 @@ export default function SignUpTemplate() {
               variant="filled"
               name="name"
               onChange={formik.handleChange}
-              value={formik.values.email}
+              value={formik.values.name}
               className="w-full"
-              type="email"
+              type="text"
               required
             />
           </div>
@@ -93,9 +96,10 @@ export default function SignUpTemplate() {
             </Button>
           </div>
         </form>
-        <a
-        className="flex justify-center mt-5 text-sm" 
-        href="/pages/login"> Back to login </a>
+        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-in">
+          {" "}
+          Back to login{" "}
+        </a>
       </div>
     </div>
   );

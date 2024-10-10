@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import login from "@/services/auth/login";
+import login from "@/services/auth/sign-in";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
@@ -21,16 +21,16 @@ export default function LoginTemplate() {
     onSubmit: async () => {
       setIsLoading(true);
       try {
-        const response = await login(
-          formik.values.email,
-          formik.values.password
-        );
+        const response = await login({
+          email: formik.values.email,
+          password: formik.values.password,
+        });
 
         if (response.status === 200) {
           window.location.href = "/";
         } else {
           alert(
-            "Erro ao fazer login:" + JSON.stringify(response.message.error)
+            "Erro ao fazer login:" + JSON.stringify(response.message?.error)
           );
         }
       } catch (error) {
