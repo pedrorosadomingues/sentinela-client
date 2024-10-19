@@ -27,7 +27,7 @@ export default function LoginTemplate() {
         });
 
         if (response.status === 200) {
-          window.location.href = "/";
+          window.location.href = "/pages/home";
         } else {
           alert(
             "Erro ao fazer login:" + JSON.stringify(response.message?.error)
