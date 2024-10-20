@@ -4,13 +4,11 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, FilledInput, TextField } from "@mui/material";
 import { useState } from "react";
-import signUp from "@/services/user/sign-up";
+import { createGeneration } from "@/services";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
 export default function HomeTemplate() {
-  // const locale = router.locale;
-  // const t = locale === "pt-br" ? ptBR : en;
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -18,41 +16,98 @@ export default function HomeTemplate() {
       category: "",
       model_image: "",
       garment_image: "",
+      fn: "",
     },
     onSubmit: async () => {
-      console.log("form data", formik.values);
-      //   setIsLoading(true);
-      //   try {
-      //     const response = await signUp({
-      //       name: formik.values.name,
-      //       email: formik.values.email,
-      //       password: formik.values.password,
-      //     });
+      const payload = {
+        category: formik.values.category,
+        model_image: formik.values.model_image,
+        garment_image: formik.values.garment_image,
+        fn: formik.values.fn,
+      };
 
-      //     if (response.status === 200) {
-      //       alert("User created successfully");
-      //       window.location.href = "/";
-      //     } else {
-      //       alert(
-      //         "Error creating user:" + JSON.stringify(response.message?.error)
-      //       );
-      //     }
-      //   } catch (error) {
-      //     console.log("Erro inesperado:", error);
-      //   } finally {
-      //     setIsLoading(false);
-      //   }
+      console.log("payload", payload);
+
+      setIsLoading(true);
+      try {
+        const response = await createGeneration(payload);
+
+        console.log("response", response);
+
+        if (response.status === 200) {
+          alert("Generate created successfully");
+        } else {
+          alert(
+            "Error creating user:" + JSON.stringify(response.message?.message)
+          );
+        }
+      } catch (error) {
+        console.log("Erro inesperado:", error);
+      } finally {
+        setIsLoading(false);
+      }
     },
   });
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name } = event.target;
     const files = event.target.files;
-    if (files) {
-      const file = files[0]; // Pega o primeiro arquivo selecionado
-      formik.setFieldValue(name, file); // Define o valor no formik
+
+    if (files && files[0]) {
+      const file = files[0];
+
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+          "http://localhost:3000/upload/generate-presigned-url",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              fileName: file.name,
+              fileType: file.type,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Erro ao obter pre-signed URL");
+        }
+
+        const data = await response.json();
+        const { uploadUrl } = data;
+
+        console.log("uploadUrl", uploadUrl);
+
+        const uploadResponse = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": file.type,
+            "x-amz-acl": "public-read",
+          },
+          body: file,
+        });
+
+        if (!uploadResponse.ok) {
+          const errorText = await uploadResponse.text();
+          console.error("Erro ao fazer upload para o S3:", errorText);
+          throw new Error(`Erro ao fazer upload para o S3: ${errorText}`);
+        }
+
+        const s3Url = uploadUrl.split("?")[0];
+
+        // 4. Atualizar o valor no Formik
+        formik.setFieldValue(name, s3Url);
+      } catch (error) {
+        console.error("Erro ao fazer upload da imagem:", error);
+      }
     }
-    formik.setFieldValue(name, files); // Define o valor no formik
   };
 
   return (
@@ -66,13 +121,14 @@ export default function HomeTemplate() {
       />
       <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full max-w-md">
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
-          <div className="mb-5">
+          <div>
             <input
               type="file"
               name="model_image"
               onChange={handleFileChange}
-              accept="image/*" // Para garantir que somente imagens sejam selecionadas
+              accept="image/*"
             />
+            <label className="mb-5">Model Image</label>
           </div>
           <div className="mb-5">
             <input
@@ -81,6 +137,7 @@ export default function HomeTemplate() {
               onChange={handleFileChange}
               accept="image/*"
             />
+            <label className="mb-5">Garment Image</label>
           </div>
           <div className="mb-5">
             <TextField
@@ -94,16 +151,24 @@ export default function HomeTemplate() {
               required
             />
           </div>
+          <div className="mb-5">
+            <TextField
+              label="Fn"
+              variant="filled"
+              name="fn"
+              onChange={formik.handleChange}
+              value={formik.values.fn}
+              className="w-full"
+              type="text"
+              required
+            />
+          </div>
           <div className="ml-auto mb-5">
             <Button type="submit" variant="contained" disabled={isLoading}>
               Register
             </Button>
           </div>
         </form>
-        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-in">
-          {" "}
-          Back to login{" "}
-        </a>
       </div>
     </div>
   );

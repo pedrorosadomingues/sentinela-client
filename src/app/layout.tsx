@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./global.css";
 
 export const metadata: Metadata = {
-  title: "Vestiq - Fashion.AI",
-  description: "Vestiq - Fashion.AI",
+  title: "Vestiq - Fash.AI",
+  description: "Vestiq - Fash.AI",
   icons: [
     {
       url: "/img/logo.png",

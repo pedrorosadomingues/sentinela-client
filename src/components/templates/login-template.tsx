@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import login from "@/services/auth/sign-in";
+import { login } from "@/services";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
@@ -27,6 +27,7 @@ export default function LoginTemplate() {
         });
 
         if (response.status === 200) {
+          localStorage.setItem("token", response.data.token);
           window.location.href = "/pages/home";
         } else {
           alert(

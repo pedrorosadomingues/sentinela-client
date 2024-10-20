@@ -14,7 +14,7 @@ interface SignUpResponse {
   message?: any;
 }
 
-export default async function signUp({
+export async function signUp({
   email,
   password,
   name,

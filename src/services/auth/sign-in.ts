@@ -13,7 +13,7 @@ interface SignInResponse {
   message?: any;
 }
 
-export default async function signIn({
+export async function login({
   email,
   password,
 }: SignInParams): Promise<SignInResponse> {
