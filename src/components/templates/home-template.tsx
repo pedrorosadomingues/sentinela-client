@@ -91,10 +91,7 @@ export default function HomeTemplate() {
         const data = await response.json();
         const { uploadUrl }: { uploadUrl: string } = data;
 
-        console.log("uploadUrl", uploadUrl);
         setImagePath(URL.createObjectURL(file));
-
-        console.log("image_path:", image_path);
 
         formik.setFieldValue(name, uploadUrl);
       } catch (error) {
