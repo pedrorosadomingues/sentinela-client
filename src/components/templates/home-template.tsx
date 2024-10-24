@@ -10,6 +10,7 @@ import { createGeneration } from "@/services";
 
 export default function HomeTemplate() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [image_path, setImagePath] = useState<string>("/img/logo.png");
 
   const formik = useFormik({
     initialValues: {
@@ -61,18 +62,25 @@ export default function HomeTemplate() {
       try {
         const token = localStorage.getItem("token");
 
+        const file_name = file.name;
+        const file_type = file.type;
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const queryParams = new URLSearchParams({
+          file_name,
+          file_type,
+        }).toString();
+
         const response = await fetch(
-          "http://localhost:3000/upload/generate-presigned-url",
+          `http://localhost:3000/upload/generate-presigned-url?${queryParams}`,
           {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-              fileName: file.name,
-              fileType: file.type,
-            }),
+            body: formData,
           }
         );
 
@@ -81,29 +89,14 @@ export default function HomeTemplate() {
         }
 
         const data = await response.json();
-        const { uploadUrl } = data;
+        const { uploadUrl }: { uploadUrl: string } = data;
 
         console.log("uploadUrl", uploadUrl);
+        setImagePath(URL.createObjectURL(file));
 
-        const uploadResponse = await fetch(uploadUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Type": file.type,
-            "x-amz-acl": "public-read",
-          },
-          body: file,
-        });
+        console.log("image_path:", image_path);
 
-        if (!uploadResponse.ok) {
-          const errorText = await uploadResponse.text();
-          console.error("Erro ao fazer upload para o S3:", errorText);
-          throw new Error(`Erro ao fazer upload para o S3: ${errorText}`);
-        }
-
-        const s3Url = uploadUrl.split("?")[0];
-
-        // 4. Atualizar o valor no Formik
-        formik.setFieldValue(name, s3Url);
+        formik.setFieldValue(name, uploadUrl);
       } catch (error) {
         console.error("Erro ao fazer upload da imagem:", error);
       }
@@ -122,6 +115,13 @@ export default function HomeTemplate() {
       <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full max-w-md">
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div>
+            <Image
+              src={image_path}
+              alt="Redraw logo"
+              width={150}
+              height={250}
+              priority={true}
+            />
             <input
               type="file"
               name="model_image"
