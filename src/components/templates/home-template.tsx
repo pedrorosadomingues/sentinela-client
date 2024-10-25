@@ -1,16 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Button, FilledInput, TextField } from "@mui/material";
-import { useState } from "react";
+import { Button } from "@mui/material";
+import { useState, useRef } from "react";
 import { createGeneration } from "@/services";
-// import en from "../../public/locales/en/login.json";
-// import ptBR from "../../public/locales/pt-br/login.json";
+import ModelImageControls from "@/components/organisms/model-image-controls";
 
 export default function HomeTemplate() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [image_path, setImagePath] = useState<string>("/img/logo.png");
+  const [model_image_path, setModelImagePath] = useState<string>("");
+  const [garment_image_path, setGarmentImagePath] = useState<string>("");
+  const [result_image_path, setResultImagePath] = useState<string>("");
+
+  const modelInputRef = useRef<HTMLInputElement | null>(null);
+  const garmentInputRef = useRef<HTMLInputElement | null>(null);
+
+  const categories = [
+    { label: "Top", value: "tops" },
+    { label: "Bottom", value: "bottoms" },
+    { label: "Full-body", value: "one-pieces" },
+  ];
+
+  const fnOptions = [
+    { label: "Main", value: "main", selectable: true },
+    { label: "Render Traces", value: "render_traces", selectable: false },
+    { label: "Txt2Img", value: "txt2img", selectable: false },
+  ];
 
   const formik = useFormik({
     initialValues: {
@@ -18,29 +34,34 @@ export default function HomeTemplate() {
       model_image: "",
       garment_image: "",
       fn: "",
+      cover_feet: false,
+      adjust_hands: false,
+      restore_background: false,
+      restore_clothes: false,
     },
     onSubmit: async () => {
-      const payload = {
+      const payload: any = {
         category: formik.values.category,
         model_image: formik.values.model_image,
         garment_image: formik.values.garment_image,
         fn: formik.values.fn,
+        cover_feet: formik.values.cover_feet,
+        adjust_hands: formik.values.adjust_hands,
+        restore_background: formik.values.restore_background,
+        restore_clothes: formik.values.restore_clothes,
       };
-
       console.log("payload", payload);
-
       setIsLoading(true);
+
       try {
         const response = await createGeneration(payload);
 
-        console.log("response", response);
+        const { data: result_image_path } = response;
 
         if (response.status === 200) {
-          alert("Generate created successfully");
+          setResultImagePath(result_image_path);
         } else {
-          alert(
-            "Error creating user:" + JSON.stringify(response.message?.message)
-          );
+          alert("Error: " + JSON.stringify(response.message?.message));
         }
       } catch (error) {
         console.log("Erro inesperado:", error);
@@ -50,7 +71,52 @@ export default function HomeTemplate() {
     },
   });
 
-  const handleFileChange = async (
+  const handleFileChange = async (file: File, name: string) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const file_name = file.name;
+      const file_type = file.type;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const queryParams = new URLSearchParams({
+        file_name,
+        file_type,
+      }).toString();
+
+      const response = await fetch(
+        `http://localhost:3000/upload/generate-presigned-url?${queryParams}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao obter pre-signed URL");
+      }
+
+      const data = await response.json();
+      const { uploadUrl }: { uploadUrl: string } = data;
+
+      if (name === "model_image") {
+        setModelImagePath(URL.createObjectURL(file));
+      } else if (name === "garment_image") {
+        setGarmentImagePath(URL.createObjectURL(file));
+      }
+
+      formik.setFieldValue(name, uploadUrl);
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem:", error);
+    }
+  };
+
+  const handleFileInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name } = event.target;
@@ -58,108 +124,183 @@ export default function HomeTemplate() {
 
     if (files && files[0]) {
       const file = files[0];
+      await handleFileChange(file, name);
+    }
+  };
 
-      try {
-        const token = localStorage.getItem("token");
+  const handleDrop = async (
+    e: React.DragEvent<HTMLDivElement>,
+    type: "model" | "garment"
+  ) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
 
-        const file_name = file.name;
-        const file_type = file.type;
+    if (file) {
+      const name = type === "model" ? "model_image" : "garment_image";
+      await handleFileChange(file, name);
+    }
+  };
 
-        const formData = new FormData();
-        formData.append("file", file);
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
 
-        const queryParams = new URLSearchParams({
-          file_name,
-          file_type,
-        }).toString();
-
-        const response = await fetch(
-          `http://localhost:3000/upload/generate-presigned-url?${queryParams}`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Erro ao obter pre-signed URL");
-        }
-
-        const data = await response.json();
-        const { uploadUrl }: { uploadUrl: string } = data;
-
-        setImagePath(URL.createObjectURL(file));
-
-        formik.setFieldValue(name, uploadUrl);
-      } catch (error) {
-        console.error("Erro ao fazer upload da imagem:", error);
-      }
+  const openFileDialog = (type: "model" | "garment") => {
+    if (type === "model" && modelInputRef.current) {
+      modelInputRef.current.click();
+    } else if (type === "garment" && garmentInputRef.current) {
+      garmentInputRef.current.click();
     }
   };
 
   return (
-    <div className="bg-primary min-h-screen min-w-[40%] max-w-lg flex justify-center items-center flex-col">
+    <div className="bg-primary min-h-screen flex justify-center items-center flex-col">
       <Image
         src={"/img/logo.png"}
-        alt="Redraw logo"
+        alt="Logo"
         width={150}
         height={250}
         priority={true}
       />
-      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full max-w-md">
+      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full">
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
-          <div>
-            <Image
-              src={image_path}
-              alt="Redraw logo"
-              width={150}
-              height={250}
-              priority={true}
-            />
-            <input
-              type="file"
-              name="model_image"
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-            <label className="mb-5">Model Image</label>
+          {/* Model Image Upload */}
+          <div className="flex w-full gap-[30px] justify-center">
+            <div className="mb-5">
+              <label>Select Model</label>
+              <div
+                className="upload-area"
+                onClick={() => openFileDialog("model")}
+                onDrop={(e) => handleDrop(e, "model")}
+                onDragOver={handleDragOver}
+              >
+                {model_image_path ? (
+                  <Image
+                    src={model_image_path}
+                    alt="Model Preview"
+                    width={150}
+                    height={150}
+                  />
+                ) : (
+                  <p className="text-center w-[70%]">
+                    Paste/drop image here OR Choose file
+                  </p>
+                )}
+                <input
+                  type="file"
+                  name="model_image"
+                  onChange={handleFileInputChange}
+                  accept="image/*"
+                  ref={modelInputRef}
+                  hidden
+                />
+              </div>
+            </div>
+
+            {/* Garment Image Upload */}
+            <div className="mb-5">
+              <label>Select Garment</label>
+              <div
+                className="upload-area"
+                onClick={() => openFileDialog("garment")}
+                onDrop={(e) => handleDrop(e, "garment")}
+                onDragOver={handleDragOver}
+              >
+                {garment_image_path ? (
+                  <Image
+                    src={garment_image_path}
+                    alt="Garment Preview"
+                    width={150}
+                    height={150}
+                  />
+                ) : (
+                  <p className="text-center w-[70%]">
+                    Paste/drop image here OR Choose file
+                  </p>
+                )}
+                <input
+                  type="file"
+                  name="garment_image"
+                  onChange={handleFileInputChange}
+                  accept="image/*"
+                  ref={garmentInputRef}
+                  hidden
+                />
+              </div>
+            </div>
+
+            <div className="mb-5">
+              <label>Result Image</label>
+              <div className="upload-area">
+                {result_image_path ? (
+                  <Image
+                    src={result_image_path}
+                    alt="Garment Preview"
+                    width={150}
+                    height={150}
+                  />
+                ) : (
+                  <p className="text-center w-[70%]">image</p>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="mb-5">
-            <input
-              type="file"
-              name="garment_image"
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-            <label className="mb-5">Garment Image</label>
+
+          {/* Dynamic Category Buttons */}
+          <div className="flex justify-between">
+            <ModelImageControls formik={formik} />
+            <div>
+              <div className="mb-5">
+                <label>Category</label>
+                <div className="flex gap-3">
+                  {categories.map((category) => (
+                    <button
+                      key={category.value}
+                      type="button"
+                      onClick={() =>
+                        formik.setFieldValue("category", category.value)
+                      }
+                      className={`p-2 ${
+                        formik.values.category === category.value
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-300"
+                      }`}
+                    >
+                      {category.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Dynamic Fn Buttons */}
+              <div className="mb-5">
+                <label>Fn</label>
+                <div className="flex gap-3">
+                  {fnOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() =>
+                        option.selectable &&
+                        formik.setFieldValue("fn", option.value)
+                      }
+                      className={`p-2 ${
+                        formik.values.fn === option.value
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-300"
+                      } ${
+                        !option.selectable && "opacity-50 cursor-not-allowed"
+                      }`}
+                      disabled={!option.selectable}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="mb-5">
-            <TextField
-              label="Category"
-              variant="filled"
-              name="category"
-              onChange={formik.handleChange}
-              value={formik.values.category}
-              className="w-full"
-              type="text"
-              required
-            />
-          </div>
-          <div className="mb-5">
-            <TextField
-              label="Fn"
-              variant="filled"
-              name="fn"
-              onChange={formik.handleChange}
-              value={formik.values.fn}
-              className="w-full"
-              type="text"
-              required
-            />
-          </div>
+
           <div className="ml-auto mb-5">
             <Button type="submit" variant="contained" disabled={isLoading}>
               Register
@@ -167,6 +308,27 @@ export default function HomeTemplate() {
           </div>
         </form>
       </div>
+
+      <style jsx>{`
+        .upload-area {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 2px dashed #ccc;
+          border-radius: 10px;
+          width: 320px;
+          height: 320px;
+          cursor: pointer;
+          text-align: center;
+          color: #888;
+        }
+        .upload-area p {
+          margin: 0;
+        }
+        .upload-area:hover {
+          border-color: #888;
+        }
+      `}</style>
     </div>
   );
 }
