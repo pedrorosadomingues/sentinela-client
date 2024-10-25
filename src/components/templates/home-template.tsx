@@ -231,7 +231,7 @@ export default function HomeTemplate() {
 
             <div className="mb-5">
               <label>Result Image</label>
-              <div className="upload-area">
+              <div className="h-min-[420px] result-area">
                 {result_image_path ? (
                   <Image
                     src={result_image_path}
@@ -318,6 +318,18 @@ export default function HomeTemplate() {
           border-radius: 10px;
           width: 320px;
           height: 320px;
+          cursor: pointer;
+          text-align: center;
+          color: #888;
+        }
+           .result-area {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 2px dashed #ccc;
+          border-radius: 10px;
+          width: 320px;
+          height: 420px;
           cursor: pointer;
           text-align: center;
           color: #888;
