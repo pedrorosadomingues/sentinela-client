@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
 
@@ -49,10 +50,11 @@ export async function createGeneration({
       data: response.data,
     };
   } catch (error: any) {
+    console.log("error", error);
     if (error.response) {
       return {
-        status: error.response.status,
-        message: error.response.data || "Unknown error",
+        status: error.status,
+        message: error.response.data.error || "Unknown error",
       };
     } else {
       return {

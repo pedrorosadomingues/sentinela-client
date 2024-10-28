@@ -1,6 +1,6 @@
 "use client";
 
-import SignUpTemplate from "@/components/templates/sign-up-template";
+import SignUpTemplate from "@/components/templates/Sign-up";
 
 export default function SignUp() {
   return (

@@ -5,12 +5,10 @@ interface ToggleButtonProps {
   onClick: () => void;
 }
 
-function ToggleButton({ isOpen, onClick }: ToggleButtonProps) {
+export default function ToggleButton({ isOpen, onClick }: ToggleButtonProps) {
   return (
     <button type="button" onClick={onClick}>
       {isOpen ? "▾" : "▸"}
     </button>
   );
 }
-
-export default ToggleButton;

@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import ToggleButton from "../atoms/toggle-button";
+import ToggleButton from "../atoms/Toggle-button";
+import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
 
-export default function ModelImageControls({ formik }: { formik: any }) {
+export default function ModelImageControls({
+  formik,
+}: ModelImageControlsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleControls() {

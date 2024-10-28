@@ -1,0 +1,137 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import Image from "next/image";
+import { useFormik } from "formik";
+import { Button } from "@mui/material";
+import { useState, useRef } from "react";
+import ModelImageControls from "@/components/molecules/Model-image-controls";
+import ModelImageArea from "@/components/molecules/ImageArea/Model-image-area";
+import GarmentImageArea from "@/components/molecules/ImageArea/Garment-image-area";
+import ResultImageArea from "@/components/molecules/ImageArea/Result-image-area";
+import { onFileChange } from "@/utils/onFileChange";
+import { handleSubmit } from "@/utils/handleSubmit";
+import CategoryButtons from "@/components/molecules/ButtonArea/CategoryButtons";
+import FnButtons from "../molecules/ButtonArea/FnButtons";
+
+export default function HomeTemplate() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [model_image_path, setModelImagePath] = useState<string>("");
+  const [garment_image_path, setGarmentImagePath] = useState<string>("");
+  const [result_image_path, setResultImagePath] = useState<string>("");
+
+  const modelInputRef = useRef<HTMLInputElement | null>(null);
+  const garmentInputRef = useRef<HTMLInputElement | null>(null);
+
+  const formik = useFormik({
+    initialValues: {
+      category: "",
+      model_image: "",
+      garment_image: "",
+      fn: "",
+      cover_feet: false,
+      adjust_hands: false,
+      restore_background: false,
+      restore_clothes: false,
+    },
+    onSubmit: (values) =>
+      handleSubmit(values, setIsLoading, setResultImagePath),
+  });
+
+  async function handleFileInputChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    const { name } = event.target;
+    const files = event.target.files;
+
+    if (files && files[0]) {
+      const file = files[0];
+      const setImagePath =
+        name === "model_image" ? setModelImagePath : setGarmentImagePath;
+
+      await onFileChange(file, name, setImagePath, formik.setFieldValue);
+    }
+  }
+
+  async function handleDrop(
+    e: React.DragEvent<HTMLDivElement>,
+    type: "model" | "garment"
+  ) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+
+    if (file) {
+      const name = type === "model" ? "model_image" : "garment_image";
+      const setImagePath =
+        name === "model_image" ? setModelImagePath : setGarmentImagePath;
+
+      await onFileChange(file, name, setImagePath, formik.setFieldValue);
+    }
+  }
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+  }
+
+  function openFileDialog(type: string) {
+    if (type === "model" && modelInputRef.current) {
+      modelInputRef.current.click();
+    } else if (type === "garment" && garmentInputRef.current) {
+      garmentInputRef.current.click();
+    }
+  }
+
+  return (
+    <div className="bg-primary min-h-screen flex justify-center items-center flex-col">
+      <Image
+        src={"/img/logo.png"}
+        alt="Logo"
+        width={150}
+        height={250}
+        priority={true}
+      />
+      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full">
+        <form onSubmit={formik.handleSubmit} className="flex flex-col">
+          <div className="flex w-full gap-[30px] justify-center">
+            <ModelImageArea
+              model_image_path={model_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "model")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              modelInputRef={modelInputRef}
+            />
+            <GarmentImageArea
+              garment_image_path={garment_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "garment")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              garmentInputRef={garmentInputRef}
+            />
+            <ResultImageArea result_image_path={result_image_path} />
+          </div>
+
+          <div className="flex justify-between">
+            <ModelImageControls formik={formik} />
+            <div>
+              <CategoryButtons
+                selectedCategory={formik.values.category}
+                setFieldValue={formik.setFieldValue}
+              />
+              <FnButtons
+                selectedFn={formik.values.fn}
+                setFieldValue={formik.setFieldValue}
+              />
+            </div>
+          </div>
+
+          <div className="ml-auto mb-5">
+            <Button type="submit" variant="outlined" disabled={isLoading}>
+              Run (~20s)
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
