@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { Button } from "@mui/material";
 import { useState, useRef } from "react";
 import { createGeneration } from "@/services";
-import ModelImageControls from "@/components/organisms/model-image-controls";
+import ModelImageControls from "@/components/molecules/model-image-controls";
 
 export default function HomeTemplate() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -87,7 +87,7 @@ export default function HomeTemplate() {
       }).toString();
 
       const response = await fetch(
-        `http://localhost:3000/upload/generate-presigned-url?${queryParams}`,
+        `${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}upload/generate-presigned-url?${queryParams}`,
         {
           method: "POST",
           headers: {
@@ -246,9 +246,10 @@ export default function HomeTemplate() {
             </div>
           </div>
 
-          {/* Dynamic Category Buttons */}
           <div className="flex justify-between">
             <ModelImageControls formik={formik} />
+
+            {/*TO DO: COMPONETIZAR - Dynamic Category Buttons */}
             <div>
               <div className="mb-5">
                 <label>Category</label>
@@ -272,7 +273,7 @@ export default function HomeTemplate() {
                 </div>
               </div>
 
-              {/* Dynamic Fn Buttons */}
+              {/*TO DO: COMPONETIZAR - Dynamic Fn Buttons */}
               <div className="mb-5">
                 <label>Fn</label>
                 <div className="flex gap-3">
@@ -322,7 +323,7 @@ export default function HomeTemplate() {
           text-align: center;
           color: #888;
         }
-           .result-area {
+        .result-area {
           display: flex;
           justify-content: center;
           align-items: center;

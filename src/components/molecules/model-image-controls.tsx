@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import ToggleButton from "../atoms/toggle-button";
 
 export default function ModelImageControls({ formik }: { formik: any }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleControls = () => setIsOpen(!isOpen);
+  function toggleControls() {
+    setIsOpen(!isOpen);
+  }
 
   return (
     <div className="mb-5 h-full w-[26%]">
       <div className="flex items-center justify-between">
         <span>Model Image Controls</span>
-        <button type="button" onClick={toggleControls}>
-          {isOpen ? "▾" : "▸"} 
-        </button>
+        <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       {isOpen && (
         <div className="mt-2">
