@@ -48,6 +48,7 @@ export default function ModelImageArea({
           hidden
         />
       </div>
+
       <style jsx>{`
         .upload-area {
           display: flex;

@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button } from "@mui/material";
 import { useState, useRef } from "react";
-import ModelImageControls from "@/components/molecules/Model-image-controls";
+import ModelImageControls from "@/components/molecules/Controls/Model-image-controls";
+import SamplingControls from "../molecules/Controls/Sampling-controls";
 import ModelImageArea from "@/components/molecules/ImageArea/Model-image-area";
 import GarmentImageArea from "@/components/molecules/ImageArea/Garment-image-area";
 import ResultImageArea from "@/components/molecules/ImageArea/Result-image-area";
@@ -32,6 +33,10 @@ export default function HomeTemplate() {
       adjust_hands: false,
       restore_background: false,
       restore_clothes: false,
+      guidance_scale: 3,
+      timesteps: 50,
+      seed: 42,
+      num_samples: 1,
     },
     onSubmit: (values) =>
       handleSubmit(values, setIsLoading, setResultImagePath),
@@ -123,11 +128,12 @@ export default function HomeTemplate() {
                 setFieldValue={formik.setFieldValue}
               />
             </div>
+            <SamplingControls formik={formik} />
           </div>
 
           <div className="ml-auto mb-5">
             <Button type="submit" variant="outlined" disabled={isLoading}>
-              Run (~20s)
+              Run 
             </Button>
           </div>
         </form>

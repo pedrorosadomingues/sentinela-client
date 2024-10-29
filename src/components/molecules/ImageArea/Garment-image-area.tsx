@@ -48,6 +48,7 @@ export default function GarmentImageArea({
           hidden
         />
       </div>
+
       <style jsx>{`
         .upload-area {
           display: flex;

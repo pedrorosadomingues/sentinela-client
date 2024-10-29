@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToggleButton from "../atoms/Toggle-button";
+import ToggleButton from "@/components/atoms/Toggle-button";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
 
 export default function ModelImageControls({

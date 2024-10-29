@@ -15,6 +15,10 @@ export async function handleSubmit(
     adjust_hands: values.adjust_hands,
     restore_background: values.restore_background,
     restore_clothes: values.restore_clothes,
+    guidance_scale: values.guidance_scale,
+    timesteps: values.timesteps,
+    seed: values.seed,
+    num_samples: values.num_samples,
   };
   console.log("payload", payload);
   setIsLoading(true);
