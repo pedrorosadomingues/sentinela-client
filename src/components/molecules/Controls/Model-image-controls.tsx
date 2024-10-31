@@ -3,7 +3,6 @@ import ToggleButton from "@/components/atoms/Toggle-button";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
 import { checkboxOptions } from "@/constants/options";
 
-
 export default function ModelImageControls({
   formik,
 }: ModelImageControlsProps) {
@@ -13,10 +12,12 @@ export default function ModelImageControls({
     setIsOpen(!isOpen);
   }
 
-
   return (
     <div className="mb-5 h-full w-[30%]">
-      <div className="flex items-center gap-[15px]">
+      <div
+        className="flex items-center gap-[15px] hover:cursor-pointer"
+        onClick={toggleControls}
+      >
         <span>Model Image Controls</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>

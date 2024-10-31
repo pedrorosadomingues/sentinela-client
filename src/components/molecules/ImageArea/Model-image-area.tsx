@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -22,14 +23,14 @@ export default function ModelImageArea({
   setModelImageWidth,
 }: ModelImageAreaProps) {
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const [renderedWidth, setRenderedWidth] = useState<number >(320);
+  const [renderedWidth, setRenderedWidth] = useState<number>(320);
 
   useEffect(() => {
     if (imageRef.current) {
       setRenderedWidth(imageRef.current.clientWidth);
-      setModelImageWidth(imageRef.current.clientWidth); 
+      setModelImageWidth(imageRef.current.clientWidth);
     }
-  }, [model_image_path]); 
+  }, [model_image_path]);
 
   return (
     <div className="mb-5">

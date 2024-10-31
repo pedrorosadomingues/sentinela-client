@@ -14,6 +14,8 @@ import { onFileChange } from "@/utils/on-file-change";
 import { handleSubmit } from "@/utils/handle-submit";
 import CategoryButtons from "@/components/molecules/ButtonArea/CategoryButtons";
 import FnButtons from "../molecules/ButtonArea/FnButtons";
+import Header from "../organisms/Header";
+import Sidebar from "../organisms/Sidebar";
 
 export default function HomeTemplate() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -91,15 +93,18 @@ export default function HomeTemplate() {
   }
 
   return (
-    <div className="bg-primary min-h-screen flex justify-center items-center flex-col">
-      <Image
-        src={"/img/logo.png"}
+    <div className="bg-primary min-h-screen flex w-full justify-center">
+      <Header />
+      
+      <Sidebar />
+      {/* <Image
+        src={"/img/logo-vestiq.png"}
         alt="Logo"
         width={150}
         height={250}
         priority={true}
-      />
-      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-full">
+      /> */}
+      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-[80%] bg-[#3C4854] mt-[90px]">
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="flex w-full gap-[30px] justify-center">
             <ModelImageArea

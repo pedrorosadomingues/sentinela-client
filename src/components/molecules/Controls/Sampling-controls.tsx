@@ -11,65 +11,71 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
 
   return (
     <div className="mb-5 h-full w-[100%]">
-      <div className="flex items-center justify-between">
+      <div
+        className="flex items-center justify-between hover:cursor-pointer"
+        onClick={toggleControls}
+      >
         <span>Sampling Controls</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
-      {isOpen && (
-        <div className="mt-2">
-          <div className="flex flex-col gap-4">
-            <label className="flex flex-col gap-1">
-              <span>Guidance Scale</span>
-              <div className="control-section">
-                <input
-                  type="range"
-                  min="1.5"
-                  max="5"
-                  step="0.1"
-                  value={formik.values.guidance_scale}
-                  onChange={(e) =>
-                    formik.setFieldValue(
-                      "guidance_scale",
-                      parseFloat(e.target.value)
-                    )
-                  }
-                />
-                <span>{formik.values.guidance_scale}</span>
-              </div>
-            </label>
-
-            <label className="flex flex-col gap-1">
-              <span>Timesteps</span>
-              <div className="control-section">
-                <input
-                  type="range"
-                  min="10"
-                  max="50"
-                  step="1"
-                  value={formik.values.timesteps}
-                  onChange={(e) =>
-                    formik.setFieldValue(
-                      "timesteps",
-                      parseInt(e.target.value, 10)
-                    )
-                  }
-                />
-                <span>{formik.values.timesteps}</span>
-              </div>
-            </label>
-
-            <label className="flex flex-col gap-1">
-              <span>Seed</span>
+      <div
+        className={`mt-2 overflow-hidden transition-all duration-500 ${
+          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="flex flex-col gap-4">
+          <label className="flex flex-col gap-1">
+            <span>Guidance Scale</span>
+            <div className="control-section">
               <input
-                type="number"
-                value={formik.values.seed}
+                type="range"
+                min="1.5"
+                max="5"
+                step="0.1"
+                value={formik.values.guidance_scale}
                 onChange={(e) =>
-                  formik.setFieldValue("seed", parseInt(e.target.value, 10))
+                  formik.setFieldValue(
+                    "guidance_scale",
+                    parseFloat(e.target.value)
+                  )
                 }
               />
-            </label>
+              <span>{formik.values.guidance_scale}</span>
+            </div>
+          </label>
 
-            {/* <label className="flex flex-col gap-1">
+          <label className="flex flex-col gap-1">
+            <span>Timesteps</span>
+            <div className="control-section">
+              <input
+                type="range"
+                min="10"
+                max="50"
+                step="1"
+                value={formik.values.timesteps}
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "timesteps",
+                    parseInt(e.target.value, 10)
+                  )
+                }
+              />
+              <span>{formik.values.timesteps}</span>
+            </div>
+          </label>
+
+          <label className="flex flex-col gap-1">
+            <span>Seed</span>
+            <input
+              type="number"
+              value={formik.values.seed}
+              onChange={(e) =>
+                formik.setFieldValue("seed", parseInt(e.target.value, 10))
+              }
+            />
+          </label>
+
+          {/* <label className="flex flex-col gap-1">
               <span>Number of Samples</span>
               <div className="control-section">
                 <input
@@ -86,9 +92,9 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
               </div>
             </label> 
             */}
-          </div>
         </div>
-      )}
+      </div>
+
       <style jsx>{`
         input[type="range"] {
           width: 100%;
@@ -108,6 +114,9 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
           display: flex;
           gap: 28px;
         }
+
+        .effect {
+          transform: scale(1);
       `}</style>
     </div>
   );

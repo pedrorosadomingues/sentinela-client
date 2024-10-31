@@ -25,9 +25,7 @@ const ResultImageArea: React.FC<ResultImageAreaProps> = ({
   return (
     <div className="mb-5">
       <label>Result</label>
-      <div
-        className="result-area"
-      >
+      <div className="result-area">
         {result_image_path ? (
           <img
             src={result_image_path}
