@@ -10,7 +10,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
   }
 
   return (
-    <div className="mb-5 h-full w-[26%]">
+    <div className="mb-5 h-full w-[100%]">
       <div className="flex items-center justify-between">
         <span>Sampling Controls</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
@@ -23,14 +23,14 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
               <div className="control-section">
                 <input
                   type="range"
-                  min="1"
-                  max="20"
-                  step="0.5"
+                  min="1.5"
+                  max="5"
+                  step="0.1"
                   value={formik.values.guidance_scale}
-                  onChange={() =>
+                  onChange={(e) =>
                     formik.setFieldValue(
                       "guidance_scale",
-                      formik.values.guidance_scale
+                      parseFloat(e.target.value)
                     )
                   }
                 />
@@ -44,11 +44,14 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
                 <input
                   type="range"
                   min="10"
-                  max="100"
+                  max="50"
                   step="1"
                   value={formik.values.timesteps}
-                  onChange={() =>
-                    formik.setFieldValue("timesteps", formik.values.timesteps)
+                  onChange={(e) =>
+                    formik.setFieldValue(
+                      "timesteps",
+                      parseInt(e.target.value, 10)
+                    )
                   }
                 />
                 <span>{formik.values.timesteps}</span>
@@ -60,31 +63,29 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
               <input
                 type="number"
                 value={formik.values.seed}
-                onChange={() =>
-                  formik.setFieldValue("seed", formik.values.seed)
+                onChange={(e) =>
+                  formik.setFieldValue("seed", parseInt(e.target.value, 10))
                 }
               />
             </label>
 
-            <label className="flex flex-col gap-1">
+            {/* <label className="flex flex-col gap-1">
               <span>Number of Samples</span>
               <div className="control-section">
                 <input
                   type="range"
                   min="1"
-                  max="10"
+                  max="4"
                   step="1"
                   value={formik.values.num_samples}
-                  onChange={() =>
-                    formik.setFieldValue(
-                      "num_samples",
-                      formik.values.num_samples
-                    )
+                  onChange={(e) =>
+                    formik.setFieldValue("num_samples", parseInt(e.target.value, 10))
                   }
                 />
                 <span>{formik.values.num_samples}</span>
               </div>
-            </label>
+            </label> 
+            */}
           </div>
         </div>
       )}
@@ -94,7 +95,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
         }
 
         input[type="number"] {
-          width: 100%;
+          width: 65px;
           padding: 0.5rem;
           border: 1px solid #ccc;
         }
@@ -104,9 +105,9 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
         }
 
         .control-section {
-            display: flex;
-            gap: 28px;
-
+          display: flex;
+          gap: 28px;
+        }
       `}</style>
     </div>
   );

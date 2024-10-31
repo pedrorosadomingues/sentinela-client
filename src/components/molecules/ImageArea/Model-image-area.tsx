@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface ModelImageAreaProps {
@@ -8,6 +9,7 @@ interface ModelImageAreaProps {
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleFileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   modelInputRef: React.RefObject<HTMLInputElement>;
+  setModelImageWidth: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function ModelImageArea({
@@ -17,7 +19,18 @@ export default function ModelImageArea({
   handleDragOver,
   handleFileInputChange,
   modelInputRef,
+  setModelImageWidth,
 }: ModelImageAreaProps) {
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [renderedWidth, setRenderedWidth] = useState<number >(320);
+
+  useEffect(() => {
+    if (imageRef.current) {
+      setRenderedWidth(imageRef.current.clientWidth);
+      setModelImageWidth(imageRef.current.clientWidth); 
+    }
+  }, [model_image_path]); 
+
   return (
     <div className="mb-5">
       <label>Select Model</label>
@@ -31,12 +44,14 @@ export default function ModelImageArea({
           <Image
             src={model_image_path}
             alt="Model Preview"
-            width={150}
-            height={150}
+            width={250}
+            height={320}
+            ref={imageRef}
+            style={{ height: "100%", width: "auto", borderRadius: "10px" }}
           />
         ) : (
           <p className="text-center w-[70%]">
-            Paste/drop image here OR Choose file
+            Paste/drop image here OR Choose filez
           </p>
         )}
         <input
@@ -57,10 +72,14 @@ export default function ModelImageArea({
           border: 2px dashed #ccc;
           border-radius: 10px;
           width: 320px;
-          height: 320px;
+          min-height: 320px;
+          height: {renderedWidth}px;
+          max-height: 550px;
           cursor: pointer;
           text-align: center;
           color: #888;
+          overflow: hidden;
+          padding: 10px;
         }
         .upload-area p {
           margin: 0;

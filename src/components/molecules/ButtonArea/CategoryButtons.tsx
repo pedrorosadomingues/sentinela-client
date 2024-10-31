@@ -1,5 +1,5 @@
 import React from "react";
-import { categories } from "@/constants/options";
+import { CATEGORIES } from "@/constants/options";
 
 interface CategoryButtonsProps {
   selectedCategory: string;
@@ -18,7 +18,7 @@ export default function CategoryButtons({
     <div className="mb-5">
       <label>Category</label>
       <div className="flex gap-3">
-        {categories.map((category) => (
+        {CATEGORIES.map((category) => (
           <button
             key={category.value}
             type="button"
@@ -33,6 +33,15 @@ export default function CategoryButtons({
           </button>
         ))}
       </div>
+      <style jsx>{`
+        label {
+          font-size: 0.875rem;
+        }
+        button {
+          border-radius: 50%;
+          transition: background-color 0.2s, color 0.2s;
+        }
+      `}</style>
     </div>
   );
 }

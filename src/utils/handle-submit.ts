@@ -29,6 +29,7 @@ export async function handleSubmit(
     const { data: result_image_path } = response;
 
     if (response.status === 200) {
+      console.log("Imagem gerada com sucesso:", result_image_path);
       setResultImagePath(result_image_path);
     } else {
       alert("Error: " + JSON.stringify(response));

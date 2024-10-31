@@ -1,4 +1,4 @@
-import { handleFileChange } from "./handleFileChange";
+import { handleFileChange } from "./handle-file-change";
 
 export async function onFileChange(
   file: File,

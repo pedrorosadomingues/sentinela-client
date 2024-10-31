@@ -1,5 +1,5 @@
 import React from "react";
-import { fnOptions } from "@/constants/options";
+import { FN_OPTIONS } from "@/constants/options";
 
 interface FnButtonsProps {
   selectedFn: string;
@@ -15,7 +15,7 @@ const FnButtons: React.FC<FnButtonsProps> = ({ selectedFn, setFieldValue }) => {
     <div className="mb-5">
       <label>Fn</label>
       <div className="flex gap-3">
-        {fnOptions.map((option) => (
+        {FN_OPTIONS.map((option) => (
           <button
             key={option.value}
             type="button"
@@ -33,6 +33,16 @@ const FnButtons: React.FC<FnButtonsProps> = ({ selectedFn, setFieldValue }) => {
           </button>
         ))}
       </div>
+
+      <style jsx>{`
+        label {
+          font-size: 0.875rem;
+        }
+        button {
+          border-radius: 50%;
+          transition: background-color 0.2s, color 0.2s;
+        }
+      `}</style>
     </div>
   );
 };

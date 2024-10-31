@@ -1,6 +1,8 @@
 import { useState } from "react";
 import ToggleButton from "@/components/atoms/Toggle-button";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
+import { checkboxOptions } from "@/constants/options";
+
 
 export default function ModelImageControls({
   formik,
@@ -11,70 +13,53 @@ export default function ModelImageControls({
     setIsOpen(!isOpen);
   }
 
+
   return (
-    <div className="mb-5 h-full w-[26%]">
-      <div className="flex items-center justify-between">
+    <div className="mb-5 h-full w-[30%]">
+      <div className="flex items-center gap-[15px]">
         <span>Model Image Controls</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       {isOpen && (
         <div className="mt-2">
           <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formik.values.cover_feet}
-                onChange={() =>
-                  formik.setFieldValue("cover_feet", !formik.values.cover_feet)
-                }
-              />
-              Cover Feet
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formik.values.adjust_hands}
-                onChange={() =>
-                  formik.setFieldValue(
-                    "adjust_hands",
-                    !formik.values.adjust_hands
-                  )
-                }
-              />
-              Adjust Hands
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formik.values.restore_background}
-                onChange={() =>
-                  formik.setFieldValue(
-                    "restore_background",
-                    !formik.values.restore_background
-                  )
-                }
-              />
-              Restore Background
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formik.values.restore_clothes}
-                onChange={() =>
-                  formik.setFieldValue(
-                    "restore_clothes",
-                    !formik.values.restore_clothes
-                  )
-                }
-              />
-              Restore Clothes
-            </label>
+            {checkboxOptions.map((option) => (
+              <label key={option.name} className="control-section">
+                <input
+                  type="checkbox"
+                  checked={formik.values[option.name] as boolean}
+                  onChange={() =>
+                    formik.setFieldValue(
+                      option.name,
+                      !(formik.values[option.name] as boolean)
+                    )
+                  }
+                />
+                {option.label}
+              </label>
+            ))}
           </div>
         </div>
       )}
+      <style jsx>{`
+        span {
+          font-size: 0.875rem;
+        }
+        .control-section {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+        }
+
+        input[type="checkbox"]:checked {
+          background-color: #2563eb;
+        }
+      `}</style>
     </div>
   );
 }

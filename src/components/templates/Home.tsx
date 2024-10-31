@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
@@ -9,8 +10,8 @@ import SamplingControls from "../molecules/Controls/Sampling-controls";
 import ModelImageArea from "@/components/molecules/ImageArea/Model-image-area";
 import GarmentImageArea from "@/components/molecules/ImageArea/Garment-image-area";
 import ResultImageArea from "@/components/molecules/ImageArea/Result-image-area";
-import { onFileChange } from "@/utils/onFileChange";
-import { handleSubmit } from "@/utils/handleSubmit";
+import { onFileChange } from "@/utils/on-file-change";
+import { handleSubmit } from "@/utils/handle-submit";
 import CategoryButtons from "@/components/molecules/ButtonArea/CategoryButtons";
 import FnButtons from "../molecules/ButtonArea/FnButtons";
 
@@ -19,6 +20,9 @@ export default function HomeTemplate() {
   const [model_image_path, setModelImagePath] = useState<string>("");
   const [garment_image_path, setGarmentImagePath] = useState<string>("");
   const [result_image_path, setResultImagePath] = useState<string>("");
+  const [modelImageWidth, setModelImageWidth] = useState<number>(0);
+  const [garmentImageWidth, setGarmentImageWidth] = useState<number>(0);
+  const [resultImageWidth, setResultImageWidth] = useState<number>(0);
 
   const modelInputRef = useRef<HTMLInputElement | null>(null);
   const garmentInputRef = useRef<HTMLInputElement | null>(null);
@@ -53,6 +57,7 @@ export default function HomeTemplate() {
       const setImagePath =
         name === "model_image" ? setModelImagePath : setGarmentImagePath;
 
+      console.log("file", file);
       await onFileChange(file, name, setImagePath, formik.setFieldValue);
     }
   }
@@ -104,6 +109,7 @@ export default function HomeTemplate() {
               handleDragOver={handleDragOver}
               handleFileInputChange={handleFileInputChange}
               modelInputRef={modelInputRef}
+              setModelImageWidth={setModelImageWidth}
             />
             <GarmentImageArea
               garment_image_path={garment_image_path}
@@ -112,8 +118,12 @@ export default function HomeTemplate() {
               handleDragOver={handleDragOver}
               handleFileInputChange={handleFileInputChange}
               garmentInputRef={garmentInputRef}
+              setGarmentImageWidth={setGarmentImageWidth}
             />
-            <ResultImageArea result_image_path={result_image_path} />
+            <ResultImageArea
+              result_image_path={result_image_path}
+              setResultImageWidth={setResultImageWidth}
+            />
           </div>
 
           <div className="flex justify-between">
@@ -128,13 +138,19 @@ export default function HomeTemplate() {
                 setFieldValue={formik.setFieldValue}
               />
             </div>
-            <SamplingControls formik={formik} />
-          </div>
-
-          <div className="ml-auto mb-5">
-            <Button type="submit" variant="outlined" disabled={isLoading}>
-              Run 
-            </Button>
+            <div className="w-[30%]">
+              <div className="ml-auto mb-5">
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  disabled={isLoading}
+                  fullWidth
+                >
+                  Run
+                </Button>
+              </div>
+              <SamplingControls formik={formik} />
+            </div>
           </div>
         </form>
       </div>

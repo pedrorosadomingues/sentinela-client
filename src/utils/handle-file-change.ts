@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { uploadFile } from "./uploadFile";
+import { uploadFile } from "./upload-file";
 
 export async function handleFileChange(
   file: File,
