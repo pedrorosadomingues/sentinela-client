@@ -1,8 +1,19 @@
-import Image from "next/image";
+'use client';
 
-export default function Header() {
+import Image from "next/image";
+import { logout } from "@/utils";
+import { useRouter } from "next/navigation";
+
+export default function Header(): JSX.Element {
+  const router = useRouter();
+
+  function handleLogout(): void {
+    logout();
+    router.push("/pages/sign-in");
+  }
+
   return (
-    <header className="flex items-center justify-between p-4 bg-[#3C4854] text-white fixed w-full border z-[2]">
+    <header className="flex items-center justify-between p-4 bg-transparent text-white fixed w-full z-[2]">
       <Image
         src={"/img/logo-vestiq.png"}
         alt="Logo"
@@ -10,10 +21,11 @@ export default function Header() {
         height={50}
         priority={true}
       />
-      <h1 className="text-2xl">STUDIO</h1>
+      <h1 className="text-2xl text-black">STUDIO</h1>
       <div className="flex items-center gap-4">
-        <button className="hover:cursor-pointer">Login</button>
-        <button className="hover:cursor-pointer">Sign Up</button>
+        <button className="hover:cursor-pointer text-black" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </header>
   );

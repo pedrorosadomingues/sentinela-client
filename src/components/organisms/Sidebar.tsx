@@ -1,16 +1,15 @@
 import React from "react";
-import ToggleButton from "../atoms/Toggle-button";
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const onClick = React.useCallback(() => setIsOpen(!isOpen), [isOpen]);
+export default function Sidebar(): JSX.Element {
   return (
-    <div className="w-64 h-screen bg-gray-800 fixed left-0">
-      <ToggleButton isOpen={isOpen} onClick={onClick} />
-      <div className={`overflow-hidden ${isOpen ? "h-64" : "h-0"}`}>
+    <div className="w-40 h-screen bg-transparent fixed left-0 mt-[85px]">
+      <div className={`overflow-hidden`}>
         <ul>
           <li>
-            <a href="#">Home</a>
+            <a href="#">Studio</a>
+          </li>
+          <li>
+            <a href="#">My Images</a>
           </li>
           <li>
             <a href="#">About</a>
@@ -20,6 +19,27 @@ export default function Sidebar() {
           </li>
         </ul>
       </div>
+
+      <style jsx>{`
+        ul {
+          list-style-type: none;
+          padding: 0;
+        }
+
+        li {
+          padding: 10px 0;
+          text-align: center;
+        }
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: #f0f0f0;
+        }
+      `}</style>
     </div>
   );
 }

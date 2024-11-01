@@ -17,7 +17,7 @@ import FnButtons from "../molecules/ButtonArea/FnButtons";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 
-export default function HomeTemplate() {
+export default function Studio(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [model_image_path, setModelImagePath] = useState<string>("");
   const [garment_image_path, setGarmentImagePath] = useState<string>("");
@@ -93,9 +93,9 @@ export default function HomeTemplate() {
   }
 
   return (
-    <div className="bg-primary min-h-screen flex w-full justify-center">
+    <div className="bg-primary min-h-screen flex justify-center w-full">
       <Header />
-      
+
       <Sidebar />
       {/* <Image
         src={"/img/logo-vestiq.png"}
@@ -104,7 +104,7 @@ export default function HomeTemplate() {
         height={250}
         priority={true}
       /> */}
-      <div className="mt-10 p-10 rounded-xl bg-slate-100 w-[80%] bg-[#3C4854] mt-[90px]">
+      <div className="mt-10 p-10 rounded-xl w-[60%] bg-white mt-[90px] mb-[130px]">
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="flex w-full gap-[30px] justify-center">
             <ModelImageArea

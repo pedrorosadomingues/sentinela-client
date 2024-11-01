@@ -44,7 +44,7 @@ export default function LoginTemplate() {
   return (
     <div className="bg-primary min-h-screen min-w-[40%] max-w-lg flex justify-center items-center flex-col">
       <Image
-        src={"/img/logo.png"}
+        src={"/img/logo-vestiq.png"}
         alt="Redraw logo"
         width={150}
         height={250}
@@ -54,6 +54,7 @@ export default function LoginTemplate() {
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="mb-5">
             <TextField
+              style={{ paddingTop: "10px" }}
               label="Email"
               variant="filled"
               name="email"
@@ -66,6 +67,7 @@ export default function LoginTemplate() {
           </div>
           <div className="mb-5">
             <TextField
+              style={{ paddingTop: "10px" }}
               label="Password"
               variant="filled"
               name="password"

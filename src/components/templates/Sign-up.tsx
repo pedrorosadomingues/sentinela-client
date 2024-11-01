@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import signUp from "@/services/user/sign-up";
+import { signUp } from "@/services/user/sign-up";
 // import en from "../../public/locales/en/login.json";
 // import ptBR from "../../public/locales/pt-br/login.json";
 
-export default function SignUpTemplate() {
+export default function SignUpTemplate(): JSX.Element {
   // const locale = router.locale;
   // const t = locale === "pt-br" ? ptBR : en;
   const [isLoading, setIsLoading] = useState<boolean>(false);

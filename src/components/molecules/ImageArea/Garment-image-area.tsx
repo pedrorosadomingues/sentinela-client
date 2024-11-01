@@ -21,7 +21,7 @@ export default function GarmentImageArea({
   handleFileInputChange,
   garmentInputRef,
   setGarmentImageWidth,
-}: GarmentImageAreaProps) {
+}: GarmentImageAreaProps): JSX.Element {
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
 
