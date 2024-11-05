@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import { logout } from "@/utils";
@@ -23,7 +23,10 @@ export default function Header(): JSX.Element {
       />
       <h1 className="text-2xl text-black">STUDIO</h1>
       <div className="flex items-center gap-4">
-        <button className="hover:cursor-pointer text-black" onClick={handleLogout}>
+        <button
+          className="hover:cursor-pointer text-black"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </div>

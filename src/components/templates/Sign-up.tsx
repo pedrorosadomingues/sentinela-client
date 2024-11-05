@@ -5,12 +5,10 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-// import en from "../../public/locales/en/login.json";
-// import ptBR from "../../public/locales/pt-br/login.json";
+import { useLocale } from "next-intl";
 
 export default function SignUpTemplate(): JSX.Element {
-  // const locale = router.locale;
-  // const t = locale === "pt-br" ? ptBR : en;
+  const locale = useLocale();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -96,7 +94,10 @@ export default function SignUpTemplate(): JSX.Element {
             </Button>
           </div>
         </form>
-        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-in">
+        <a
+          className="flex justify-center mt-5 text-sm"
+          href={`/${locale}/sign-in`}
+        >
           {" "}
           Back to login{" "}
         </a>

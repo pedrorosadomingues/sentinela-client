@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
-// import en from "../../public/locales/en/login.json";
-// import ptBR from "../../public/locales/pt-br/login.json";
 
 export default function LoginTemplate() {
-  // const locale = router.locale;
-  // const t = locale === "pt-br" ? ptBR : en;
+  const locale = useLocale();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -28,7 +26,7 @@ export default function LoginTemplate() {
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
-          window.location.href = "/pages/home";
+          window.location.href = `/${locale}/home`;
         } else {
           alert(
             "Erro ao fazer login:" + JSON.stringify(response.message?.error)
@@ -84,7 +82,10 @@ export default function LoginTemplate() {
             </Button>
           </div>
         </form>
-        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-up">
+        <a
+          className="flex justify-center mt-5 text-sm"
+          href={`/${locale}/sign-up`}
+        >
           Dont have an account? Sign up here.
         </a>
         <a className="flex justify-center mt-5 text-sm" href="/">
