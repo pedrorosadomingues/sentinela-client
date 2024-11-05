@@ -5,7 +5,13 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["cdn.fashn.ai"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.fashn.ai',
+        pathname: '/**',
+      },
+    ],
   },
 };
 
