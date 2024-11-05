@@ -3,13 +3,15 @@
 import Image from "next/image";
 import { logout } from "@/utils";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
+  const locale =  useLocale();
 
   function handleLogout(): void {
     logout();
-    router.push("/pages/sign-in");
+    router.push(`/${locale}/sign-in`);
   }
 
   return (
