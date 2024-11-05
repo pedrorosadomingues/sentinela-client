@@ -1,4 +1,29 @@
 {
-  "welcome_message": "Bem-vindo ao Vestiq",
-  "go_to_login": "Ir para o login"
-}
+    "welcome_page": {
+      "welcome_message": "Bem-vindo ao Vestiq",
+      "go_to_login": "Ir para o login"
+    },
+    "sign_in_page": {
+      "email": "Email",
+      "password": "Senha",
+      "login": "Entrar",
+      "forgot_password": "Esqueceu a senha?",
+      "dont_have_account": "Não tem uma conta?",
+      "sign_up_here": "Cadastre-se aqui",
+      "invalid_email_or_password": "Email ou senha inválidos"
+    },
+    "sign_up_page": {
+      "name": "Nome",
+      "email": "Email",
+      "password": "Senha",
+      "register": "Registrar",
+      "back_to_login": "Voltar ao login",
+      "user_created_successfully": "Usuário criado com sucesso",
+      "error_creating_user": "Erro ao criar usuário:",
+      "unexpected_error": "Ocorreu um erro inesperado"
+    },
+    "home_page": {
+      "generate_image": "Gerar imagem"
+    }
+  }
+  

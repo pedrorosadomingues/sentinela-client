@@ -5,10 +5,12 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { toast } from "react-toastify";
 
 export default function SignUpTemplate(): JSX.Element {
   const locale = useLocale();
+  const text = useTranslations("sign_up_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -27,15 +29,16 @@ export default function SignUpTemplate(): JSX.Element {
         });
 
         if (response.status === 200) {
-          alert("User created successfully");
+          toast.success(text("user_created_successfully"));
           window.location.href = "/";
         } else {
-          alert(
-            "Error creating user:" + JSON.stringify(response.message?.error)
+          toast.error(
+            text("error_creating_user") + " " + JSON.stringify(response.message?.error)
           );
         }
       } catch (error) {
-        console.log("Erro inesperado:", error);
+        console.log("Unexpected error:", error);
+        toast.error(text("unexpected_error"));
       } finally {
         setIsLoading(false);
       }
@@ -45,7 +48,7 @@ export default function SignUpTemplate(): JSX.Element {
     <div className="bg-primary min-h-screen min-w-[40%] max-w-lg flex justify-center items-center flex-col">
       <Image
         src={"/img/logo.png"}
-        alt="Redraw logo"
+        alt="Vestiq logo"
         width={150}
         height={250}
         priority={true}
@@ -54,7 +57,7 @@ export default function SignUpTemplate(): JSX.Element {
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="mb-5">
             <TextField
-              label="Name"
+              label={text("name")}
               variant="filled"
               name="name"
               onChange={formik.handleChange}
@@ -66,7 +69,7 @@ export default function SignUpTemplate(): JSX.Element {
           </div>
           <div className="mb-5">
             <TextField
-              label="Email"
+              label={text("email")}
               variant="filled"
               name="email"
               onChange={formik.handleChange}
@@ -78,7 +81,7 @@ export default function SignUpTemplate(): JSX.Element {
           </div>
           <div className="mb-5">
             <TextField
-              label="Password"
+              label={text("password")}
               variant="filled"
               name="password"
               onChange={formik.handleChange}
@@ -90,7 +93,7 @@ export default function SignUpTemplate(): JSX.Element {
           </div>
           <div className="ml-auto mb-5">
             <Button type="submit" variant="contained" disabled={isLoading}>
-              Register
+              {text("register")}
             </Button>
           </div>
         </form>
@@ -98,8 +101,7 @@ export default function SignUpTemplate(): JSX.Element {
           className="flex justify-center mt-5 text-sm"
           href={`/${locale}/sign-in`}
         >
-          {" "}
-          Back to login{" "}
+          {text("back_to_login")}
         </a>
       </div>
     </div>

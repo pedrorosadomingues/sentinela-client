@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import Image from "next/image";
 import { useFormik } from "formik";
 import { Button } from "@mui/material";
 import { useState, useRef } from "react";
@@ -16,6 +15,7 @@ import CategoryButtons from "@/components/molecules/ButtonArea/CategoryButtons";
 import FnButtons from "../molecules/ButtonArea/FnButtons";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Studio(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,6 +28,8 @@ export default function Studio(): JSX.Element {
 
   const modelInputRef = useRef<HTMLInputElement | null>(null);
   const garmentInputRef = useRef<HTMLInputElement | null>(null);
+
+  const text = useTranslations("home_page");
 
   const formik = useFormik({
     initialValues: {
@@ -151,7 +153,7 @@ export default function Studio(): JSX.Element {
                   disabled={isLoading}
                   fullWidth
                 >
-                  Run
+                  {text("generate_image")}
                 </Button>
               </div>
               <SamplingControls formik={formik} />

@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
+import { toast } from "react-toastify";
 
 export default function LoginTemplate() {
   const locale = useLocale();
+  const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -28,22 +30,21 @@ export default function LoginTemplate() {
           localStorage.setItem("token", response.data.token);
           window.location.href = `/${locale}/home`;
         } else {
-          alert(
-            "Erro ao fazer login:" + JSON.stringify(response.message?.error)
-          );
+          toast.error(text("invalid_email_or_password"));
         }
       } catch (error) {
-        console.log("Erro inesperado:", error);
+        console.log("Unexpected error:", error);
       } finally {
         setIsLoading(false);
       }
     },
   });
+
   return (
     <div className="bg-primary min-h-screen min-w-[40%] max-w-lg flex justify-center items-center flex-col">
       <Image
         src={"/img/logo-vestiq.png"}
-        alt="Redraw logo"
+        alt="Vestiq logo"
         width={150}
         height={250}
         priority={true}
@@ -53,7 +54,7 @@ export default function LoginTemplate() {
           <div className="mb-5">
             <TextField
               style={{ paddingTop: "10px" }}
-              label="Email"
+              label={text("email")}
               variant="filled"
               name="email"
               onChange={formik.handleChange}
@@ -66,7 +67,7 @@ export default function LoginTemplate() {
           <div className="mb-5">
             <TextField
               style={{ paddingTop: "10px" }}
-              label="Password"
+              label={text("password")}
               variant="filled"
               name="password"
               onChange={formik.handleChange}
@@ -78,7 +79,7 @@ export default function LoginTemplate() {
           </div>
           <div className="ml-auto mb-5">
             <Button type="submit" variant="contained" disabled={isLoading}>
-              Login
+              {text("login")}
             </Button>
           </div>
         </form>
@@ -86,10 +87,10 @@ export default function LoginTemplate() {
           className="flex justify-center mt-5 text-sm"
           href={`/${locale}/sign-up`}
         >
-          Dont have an account? Sign up here.
+          {text("dont_have_account")} {text("sign_up_here")}
         </a>
         <a className="flex justify-center mt-5 text-sm" href="/">
-          Forgot your password? Click here.
+          {text("forgot_password")}
         </a>
       </div>
     </div>
