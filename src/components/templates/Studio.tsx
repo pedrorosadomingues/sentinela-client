@@ -11,8 +11,8 @@ import GarmentImageArea from "@/components/molecules/ImageArea/Garment-image-are
 import ResultImageArea from "@/components/molecules/ImageArea/Result-image-area";
 import { onFileChange } from "@/utils/on-file-change";
 import { handleSubmit } from "@/utils/handle-submit";
-import CategoryButtons from "@/components/molecules/ButtonArea/CategoryButtons";
-import FnButtons from "../molecules/ButtonArea/FnButtons";
+import CategoryBtnArea from "@/components/molecules/CategoryBtnArea";
+import FnButtons from "../molecules/FnButtons";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 import { useLocale, useTranslations } from "next-intl";
@@ -136,14 +136,14 @@ export default function Studio(): JSX.Element {
           <div className="flex justify-between">
             <ModelImageControls formik={formik} />
             <div>
-              <CategoryButtons
+              <CategoryBtnArea
                 selectedCategory={formik.values.category}
                 setFieldValue={formik.setFieldValue}
               />
-              <FnButtons
+              {/* <FnButtons
                 selectedFn={formik.values.fn}
                 setFieldValue={formik.setFieldValue}
-              />
+              /> */}
             </div>
             <div className="w-[30%]">
               <div className="ml-auto mb-5">

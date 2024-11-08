@@ -1,29 +1,73 @@
 {
-    "welcome_page": {
-      "welcome_message": "Bem-vindo ao Vestiq",
-      "go_to_login": "Ir para o login"
-    },
-    "sign_in_page": {
-      "email": "Email",
-      "password": "Senha",
-      "login": "Entrar",
-      "forgot_password": "Esqueceu a senha?",
-      "dont_have_account": "Não tem uma conta?",
-      "sign_up_here": "Cadastre-se aqui",
-      "invalid_email_or_password": "Email ou senha inválidos"
-    },
-    "sign_up_page": {
-      "name": "Nome",
-      "email": "Email",
-      "password": "Senha",
-      "register": "Registrar",
-      "back_to_login": "Voltar ao login",
-      "user_created_successfully": "Usuário criado com sucesso",
-      "error_creating_user": "Erro ao criar usuário:",
-      "unexpected_error": "Ocorreu um erro inesperado"
-    },
-    "home_page": {
-      "generate_image": "Gerar imagem"
+  "welcome_page": {
+    "welcome_message": "Bem-vindo ao Vestiq",
+    "go_to_login": "Ir para login"
+  },
+  "sign_in_page": {
+    "email": "Email",
+    "password": "Senha",
+    "login": "Entrar",
+    "forgot_password": "Esqueceu a senha?",
+    "dont_have_account": "Não tem uma conta?",
+    "sign_up_here": "Cadastre-se aqui",
+    "invalid_email_or_password": "Email ou senha inválidos"
+  },
+  "sign_up_page": {
+    "name": "Nome",
+    "email": "Email",
+    "password": "Senha",
+    "register": "Registrar",
+    "back_to_login": "Voltar ao login",
+    "user_created_successfully": "Usuário criado com sucesso",
+    "error_creating_user": "Erro ao criar usuário:",
+    "unexpected_error": "Ocorreu um erro inesperado"
+  },
+  "home_page": {
+    "generate_image": "Gerar imagem"
+  },
+  "header": {
+    "logout": "Sair",
+    "render_images": "Renderizar imagens"
+  },
+  "model_image_area": {
+    "step1_send_model_image": "1) Envie a Imagem do Modelo",
+    "model_preview_alt": "Pré-visualização do Modelo",
+    "drag_file_instruction": "Para começar a renderizar sua imagem, arraste um arquivo",
+    "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo"
+  },
+  "garment_image_area": {
+    "step2_send_garment_image": "2) Enviar Imagem da Peça",
+    "garment_preview_alt": "Pré-visualização da Peça",
+    "drag_file_instruction": "Em seguida, arraste um arquivo",
+    "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça"
+  },
+  "result_image_area": {
+    "step3_your_image": "3) Sua Imagem",
+    "result_preview_alt": "Pré-visualização do Resultado",
+    "your_image_will_be_displayed_here": "Sua imagem será exibida aqui"
+  },
+  "model_image_controls": {
+    "title": "Controles da Imagem do Modelo",
+    "options": {
+      "cover_feet": "Cobrir Pés",
+      "adjust_hands": "Ajustar Mãos",
+      "restore_background": "Restaurar Fundo",
+      "restore_clothes": "Restaurar Roupas"
     }
+  },
+  "category_buttons": {
+    "category": "Categoria",
+    "categories": {
+      "tops": "Parte Superior",
+      "bottoms": "Parte Inferior",
+      "one-pieces": "Corpo Inteiro"
+    }
+  },
+  "sampling_controls": {
+    "title": "Controles de Amostragem",
+    "guidance_scale": "Escala de Orientação",
+    "timesteps": "Passos de Tempo",
+    "seed": "Semente",
+    "number_of_samples": "Número de Amostras"
   }
-  
+}

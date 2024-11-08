@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface ModelImageAreaProps {
   model_image_path: string;
@@ -22,6 +24,7 @@ export default function ModelImageArea({
   modelInputRef,
   setModelImageWidth,
 }: ModelImageAreaProps) {
+  const text = useTranslations("model_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = useState<number>(320);
 
@@ -34,7 +37,7 @@ export default function ModelImageArea({
 
   return (
     <div className="mb-5">
-      <label>Select Model</label>
+      <label>{text("step1_send_model_image")}</label>
       <div
         className="upload-area"
         onClick={() => openFileDialog("model")}
@@ -44,16 +47,21 @@ export default function ModelImageArea({
         {model_image_path ? (
           <Image
             src={model_image_path}
-            alt="Model Preview"
+            alt={text("model_preview_alt")}
             width={250}
             height={320}
             ref={imageRef}
             style={{ height: "100%", width: "auto", borderRadius: "10px" }}
           />
         ) : (
-          <p className="text-center w-[70%]">
-            Paste/drop image here OR Choose filez
-          </p>
+          <div className="flex flex-col justify-center items-center w-full h-full">
+            <p className="text-center w-[70%] text-[18px]">
+              {text("drag_file_instruction")}
+            </p>
+            <span className="text-center text-[15px]">
+              {text("or_click_to_choose_model_image")}
+            </span>
+          </div>
         )}
         <input
           type="file"
@@ -74,7 +82,7 @@ export default function ModelImageArea({
           border-radius: 10px;
           width: 320px;
           min-height: 320px;
-          height: {renderedWidth}px;
+          height: ${renderedWidth}px;
           max-height: 550px;
           cursor: pointer;
           text-align: center;

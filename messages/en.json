@@ -24,5 +24,50 @@
   },
   "home_page": {
     "generate_image": "Generate image"
+  },
+  "header": {
+    "logout": "Logout",
+    "render_images": "Render images"
+  },
+  "model_image_area": {
+    "step1_send_model_image": "1) Send Model Image",
+    "model_preview_alt": "Model Preview",
+    "drag_file_instruction": "To start rendering your image, drag a file",
+    "or_click_to_choose_model_image": "or click to choose Model Image"
+  },
+  "garment_image_area": {
+    "step2_send_garment_image": "2) Send Garment Image",
+    "garment_preview_alt": "Garment Preview",
+    "drag_file_instruction": "Next, drag a file",
+    "or_click_to_choose_garment_image": "or click to choose Garment Image"
+  },
+  "result_image_area": {
+    "step3_your_image": "3) Your Image",
+    "result_preview_alt": "Result Preview",
+    "your_image_will_be_displayed_here": "Your image will be displayed here"
+  },
+  "model_image_controls": {
+    "title": "Model Image Controls",
+    "options": {
+      "cover_feet": "Cover Feet",
+      "adjust_hands": "Adjust Hands",
+      "restore_background": "Restore Background",
+      "restore_clothes": "Restore Clothes"
+    }
+  },
+  "category_buttons": {
+    "category": "Category",
+    "categories": {
+      "tops": "Top",
+      "bottoms": "Bottom",
+      "one-pieces": "Full-body"
+    }
+  },
+  "sampling_controls": {
+    "title": "Sampling Controls",
+    "guidance_scale": "Guidance Scale",
+    "timesteps": "Timesteps",
+    "seed": "Seed",
+    "number_of_samples": "Number of Samples"
   }
 }

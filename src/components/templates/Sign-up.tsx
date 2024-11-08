@@ -33,7 +33,9 @@ export default function SignUpTemplate(): JSX.Element {
           window.location.href = "/";
         } else {
           toast.error(
-            text("error_creating_user") + " " + JSON.stringify(response.message?.error)
+            text("error_creating_user") +
+              " " +
+              JSON.stringify(response.message?.error)
           );
         }
       } catch (error) {
@@ -47,7 +49,7 @@ export default function SignUpTemplate(): JSX.Element {
   return (
     <div className="bg-primary min-h-screen min-w-[40%] max-w-lg flex justify-center items-center flex-col">
       <Image
-        src={"/img/logo.png"}
+        src={"/img/logo-vestiq.png"}
         alt="Vestiq logo"
         width={150}
         height={250}
@@ -57,6 +59,7 @@ export default function SignUpTemplate(): JSX.Element {
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="mb-5">
             <TextField
+              style={{ paddingTop: "10px" }}
               label={text("name")}
               variant="filled"
               name="name"
@@ -69,6 +72,7 @@ export default function SignUpTemplate(): JSX.Element {
           </div>
           <div className="mb-5">
             <TextField
+              style={{ paddingTop: "10px" }}
               label={text("email")}
               variant="filled"
               name="email"
@@ -81,6 +85,7 @@ export default function SignUpTemplate(): JSX.Element {
           </div>
           <div className="mb-5">
             <TextField
+              style={{ paddingTop: "10px" }}
               label={text("password")}
               variant="filled"
               name="password"

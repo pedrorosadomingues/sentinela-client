@@ -1,12 +1,14 @@
 import { useState } from "react";
 import ToggleButton from "@/components/atoms/Toggle-button";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
-import { checkboxOptions } from "@/constants/options";
+import { CHECKBOX_OPTIONS } from "@/constants/options";
+import { useTranslations } from "next-intl";
 
 export default function ModelImageControls({
   formik,
 }: ModelImageControlsProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const text = useTranslations("model_image_controls");
 
   function toggleControls() {
     setIsOpen(!isOpen);
@@ -18,13 +20,13 @@ export default function ModelImageControls({
         className="flex items-center gap-[15px] hover:cursor-pointer"
         onClick={toggleControls}
       >
-        <span>Model Image Controls</span>
+        <span>{text("title")}</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       {isOpen && (
         <div className="mt-2">
           <div className="flex flex-col gap-2">
-            {checkboxOptions.map((option) => (
+            {CHECKBOX_OPTIONS.map((option) => (
               <label key={option.name} className="control-section">
                 <input
                   type="checkbox"
@@ -36,7 +38,7 @@ export default function ModelImageControls({
                     )
                   }
                 />
-                {option.label}
+                {text(`options.${option.name}`)}
               </label>
             ))}
           </div>

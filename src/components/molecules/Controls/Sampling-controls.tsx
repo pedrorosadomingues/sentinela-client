@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ToggleButton from "@/components/atoms/Toggle-button";
 import { SamplingControlsProps } from "@/interfaces/sampling-controls";
+import { useTranslations } from "next-intl";
 
 export default function SamplingControls({ formik }: SamplingControlsProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("sampling_controls");
 
   function toggleControls() {
     setIsOpen(!isOpen);
@@ -15,7 +17,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
         className="flex items-center justify-between hover:cursor-pointer"
         onClick={toggleControls}
       >
-        <span>Sampling Controls</span>
+        <span>{t("title")}</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       <div
@@ -25,7 +27,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
       >
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
-            <span>Guidance Scale</span>
+            <span>{t("guidance_scale")}</span>
             <div className="control-section">
               <input
                 type="range"
@@ -45,7 +47,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
           </label>
 
           <label className="flex flex-col gap-1">
-            <span>Timesteps</span>
+            <span>{t("timesteps")}</span>
             <div className="control-section">
               <input
                 type="range"
@@ -65,7 +67,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
           </label>
 
           <label className="flex flex-col gap-1">
-            <span>Seed</span>
+            <span>{t("seed")}</span>
             <input
               type="number"
               value={formik.values.seed}
@@ -76,22 +78,24 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
           </label>
 
           {/* <label className="flex flex-col gap-1">
-              <span>Number of Samples</span>
-              <div className="control-section">
-                <input
-                  type="range"
-                  min="1"
-                  max="4"
-                  step="1"
-                  value={formik.values.num_samples}
-                  onChange={(e) =>
-                    formik.setFieldValue("num_samples", parseInt(e.target.value, 10))
-                  }
-                />
-                <span>{formik.values.num_samples}</span>
-              </div>
-            </label> 
-            */}
+            <span>{t("number_of_samples")}</span>
+            <div className="control-section">
+              <input
+                type="range"
+                min="1"
+                max="4"
+                step="1"
+                value={formik.values.num_samples}
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "num_samples",
+                    parseInt(e.target.value, 10)
+                  )
+                }
+              />
+              <span>{formik.values.num_samples}</span>
+            </div>
+          </label> */}
         </div>
       </div>
 
@@ -117,6 +121,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
 
         .effect {
           transform: scale(1);
+        }
       `}</style>
     </div>
   );

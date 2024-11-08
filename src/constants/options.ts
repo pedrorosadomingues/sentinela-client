@@ -28,7 +28,7 @@ export const FN_OPTIONS: FnOption[] = [
   { label: "Txt2Img", value: "txt2img", selectable: false },
 ];
 
-export const checkboxOptions: CheckboxOption[] = [
+export const CHECKBOX_OPTIONS: CheckboxOption[] = [
   { name: "cover_feet", label: "Cover Feet" },
   { name: "adjust_hands", label: "Adjust Hands" },
   { name: "restore_background", label: "Restore Background" },

@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { logout } from "@/utils";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const locale =  useLocale();
+  const text = useTranslations("header");
 
   function handleLogout(): void {
     logout();
@@ -23,13 +24,13 @@ export default function Header(): JSX.Element {
         height={50}
         priority={true}
       />
-      <h1 className="text-2xl text-black">STUDIO</h1>
+      <h1 className="text-2xl text-black">{text("render_images")}</h1>
       <div className="flex items-center gap-4">
         <button
           className="hover:cursor-pointer text-black"
           onClick={handleLogout}
         >
-          Logout
+          {text("logout")}
         </button>
       </div>
     </header>

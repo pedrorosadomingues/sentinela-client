@@ -1,5 +1,6 @@
 import React from "react";
 import { CATEGORIES } from "@/constants/options";
+import { useTranslations } from "next-intl";
 
 interface CategoryButtonsProps {
   selectedCategory: string;
@@ -14,9 +15,11 @@ export default function CategoryButtons({
   selectedCategory,
   setFieldValue,
 }: CategoryButtonsProps) {
+  const text = useTranslations("category_buttons");
+
   return (
     <div className="mb-5">
-      <label>Category</label>
+      <label>{text("category")}</label>
       <div className="flex gap-3">
         {CATEGORIES.map((category) => (
           <button
@@ -29,7 +32,7 @@ export default function CategoryButtons({
                 : "bg-gray-300"
             }`}
           >
-            {category.label}
+            {text(`categories.${category.value}`)}
           </button>
         ))}
       </div>

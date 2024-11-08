@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+"use client";
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface GarmentImageAreaProps {
   garment_image_path: string;
@@ -22,6 +24,7 @@ export default function GarmentImageArea({
   garmentInputRef,
   setGarmentImageWidth,
 }: GarmentImageAreaProps): JSX.Element {
+  const text = useTranslations("garment_image_area");
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
 
@@ -34,7 +37,7 @@ export default function GarmentImageArea({
 
   return (
     <div className="mb-5">
-      <label>Select Garment</label>
+      <label>{text("step2_send_garment_image")}</label>
       <div
         className="upload-area"
         onClick={() => openFileDialog("garment")}
@@ -44,15 +47,20 @@ export default function GarmentImageArea({
         {garment_image_path ? (
           <Image
             src={garment_image_path}
-            alt="Garment Preview"
+            alt={text("garment_preview_alt")}
             width={250}
             height={320}
             style={{ height: "100%", width: "auto", borderRadius: "10px" }}
           />
         ) : (
-          <p className="text-center w-[70%]">
-            Paste/drop image here OR Choose file
-          </p>
+          <div className="flex flex-col justify-center items-center w-full h-full">
+            <p className="text-center w-[70%] text-[18px]">
+              {text("drag_file_instruction")}
+            </p>
+            <span className="text-center text-[15px]">
+              {text("or_click_to_choose_garment_image")}
+            </span>
+          </div>
         )}
 
         <input
@@ -75,7 +83,7 @@ export default function GarmentImageArea({
           width: 320px;
           min-height: 320px;
           max-height: 550px;
-          height: {renderedWidth}px;
+          height: ${renderedWidth}px;
           cursor: pointer;
           text-align: center;
           color: #888;

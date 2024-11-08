@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from "react";
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ResultImageAreaProps {
   result_image_path: string;
@@ -12,6 +14,7 @@ const ResultImageArea: React.FC<ResultImageAreaProps> = ({
   result_image_path,
   setResultImageWidth,
 }) => {
+  const text = useTranslations('result_image_area');
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = useState<number>(320);
 
@@ -24,19 +27,21 @@ const ResultImageArea: React.FC<ResultImageAreaProps> = ({
 
   return (
     <div className="mb-5">
-      <label>Result</label>
+      <label>{text('step3_your_image')}</label>
       <div className="result-area">
         {result_image_path ? (
           <img
             src={result_image_path}
-            alt="Result Preview"
-            style={{ height: "100%", width: "auto", borderRadius: "10px" }}
+            alt={text('result_preview_alt')}
+            style={{ height: '100%', width: 'auto', borderRadius: '10px' }}
             ref={imageRef}
             width={250}
             height={320}
           />
         ) : (
-          <p className="text-center w-[70%]">image</p>
+          <p className="text-center w-[70%]">
+            {text('your_image_will_be_displayed_here')}
+          </p>
         )}
       </div>
       <style jsx>{`
@@ -48,7 +53,7 @@ const ResultImageArea: React.FC<ResultImageAreaProps> = ({
           border-radius: 10px;
           width: 320px;
           min-height: 320px;
-          height: {renderedWidth}px;
+          height: ${renderedWidth}px;
           max-height: 550px;
           text-align: center;
           color: #888;
