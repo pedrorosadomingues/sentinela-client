@@ -7,11 +7,13 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
+import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
 
-export default function LoginTemplate() {
+export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
   const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
@@ -53,28 +55,44 @@ export default function LoginTemplate() {
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
           <div className="mb-5">
             <TextField
-              style={{ paddingTop: "10px" }}
               label={text("email")}
-              variant="filled"
+              variant="outlined"
               name="email"
               onChange={formik.handleChange}
               value={formik.values.email}
               className="w-full"
               type="email"
               required
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
           </div>
           <div className="mb-5">
             <TextField
-              style={{ paddingTop: "10px" }}
               label={text("password")}
-              variant="filled"
+              variant="outlined"
               name="password"
               onChange={formik.handleChange}
               value={formik.values.password}
               className="w-full"
-              type="password"
+              type={showPassword ? "text" : "password"}
               required
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <PasswordVisibilityToggle
+          showPassword={showPassword}
+          onToggle={() => setShowPassword(!showPassword)}
+        />
+                  ),
+                },
+                inputLabel: {
+                  shrink: true,
+                },
+              }}
             />
           </div>
           <div className="ml-auto mb-5">

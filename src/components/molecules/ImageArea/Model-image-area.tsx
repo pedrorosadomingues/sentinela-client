@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -63,7 +62,7 @@ export default function ModelImageArea({
             </span>
           </div>
         )}
-        <input
+         <input
           type="file"
           name="model_image"
           onChange={handleFileInputChange}
@@ -82,7 +81,7 @@ export default function ModelImageArea({
           border-radius: 10px;
           width: 320px;
           min-height: 320px;
-          height: ${renderedWidth}px;
+          height: {renderedWidth}px;
           max-height: 550px;
           cursor: pointer;
           text-align: center;

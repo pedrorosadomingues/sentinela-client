@@ -140,10 +140,10 @@ export default function Studio(): JSX.Element {
                 selectedCategory={formik.values.category}
                 setFieldValue={formik.setFieldValue}
               />
-              {/* <FnButtons
+              { <FnButtons
                 selectedFn={formik.values.fn}
                 setFieldValue={formik.setFieldValue}
-              /> */}
+              /> }
             </div>
             <div className="w-[30%]">
               <div className="ml-auto mb-5">

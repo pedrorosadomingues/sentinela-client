@@ -83,7 +83,7 @@ export default function GarmentImageArea({
           width: 320px;
           min-height: 320px;
           max-height: 550px;
-          height: ${renderedWidth}px;
+          height: {renderedWidth}px;
           cursor: pointer;
           text-align: center;
           color: #888;
