@@ -53,7 +53,6 @@ export default function ResultImageArea({
           border-radius: 10px;
           width: 320px;
           min-height: 320px;
-          height: {renderedWidth}px;
           max-height: 550px;
           text-align: center;
           color: #888;

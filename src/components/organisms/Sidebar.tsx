@@ -1,45 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 
 export default function Sidebar(): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
-    <div className="w-40 h-screen bg-transparent fixed left-0 mt-[85px]">
-      <div className={`overflow-hidden`}>
-        <ul>
-          <li>
-            <a href="#">Studio</a>
+    <div
+      onMouseEnter={toggleSidebar}
+      onMouseLeave={toggleSidebar}
+      className={`fixed top-0 left-0 h-screen bg-[#FFFFFF] text-black transition-all duration-300 border-r border-gray-200`}
+      style={{
+        width: isExpanded ? "230px" : "75px",
+      }}
+    >
+      <div className="p-4">
+        <Image
+          src={"/img/logo-vestiq.png"}
+          alt="Logo"
+          width={120}
+          height={120}
+          priority={true}
+        />
+        <ul className={`mt-4 ${isExpanded ? "block" : "hidden"}`}>
+          <li className="mb-2">
+            <a href="#" className="hover:text-gray-300">
+              Studio
+            </a>
           </li>
-          <li>
-            <a href="#">My Images</a>
+          <li className="mb-2">
+            <a href="#" className="hover:text-gray-300">
+              My Images
+            </a>
           </li>
-          <li>
-            <a href="#">About</a>
+          <li className="mb-2">
+            <a href="#" className="hover:text-gray-300">
+              About
+            </a>
           </li>
-          <li>
-            <a href="#">Contact</a>
+          <li className="mb-2">
+            <a href="#" className="hover:text-gray-300">
+              Contact
+            </a>
           </li>
         </ul>
       </div>
-
-      <style jsx>{`
-        ul {
-          list-style-type: none;
-          padding: 0;
-        }
-
-        li {
-          padding: 10px 0;
-          text-align: center;
-        }
-
-        a {
-          color: white;
-          text-decoration: none;
-        }
-
-        a:hover {
-          color: #f0f0f0;
-        }
-      `}</style>
     </div>
   );
 }

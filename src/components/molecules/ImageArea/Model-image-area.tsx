@@ -50,7 +50,7 @@ export default function ModelImageArea({
             width={250}
             height={320}
             ref={imageRef}
-            style={{ height: "100%", width: "auto", borderRadius: "10px" }}
+            style={{ height: "100%", width: "auto", borderRadius: "10px",  minHeight: "320px" }}
           />
         ) : (
           <div className="flex flex-col justify-center items-center w-full h-full">
@@ -81,7 +81,6 @@ export default function ModelImageArea({
           border-radius: 10px;
           width: 320px;
           min-height: 320px;
-          height: {renderedWidth}px;
           max-height: 550px;
           cursor: pointer;
           text-align: center;

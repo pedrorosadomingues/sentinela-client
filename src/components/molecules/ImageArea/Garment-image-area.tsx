@@ -50,7 +50,12 @@ export default function GarmentImageArea({
             alt={text("garment_preview_alt")}
             width={250}
             height={320}
-            style={{ height: "100%", width: "auto", borderRadius: "10px" }}
+            style={{
+              height: "100%",
+              width: "auto",
+              borderRadius: "10px",
+              minHeight: "320px",
+            }}
           />
         ) : (
           <div className="flex flex-col justify-center items-center w-full h-full">
@@ -83,14 +88,12 @@ export default function GarmentImageArea({
           width: 320px;
           min-height: 320px;
           max-height: 550px;
-          height: {renderedWidth}px;
           cursor: pointer;
           text-align: center;
           color: #888;
           overflow: hidden;
           padding: 10px;
         }
-
         .upload-area p {
           margin: 0;
         }

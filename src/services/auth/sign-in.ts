@@ -18,7 +18,6 @@ export async function login({
   password,
 }: SignInParams): Promise<SignInResponse> {
   try {
-    console.log(email, password);
     const response = await api.post("/auth/sign-in", {
       email,
       password,

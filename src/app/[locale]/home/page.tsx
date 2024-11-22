@@ -18,7 +18,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div className="w-full flex bg-gradient-to-r from-[#3C4854] via-[#CBCBCB] to-[#3C4854]">
+    <div className="w-full flex bg-[#FAFAFA]">
       <HomeTemplate />
     </div>
   );

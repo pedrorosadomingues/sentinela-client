@@ -6,7 +6,7 @@
   "sign_in_page": {
     "email": "Correo electrónico",
     "password": "Contraseña",
-    "login": "Iniciar sesión",
+    "login": "Inicia sesión en tu cuenta",
     "forgot_password": "¿Olvidaste tu contraseña?",
     "dont_have_account": "¿No tienes una cuenta?",
     "sign_up_here": "Regístrate aquí",
@@ -27,7 +27,8 @@
   },
   "header": {
     "logout": "Cerrar sesión",
-    "render_images": "Renderizar imágenes"
+    "greeting": "Hola",
+    "prompt": "¿Qué quieres crear hoy?"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Enviar Imagen del Modelo",
