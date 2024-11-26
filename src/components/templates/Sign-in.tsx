@@ -8,7 +8,6 @@ import { useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
 import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
-import { useUserStore } from "@/zustand-stores/userStore";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
@@ -31,7 +30,6 @@ export default function LoginTemplate(): JSX.Element {
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user_name", response.data.user.name);
           localStorage.setItem("user_id", response.data.user.id);
           window.location.href = `/${locale}/home`;
         } else {
@@ -46,9 +44,9 @@ export default function LoginTemplate(): JSX.Element {
   });
 
   return (
-    <div className="bg-primary min-h-screen w-screen flex items-center">
-      <div className="p-10 bg-slate-100 w-[50%] h-screen items-center flex-col flex justify-center">
-        <div className="w-[55%] h-[450px] flex-col justify-between flex">
+    <div className="min-h-screen w-screen flex items-center">
+      <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
+        <div className="w-[65%] h-[450px] flex-col justify-between flex">
           <Image
             src={"/img/logo-vestiq.png"}
             alt="Vestiq logo"
@@ -57,6 +55,11 @@ export default function LoginTemplate(): JSX.Element {
             priority={true}
           />
           <p className="text-[30px] font-bold">{text("login")}</p>
+          <p className="text-gray-500 text-sm mb-[35px]">
+            Access your account now to use the best in AI for your projects. If
+            you don't already have an account, subscribe to Vestiq now to
+            enhance your projects.
+          </p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col">
             <div className="mb-5">
               <TextField
@@ -74,7 +77,7 @@ export default function LoginTemplate(): JSX.Element {
                 }}
               />
             </div>
-            <div className="mb-5">
+            <div className="">
               <TextField
                 label={text("password")}
                 variant="outlined"
@@ -98,29 +101,33 @@ export default function LoginTemplate(): JSX.Element {
                 }}
               />
             </div>
-            <div className="ml-auto mb-5 w-full">
+            <div className="ml-auto w-full">
+              <a
+                className="flex justify-end mt-[10px] bg-black text-sm text-[#F83A14] mb-[25px] hover:underline"
+                href="/"
+              >
+                {text("forgot_password")}
+              </a>
               <Button
                 type="submit"
                 variant="contained"
                 disabled={isLoading}
                 fullWidth
+                className="bg-primary-background"
               >
                 {text("login") + ">>"}
               </Button>
             </div>
           </form>
-          <a
-            className="flex justify-center mt-5 text-sm"
-            href={`/${locale}/sign-up`}
-          >
-            {text("dont_have_account")} {text("sign_up_here")}
-          </a>
-          <a className="flex justify-center mt-5 text-sm" href="/">
-            {text("forgot_password")}
-          </a>
+          <p className="flex justify-center text-sm mt-[25px]">
+            {text("dont_have_account")}{" "}
+            <a href={`/${locale}/sign-up`} className="text-[#F83A14] ml-[4px]">
+              {text("sign_up_here")}
+            </a>
+          </p>
         </div>
       </div>
-      <div className="rounded-l-[60px] bg-[#3C4854] h-screen w-[50%] flex items-center justify-center">
+      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
         <p className="text-white mt-5 text-sm">
           {text("powered_by")} <strong>Vestiq</strong>
         </p>

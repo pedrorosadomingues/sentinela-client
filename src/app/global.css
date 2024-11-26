@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: #3C4854;
-  --foreground: #171717;
+  --background: #ffffff; /* Cor de fundo no modo claro */
+  --foreground: #000000; /* Cor do texto no modo claro */
+}
+
+.dark {
+  --background: #000000; /* Cor de fundo no modo escuro */
+  --foreground: #ffffff; /* Cor do texto no modo escuro */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,7 +22,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter
 }
 
 @layer utilities {
