@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Button, TextField } from "@mui/material";
+import { Button, colors, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
@@ -68,7 +68,7 @@ export default function LoginTemplate(): JSX.Element {
                 name="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
-                className="w-full"
+                className="w-full "
                 type="email"
                 slotProps={{
                   inputLabel: {
@@ -86,6 +86,18 @@ export default function LoginTemplate(): JSX.Element {
                 value={formik.values.password}
                 className="w-full"
                 type={showPassword ? "text" : "password"}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    backgroundColor: "white", // Fundo branco no input
+                    borderRadius: "4px",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#D1D5DB",              
+                  },
+                  "& .MuiOutlinedInput-input": {
+                    color: "black",
+                  },
+                }}
                 slotProps={{
                   input: {
                     endAdornment: (
@@ -102,12 +114,11 @@ export default function LoginTemplate(): JSX.Element {
               />
             </div>
             <div className="ml-auto w-full">
-              <a
-                className="flex justify-end mt-[10px] bg-black text-sm text-[#F83A14] mb-[25px] hover:underline"
-                href="/"
-              >
-                {text("forgot_password")}
-              </a>
+              <div className="flex justify-end mt-[10px] text-sm text-[#F83A14] mb-[25px] ">
+                <a href="/" className="hover:underline font-medium">
+                  {text("forgot_password")}
+                </a>
+              </div>
               <Button
                 type="submit"
                 variant="contained"
@@ -121,7 +132,10 @@ export default function LoginTemplate(): JSX.Element {
           </form>
           <p className="flex justify-center text-sm mt-[25px]">
             {text("dont_have_account")}{" "}
-            <a href={`/${locale}/sign-up`} className="text-[#F83A14] ml-[4px]">
+            <a
+              href={`/${locale}/sign-up`}
+              className="text-[#F83A14] ml-[4px] font-medium hover:underline"
+            >
               {text("sign_up_here")}
             </a>
           </p>
