@@ -9,6 +9,7 @@ export default function Header(): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
   const text = useTranslations("header");
+  
   const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Header(): JSX.Element {
 
   function handleLogout(): void {
     logout();
-    router.push(`/${locale}/sign-in`);
+    router.push(`/${locale}`);
   }
 
   return (

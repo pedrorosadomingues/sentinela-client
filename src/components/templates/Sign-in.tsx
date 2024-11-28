@@ -8,12 +8,15 @@ import { useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
 import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
+import { useRootStore } from "@/zustand-stores/rootStore";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
   const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const { setRootControl } = useRootStore();
 
   const formik = useFormik({
     initialValues: {
@@ -31,6 +34,7 @@ export default function LoginTemplate(): JSX.Element {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user_id", response.data.user.id);
+          localStorage.setItem("user_name", response.data.user.name);
           window.location.href = `/${locale}/home`;
         } else {
           toast.error(text("invalid_email_or_password"));
@@ -44,7 +48,7 @@ export default function LoginTemplate(): JSX.Element {
   });
 
   return (
-    <div className="min-h-screen w-screen flex items-center">
+    <div className="min-h-screen w-screen flex items-center aqui">
       <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
         <div className="w-[65%] h-[450px] flex-col justify-between flex">
           <Image
@@ -119,8 +123,8 @@ export default function LoginTemplate(): JSX.Element {
           <p className="flex justify-center text-sm mt-[25px]">
             {text("dont_have_account")}{" "}
             <a
-              href={`/${locale}/sign-up`}
-              className="text-[#F83A14] ml-[4px] font-medium hover:underline"
+              onClick={() => setRootControl("register")}
+              className="text-[#F83A14] ml-[4px] font-medium hover:underline hover:cursor-pointer"
             >
               {text("sign_up_here")}
             </a>

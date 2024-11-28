@@ -4,13 +4,16 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
+import { useRootStore } from "@/zustand-stores/rootStore";
 
 export default function SignUpTemplate(): JSX.Element {
-  const locale = useLocale();
   const text = useTranslations("sign_up_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { setRootControl } = useRootStore();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -144,26 +147,26 @@ export default function SignUpTemplate(): JSX.Element {
               />
             </div>
             <div className="ml-auto mb-5 w-full">
-              <Button type="submit" variant="contained" disabled={isLoading} fullWidth className="bg-primary-background">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isLoading}
+                fullWidth
+                className="bg-primary-background"
+              >
                 {text("register")}
               </Button>
             </div>
           </form>
-          <a
-            className="flex justify-center mt-5 text-sm"
-            href={`/${locale}/sign-in`}
+          <p
+            className="flex justify-center mt-5 text-sm hover:underline hover:cursor-pointer hover:text-[#F83A14] w-[20%] ml-auto mr-auto"
+            onClick={() => setRootControl("login")}
           >
             {text("back_to_login")}
-          </a>
+          </p>
         </div>
       </div>
-      <div
-        className="rounded-l-[60px]
-       bg-primary-background 
-       h-screen w-[50%] flex 
-       items-center 
-       justify-center"
-      >
+      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
         <p className="text-white mt-5 text-sm">
           {text("powered_by")} <strong>Vestiq</strong>
         </p>

@@ -1,15 +1,18 @@
 "use client";
-import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
+import SignInTemplate from "@/components/templates/Sign-in";
+import SignUpTemplate from "@/components/templates/Sign-up";
+import { useRootStore } from "@/zustand-stores/rootStore";
 
 export default function WelcomePage() {
-  const text = useTranslations("welcome_page");
-  const locale = useLocale();
+  const { rootControl } = useRootStore();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1 className="text-4xl font-bold text-center">{text("welcome_message")}</h1>
-      <Link href={`/${locale}/sign-in`}>{text("go_to_login")}</Link>
+    <div className="w-full flex items-center justify-center flex-col">
+      {rootControl === "login" ? (
+        <SignInTemplate />
+      ) : (
+        <SignUpTemplate />
+      )}
     </div>
   );
 }
