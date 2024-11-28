@@ -4,9 +4,12 @@ import { FaInfoCircle, FaEnvelope } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import HistoryIcon from "@mui/icons-material/History";
+import { useHomeStore } from "@/zustand-stores/homeStore";
 
 export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { setHomeControl } = useHomeStore();
 
   const text = useTranslations("sidebar");
 
@@ -56,8 +59,8 @@ export default function Sidebar(): JSX.Element {
           {MAIN_ITEMS.map((item) => (
             <li
               key={item.name}
-              className="mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] group hover:cursor-pointer
-              "
+              className="mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] group hover:cursor-pointer"
+              onClick={() => setHomeControl(item.name)}
             >
               {item.icon_path}
               {isExpanded && (
