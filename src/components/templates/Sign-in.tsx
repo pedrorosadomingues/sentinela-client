@@ -35,7 +35,7 @@ export default function LoginTemplate(): JSX.Element {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user_id", response.data.user.id);
           localStorage.setItem("user_name", response.data.user.name);
-          window.location.href = `/${locale}/home`;
+          window.location.href = `/${locale}/main`;
         } else {
           toast.error(text("invalid_email_or_password"));
         }

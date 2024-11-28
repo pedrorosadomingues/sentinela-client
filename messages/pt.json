@@ -36,7 +36,8 @@
   },
   "sidebar": {
     "home": "Início",
-    "my_generations": "Minhas Gerações"
+    "my_generations": "Minhas Gerações",
+    "dress_model": "Vestir Modelo"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Envie a Imagem do Modelo",

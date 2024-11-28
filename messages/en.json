@@ -36,7 +36,8 @@
   },
   "sidebar": {
     "home": "Home",
-    "my_generations": "My Generations"
+    "my_generations": "My Generations",
+    "dress_model": "Dress Model"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Send Model Image",

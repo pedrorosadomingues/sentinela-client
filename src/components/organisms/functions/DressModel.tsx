@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* components/organisms/StudioContent.tsx */
 "use client";
 import { useFormik } from "formik";

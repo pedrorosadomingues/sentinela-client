@@ -3,7 +3,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import HomeTemplate from "@/components/templates/Studio";
+import HomeTemplate from "@/components/templates/Main";
 import { useLocale } from "next-intl";
 
 export default function Home() {
