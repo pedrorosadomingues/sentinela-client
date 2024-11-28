@@ -10,12 +10,16 @@
     "forgot_password": "¿Olvidaste tu contraseña?",
     "dont_have_account": "¿No tienes una cuenta?",
     "sign_up_here": "Regístrate aquí",
-    "invalid_email_or_password": "Correo electrónico o contraseña inválidos"
+    "invalid_email_or_password": "Correo electrónico o contraseña inválidos",
+    "access_message": "Accede a tu cuenta ahora para utilizar lo mejor de la IA para moda. Si aún no tienes una cuenta, regístrate en Vestiq ahora para comenzar a usarla en tus creaciones."
   },
   "sign_up_page": {
+    "sign_up": "Regístrate",
     "name": "Nombre",
+    "last_name": "Apellido",
     "email": "Correo electrónico",
     "password": "Contraseña",
+    "confirm_password": "Confirmar contraseña",
     "register": "Registrar",
     "back_to_login": "Volver al inicio de sesión",
     "user_created_successfully": "Usuario creado con éxito",
@@ -29,6 +33,10 @@
     "logout": "Cerrar sesión",
     "greeting": "Hola",
     "prompt": "¿Qué quieres crear hoy?"
+  },
+  "sidebar": {
+    "home": "Inicio",
+    "my_generations": "Mis Generaciones"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Enviar Imagen del Modelo",

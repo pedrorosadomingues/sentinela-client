@@ -7,16 +7,19 @@
     "email": "Email",
     "password": "Password",
     "login": "Login to your account",
-    "access_account_message": "Access your account now to use the best in AI for your projects. If you don't already have an account, subscribe to Redraw now to enhance your projects.",
+    "access_message": "Access your account now to use the best of AI for fashion. If you don't have an account yet, sign up for Vestiq now to start using it in your creations.",
     "forgot_password": "Forgot password?",
     "dont_have_account": "Don't have an account?",
     "sign_up_here": "Sign up now",
     "invalid_email_or_password": "Invalid email or password"
   },
   "sign_up_page": {
+    "sign_up": "Sign up",
     "name": "Name",
+    "last_name": "Last name",
     "email": "Email",
     "password": "Password",
+    "confirm_password": "Confirm password",
     "register": "Register",
     "back_to_login": "Back to login",
     "user_created_successfully": "User created successfully",
@@ -30,6 +33,10 @@
     "logout": "Logout",
     "greeting": "Hello",
     "prompt": "What do you want to create today?"
+  },
+  "sidebar": {
+    "home": "Home",
+    "my_generations": "My Generations"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Send Model Image",

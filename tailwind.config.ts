@@ -20,6 +20,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      transitionTimingFunction: {
+        'smooth-return-end': 'cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+      },
     },
   },
   plugins: [],

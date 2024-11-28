@@ -19,7 +19,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <div lang={locale} className="">
+    <div lang={locale}>
       <div>
         <NextIntlClientProvider messages={messages}>
           <LanguageSwitcher />

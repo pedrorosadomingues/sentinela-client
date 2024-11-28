@@ -15,7 +15,7 @@ import CategoryBtnArea from "@/components/molecules/CategoryBtnArea";
 import FnButtons from "../molecules/FnButtons";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export default function Studio(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);

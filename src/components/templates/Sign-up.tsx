@@ -48,7 +48,7 @@ export default function SignUpTemplate(): JSX.Element {
   return (
     <div className="min-h-screen w-screen flex items-center">
       <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
-        <div className="w-[65%] h-[450px] flex-col justify-between flex">
+        <div className="w-[65%] h-[100%] flex-col justify-center flex gap-[25px]">
           <Image
             src={"/img/logo-vestiq.png"}
             alt="Vestiq logo"
@@ -56,54 +56,95 @@ export default function SignUpTemplate(): JSX.Element {
             height={250}
             priority={true}
           />
-          <p className="text-[30px] font-bold">{text("login")}</p>
-          <p className="text-gray-500 text-sm mb-[35px]">
-            Access your account now to use the best in AI for your projects. If
-            you don't already have an account, subscribe to Vestiq now to
-            enhance your projects.
-          </p>
+          <p className="text-[30px] font-bold">{text("sign_up")}</p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col">
             <div className="mb-5">
               <TextField
-                style={{ paddingTop: "10px" }}
                 label={text("name")}
-                variant="filled"
+                variant="outlined"
                 name="name"
                 onChange={formik.handleChange}
                 value={formik.values.name}
                 className="w-full"
                 type="text"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
                 required
               />
             </div>
             <div className="mb-5">
               <TextField
-                style={{ paddingTop: "10px" }}
+                label={text("last_name")}
+                variant="outlined"
+                name="lastname"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                className="w-full"
+                type="text"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <TextField
                 label={text("email")}
-                variant="filled"
+                variant="outlined"
                 name="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
                 className="w-full"
                 type="email"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
                 required
               />
             </div>
             <div className="mb-5">
               <TextField
-                style={{ paddingTop: "10px" }}
                 label={text("password")}
-                variant="filled"
+                variant="outlined"
                 name="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 className="w-full"
                 type="password"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
                 required
               />
             </div>
-            <div className="ml-auto mb-5">
-              <Button type="submit" variant="contained" disabled={isLoading}>
+            <div className="mb-5">
+              <TextField
+                label={text("confirm_password")}
+                variant="outlined"
+                name="confirm_password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                className="w-full"
+                type="password"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
+                required
+              />
+            </div>
+            <div className="ml-auto mb-5 w-full">
+              <Button type="submit" variant="contained" disabled={isLoading} fullWidth className="bg-primary-background">
                 {text("register")}
               </Button>
             </div>
@@ -116,7 +157,13 @@ export default function SignUpTemplate(): JSX.Element {
           </a>
         </div>
       </div>
-      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
+      <div
+        className="rounded-l-[60px]
+       bg-primary-background 
+       h-screen w-[50%] flex 
+       items-center 
+       justify-center"
+      >
         <p className="text-white mt-5 text-sm">
           {text("powered_by")} <strong>Vestiq</strong>
         </p>

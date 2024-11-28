@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Button, colors, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
@@ -56,9 +56,7 @@ export default function LoginTemplate(): JSX.Element {
           />
           <p className="text-[30px] font-bold">{text("login")}</p>
           <p className="text-gray-500 text-sm mb-[35px]">
-            Access your account now to use the best in AI for your projects. If
-            you don't already have an account, subscribe to Vestiq now to
-            enhance your projects.
+            {text("access_message")}
           </p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col">
             <div className="mb-5">
@@ -86,18 +84,6 @@ export default function LoginTemplate(): JSX.Element {
                 value={formik.values.password}
                 className="w-full"
                 type={showPassword ? "text" : "password"}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "white", // Fundo branco no input
-                    borderRadius: "4px",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#D1D5DB",              
-                  },
-                  "& .MuiOutlinedInput-input": {
-                    color: "black",
-                  },
-                }}
                 slotProps={{
                   input: {
                     endAdornment: (
