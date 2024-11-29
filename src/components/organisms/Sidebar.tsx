@@ -13,49 +13,63 @@ export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { setMainControl, mainControl } = useMainStore();
-  const {
-    imageFunctions,
-    getImageFunctions,
-    setImageFunctionName,
-    imageFunctionName,
-  } = useImageFunctionStore();
+  const { imageFunctions, getImageFunctions, setImageFunctionName } =
+    useImageFunctionStore();
 
   const text = useTranslations("sidebar");
 
   const MAIN_ITEMS = [
     {
       name: text("home"),
-      icon_path: <CheckroomIcon style={{ fontSize: 30 }} />,
+      icon_path: (
+        <CheckroomIcon
+          style={{ fontSize: 30 }}
+          className={`${!isExpanded && "m-auto"}`}
+        />
+      ),
     },
     {
       name: text("my_generations"),
-      icon_path: <HistoryIcon style={{ fontSize: 30 }} />,
+      icon_path: (
+        <HistoryIcon
+          style={{ fontSize: 30, minWidth: 30 }}
+          className={`${!isExpanded && "m-auto"}`}
+        />
+      ),
     },
   ];
 
   const ICON_MAPPING = {
-    "dress-model": <AiFillCamera style={{ fontSize: 30 }} />,
-    txt2img: <AiFillPicture style={{ fontSize: 30 }} />,
-    "render-traces": <MdBrush style={{ fontSize: 30 }} />,
+    "dress-model": (
+      <AiFillCamera
+        style={{ fontSize: 30, minWidth: 30 }}
+        className={`${!isExpanded && "m-auto"}`}
+      />
+    ),
+    txt2img: (
+      <AiFillPicture
+        style={{ fontSize: 30, minWidth: 30 }}
+        className={`${!isExpanded && "m-auto"}`}
+      />
+    ),
+    "render-traces": (
+      <MdBrush
+        style={{ fontSize: 30, minWidth: 30 }}
+        className={`${!isExpanded && "m-auto"}`}
+      />
+    ),
   };
 
-  // function handleFunctionClick(name: string): void {
-  //   setMainControl(text(name));
-  //   console.log("name", name);
-  //   setImageFunctionName(name);
-
-  //   console.log("imageFunctionName", imageFunctionName);
-  //   console.log("mainControl", mainControl);
-  // }
   useEffect(() => {
     getImageFunctions();
+    setMainControl(text("home"));
   }, [getImageFunctions]);
 
   return (
     <aside
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return pt-4
+      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end pt-4 
         ${isExpanded ? "w-64" : "w-20"} 
         bg-white border-r border-gray-200`}
     >
@@ -86,7 +100,12 @@ export default function Sidebar(): JSX.Element {
           {MAIN_ITEMS.map((item) => (
             <li
               key={item.name}
-              className="mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] group hover:cursor-pointer"
+              className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+                 ${
+                   mainControl === item.name
+                     ? "text-[#F10641] bg-[#FED2DD]"
+                     : ""
+                 }`}
               onClick={() => setMainControl(item.name)}
             >
               {item.icon_path}
@@ -109,13 +128,17 @@ export default function Sidebar(): JSX.Element {
               }) => (
                 <li
                   key={func.id}
-                  className="mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] group hover:cursor-pointer"
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2
+                    ${
+                      mainControl === text(func.name)
+                        ? "text-[#F10641] bg-[#FED2DD]"
+                        : ""
+                    }`}
                   onClick={() => {
                     setImageFunctionName(func.name);
                     setMainControl(text(func.name));
                   }}
                 >
-                  {/* Usa o ícone mapeado ou um ícone padrão */}
                   {ICON_MAPPING[func.name] || (
                     <FaInfoCircle className="text-xl" />
                   )}

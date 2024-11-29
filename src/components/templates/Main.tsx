@@ -9,6 +9,7 @@ import { useMainStore } from "@/zustand-stores/mainStore";
 
 export default function Main(): JSX.Element {
   const { mainControl } = useMainStore();
+  
   return (
     <div className="bg-primary min-h-screen flex justify-center w-full">
       <Header />
@@ -19,8 +20,8 @@ export default function Main(): JSX.Element {
         <Home />
       ) : 
         mainControl === "Dress Model" ||
-        mainControl === "Vestir modelo" ||
-        mainControl === "Vestir modelo" ? (
+        mainControl === "Vestir Modelo" ||
+        mainControl === "Vestir Modelo" ? (
           <DressModel />
         ) : 
           mainControl === "My Generations" ||

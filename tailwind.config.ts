@@ -21,7 +21,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       transitionTimingFunction: {
-        'smooth-return-end': 'cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+        'smooth-return-end': 'cubic-bezier(0, 0, 0.27, 1.55)',
       },
     },
   },

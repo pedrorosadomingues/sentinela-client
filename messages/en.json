@@ -34,6 +34,7 @@
     "logout": "Logout",
     "greeting": "Hello",
     "prompt": "What do you want to create today?",
+    "my_generations": "My Generations",
     "dress-model": "Dress Model"
   },
   "sidebar": {

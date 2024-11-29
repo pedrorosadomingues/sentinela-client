@@ -55,7 +55,7 @@ const CardGrid = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 bg-gray-100">
+    <div className="mt-10 p-10 rounded-xl w-[60%] bg-white mt-[90px] mb-[130px]">
       {cards.map((card, index) => (
         <Card
           key={index}
