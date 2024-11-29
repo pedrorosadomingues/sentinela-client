@@ -1,5 +1,5 @@
 import { createGeneration } from "@/services";
-import { FormValues } from "@/interfaces/generation-params";
+import { FormValues } from "@/interfaces/generation";
 
 export async function handleSubmit(
   values: FormValues,

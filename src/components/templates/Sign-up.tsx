@@ -159,10 +159,10 @@ export default function SignUpTemplate(): JSX.Element {
             </div>
           </form>
           <p
-            className="flex justify-center mt-5 text-sm hover:underline hover:cursor-pointer hover:text-[#F83A14] w-[20%] ml-auto mr-auto"
+            className="flex justify-center mt-5 text-sm ml-auto mr-auto"
             onClick={() => setRootControl("login")}
           >
-            {text("back_to_login")}
+           <p>{text("have_account")} <span className="hover:cursor-pointer text-[#F83A14] hover:underline hover:text-[#F83A14] font-semibold">{text("back_to_login")}</span></p>
           </p>
         </div>
       </div>

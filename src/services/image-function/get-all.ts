@@ -1,28 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { SignUpParams, SignUpResponse } from "@/interfaces";
 
-export async function signUp({
-  email,
-  password,
-  name,
-}: SignUpParams): Promise<SignUpResponse> {
+export async function getAllImageFns(): Promise<any> {
   try {
-    const response = await api.post("/user/sign-up", {
-      email,
-      password,
-      name,
-    });
+    const response = await api.get("/image-function");
     return {
       status: httpStatus.OK,
       data: response.data,
     };
   } catch (error: any) {
+    console.log("error", error);
     if (error.response) {
       return {
-        status: error.response.status,
-        message: error.response.data || "Unknown error",
+        status: error.status,
+        message: error.response.data.error || "Unknown error",
       };
     } else {
       return {

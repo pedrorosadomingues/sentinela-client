@@ -3,7 +3,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import HomeTemplate from "@/components/templates/Main";
+import MainTemplate from "@/components/templates/Main";
 import { useLocale } from "next-intl";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex">
-      <HomeTemplate />
+      <MainTemplate />
     </div>
   );
 }

@@ -24,7 +24,8 @@
     "back_to_login": "Volver al inicio de sesión",
     "user_created_successfully": "Usuario creado con éxito",
     "error_creating_user": "Error al crear el usuario:",
-    "unexpected_error": "Ocurrió un error inesperado"
+    "unexpected_error": "Ocurrió un error inesperado",
+    "have_account": "¿Tienes una cuenta?"
   },
   "home_page": {
     "generate_image": "Generar imagen"
@@ -32,12 +33,13 @@
   "header": {
     "logout": "Cerrar sesión",
     "greeting": "Hola",
-    "prompt": "¿Qué quieres crear hoy?"
+    "prompt": "¿Qué quieres crear hoy?",
+    "dress-model": "Vestir Modelo"
   },
   "sidebar": {
     "home": "Inicio",
     "my_generations": "Mis Generaciones",
-    "dress_model": "Vestir Modelo"
+    "dress-model": "Vestir Modelo"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Enviar Imagen del Modelo",

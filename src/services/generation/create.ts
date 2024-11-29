@@ -1,19 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-
-interface CreateGenerationParams {
-  category: string;
-  model_image: string;
-  garment_image: string;
-  fn: string;
-}
-
-interface CreateGenerationResponse {
-  status: number;
-  data?: any;
-  message?: any;
-}
+import { CreateGenerationParams, CreateGenerationResponse } from "@/interfaces";
 
 export async function createGeneration({
   category,

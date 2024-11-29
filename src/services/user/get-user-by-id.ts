@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { SignUpParams, SignUpResponse } from "@/interfaces";
+import {GetUserByIdParams, GetUserByIdResponse } from "@/interfaces/user";
 
-export async function signUp({
-  email,
-  password,
-  name,
-}: SignUpParams): Promise<SignUpResponse> {
+export async function getUserById({
+  user_id,
+}: GetUserByIdParams): Promise<GetUserByIdResponse> {
   try {
-    const response = await api.post("/user/sign-up", {
-      email,
-      password,
-      name,
-    });
+    const response = await api.get(`/user/${user_id}`);
     return {
       status: httpStatus.OK,
       data: response.data,

@@ -24,7 +24,8 @@
     "back_to_login": "Back to login",
     "user_created_successfully": "User created successfully",
     "error_creating_user": "Error creating user:",
-    "unexpected_error": "An unexpected error occurred"
+    "unexpected_error": "An unexpected error occurred",
+    "have_account": "Already have an account?"
   },
   "home_page": {
     "generate_image": "Generate image"
@@ -32,12 +33,13 @@
   "header": {
     "logout": "Logout",
     "greeting": "Hello",
-    "prompt": "What do you want to create today?"
+    "prompt": "What do you want to create today?",
+    "dress-model": "Dress Model"
   },
   "sidebar": {
     "home": "Home",
     "my_generations": "My Generations",
-    "dress_model": "Dress Model"
+    "dress-model": "Dress Model"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Send Model Image",

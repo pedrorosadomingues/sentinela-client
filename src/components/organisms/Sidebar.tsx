@@ -1,28 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaInfoCircle, FaEnvelope } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
+import { AiFillCamera, AiFillPicture } from "react-icons/ai";
+import { MdBrush } from "react-icons/md";
 import { useTranslations } from "next-intl";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import CheckroomIcon from "@mui/icons-material/Checkroom";
 import HistoryIcon from "@mui/icons-material/History";
-import { useMainStore } from "@/zustand-stores/mainStore";
+import { useMainStore, useImageFunctionStore } from "@/zustand-stores";
+import { Divider } from "@nextui-org/react";
 
 export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const { setMainControl } = useMainStore();
+  const { setMainControl, mainControl } = useMainStore();
+  const {
+    imageFunctions,
+    getImageFunctions,
+    setImageFunctionName,
+    imageFunctionName,
+  } = useImageFunctionStore();
 
   const text = useTranslations("sidebar");
 
   const MAIN_ITEMS = [
     {
       name: text("home"),
-      icon_path: <PersonOutlineIcon style={{ fontSize: 30 }} />,
+      icon_path: <CheckroomIcon style={{ fontSize: 30 }} />,
     },
     {
       name: text("my_generations"),
       icon_path: <HistoryIcon style={{ fontSize: 30 }} />,
     },
   ];
+
+  const ICON_MAPPING = {
+    "dress-model": <AiFillCamera style={{ fontSize: 30 }} />,
+    txt2img: <AiFillPicture style={{ fontSize: 30 }} />,
+    "render-traces": <MdBrush style={{ fontSize: 30 }} />,
+  };
+
+  // function handleFunctionClick(name: string): void {
+  //   setMainControl(text(name));
+  //   console.log("name", name);
+  //   setImageFunctionName(name);
+
+  //   console.log("imageFunctionName", imageFunctionName);
+  //   console.log("mainControl", mainControl);
+  // }
+  useEffect(() => {
+    getImageFunctions();
+  }, [getImageFunctions]);
 
   return (
     <aside
@@ -52,7 +79,7 @@ export default function Sidebar(): JSX.Element {
         )}
 
         <ul
-          className={`mt-4 w-full flex flex-col items-${
+          className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-${
             isExpanded ? `start` : `center`
           }`}
         >
@@ -70,16 +97,36 @@ export default function Sidebar(): JSX.Element {
               )}
             </li>
           ))}
-          <li className="mb-2 flex items-center justify-center md:justify-start">
-            <FaInfoCircle className="text-xl" />
-            {isExpanded && <span className="ml-3 overflow-hidden">About</span>}
-          </li>
-          <li className="mb-2 flex items-center justify-center md:justify-start">
-            <FaEnvelope className="text-xl" />
-            {isExpanded && (
-              <span className="ml-3 overflow-hidden">Contact</span>
+
+          <Divider className="w-2/3 group-hover:w-[100%] mx-auto" />
+
+          {imageFunctions &&
+            imageFunctions.map(
+              (func: {
+                id: string;
+                name: keyof typeof ICON_MAPPING;
+                title: string;
+              }) => (
+                <li
+                  key={func.id}
+                  className="mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] group hover:cursor-pointer"
+                  onClick={() => {
+                    setImageFunctionName(func.name);
+                    setMainControl(text(func.name));
+                  }}
+                >
+                  {/* Usa o ícone mapeado ou um ícone padrão */}
+                  {ICON_MAPPING[func.name] || (
+                    <FaInfoCircle className="text-xl" />
+                  )}
+                  {isExpanded && (
+                    <span className="ml-3 overflow-hidden whitespace-nowrap">
+                      {func.title}
+                    </span>
+                  )}
+                </li>
+              )
             )}
-          </li>
         </ul>
         <button
           onClick={() => setIsExpanded((prev) => !prev)}

@@ -1,1 +1,1 @@
-export * from "./create-generation";
+export * from "./create";
