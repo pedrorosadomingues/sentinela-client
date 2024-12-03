@@ -13,7 +13,6 @@ export const useUserStore = create<UserStore>((set) => ({
   setUser: (user: User) => set({ user }),
   getUser: async ({ user_id }) => {
     const response = await getUserById({ user_id });
-    console.log("aqui;", response, user_id);
     if (response.status === 200) {
       set({ user: response.data });
     } else {

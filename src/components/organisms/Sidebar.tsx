@@ -62,15 +62,21 @@ export default function Sidebar(): JSX.Element {
 
   useEffect(() => {
     getImageFunctions();
-    setMainControl(text("home"));
+    if (
+      mainControl === "Home" ||
+      mainControl === "Início" ||
+      mainControl === "Inicio"
+    ) {
+      setMainControl(text("home"));
+    }
   }, [getImageFunctions]);
 
   return (
     <aside
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end pt-4 
-        ${isExpanded ? "w-64" : "w-20"} 
+      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end 
+        ${isExpanded ? "w-[281px]" : "w-20"} 
         bg-white border-r border-gray-200`}
     >
       <div className="p-4 flex flex-col items-center">
@@ -128,7 +134,7 @@ export default function Sidebar(): JSX.Element {
               }) => (
                 <li
                   key={func.id}
-                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                     ${
                       mainControl === text(func.name)
                         ? "text-[#F10641] bg-[#FED2DD]"

@@ -16,16 +16,14 @@ export const useImageFunctionStore = create<ImageFunctionStore>((set, get) => ({
   setImageFunctions: (imageFunctions: string[]) => set({ imageFunctions }),
   getImageFunctions: async () => {
     const response = await getAllImageFns();
-    console.log("response", response);
     if (response.status === 200) {
       set({ imageFunctions: response.data });
-      const updatedImageFunctions = get().imageFunctions; // Obtém o valor atualizado
+      const updatedImageFunctions = get().imageFunctions;
       console.log("imageFunctionaas", updatedImageFunctions);
     } else {
       console.error(response.message);
     }
   },
-
   imageFunctionName: "",
   setImageFunctionName: (imageFunctionName: string) =>
     set({ imageFunctionName }),

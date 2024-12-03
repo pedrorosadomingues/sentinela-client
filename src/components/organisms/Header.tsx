@@ -28,7 +28,7 @@ export default function Header(): JSX.Element {
     if (storedUserId) {
       getUser({ user_id: storedUserId });
     }
-  }, [getUser, mainControl]);
+  }, [getUser]);
   return (
     <header className="flex items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px]">
       {mainControl === "Home" ||
