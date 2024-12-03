@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* components/templates/Studio.tsx */
 "use client";
 import { useEffect, useState } from "react";
@@ -29,7 +30,15 @@ export default function Main(): JSX.Element {
   }, [mainControl, router]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <img
+          src="/icons/logo-vestiq.png"
+          alt="Loading"
+          className="animate-spin-bounce w-24 h-24"
+        />
+      </div>
+    );
   }
 
   return (

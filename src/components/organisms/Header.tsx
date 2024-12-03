@@ -49,7 +49,7 @@ export default function Header(): JSX.Element {
         return (
           <div>
             <h1 className="text-2xl text-black">
-              {text("greeting")}, {user?.name}
+              {text("greeting")} {user?.name}
             </h1>
             <p className="text-black">{text("prompt")}</p>
           </div>

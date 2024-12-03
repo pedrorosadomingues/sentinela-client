@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   description: "Vestiq - Fash.AI",
   icons: [
     {
-      url: "/img/image.png",
-      href: "/img/image.png",
+      url: "/icons/logo-vestiq.png",
+      href: "/icons/logo-vestiq.png",
     },
   ],
 };
