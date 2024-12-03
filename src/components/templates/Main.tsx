@@ -1,6 +1,6 @@
 /* components/templates/Studio.tsx */
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
@@ -13,6 +13,7 @@ export default function Main(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab) {
@@ -22,9 +23,14 @@ export default function Main(): JSX.Element {
 
   useEffect(() => {
     if (mainControl) {
-      router.push(`?tab=${mainControl}`, { scroll: false });
+      router.push(`?tab=${mainControl}`);
+      setIsLoading(false);
     }
   }, [mainControl, router]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-primary min-h-screen flex justify-center w-full">
