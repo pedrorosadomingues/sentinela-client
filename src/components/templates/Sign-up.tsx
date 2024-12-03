@@ -53,7 +53,7 @@ export default function SignUpTemplate(): JSX.Element {
       <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
         <div className="w-[65%] h-[100%] flex-col justify-center flex gap-[25px]">
           <Image
-            src={"/img/logo-vestiq.png"}
+            src={"/images/logo-vestiq.png"}
             alt="Vestiq logo"
             width={150}
             height={250}
