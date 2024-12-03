@@ -13,8 +13,7 @@ export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { setMainControl, mainControl } = useMainStore();
-  const { imageFunctions, getImageFunctions, setImageFunctionName } =
-    useImageFunctionStore();
+  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
   const text = useTranslations("sidebar");
 
@@ -84,6 +83,7 @@ export default function Sidebar(): JSX.Element {
           <Image
             src={"/images/logo-vestiq.png"}
             alt="Logo"
+            style={{ height: "auto" }}
             width={70}
             height={70}
             priority={true}
@@ -92,6 +92,7 @@ export default function Sidebar(): JSX.Element {
           <Image
             src={"/icons/logo-vestiq.png"}
             alt="Logo"
+            style={{ height: "auto" }}
             width={45}
             height={45}
             priority={true}
@@ -141,7 +142,6 @@ export default function Sidebar(): JSX.Element {
                         : ""
                     }`}
                   onClick={() => {
-                    setImageFunctionName(func.name);
                     setMainControl(text(func.name));
                   }}
                 >

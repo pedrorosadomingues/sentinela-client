@@ -35,12 +35,16 @@
     "greeting": "Hola",
     "prompt": "¿Qué quieres crear hoy?",
     "my_generations": "Mis Generaciones",
-    "dress-model": "Vestir Modelo"
+    "dress-model": "Vestir Modelo",
+    "txt2img": "Imagen a partir de Texto",
+    "render-traces": "Renderizar Trazos"
   },
   "sidebar": {
     "home": "Inicio",
     "my_generations": "Mis Generaciones",
-    "dress-model": "Vestir Modelo"
+    "dress-model": "Vestir Modelo",
+    "txt2img": "Imagen a partir de Texto",
+    "render-traces": "Renderizar Trazos"
   },
   "model_image_area": {
     "step1_send_model_image": "1) Enviar Imagen del Modelo",

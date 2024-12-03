@@ -13,7 +13,6 @@ export default function Main(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
-
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab) {

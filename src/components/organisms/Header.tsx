@@ -1,22 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { logout } from "@/utils";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect } from "react";
-import {
-  useUserStore,
-  useMainStore,
-  useImageFunctionStore,
-} from "@/zustand-stores";
+import { useEffect, useState } from "react";
+import { useUserStore, useMainStore } from "@/zustand-stores";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const locale = useLocale();
   const text = useTranslations("header");
   const { user, getUser } = useUserStore();
-  const { mainControl } = useMainStore();
-  const { imageFunctionName } = useImageFunctionStore();
+  const { mainControl, setMainControl } = useMainStore();
+
+  const [tab, setTab] = useState<string | null>(null);
 
   function handleLogout(): void {
     logout();
@@ -25,29 +24,67 @@ export default function Header(): JSX.Element {
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("user_id");
-    if (storedUserId) {
+
+    if (storedUserId && storedUserId !== "null") {
       getUser({ user_id: storedUserId });
+    } else {
+      alert("Please login again");
+      redirect(`/${locale}`);
     }
-  }, [getUser]);
+
+    const currentTab = searchParams.get("tab");
+    if (currentTab) {
+      setMainControl(currentTab);
+      setTab(currentTab);
+    }
+  }, [getUser, searchParams, setMainControl, router, locale]);
+
+  function renderHeaderContent() {
+    const current = mainControl || tab;
+
+    switch (current) {
+      case "Home":
+      case "Início":
+      case "Inicio":
+        return (
+          <div>
+            <h1 className="text-2xl text-black">
+              {text("greeting")}, {user?.name}
+            </h1>
+            <p className="text-black">{text("prompt")}</p>
+          </div>
+        );
+
+      case "My Generations":
+      case "Minhas Gerações":
+      case "Mis generaciones":
+        return (
+          <h1 className="text-2xl text-black">{text("my_generations")}</h1>
+        );
+
+      case "Vestir Modelo":
+      case "Dress Model":
+        return <h1 className="text-2xl text-black">{text("dress-model")}</h1>;
+
+      case "Imagem a partir de Texto":
+      case "Image from Text":
+      case "Imagen a partir de Texto":
+        return <h1 className="text-2xl text-black">{text("txt2img")}</h1>;
+
+      case "Renderizar Traços":
+      case "Render Traces":
+      case "Renderizar Trazos":
+        return <h1 className="text-2xl text-black">{text("render-traces")}</h1>;
+
+      default:
+        return <h1 className="text-2xl text-black">{mainControl}</h1>;
+    }
+  }
+
   return (
     <header className="flex items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px]">
-      {mainControl === "Home" ||
-      mainControl === "Início" ||
-      mainControl === "Inicio" ? (
-        <div>
-          <h1 className="text-2xl text-black ">
-            {text("greeting")}, {user?.name}
-          </h1>
-          <p className="text-black">{text("prompt")}</p>
-        </div>
-      ) : mainControl === "My Generations" ||
-        mainControl === "Minhas Gerações" ||
-        mainControl === "Mis generaciones" ? (
-        <h1 className="text-2xl text-black">{text("my_generations")}</h1>
-      ) : (
-        <h1 className="text-2xl text-black">{text(imageFunctionName)}</h1>
-      )}
-      <div className="flex items-center gap-4">
+      {renderHeaderContent()}
+      <div className="flex items-center gap-4 aqui">
         <button
           className="hover:cursor-pointer text-black"
           onClick={handleLogout}
