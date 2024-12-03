@@ -4,17 +4,20 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
 import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
 import { useRootStore } from "@/zustand-stores/rootStore";
+import { redirect } from "next/navigation";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
   const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const token = localStorage.getItem("token");
 
   const { setRootControl } = useRootStore();
 
@@ -46,6 +49,12 @@ export default function LoginTemplate(): JSX.Element {
       }
     },
   });
+
+  useEffect(() => {
+    if (token) {
+     redirect(`/${locale}/main`);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen w-screen flex items-center aqui">
