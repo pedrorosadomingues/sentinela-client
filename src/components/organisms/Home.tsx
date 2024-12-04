@@ -62,11 +62,6 @@ export default function Home(): JSX.Element {
     getImageFunctions();
   }, [getImageFunctions]);
 
-  // useEffect(() => {
-  //   if (imageFunctions !== null) {
-  //   }
-  // }, [imageFunctions]);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setVisibleCards((prev) => {

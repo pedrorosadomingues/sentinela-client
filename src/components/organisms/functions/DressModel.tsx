@@ -27,7 +27,7 @@ export default function StudioContent(): JSX.Element {
   const modelInputRef = useRef<HTMLInputElement | null>(null);
   const garmentInputRef = useRef<HTMLInputElement | null>(null);
 
-  const text = useTranslations("home_page");
+  const text = useTranslations("dress_model");
 
   const formik = useFormik({
     initialValues: {

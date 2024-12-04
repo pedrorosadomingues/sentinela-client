@@ -1,4 +1,7 @@
 {
+  "dress_model": {
+    "generate_image": "Gerar Imagem"
+  },
   "welcome_page": {
     "welcome_message": "Bem-vindo ao Vestiq",
     "go_to_login": "Ir para login"
