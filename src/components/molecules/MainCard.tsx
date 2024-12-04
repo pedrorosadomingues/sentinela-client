@@ -15,8 +15,16 @@ export default function Card({
   onClick: () => void;
   icon: React.ReactNode;
 }) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
   return (
-    <div className="border relative border-gray-200 rounded-lg p-6 shadow-md flex flex-col items-start bg-white w-[25%] h-[268px] min-w-[369px] animate-fade-in hover:shadow-lg">
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`transform transition duration-1000 ease-in-out ${
+        isHovered ? "scale-1000 -translate-y-5 shadow-2xl" : ""
+      } border relative border-gray-200 rounded-lg p-6 shadow-md flex flex-col items-start bg-white w-[25%] h-[268px] min-w-[369px] animate-fade-in hover:shadow-lg`}
+    >
       {icon}
       <div className="flex items-center justify-between w-full">
         <h3 className="text-lg font-bold text-[#49424A]">{title}</h3>

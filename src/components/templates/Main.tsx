@@ -55,7 +55,7 @@ export default function Main(): JSX.Element {
         <DressModel />
       ) : mainControl === "My Generations" ||
         mainControl === "Minhas Gerações" ||
-        mainControl === "Mis generaciones" ? (
+        mainControl === "Mis Generaciones" ? (
         <MyGenerations />
       ) : (
         <div>My Generations</div>

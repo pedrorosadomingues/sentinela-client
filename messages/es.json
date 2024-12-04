@@ -28,6 +28,7 @@
     "have_account": "¿Tienes una cuenta?"
   },
   "home": {
+    "my_generations": "Mis Generaciones",
     "access_generations": "Acceder a Generaciones",
     "dress-model": "Vestir Modelo",
     "dress_model_description": "Añade ropa única o conjuntos completos a un modelo utilizando IA.",

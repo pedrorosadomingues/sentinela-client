@@ -28,6 +28,7 @@
     "have_account": "Already have an account?"
   },
   "home": {
+    "my_generations": "My Generations",
     "access_generations": "Access Generations",
     "dress-model": "Dress Model",
     "dress_model_description": "Add any unique clothing or full outfits to a model using AI.",
