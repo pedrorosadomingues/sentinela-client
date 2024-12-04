@@ -6,12 +6,14 @@ export default function Card({
   label,
   isBeta,
   onClick,
+  icon,
 }: {
   title: string;
   description: string;
   label: string;
   isBeta: boolean;
   onClick: () => void;
+  icon: React.ReactNode;
 }) {
   return (
     <div className="border border-gray-200 rounded-lg p-6 shadow-md flex flex-col items-start bg-white w-[25%] h-[268px] min-w-[369px] animate-fade-in hover:shadow-lg">
@@ -23,6 +25,7 @@ export default function Card({
           </span>
         )}
       </div>
+      <div className="mt-4">{icon}</div>
       <p className="mt-2 text-sm text-gray-600">{description}</p>
       <button
         onClick={onClick}

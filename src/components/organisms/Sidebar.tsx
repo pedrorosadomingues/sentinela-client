@@ -11,6 +11,7 @@ import { useMainStore, useImageFunctionStore } from "@/zustand-stores";
 import { Divider } from "@nextui-org/react";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { ImageFunction, ImageFunctionName } from "@/interfaces/imageFunction";
 
 export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -177,37 +178,31 @@ export default function Sidebar(): JSX.Element {
             <Divider className="w-2/3 group-hover:w-[100%] mx-auto" />
 
             {imageFunctions &&
-              imageFunctions.map(
-                (func: {
-                  id: string;
-                  name: keyof typeof ICON_MAPPING;
-                  title: string;
-                }) => (
-                  <li
-                    key={func.id}
-                    className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+              imageFunctions.map((func: ImageFunction) => (
+                <li
+                  key={func.id}
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                       ${
                         mainControl === text(func.name)
                           ? "text-[#F10641] bg-[#FED2DD]"
                           : ""
                       } `}
-                    onClick={() => {
-                      setMainControl(text(func.name));
-                    }}
-                  >
-                    {ICON_MAPPING[func.name] || (
-                      <FaInfoCircle
-                        className={`text-xl ${!isExpanded && "m-auto"}`}
-                      />
-                    )}
-                    {isExpanded && (
-                      <span className="ml-[6px] overflow-hidden whitespace-nowrap text-[16px]">
-                        {text(func.name)}
-                      </span>
-                    )}
-                  </li>
-                )
-              )}
+                  onClick={() => {
+                    setMainControl(text(func.name));
+                  }}
+                >
+                  {ICON_MAPPING[func.name as ImageFunctionName] || (
+                    <FaInfoCircle
+                      className={`text-xl ${!isExpanded && "m-auto"}`}
+                    />
+                  )}
+                  {isExpanded && (
+                    <span className="ml-[6px] overflow-hidden whitespace-nowrap text-[16px]">
+                      {text(func.name)}
+                    </span>
+                  )}
+                </li>
+              ))}
           </ul>
           <div className="flex items-center justify-center flex-col">
             <button

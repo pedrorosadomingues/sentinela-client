@@ -3,35 +3,44 @@ import React, { useState, useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
 import Card from "@/components/molecules/MainCard";
 import { useImageFunctionStore } from "@/zustand-stores";
+import { AiFillCamera, AiFillPicture } from "react-icons/ai";
+import { MdBrush } from "react-icons/md";
+import { ImageFunctionName } from "@/interfaces/imageFunction";
 
 const CardGrid = () => {
   const [visibleCards, setVisibleCards] = useState(0);
 
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
-  const cards = [
-    {
-      title: "Vestir modelo",
+  const ICON_MAPPING = {
+    "dress-model": <AiFillCamera style={{ fontSize: 47, minWidth: 47 }} />,
+    txt2img: <AiFillPicture style={{ fontSize: 47, minWidth: 47 }} />,
+    "render-traces": <MdBrush style={{ fontSize: 47, minWidth: 47 }} />,
+  };
+
+  const imageFunctionDetails: Record<
+    ImageFunctionName,
+    { description: string; label: string; isBeta: boolean }
+  > = {
+    "dress-model": {
       description:
         "Adicione qualquer roupas únicas ou peças completas a um modelo utilizando IA.",
       label: "Começar",
       isBeta: true,
     },
-    {
-      title: "Renderizar traços",
+    "render-traces": {
       description:
         "Transforme os seus esboços, desenhos e croquis em realidade com a ferramenta de renderizar traços da Vestiq.",
       label: "Começar",
       isBeta: true,
     },
-    {
-      title: "Imagem a partir de texto",
+    txt2img: {
       description:
         "Crie uma imagem a partir de uma descrição textual. Transforme ideias em representações visuais para projetos criativos ou conceituais.",
       label: "Começar",
       isBeta: false,
     },
-  ];
+  };
 
   useEffect(() => {
     getImageFunctions();
@@ -46,7 +55,7 @@ const CardGrid = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setVisibleCards((prev) => {
-        if (prev < cards.length) {
+        if (prev < imageFunctions.length) {
           return prev + 1;
         } else {
           clearInterval(interval);
@@ -56,7 +65,7 @@ const CardGrid = () => {
     }, 200);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [imageFunctions]);
 
   return (
     <div className="mt-10 p-10 rounded-xl w-full ml-[55px] bg-white mt-[90px] mb-auto flex flex-wrap gap-[1%]">
@@ -69,16 +78,22 @@ const CardGrid = () => {
           Acessar Gerações
         </button>
       </div>
-      {cards.slice(0, visibleCards).map((card, index) => (
-        <Card
-          key={index}
-          title={card.title}
-          description={card.description}
-          label={card.label}
-          isBeta={card.isBeta}
-          onClick={() => alert(`${card.title} clicado!`)}
-        />
-      ))}
+      {imageFunctions &&
+        imageFunctions.slice(0, visibleCards).map((func) => {
+          const details =
+            imageFunctionDetails[func.name as ImageFunctionName] || {};
+          return (
+            <Card
+              key={func.id}
+              title={func.title}
+              description={details.description}
+              label={details.label}
+              isBeta={details.isBeta}
+              onClick={() => alert(`${func.title} clicado!`)}
+              icon={ICON_MAPPING[func.name as ImageFunctionName]}
+            />
+          );
+        })}
     </div>
   );
 };
