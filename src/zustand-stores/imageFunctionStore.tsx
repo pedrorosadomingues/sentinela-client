@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import { getAllImageFns } from "@/services";
+import { ImageFunction } from "@/interfaces/imageFunction";
 
 interface ImageFunctionStore {
-  imageFunctions: any;
-  setImageFunctions: (imageFunctions: string[]) => void;
+  imageFunctions: [ImageFunction];
+  setImageFunctions: (imageFunctions: [ImageFunction]) => void;
   getImageFunctions: () => Promise<void>;
 }
 
 export const useImageFunctionStore = create<ImageFunctionStore>((set) => ({
-  imageFunctions: null,
-  setImageFunctions: (imageFunctions: string[]) => set({ imageFunctions }),
+  imageFunctions: [{ id: 0, name: "", title: "" }],
+  setImageFunctions: (imageFunctions: [ImageFunction]) =>
+    set({ imageFunctions }),
   getImageFunctions: async () => {
     const response = await getAllImageFns();
     if (response.status === 200) {

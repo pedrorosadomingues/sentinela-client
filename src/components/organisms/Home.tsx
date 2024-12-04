@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
 import Card from "@/components/molecules/MainCard";
+import { useImageFunctionStore } from "@/zustand-stores";
 
 const CardGrid = () => {
   const [visibleCards, setVisibleCards] = useState(0);
+
+  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
   const cards = [
     {
@@ -30,6 +34,16 @@ const CardGrid = () => {
   ];
 
   useEffect(() => {
+    getImageFunctions();
+  }, [getImageFunctions]);
+
+  useEffect(() => {
+    if (imageFunctions !== null) {
+      console.log(imageFunctions);
+    }
+  }, [imageFunctions]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setVisibleCards((prev) => {
         if (prev < cards.length) {
@@ -39,14 +53,14 @@ const CardGrid = () => {
           return prev;
         }
       });
-    }, 500);
+    }, 200);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="mt-10 p-10 rounded-xl w-full ml-[55px] bg-white mt-[90px] mb-[130px] flex flex-wrap gap-[1%]">
-      <div className="border border-gray-200 rounded-lg mb-[15px] shadow-md flex flex-col items-center bg-white w-[17%] h-[268px] justify-center gap-[8px] min-w-[254px] animate-fade-in hover:shadow-lg">
+    <div className="mt-10 p-10 rounded-xl w-full ml-[55px] bg-white mt-[90px] mb-auto flex flex-wrap gap-[1%]">
+      <div className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center mb-[15px] bg-white w-[17%] h-[268px] justify-center gap-[8px] min-w-[254px] animate-fade-in hover:shadow-lg">
         <HistoryIcon
           className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
           style={{ width: "80px", height: "80px" }}

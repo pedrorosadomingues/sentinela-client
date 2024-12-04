@@ -64,17 +64,6 @@ export default function Sidebar(): JSX.Element {
     ),
   };
 
-  useEffect(() => {
-    getImageFunctions();
-    if (
-      mainControl === "Home" ||
-      mainControl === "Início" ||
-      mainControl === "Inicio"
-    ) {
-      setMainControl(text("home"));
-    }
-  }, [getImageFunctions]);
-
   const toggleLock = () => {
     setIsLocked((prev) => !prev);
     setIsExpanded((prev) => !prev);
@@ -92,12 +81,52 @@ export default function Sidebar(): JSX.Element {
     }
   };
 
+  useEffect(() => {
+    getImageFunctions();
+
+    const normalizedControl = mainControl.toLowerCase();
+
+    switch (normalizedControl) {
+      case "home":
+      case "início":
+      case "inicio":
+        setMainControl(text("home"));
+        break;
+
+      case "minhas gerações":
+      case "my generations":
+      case "mis generaciones":
+        setMainControl(text("my_generations"));
+        break;
+
+      case "vestir modelo":
+      case "dress model":
+        setMainControl(text("dress-model"));
+        break;
+
+      case "imagem a partir de texto":
+      case "image from text":
+      case "imagen a partir de texto":
+        setMainControl(text("txt2img"));
+        break;
+
+      case "renderizar traços":
+      case "render traces":
+      case "renderizar trazos":
+        setMainControl(text("render-traces"));
+        break;
+
+      default:
+        break;
+    }
+  }, [getImageFunctions]);
+
   return (
     <aside
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end 
-        ${isExpanded ? "w-[251px]" : "w-20"} 
+        ${isExpanded ? "w-[281px] flex items-start" : "w-20"} 
         bg-white border-r border-gray-200`}
     >
       <div className="p-4 flex flex-col items-center relative h-full">
@@ -122,8 +151,7 @@ export default function Sidebar(): JSX.Element {
         )}
         <div className="flex flex-col justify-between h-full">
           <ul
-            className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-${
-              isExpanded ? `start` : `center`
+            className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-center
             }`}
           >
             {MAIN_ITEMS.map((item) => (
@@ -139,7 +167,7 @@ export default function Sidebar(): JSX.Element {
               >
                 {item.icon_path}
                 {isExpanded && (
-                  <span className="ml-3 overflow-hidden whitespace-nowrap group-hover:text-[#F10641]">
+                  <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]">
                     {item.name}
                   </span>
                 )}
@@ -162,7 +190,7 @@ export default function Sidebar(): JSX.Element {
                         mainControl === text(func.name)
                           ? "text-[#F10641] bg-[#FED2DD]"
                           : ""
-                      }`}
+                      } `}
                     onClick={() => {
                       setMainControl(text(func.name));
                     }}
@@ -173,7 +201,7 @@ export default function Sidebar(): JSX.Element {
                       />
                     )}
                     {isExpanded && (
-                      <span className="ml-3 overflow-hidden whitespace-nowrap">
+                      <span className="ml-[6px] overflow-hidden whitespace-nowrap text-[16px]">
                         {text(func.name)}
                       </span>
                     )}
