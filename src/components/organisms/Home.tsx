@@ -3,19 +3,33 @@ import React, { useState, useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
 import Card from "@/components/molecules/MainCard";
 import { useImageFunctionStore } from "@/zustand-stores";
-import { AiFillCamera, AiFillPicture } from "react-icons/ai";
-import { MdBrush } from "react-icons/md";
+import { AiFillCamera } from "react-icons/ai";
 import { ImageFunctionName } from "@/interfaces/imageFunction";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import { useTranslations } from "next-intl";
 
-const CardGrid = () => {
+export default function Home(): JSX.Element {
   const [visibleCards, setVisibleCards] = useState(0);
 
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
+  const text = useTranslations("home");
+
   const ICON_MAPPING = {
-    "dress-model": <AiFillCamera style={{ fontSize: 47, minWidth: 47 }} />,
-    txt2img: <AiFillPicture style={{ fontSize: 47, minWidth: 47 }} />,
-    "render-traces": <MdBrush style={{ fontSize: 47, minWidth: 47 }} />,
+    "dress-model": (
+      <AiFillCamera style={{ fontSize: 47, minWidth: 47, color: "#F10641" }} />
+    ),
+    txt2img: (
+      <BorderColorIcon
+        style={{ fontSize: 47, minWidth: 47, color: "#F10641" }}
+      />
+    ),
+    "render-traces": (
+      <DesignServicesIcon
+        style={{ fontSize: 47, minWidth: 47, color: "#F10641" }}
+      />
+    ),
   };
 
   const imageFunctionDetails: Record<
@@ -23,21 +37,18 @@ const CardGrid = () => {
     { description: string; label: string; isBeta: boolean }
   > = {
     "dress-model": {
-      description:
-        "Adicione qualquer roupas únicas ou peças completas a um modelo utilizando IA.",
-      label: "Começar",
+      description: text("dress_model_description"),
+      label: text("start"),
       isBeta: true,
     },
     "render-traces": {
-      description:
-        "Transforme os seus esboços, desenhos e croquis em realidade com a ferramenta de renderizar traços da Vestiq.",
-      label: "Começar",
+      description: text("render_traces_description"),
+      label: text("start"),
       isBeta: true,
     },
     txt2img: {
-      description:
-        "Crie uma imagem a partir de uma descrição textual. Transforme ideias em representações visuais para projetos criativos ou conceituais.",
-      label: "Começar",
+      description: text("txt2img_description"),
+      label: text("start"),
       isBeta: false,
     },
   };
@@ -48,7 +59,6 @@ const CardGrid = () => {
 
   useEffect(() => {
     if (imageFunctions !== null) {
-      console.log(imageFunctions);
     }
   }, [imageFunctions]);
 
@@ -74,8 +84,8 @@ const CardGrid = () => {
           className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
           style={{ width: "80px", height: "80px" }}
         />
-        <button className="text-red-500 font-bold text-sm hover:underline">
-          Acessar Gerações
+        <button className="text-[#49424A] font-bold text-sm hover:underline ">
+          {text("access_generations")}
         </button>
       </div>
       {imageFunctions &&
@@ -85,7 +95,7 @@ const CardGrid = () => {
           return (
             <Card
               key={func.id}
-              title={func.title}
+              title={text(func.name)}
               description={details.description}
               label={details.label}
               isBeta={details.isBeta}
@@ -96,6 +106,4 @@ const CardGrid = () => {
         })}
     </div>
   );
-};
-
-export default CardGrid;
+}

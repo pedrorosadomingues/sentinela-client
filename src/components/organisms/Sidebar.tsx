@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaInfoCircle } from "react-icons/fa";
-import { AiFillCamera, AiFillPicture } from "react-icons/ai";
-import { MdBrush } from "react-icons/md";
+import { AiFillCamera } from "react-icons/ai";
 import { useTranslations } from "next-intl";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import HistoryIcon from "@mui/icons-material/History";
@@ -12,6 +11,8 @@ import { Divider } from "@nextui-org/react";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { ImageFunction, ImageFunctionName } from "@/interfaces/imageFunction";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
 
 export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -52,13 +53,13 @@ export default function Sidebar(): JSX.Element {
       />
     ),
     txt2img: (
-      <AiFillPicture
+      <BorderColorIcon
         style={{ fontSize: 30, minWidth: 30 }}
         className={`${!isExpanded && "m-auto"}`}
       />
     ),
     "render-traces": (
-      <MdBrush
+      <DesignServicesIcon
         style={{ fontSize: 30, minWidth: 30 }}
         className={`${!isExpanded && "m-auto"}`}
       />

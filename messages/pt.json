@@ -27,8 +27,15 @@
     "unexpected_error": "Ocorreu um erro inesperado",
     "have_account": "Já tem conta?"
   },
-  "home_page": {
-    "generate_image": "Gerar imagem"
+  "home": {
+    "access_generations": "Acessar Gerações",
+    "dress-model": "Vestir Modelo",
+    "dress_model_description": "Adicione qualquer roupas únicas ou peças completas a um modelo utilizando IA.",
+    "txt2img": "Imagem a partir de Texto",
+    "txt2img_description": "Crie uma imagem a partir de uma descrição textual. Transforme ideias em representações visuais para projetos criativos ou conceituais.",
+    "render-traces": "Renderizar Traços",
+    "render_traces_description": "Transforme os seus esboços, desenhos e croquis em realidade com a ferramenta de renderizar traços da Vestiq.",
+    "start": "Começar"
   },
   "header": {
     "logout": "Sair",
@@ -40,6 +47,7 @@
     "render-traces": "Renderizar Traços"
   },
   "sidebar": {
+    "": "",
     "home": "Início",
     "my_generations": "Minhas Gerações",
     "dress-model": "Vestir Modelo",
