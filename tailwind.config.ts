@@ -24,9 +24,14 @@ const config: Config = {
         "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",
       },
       animation: {
+        "fade-in": "fade-in 0.3s ease-in-out forwards",
         "spin-bounce": "spinBounce 0.9s linear infinite",
       },
       keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         spinBounce: {
           "0%": {
             transform: "rotateY(0deg) translateY(0%)",

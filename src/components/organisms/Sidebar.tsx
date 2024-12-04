@@ -174,7 +174,7 @@ export default function Sidebar(): JSX.Element {
                     )}
                     {isExpanded && (
                       <span className="ml-3 overflow-hidden whitespace-nowrap">
-                        {func.title}
+                        {text(func.name)}
                       </span>
                     )}
                   </li>
@@ -201,7 +201,7 @@ export default function Sidebar(): JSX.Element {
               onMouseLeave={() => isLocked && setOpenCoinModal(false)}
             >
               <div
-                className={`absolute flex border border-gray-200 rounded-[10px] p-2 left-[45px] bottom-[2px] mb-[12px]
+                className={`absolute flex border border-gray-200 rounded-[10px] p-2 left-[45px] bottom-[2px] mb-[12px] bg-white
                   ${openCoinModal ? "" : "hidden"}`}
               >
                 {<span className="text-[#F10641]">0/1000</span>}
