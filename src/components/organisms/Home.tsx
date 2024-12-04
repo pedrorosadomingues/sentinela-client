@@ -27,7 +27,6 @@ export default function Home(): JSX.Element {
           fontSize: 47,
           minWidth: 47,
           color: "#F10641",
-          marginBottom: 7,
         }}
       />
     ),
@@ -63,10 +62,10 @@ export default function Home(): JSX.Element {
     getImageFunctions();
   }, [getImageFunctions]);
 
-  useEffect(() => {
-    if (imageFunctions !== null) {
-    }
-  }, [imageFunctions]);
+  // useEffect(() => {
+  //   if (imageFunctions !== null) {
+  //   }
+  // }, [imageFunctions]);
 
   useEffect(() => {
     const interval = setInterval(() => {

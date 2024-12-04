@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import { getAllImageFns } from "@/services";
 import { ImageFunction } from "@/interfaces/imageFunction";

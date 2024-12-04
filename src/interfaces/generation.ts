@@ -26,3 +26,19 @@ export interface CreateGenerationResponse {
   data?: any;
   message?: any;
 }
+
+export interface Generation {
+  id: number;
+  params_fashn: Record<string, any>;
+  started_at: string;
+  ended_at: string | null;
+  fn: string;
+  status: string;
+  path: string | null;
+  model_image_path: string;
+  garment_image_path: string;
+  error_message: string | null;
+  deleted_at: string | null;
+  generation_id: string;
+  user_id: number;
+}
