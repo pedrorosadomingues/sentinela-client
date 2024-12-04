@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
+import HistoryIcon from "@mui/icons-material/History";
 
 const Card = ({ title, description, label, isBeta, onClick }: any) => {
   return (
-    <div className="border border-gray-200 rounded-lg p-6 shadow-md flex flex-col items-start bg-white">
+    <div className="border border-gray-200 rounded-lg p-6 shadow-md flex flex-col items-start bg-white w-[25%] mb-[15px] h-[268px] min-w-[369px]">
       <div className="flex items-center justify-between w-full">
         <h3 className="text-lg font-bold text-gray-800">{title}</h3>
         {isBeta && (
@@ -25,12 +26,6 @@ const Card = ({ title, description, label, isBeta, onClick }: any) => {
 
 const CardGrid = () => {
   const cards = [
-    {
-      title: "Acessar gerações",
-      description: "",
-      label: "Entrar",
-      isBeta: false,
-    },
     {
       title: "Vestir modelo",
       description:
@@ -55,7 +50,17 @@ const CardGrid = () => {
   ];
 
   return (
-    <div className="mt-10 p-10 rounded-xl ml-[291px] w-[100%] bg-white mt-[90px] mb-[130px] flex flex-wrap">
+    <div className="mt-10 p-10 rounded-xl w-[100%] ml-[55px] bg-white mt-[90px] mb-[130px] flex flex-wrap gap-[1%]">
+      <div className="border border-gray-200 rounded-lg  mb-[15px] shadow-md flex flex-col items-center bg-white w-[17%] h-[268px] justify-center gap-[8px] min-w-[254px]">
+        <HistoryIcon
+          className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
+          style={{ width: "80px", height: "80px" }}
+        />
+
+        <button className="text-red-500 font-bold text-sm hover:underline">
+          Acessar Gerações
+        </button>
+      </div>
       {cards.map((card, index) => (
         <Card
           key={index}
