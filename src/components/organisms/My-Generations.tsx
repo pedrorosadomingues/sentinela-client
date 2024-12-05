@@ -46,10 +46,7 @@ export default function MyGenerations(): JSX.Element {
               className="flex flex-col w-[300px] h-[300px] bg-white rounded-lg shadow-md animate-fade-in"
             >
               <div className="flex justify-between items-center p-4">
-                <p className="text-lg font-semibold">
-                  Generation {generation.id}
-                </p>
-                <p className="text-sm text-gray-500">{generation.status}</p>
+                <p className="text-sm text-gray-500">{generation.fn}</p>
               </div>
               <div className="flex justify-center items-center h-[200px]">
                 <img

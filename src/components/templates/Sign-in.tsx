@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
 import { useRootStore } from "@/zustand-stores/rootStore";
 import { redirect } from "next/navigation";
+import RootBanner from "@/components/organisms/RootBanner";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
@@ -53,7 +54,7 @@ export default function LoginTemplate(): JSX.Element {
 
   useEffect(() => {
     if (token) {
-     redirect(`/${locale}/main`);
+      redirect(`/${locale}/main`);
     }
   }, []);
 
@@ -142,9 +143,7 @@ export default function LoginTemplate(): JSX.Element {
         </div>
       </div>
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
-        <p className="text-white mt-5 text-sm">
-          {text("powered_by")} <strong>Vestiq</strong>
-        </p>
+        <RootBanner />
       </div>
     </div>
   );
