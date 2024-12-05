@@ -28,6 +28,7 @@ export default function MyGenerations(): JSX.Element {
     }
   }, [generations]);
 
+  
   if (generations.length < 1) {
     return (
       <div className="flex items-center justify-center animate-fade-in">
