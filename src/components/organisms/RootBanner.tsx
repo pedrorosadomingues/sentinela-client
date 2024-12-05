@@ -15,7 +15,7 @@ export default function Banner() {
   //  const currentClient = handleSelectCurrentClient(currentDomain);
 
   return (
-    <aside className="base-blur h-screen w-1/2 relative hidden lg:flex items-center justify-center overflow-hidden">
+    <aside className="base-blur h-screen w-full relative hidden lg:flex items-center justify-center overflow-hidden">
       <div className="h-full w-full relative">
         <span className="right-blur"></span>
         <span className="bottom-blur"></span>
@@ -48,7 +48,8 @@ export default function Banner() {
           {/* {!currentClient && ( */}
           {
             <p className="text-white text-base xl:text-lg w-3/4 mx-auto">
-              {t("description")}
+             Redraw: the AI ​​ecosystem that powers your projects
+             Explore the best of Artificial Intelligence for Architecture, Engineering and Design.
             </p>
           }
           
