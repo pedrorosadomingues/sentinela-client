@@ -1,18 +1,13 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+//import { useTranslations } from "next-intl";
 import React, { useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
 import { motion } from "framer-motion";
-//import { handleSelectCurrentClient } from '@/utils/app-clients';
 
 export default function Banner() {
-  const t = useTranslations("auth.banner");
   const lottieRef = useRef<LottieRefCurrentProps>(null);
-
-  // const currentDomain = window.location.hostname;
-  //  const currentClient = handleSelectCurrentClient(currentDomain);
 
   return (
     <aside className="base-blur h-screen w-full relative hidden lg:flex items-center justify-center overflow-hidden">
@@ -32,10 +27,6 @@ export default function Banner() {
         >
           <Lottie
             lottieRef={lottieRef}
-            onLoopComplete={() => {
-              // lottieRef.current?.goToAndPlay(155, true);
-              // lottieRef.current?.pause();
-            }}
             animationData={GlobeAnimation}
             className="w-full"
             aria-labelledby="use lottie animation"
@@ -43,16 +34,12 @@ export default function Banner() {
         </motion.section>
         <div className="flex flex-col gap-2 w-3/4 xl:w-[700px] text-center">
           <h1 className="text-white font-bold text-2xl xl:text-4xl">
-            {/* {!currentClient ? t('title') : t('description')} */}
+            Redraw: the AI ​​ecosystem that powers your projects
           </h1>
-          {/* {!currentClient && ( */}
-          {
-            <p className="text-white text-base xl:text-lg w-3/4 mx-auto">
-             Redraw: the AI ​​ecosystem that powers your projects
-             Explore the best of Artificial Intelligence for Architecture, Engineering and Design.
-            </p>
-          }
-          
+          <p className="text-white text-base xl:text-lg w-3/4 mx-auto">
+            Explore the best of Artificial Intelligence for Architecture,
+            Engineering and Design.
+          </p>
         </div>
       </article>
     </aside>
