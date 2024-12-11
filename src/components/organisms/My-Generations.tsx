@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useGenerationStore } from "@/zustand-stores";
 import { useEffect, useState } from "react";
+import GenerationCard from "@/components/molecules/GenerationCard";
 
 export default function MyGenerations(): JSX.Element {
   const [visibleCards, setVisibleCards] = useState(0);
@@ -41,21 +42,7 @@ export default function MyGenerations(): JSX.Element {
       <div className="flex flex-wrap justify-center gap-4">
         {generations &&
           generations.slice(0, visibleCards).map((generation) => (
-            <div
-              key={generation.id}
-              className="flex flex-col w-[300px] h-[300px] bg-white rounded-lg shadow-md animate-fade-in"
-            >
-              <div className="flex justify-between items-center p-4">
-                <p className="text-sm text-gray-500">{generation.fn}</p>
-              </div>
-              <div className="flex justify-center items-center h-[200px]">
-                <img
-                  src={generation.path ?? ""}
-                  alt="model"
-                  className="h-[200px]"
-                />
-              </div>
-            </div>
+            <GenerationCard key={generation.id} data={generation} />
           ))}
       </div>
     </div>

@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
-import Card from "@/components/molecules/MainCard";
+import Card from "@/components/molecules/MainOptionCard";
 import { useImageFunctionStore, useMainStore } from "@/zustand-stores";
 import { AiFillCamera } from "react-icons/ai";
 import { ImageFunctionName } from "@/interfaces/imageFunction";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import { useTranslations } from "next-intl";
+import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 
 export default function Home(): JSX.Element {
   const [visibleCards, setVisibleCards] = useState(0);
@@ -107,6 +108,7 @@ export default function Home(): JSX.Element {
             />
           );
         })}
+          <ConfirmationModal />
     </div>
   );
 }

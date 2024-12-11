@@ -4,15 +4,15 @@
 import { useFormik } from "formik";
 import { Button } from "@mui/material";
 import { useState, useRef } from "react";
-import ModelImageControls from "@/components/molecules/Controls/Model-image-controls";
-import SamplingControls from "@/components/molecules/Controls/Sampling-controls";
-import ModelImageArea from "@/components/molecules/ImageArea/Model-image-area";
-import GarmentImageArea from "@/components/molecules/ImageArea/Garment-image-area";
-import ResultImageArea from "@/components/molecules/ImageArea/Result-image-area";
+import ModelImageControls from "@/components/molecules/functions/dress-model/Controls/Model-image-controls";
+import SamplingControls from "@/components/molecules/functions/dress-model/Controls/Sampling-controls";
+import ModelImageArea from "@/components/molecules/functions/dress-model/ImageArea/Model-image-area";
+import GarmentImageArea from "@/components/molecules/functions/dress-model/ImageArea/Garment-image-area";
+import ResultImageArea from "@/components/molecules/functions/dress-model/ImageArea/Result-image-area";
 import { onFileChange } from "@/utils/on-file-change";
 import { handleSubmit } from "@/utils/handle-submit";
-import CategoryBtnArea from "@/components/molecules/CategoryBtnArea";
-import FnButtons from "@/components/molecules/FnButtons";
+import CategoryBtnArea from "@/components/molecules/functions/dress-model/CategoryBtnArea";
+import FnButtons from "@/components/molecules/functions/dress-model/FnButtons";
 import { useTranslations } from "next-intl";
 
 export default function StudioContent(): JSX.Element {

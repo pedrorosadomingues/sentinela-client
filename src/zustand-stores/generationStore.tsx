@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
-import { Generation } from "@/interfaces/generation";
+//import { Generation } from "@/interfaces/generation";
 import { getAllGenerations } from "@/services";
 
-interface GenerationStore {
-  generations: [Generation];
-  setGenerations: (generations: [Generation]) => void;
+interface IGenerationStore {
+  generations: any[];
+  setGenerations: (generations: any[]) => void;
   getGenerations: () => Promise<void>;
+
+  selectedGenerations: number[];
+  setSelectedGenerations: (selectedGenerations: any[]) => void;
 }
 
-export const useGenerationStore = create<GenerationStore>((set) => ({
+export const useGenerationStore = create<IGenerationStore>((set) => ({
   generations: [
     {
       id: 0,
@@ -26,14 +30,17 @@ export const useGenerationStore = create<GenerationStore>((set) => ({
       user_id: 0,
     },
   ],
-  setGenerations: (generations: [Generation]) => set({ generations }),
+  setGenerations: (generations: any[]) => set({ generations }),
   getGenerations: async () => {
     const response = await getAllGenerations();
-    console.log("response", response);
     if (response.status === 200) {
       set({ generations: response.data });
     } else {
       console.error(response.message);
     }
   },
+
+  selectedGenerations: [],
+  setSelectedGenerations: (selectedGenerations: number[]) =>
+    set({ selectedGenerations }),
 }));

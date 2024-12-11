@@ -39,7 +39,7 @@ export default function WelcomePage() {
   }
 
   return (
-    <div className="w-full flex items-center justify-center flex-col">
+    <div className="w-full flex items-center justify-center flex-col"> 
       {rootControl === "login" ? <SignInTemplate /> : <SignUpTemplate />}
     </div>
   );
