@@ -127,7 +127,7 @@ export default function Sidebar(): JSX.Element {
     <aside
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end 
+      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end overflow-hidden
         ${isExpanded ? "w-[281px] flex items-start" : "w-20"} 
         bg-white border-r border-gray-200`}
     >
@@ -159,7 +159,7 @@ export default function Sidebar(): JSX.Element {
             {MAIN_ITEMS.map((item) => (
               <li
                 key={item.name}
-                className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+                className={` mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                    ${
                      mainControl === item.name
                        ? "text-[#F10641] bg-[#FED2DD]"
@@ -169,7 +169,7 @@ export default function Sidebar(): JSX.Element {
               >
                 {item.icon_path}
                 {isExpanded && (
-                  <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]">
+                  <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
                     {item.name}
                   </span>
                 )}
@@ -182,7 +182,7 @@ export default function Sidebar(): JSX.Element {
               imageFunctions.map((func: ImageFunction) => (
                 <li
                   key={func.id}
-                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]  transition-all duration-700 ease-smooth-return-end
                       ${
                         mainControl === text(func.name)
                           ? "text-[#F10641] bg-[#FED2DD]"
