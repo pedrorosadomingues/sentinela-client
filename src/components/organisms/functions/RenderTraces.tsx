@@ -47,7 +47,7 @@ export default function RenderTraces(): JSX.Element {
       <div className="flex flex-col items-center w-1/2 bg-white p-6 rounded-lg shadow-md mr-4">
         <div className="flex items-start justify-start gap-[5px]">
           <Image
-            src="/icons/number-one-red.png"
+            src="/icons/number-one-red.ico"
             alt="1"
             width={24}
             height={24}
@@ -88,9 +88,17 @@ export default function RenderTraces(): JSX.Element {
 
       {/* Seção 2: Detalhes da Imagem */}
       <div className="flex flex-col items-start w-1/2 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-lg font-bold text-gray-700 mb-4">
-          <span className="text-red-500">2️⃣</span> Detalhe sua imagem
-        </h2>
+        <div className="flex items-start justify-start gap-[5px]">
+          <Image
+            src="/icons/number-two-red.ico"
+            alt="2"
+            width={24}
+            height={24}
+          />
+          <h2 className="text-lg font-bold text-gray-700 mb-4">
+            Detalhe sua imagem
+          </h2>
+        </div>
         <form className="w-full space-y-4">
           <div>
             <label
