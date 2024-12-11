@@ -5,29 +5,11 @@ import { useEffect, useState } from "react";
 import GenerationCard from "@/components/molecules/GenerationCard";
 
 export default function MyGenerations(): JSX.Element {
-  const [visibleCards, setVisibleCards] = useState(0);
-
   const { getGenerations, generations } = useGenerationStore();
 
   useEffect(() => {
     getGenerations();
   }, [getGenerations]);
-
-  useEffect(() => {
-    if (generations && generations.length > 0) {
-      const interval = setInterval(() => {
-        setVisibleCards((prev) => {
-          if (prev < generations.length) {
-            return prev + 1;
-          } else {
-            clearInterval(interval);
-            return prev;
-          }
-        });
-      }, 200);
-      return () => clearInterval(interval);
-    }
-  }, [generations]);
 
   if (generations.length < 1) {
     return (
@@ -38,10 +20,10 @@ export default function MyGenerations(): JSX.Element {
   }
 
   return (
-    <div className="flex items-center justify-center animate-fade-in">
+    <div className="flex items-start justify-start animate-fade-in mt-[130px] ml-[-300px]">
       <div className="flex flex-wrap justify-center gap-4">
         {generations &&
-          generations.slice(0, visibleCards).map((generation) => (
+          generations.map((generation) => (
             <GenerationCard key={generation.id} data={generation} />
           ))}
       </div>

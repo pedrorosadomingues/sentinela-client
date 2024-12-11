@@ -9,6 +9,7 @@ import DressModel from "@/components/organisms/functions/DressModel";
 import MyGenerations from "../organisms/My-Generations";
 import Home from "@/components/organisms/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
+import RenderTraces from "../organisms/functions/RenderTraces";
 
 export default function Main(): JSX.Element {
   const router = useRouter();
@@ -57,6 +58,14 @@ export default function Main(): JSX.Element {
         mainControl === "Minhas Gerações" ||
         mainControl === "Mis Generaciones" ? (
         <MyGenerations />
+      ) : mainControl === "Image from Text" ||
+        mainControl === "Imagem a partir de Texto" ||
+        mainControl === "Imagen a partir de Texto" ? (
+        <div>Image from Text</div>
+      ) : mainControl === "Render Traces" ||
+        mainControl === "Renderizar Traços" ||
+        mainControl === "Renderizar Trazos" ? (
+        <RenderTraces />
       ) : (
         <div>My Generations</div>
       )}

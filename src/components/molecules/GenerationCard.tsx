@@ -92,7 +92,7 @@ export default function GenerationCard({ data }: { data: Generation }) {
   return (
     <>
       <div
-        className={`relative w-[25%] aspect-square flex-col items-center justify-center rounded-xl overflow-hidden `}
+        className={`relative w-[300px] aspect-square rounded-xl overflow-hidden `}
         onMouseEnter={() => setIsHidden(true)}
         onMouseLeave={() => setIsHidden(false)}
       >
@@ -134,7 +134,6 @@ export default function GenerationCard({ data }: { data: Generation }) {
             </div>
           </div> */}
         </div>
-        <ConfirmationModal />
       </div>
    
     </>

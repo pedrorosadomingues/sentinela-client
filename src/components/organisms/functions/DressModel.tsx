@@ -15,7 +15,7 @@ import CategoryBtnArea from "@/components/molecules/functions/dress-model/Catego
 import FnButtons from "@/components/molecules/functions/dress-model/FnButtons";
 import { useTranslations } from "next-intl";
 
-export default function StudioContent(): JSX.Element {
+export default function DressModel(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [model_image_path, setModelImagePath] = useState<string>("");
   const [garment_image_path, setGarmentImagePath] = useState<string>("");

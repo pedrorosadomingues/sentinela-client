@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import LanguageSwitcher from "@/components/organisms/LanguageSwitcher";
+import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 
 export default async function LocaleLayout({
   children,
@@ -22,6 +23,7 @@ export default async function LocaleLayout({
     <div lang={locale}>
       <div>
         <NextIntlClientProvider messages={messages}>
+          <ConfirmationModal />
           <LanguageSwitcher />
           {children}
         </NextIntlClientProvider>
