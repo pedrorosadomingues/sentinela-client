@@ -1,16 +1,8 @@
 'use client';
 import { useGlobalStore } from "@/zustand-stores";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-} from "@nextui-org/react";
 
 export default function ConfirmationModal() {
-  const { confirmationModal, closeConfirmation } = useGlobalStore();
+  const { confirmationModal } = useGlobalStore();
 
   if (!confirmationModal.isOpen) return null;
 
@@ -25,41 +17,41 @@ export default function ConfirmationModal() {
   };
 
   return (
-    <Modal
-      backdrop="opaque"
-      placement="center"
-      isOpen={true}
-      onOpenChange={closeConfirmation}
-      size="md"
-      className=" z-[9999]"
+    <div
+      className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/50 backdrop-blur-sm"
+      style={{ backgroundColor: "transparent" }}
+      // Caso queira fechar ao clicar fora do modal:
+      // onClick={closeConfirmation}
     >
-      <ModalContent>
-        <ModalHeader className="flex items-center justify-center">
+      <div
+        className="relative bg-white rounded-[10px] w-full max-w-md mx-4 my-8 shadow-small flex flex-col"
+        onClick={(e) => e.stopPropagation()} // Impede o clique no container de fechar o modal
+      >
+        <header className="flex items-center justify-center p-4 border-b">
           <h1 className="text-xl text-center font-semibold">
             {confirmationModal.title}
           </h1>
-        </ModalHeader>
-        <ModalBody>
+        </header>
+        <main className="p-4">
           <p className="text-center">{confirmationModal.message}</p>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            variant="bordered"
-            className="flex-1 btn btn-secondary"
-            onPress={confirmationModal.onCancel}
+        </main>
+        <footer className="p-4 flex gap-2">
+          <button
+            className="flex-1 btn btn-secondary border border-gray-300 rounded py-2 text-center"
+            onClick={confirmationModal.onCancel}
           >
             Cancelar
-          </Button>
-          <Button
-            className={`flex-1 btn ${btnColorMap(
+          </button>
+          <button
+            className={`flex-1 btn rounded py-2 text-center ${btnColorMap(
               confirmationModal.variant ?? "default"
             )}`}
-            onPress={confirmationModal.onConfirm}
+            onClick={confirmationModal.onConfirm}
           >
             Confirmar
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+          </button>
+        </footer>
+      </div>
+    </div>
   );
 }
