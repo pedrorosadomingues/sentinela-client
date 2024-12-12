@@ -12,7 +12,7 @@ export default function Header(): JSX.Element {
   const searchParams = useSearchParams();
   const locale = useLocale();
   const text = useTranslations("header");
-  const { user, getUser } = useUserStore();
+  const { user, getUser, setUser } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
 
   const [tab, setTab] = useState<string | null>(null);
@@ -20,6 +20,7 @@ export default function Header(): JSX.Element {
   function handleLogout(): void {
     logout();
     router.push(`/${locale}`);
+    setUser(null);
   }
 
   useEffect(() => {

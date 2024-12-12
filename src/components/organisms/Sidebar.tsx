@@ -143,7 +143,7 @@ export default function Sidebar(): JSX.Element {
           />
         ) : (
           <Image
-            src={"/icons/logo-vestiq.png"}
+            src={"/icons/logo-vestiq.ico"}
             alt="Logo"
             style={{ height: "auto" }}
             width={45}
