@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { useGenerationStore } from "@/zustand-stores";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GenerationCard from "@/components/molecules/GenerationCard";
 
 export default function MyGenerations(): JSX.Element {

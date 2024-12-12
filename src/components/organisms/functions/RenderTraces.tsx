@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 interface ImageDetails {
   ambiente: string;
@@ -194,7 +195,7 @@ export default function RenderTraces(): JSX.Element {
             onClick={handleSubmit}
             className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
           >
-            🔥 Gerar imagem agora!
+            <AutoAwesomeIcon className="mr-2"/> Gerar imagem agora!
           </button>
         </form>
       </div>

@@ -10,6 +10,7 @@ import MyGenerations from "../organisms/My-Generations";
 import Home from "@/components/organisms/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
+import ImageFromText from "../organisms/functions/ImageFromText";
 
 export default function Main(): JSX.Element {
   const router = useRouter();
@@ -61,13 +62,13 @@ export default function Main(): JSX.Element {
       ) : mainControl === "Image from Text" ||
         mainControl === "Imagem a partir de Texto" ||
         mainControl === "Imagen a partir de Texto" ? (
-        <div>Image from Text</div>
+        <ImageFromText />
       ) : mainControl === "Render Traces" ||
         mainControl === "Renderizar Traços" ||
         mainControl === "Renderizar Trazos" ? (
         <RenderTraces />
       ) : (
-        <div>My Generations</div>
+        <div>Main</div>
       )}
     </div>
   );
