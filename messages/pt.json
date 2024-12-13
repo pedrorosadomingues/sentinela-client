@@ -1,4 +1,11 @@
 {
+  "root_banner": {
+    "main_title": " Redraw: o ecossistema de IA que impulsiona seus projetos",
+    "sub_title": " Explore o melhor da Inteligência Artificial para Arquitetura, Engenharia e Design."
+  },
+  "language_switcher": {
+    "change": "Trocar idioma"
+  },
   "view-image-modal": {
     "confirmation": "Confirmação",
     "deleteImageConfirmation": "Deseja excluir esta imagem?"

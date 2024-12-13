@@ -6,6 +6,8 @@ import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore } from "@/zustand-stores";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function Header(): JSX.Element {
   const { mainControl, setMainControl } = useMainStore();
 
   const [tab, setTab] = useState<string | null>(null);
+  const [isOpenMenuPerfil, setIsOpenMenuPerfil] = useState(false);
 
   function handleLogout(): void {
     logout();
@@ -50,7 +53,7 @@ export default function Header(): JSX.Element {
         return (
           <div>
             <h1 className="text-2xl text-black">
-              {text("greeting")} {user?.name}
+              {text("greeting")} {user && "name" in user ? user.name : ""}
             </h1>
             <p className="text-black">{text("prompt")}</p>
           </div>
@@ -85,14 +88,24 @@ export default function Header(): JSX.Element {
   return (
     <header className="flex items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px]">
       {renderHeaderContent()}
-      <div className="flex items-center gap-4 aqui">
-        <button
-          className="hover:cursor-pointer text-black"
-          onClick={handleLogout}
-        >
-          {text("logout")}
-        </button>
-      </div>
+
+      <button
+        className="border-0 text-2xl cursor-pointer text-[#F10641]"
+        onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+      >
+        <PermIdentityIcon />
+      </button>
+      {isOpenMenuPerfil && (
+        <div className="absolute flex flex-col gap-2 bg-gray right-[57px] h-full top-[42px] p-2 z-[1000] border-gray-300 rounded">
+          <button
+            className="hover:cursor-pointer text-black"
+            onClick={handleLogout}
+          >
+            {text("logout")}
+          </button>
+          <LanguageSwitcher />
+        </div>
+      )}
     </header>
   );
 }

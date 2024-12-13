@@ -1,4 +1,11 @@
 {
+  "root_banner": {
+    "main_title": " Redraw: the AI ecosystem that powers your projects",
+    "sub_title": " Explore the best of Artificial Intelligence for Architecture, Engineering and Design."
+  },
+  "language_switcher": {
+    "change": "Change language"
+  },
   "view-image-modal": {
     "confirmation": "Confirmation",
     "deleteImageConfirmation": "Do you want to delete this image?"
@@ -103,5 +110,4 @@
     "seed": "Seed",
     "number_of_samples": "Number of Samples"
   }
-
 }

@@ -34,7 +34,7 @@ export default function DressModel(): JSX.Element {
       category: "",
       model_image: "",
       garment_image: "",
-      fn: "",
+      fn: "main",
       cover_feet: false,
       adjust_hands: false,
       restore_background: false,
@@ -59,7 +59,6 @@ export default function DressModel(): JSX.Element {
       const setImagePath =
         name === "model_image" ? setModelImagePath : setGarmentImagePath;
 
-      console.log("file", file);
       await onFileChange(file, name, setImagePath, formik.setFieldValue);
     }
   }
@@ -127,10 +126,10 @@ export default function DressModel(): JSX.Element {
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
             />
-            <FnButtons
+            {/* <FnButtons
               selectedFn={formik.values.fn}
               setFieldValue={formik.setFieldValue}
-            />
+            /> */}
           </div>
           <div className="w-[30%]">
             <div className="ml-auto mb-5">

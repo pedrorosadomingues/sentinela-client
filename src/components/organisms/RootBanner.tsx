@@ -5,12 +5,16 @@ import React, { useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Banner() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
+  const text = useTranslations("root_banner");
 
   return (
     <aside className="base-blur h-screen w-full relative hidden lg:flex items-center justify-center overflow-hidden">
+      <LanguageSwitcher />
       <div className="h-full w-full relative">
         <span className="right-blur"></span>
         <span className="bottom-blur"></span>
@@ -34,11 +38,10 @@ export default function Banner() {
         </motion.section>
         <div className="flex flex-col gap-2 w-3/4 xl:w-[700px] text-center">
           <h1 className="text-white font-bold text-2xl xl:text-4xl">
-            Redraw: the AI ​​ecosystem that powers your projects
+            {text("main_title")}
           </h1>
           <p className="text-white text-base xl:text-lg w-3/4 mx-auto">
-            Explore the best of Artificial Intelligence for Architecture,
-            Engineering and Design.
+            {text("sub_title")}
           </p>
         </div>
       </article>

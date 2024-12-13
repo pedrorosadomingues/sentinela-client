@@ -24,7 +24,6 @@ export default async function LocaleLayout({
       <div>
         <NextIntlClientProvider messages={messages}>
           <ConfirmationModal />
-          <LanguageSwitcher />
           {children}
         </NextIntlClientProvider>
       </div>

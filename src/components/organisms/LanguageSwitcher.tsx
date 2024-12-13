@@ -5,16 +5,18 @@ import { useLocale } from "next-intl";
 import { LOCALES, LOCALE_TO_FLAG } from "@/constants/locales";
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/zustand-stores";
+import { useTranslations } from "next-intl";
 
 export default function LanguageSwitcher() {
-  const { user } = useUserStore();
-  const [isOpen, setIsOpen] = useState(false);
+  const { user, setUser } = useUserStore();
 
+  const [isOpen, setIsOpen] = useState(false);
   const [localUser, setLocalUser] = useState(user);
 
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = useLocale();
+  const text = useTranslations("language_switcher");
 
   const handleLocaleChange = (locale: string) => {
     const pathnameWithoutLocale = pathname.replace(
@@ -22,8 +24,12 @@ export default function LanguageSwitcher() {
       ""
     );
     router.push(`/${locale}${pathnameWithoutLocale}`);
-    setIsOpen(false); // Opcional: fechar o dropdown após a seleção
+    setIsOpen(false);
   };
+
+  useEffect(() => {
+    setUser(null);
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -32,25 +38,24 @@ export default function LanguageSwitcher() {
       setLocalUser(null);
     }
   }, [user]);
-
   if (!localUser) {
     return (
       <div className="fixed right-[60px] top-0 p-4 z-[40]">
         <button
-          className="menu-button "
+          className="bg-transparent border-0 text-2xl cursor-pointer"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          🌐 <span className="text-[12px]">Trocar idioma</span>
+          <span className="text-[12px] text-black">{text("change")}</span>
         </button>
 
         {isOpen && (
-          <div className="language-dropdown">
+          <div className="absolute top-10 right-0 flex flex-col gap-2 bg-white border border-gray-300 rounded p-2 z-[1000]">
             {LOCALES.map((locale) => (
               <button
                 key={locale}
                 onClick={() => handleLocaleChange(locale)}
                 disabled={locale === currentLocale}
-                className="flag-button"
+                className="bg-transparent border-0 cursor-pointer p-0 text-2xl transition-transform duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-default"
               >
                 <span role="img" aria-label={locale}>
                   {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
@@ -59,47 +64,6 @@ export default function LanguageSwitcher() {
             ))}
           </div>
         )}
-
-        <style jsx>{`
-          .menu-button {
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-          }
-
-          .language-dropdown {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 8px;
-            z-index: 1000;
-          }
-
-          .flag-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            font-size: 24px;
-            transition: transform 0.2s;
-          }
-
-          .flag-button:disabled {
-            opacity: 0.5;
-            cursor: default;
-          }
-
-          .flag-button:hover:not(:disabled) {
-            transform: scale(1.1);
-          }
-        `}</style>
       </div>
     );
   }

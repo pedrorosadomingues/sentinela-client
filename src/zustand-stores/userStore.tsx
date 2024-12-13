@@ -3,14 +3,14 @@ import { User, GetUserByIdParams } from "@/interfaces";
 import { getUserById } from "@/services";
 
 interface UserStore {
-  user: User | null;
-  setUser: (user: User) => void;
+  user: User | null | object;
+  setUser: (user: User | null) => void;
   getUser: ({ user_id }: GetUserByIdParams) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: null,
-  setUser: (user: User) => set({ user }),
+  user: {},
+  setUser: (user: User | null) => set({ user }),
   getUser: async ({ user_id }) => {
     const response = await getUserById({ user_id });
     if (response.status === 200) {
