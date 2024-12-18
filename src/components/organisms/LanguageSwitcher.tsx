@@ -29,7 +29,7 @@ export default function LanguageSwitcher() {
 
   useEffect(() => {
     setUser(null);
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     if (user) {
