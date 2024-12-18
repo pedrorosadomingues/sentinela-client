@@ -16,10 +16,15 @@ export interface FnOption {
   selectable: boolean;
 }
 
-export const CATEGORIES: Category[] = [
+export const CATEGORIES_GARMENT: Category[] = [
   { label: "Top", value: "tops" },
   { label: "Bottom", value: "bottoms" },
   { label: "Full-body", value: "one-pieces" },
+];
+
+export const TYPES_GARMENT: Category[] = [
+  { label: "Flat-lay", value: "flat-lay" },
+  { label: "Model", value: "model" },
 ];
 
 export const FN_OPTIONS: FnOption[] = [
@@ -34,3 +39,5 @@ export const CHECKBOX_OPTIONS: CheckboxOption[] = [
   { name: "restore_background", label: "Restore Background" },
   { name: "restore_clothes", label: "Restore Clothes" },
 ];
+
+

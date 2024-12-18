@@ -1,5 +1,5 @@
 import React from "react";
-import { CATEGORIES } from "@/constants/options";
+import { CATEGORIES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
 
 interface CategoryButtonsProps {
@@ -21,7 +21,7 @@ export default function CategoryButtons({
     <div className="mb-5">
       <label>{text("category")}</label>
       <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px]">
-        {CATEGORIES.map((category) => (
+        {CATEGORIES_GARMENT.map((category) => (
           <button
             key={category.value}
             type="button"
@@ -37,6 +37,7 @@ export default function CategoryButtons({
           </button>
         ))}
       </div>
+
       <style jsx>{`
         label {
           font-size: 0.875rem;

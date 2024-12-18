@@ -103,6 +103,11 @@
       "one-pieces": "Full-body"
     }
   },
+  "type_buttons": {
+    "type": "Photo Type",
+    "flat-lay": "Clothing only",
+    "model": "Model"
+  },
   "sampling_controls": {
     "title": "Sampling Controls",
     "guidance_scale": "Guidance Scale",

@@ -11,7 +11,8 @@ import GarmentImageArea from "@/components/molecules/functions/dress-model/Image
 import ResultImageArea from "@/components/molecules/functions/dress-model/ImageArea/Result-image-area";
 import { onFileChange } from "@/utils/on-file-change";
 import { handleSubmit } from "@/utils/handle-submit";
-import CategoryBtnArea from "@/components/molecules/functions/dress-model/CategoryBtnArea";
+import CategoryBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-category-controls";
+import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-type-controls";
 import { useTranslations } from "next-intl";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
@@ -43,6 +44,7 @@ export default function DressModel(): JSX.Element {
       timesteps: 50,
       seed: 42,
       num_samples: 1,
+      garment_photo_type: "auto",
     },
     onSubmit: (values) =>
       handleSubmit(values, setIsLoading, setResultImagePath),
@@ -93,7 +95,10 @@ export default function DressModel(): JSX.Element {
 
   return (
     <div className="p-10 rounded-xl w-[80%] bg-white mt-[90px] mb-[130px]">
-      <form onSubmit={formik.handleSubmit} className="flex flex-col items-center gap-[30px]">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex flex-col items-center gap-[30px]"
+      >
         <div className="flex gap-[30px] justify-center min-h-[457px]">
           <ModelImageArea
             model_image_path={model_image_path}
@@ -121,7 +126,11 @@ export default function DressModel(): JSX.Element {
 
         <div className="flex gap-[30px] justify-center">
           <ModelImageControls formik={formik} />
-          <div className="w-[320px] justify-start flex">
+          <div className="w-[320px] justify-start flex flex-col">
+            <TypeBtnArea
+              selectedType={formik.values.garment_photo_type}
+              setFieldValue={formik.setFieldValue}
+            />
             <CategoryBtnArea
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
@@ -136,7 +145,7 @@ export default function DressModel(): JSX.Element {
                 fullWidth
                 className="bg-primary-background text-white"
               >
-                <AutoAwesomeIcon className="mr-2"/>
+                <AutoAwesomeIcon className="mr-2" />
                 {text("generate_image")}
               </Button>
             </div>

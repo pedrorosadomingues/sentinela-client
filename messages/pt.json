@@ -95,6 +95,11 @@
       "restore_clothes": "Restaurar Roupas"
     }
   },
+  "type_buttons": {
+    "type": "Tipo de foto",
+    "flat-lay": "Apenas a roupa",
+    "model": "Modelo"
+  },
   "category_buttons": {
     "category": "Categoria",
     "categories": {

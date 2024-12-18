@@ -103,6 +103,11 @@
       "one-pieces": "Entero"
     }
   },
+  "type_buttons": {
+    "type": "Tipo de foto",
+    "flat-lay": "Solo ropa",
+    "model": "Modelo"
+  },
   "sampling_controls": {
     "title": "Controles de Muestreo",
     "guidance_scale": "Escala de Orientación",
