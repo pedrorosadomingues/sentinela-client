@@ -20,17 +20,18 @@ export default function CategoryButtons({
   return (
     <div className="mb-5">
       <label>{text("category")}</label>
-      <div className="flex gap-3">
+      <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px]">
         {CATEGORIES.map((category) => (
           <button
             key={category.value}
             type="button"
             onClick={() => setFieldValue("category", category.value)}
-            className={`p-2 ${
+            className={`text-[14px] h-[42px] p-[2px] ${
               selectedCategory === category.value
-                ? "bg-blue-500 text-white"
-                : "bg-gray-300"
+                ? "bg-white text-secondary "
+                : "bg-secondary text-white"
             }`}
+            style={{ borderRadius: "6px" }}
           >
             {text(`categories.${category.value}`)}
           </button>
@@ -41,7 +42,7 @@ export default function CategoryButtons({
           font-size: 0.875rem;
         }
         button {
-          border-radius: 50%;
+          border-radius: 15px;
           transition: background-color 0.2s, color 0.2s;
         }
       `}</style>

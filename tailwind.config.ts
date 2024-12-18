@@ -19,6 +19,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "secondary": "#F10641FF",
       },
       transitionTimingFunction: {
         "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",

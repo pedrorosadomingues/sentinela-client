@@ -95,6 +95,7 @@ export default function ModelImageArea({
           border-width: 1px; 
           border-color: #E5E7EBFF; 
           border-style: solid; 
+          border-radius: 10px;
           box-shadow: 0px 0px 1px
           width: 320px;
           min-height: 450px;
