@@ -119,15 +119,15 @@ export default function DressModel(): JSX.Element {
           />
         </div>
 
-        <div className="flex gap-[42px] justify-center">
+        <div className="flex gap-[30px] justify-center">
           <ModelImageControls formik={formik} />
-          <div className="w-[330px] justify-center flex">
+          <div className="w-[320px] justify-start flex">
             <CategoryBtnArea
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
             />
           </div>
-          <div className="items-start flex-col justify-start w-[330px]">
+          <div className="items-start flex-col justify-start w-[320px] ">
             <div className="mb-5 ">
               <Button
                 type="submit"

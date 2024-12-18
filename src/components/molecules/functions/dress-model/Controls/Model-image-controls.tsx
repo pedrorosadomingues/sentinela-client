@@ -15,7 +15,7 @@ export default function ModelImageControls({
   }
 
   return (
-    <div className="mb-5 h-full w-[330px]">
+    <div className="mb-5 h-full w-[320px]">
       <div
         className="flex items-center justify-start gap-[5px] w-full hover:cursor-pointer"
         onClick={toggleControls}
