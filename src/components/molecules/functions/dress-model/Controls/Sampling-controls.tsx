@@ -2,6 +2,7 @@ import { useState } from "react";
 import ToggleButton from "@/components/atoms/Toggle-button";
 import { SamplingControlsProps } from "@/interfaces/sampling-controls";
 import { useTranslations } from "next-intl";
+import "./range.css";
 
 export default function SamplingControls({ formik }: SamplingControlsProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
   return (
     <div className="mb-5 h-full w-[100%]">
       <div
-        className="flex items-center justify-between hover:cursor-pointer"
+        className="flex items-center justify-start gap-[5px] w-full hover:cursor-pointer"
         onClick={toggleControls}
       >
         <span>{t("title")}</span>
@@ -41,6 +42,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
                     parseFloat(e.target.value)
                   )
                 }
+                className="range-input"
               />
               <span>{formik.values.guidance_scale}</span>
             </div>
@@ -61,6 +63,7 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
                     parseInt(e.target.value, 10)
                   )
                 }
+                className="range-input"
               />
               <span>{formik.values.timesteps}</span>
             </div>

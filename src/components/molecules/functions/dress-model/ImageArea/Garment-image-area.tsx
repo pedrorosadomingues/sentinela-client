@@ -36,8 +36,11 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <div className="mb-5">
-      <label>{text("step2_send_garment_image")}</label>
+    <div className="mb-5 max-w-[320px]">
+      <div className="flex items-center gap-[10px] mb-4">
+        <Image src="/icons/number-two-red.ico" alt="2" width={24} height={24} />
+        <label>{text("step2_send_garment_image")}</label>
+      </div>
       <div
         className="upload-area"
         onClick={() => openFileDialog("garment")}
@@ -59,6 +62,12 @@ export default function GarmentImageArea({
           />
         ) : (
           <div className="flex flex-col justify-center items-center w-full h-full">
+            <Image
+              src="/images/dress-model-second-placeholder.png"
+              alt="upload"
+              width={300}
+              height={300}
+            />
             <p className="text-center w-[70%] text-[18px]">
               {text("drag_file_instruction")}
             </p>
@@ -83,10 +92,12 @@ export default function GarmentImageArea({
           display: flex;
           justify-content: center;
           align-items: center;
-          border: 2px dashed #ccc;
-          border-radius: 10px;
+          border-width: 1px; 
+          border-color: #E5E7EBFF; 
+          border-style: solid; 
+          box-shadow: 0px 0px 1px
           width: 320px;
-          min-height: 320px;
+          min-height: 450px;
           max-height: 550px;
           cursor: pointer;
           text-align: center;

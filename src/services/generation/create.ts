@@ -3,12 +3,9 @@ import api from "@/config/server";
 import httpStatus from "http-status";
 import { CreateGenerationParams, CreateGenerationResponse } from "@/interfaces";
 
-export async function createGeneration({
-  category,
-  model_image,
-  garment_image,
-  fn,
-}: CreateGenerationParams): Promise<CreateGenerationResponse> {
+export async function createGeneration(
+  payload: CreateGenerationParams
+): Promise<CreateGenerationResponse> {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -23,16 +20,7 @@ export async function createGeneration({
       },
     };
 
-    const response = await api.post(
-      "/generation",
-      {
-        category,
-        model_image,
-        garment_image,
-        fn,
-      },
-      config
-    );
+    const response = await api.post("/generation", payload, config);
     return {
       status: httpStatus.OK,
       data: response.data,

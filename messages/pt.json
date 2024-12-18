@@ -70,19 +70,19 @@
     "render-traces": "Renderizar Traços"
   },
   "model_image_area": {
-    "step1_send_model_image": "1) Envie a Imagem do Modelo",
+    "step1_send_model_image": "Imagem do Modelo",
     "model_preview_alt": "Pré-visualização do Modelo",
     "drag_file_instruction": "Para começar a renderizar sua imagem, arraste um arquivo",
     "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo"
   },
   "garment_image_area": {
-    "step2_send_garment_image": "2) Enviar Imagem da Peça",
+    "step2_send_garment_image": "Imagem da peça referência",
     "garment_preview_alt": "Pré-visualização da Peça",
     "drag_file_instruction": "Em seguida, arraste um arquivo",
     "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça"
   },
   "result_image_area": {
-    "step3_your_image": "3) Sua Imagem",
+    "step3_your_image": "Imagem gerada pela IA",
     "result_preview_alt": "Pré-visualização do Resultado",
     "your_image_will_be_displayed_here": "Sua imagem será exibida aqui"
   },

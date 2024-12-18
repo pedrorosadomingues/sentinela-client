@@ -7,7 +7,7 @@ interface ToggleButtonProps {
 
 export default function ToggleButton({ isOpen, onClick }: ToggleButtonProps) {
   return (
-    <button type="button" onClick={onClick}>
+    <button type="button" className="text-red-500" onClick={onClick}>
       {isOpen ? "▾" : "▸"}
     </button>
   );

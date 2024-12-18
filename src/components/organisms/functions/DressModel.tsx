@@ -12,8 +12,8 @@ import ResultImageArea from "@/components/molecules/functions/dress-model/ImageA
 import { onFileChange } from "@/utils/on-file-change";
 import { handleSubmit } from "@/utils/handle-submit";
 import CategoryBtnArea from "@/components/molecules/functions/dress-model/CategoryBtnArea";
-import FnButtons from "@/components/molecules/functions/dress-model/FnButtons";
 import { useTranslations } from "next-intl";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 export default function DressModel(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -92,9 +92,9 @@ export default function DressModel(): JSX.Element {
   }
 
   return (
-    <div className="mt-10 p-10 rounded-xl w-[60%] bg-white mt-[90px] mb-[130px]">
-      <form onSubmit={formik.handleSubmit} className="flex flex-col">
-        <div className="flex w-full gap-[30px] justify-center">
+    <div className="p-10 rounded-xl w-[80%] bg-white mt-[90px] mb-[130px]">
+      <form onSubmit={formik.handleSubmit} className="flex flex-col items-center gap-[30px]">
+        <div className="flex gap-[30px] justify-center min-h-[457px]">
           <ModelImageArea
             model_image_path={model_image_path}
             openFileDialog={openFileDialog}
@@ -119,26 +119,24 @@ export default function DressModel(): JSX.Element {
           />
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex gap-[42px] justify-center">
           <ModelImageControls formik={formik} />
-          <div>
+          <div className="w-[330px] justify-center flex">
             <CategoryBtnArea
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
             />
-            {/* <FnButtons
-              selectedFn={formik.values.fn}
-              setFieldValue={formik.setFieldValue}
-            /> */}
           </div>
-          <div className="w-[30%]">
-            <div className="ml-auto mb-5">
+          <div className="items-start flex-col justify-start w-[330px]">
+            <div className="mb-5 ">
               <Button
                 type="submit"
-                variant="outlined"
+                variant="contained"
                 disabled={isLoading}
                 fullWidth
+                className="bg-primary-background text-white"
               >
+                <AutoAwesomeIcon className="mr-2"/>
                 {text("generate_image")}
               </Button>
             </div>

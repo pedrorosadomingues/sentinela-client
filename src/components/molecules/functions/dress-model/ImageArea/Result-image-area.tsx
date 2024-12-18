@@ -4,6 +4,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 interface ResultImageAreaProps {
   result_image_path: string;
@@ -26,8 +27,16 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <div className="mb-5">
-      <label>{text("step3_your_image")}</label>
+    <div className="mb-5 max-w-[320px]">
+      <div className="flex items-center gap-[10px] mb-4">
+        <Image
+          src="/icons/number-three-red.ico"
+          alt="3"
+          width={24}
+          height={24}
+        />
+        <label>{text("step3_your_image")}</label>
+      </div>
       <div className="result-area">
         {result_image_path ? (
           <img
@@ -40,6 +49,12 @@ export default function ResultImageArea({
           />
         ) : (
           <p className="text-center w-[70%]">
+            <Image
+              src="/images/dress-model-third-placeholder.png"
+              alt="placeholder"
+              width={300}
+              height={300}
+            />
             {text("your_image_will_be_displayed_here")}
           </p>
         )}
@@ -49,10 +64,12 @@ export default function ResultImageArea({
           display: flex;
           justify-content: center;
           align-items: center;
-          border: 2px dashed #ccc;
-          border-radius: 10px;
-          width: 320px;
-          min-height: 320px;
+          border-width: 1px; 
+          border-color: #E5E7EBFF; 
+          border-style: solid; 
+          box-shadow: 0px 0px 1px
+          max-width: 320px;
+          min-height: 450px;
           max-height: 550px;
           text-align: center;
           color: #888;
