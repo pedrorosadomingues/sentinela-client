@@ -18,7 +18,9 @@ export default function SamplingControls({ formik }: SamplingControlsProps) {
         className="flex items-center justify-start gap-[5px] w-full hover:cursor-pointer"
         onClick={toggleControls}
       >
-        <span>{t("title")}</span>
+        <span style={
+        { fontSize: "16px" }
+      }>{t("title")}</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       <div

@@ -20,7 +20,9 @@ export default function ModelImageControls({
         className="flex items-center justify-start gap-[5px] w-full hover:cursor-pointer"
         onClick={toggleControls}
       >
-        <span>{text("title")}</span>
+        <span style={
+        { fontSize: "16px" }
+      }>{text("title")}</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       <div

@@ -27,8 +27,8 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <div className="mb-5 max-w-[320px]">
-      <div className="flex items-center gap-[10px] mb-4">
+    <div className="mb-5 max-w-[320px] min-w-[320px]">
+      <div className="flex items-center gap-[10px] justify-center mb-4">
         <Image
           src="/icons/number-three-red.ico"
           alt="3"
@@ -67,7 +67,7 @@ export default function ResultImageArea({
           border-width: 1px; 
           border-color: #E5E7EBFF; 
           border-style: solid; 
-          border-radius: 10px;
+          border-radius: 6px;
           box-shadow: 0px 0px 1px
           max-width: 320px;
           min-height: 450px;

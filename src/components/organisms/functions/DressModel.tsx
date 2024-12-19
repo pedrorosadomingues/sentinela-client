@@ -38,7 +38,6 @@ export default function DressModel(): JSX.Element {
       fn: "main",
       cover_feet: false,
       adjust_hands: false,
-      restore_background: false,
       restore_clothes: false,
       guidance_scale: 3,
       timesteps: 50,

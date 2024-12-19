@@ -13,12 +13,12 @@ export async function handleSubmit(
     fn: values.fn,
     cover_feet: values.cover_feet,
     adjust_hands: values.adjust_hands,
-    restore_background: values.restore_background,
     restore_clothes: values.restore_clothes,
     guidance_scale: values.guidance_scale,
     timesteps: values.timesteps,
     seed: values.seed,
     num_samples: values.num_samples,
+    garment_photo_type: values.garment_photo_type,
   };
   console.log("payload", payload);
   setIsLoading(true);

@@ -36,7 +36,7 @@ export default function ModelImageArea({
 
   return (
     <div className="mb-5 max-w-[320px] min-w-[320px]">
-      <div className="flex items-center gap-[10px] mb-4">
+      <div className="flex items-center justify-center gap-[10px] mb-4">
         <Image src="/icons/number-one-red.ico" alt="1" width={24} height={24} />
         <label>{text("step1_send_model_image")}</label>
       </div>

@@ -36,7 +36,6 @@ export const FN_OPTIONS: FnOption[] = [
 export const CHECKBOX_OPTIONS: CheckboxOption[] = [
   { name: "cover_feet", label: "Cover Feet" },
   { name: "adjust_hands", label: "Adjust Hands" },
-  { name: "restore_background", label: "Restore Background" },
   { name: "restore_clothes", label: "Restore Clothes" },
 ];
 

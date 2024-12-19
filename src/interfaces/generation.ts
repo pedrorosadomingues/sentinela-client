@@ -6,12 +6,12 @@ export interface FormValues {
   fn: string;
   cover_feet: boolean;
   adjust_hands: boolean;
-  restore_background: boolean;
   restore_clothes: boolean;
   guidance_scale: number;
   timesteps: number;
   seed: number;
   num_samples: number;
+  garment_photo_type: string;
 }
 
 export interface CreateGenerationParams {

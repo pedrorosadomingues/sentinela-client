@@ -19,7 +19,7 @@ export default function TypeButtons({
 
   return (
     <div className="mb-5 flex flex-col">
-      <label>{text("type")}</label>
+      <label style={{ fontSize: "16px" }}>{text("type")}</label>
       <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px]">
         {TYPES_GARMENT.map((type) => (
           <button
