@@ -225,7 +225,7 @@ export default function Sidebar(): JSX.Element {
               onMouseLeave={() => isLocked && setOpenCoinModal(false)}
             >
               <div
-                className={`absolute flex border border-gray-200 z-[99] rounded-[10px] p-2 left-[45px] bottom-[2px] mb-[12px] bg-white
+                className={`fixed flex border border-gray-200 z-[99] rounded-[10px] p-2 left-[65px] bottom-[20px] mb-[12px] bg-white
                   ${openCoinModal ? "" : "hidden"}`}
               >
                 {<span className="text-[#F10641]">0/1000</span>}

@@ -53,6 +53,7 @@
     "my_generations": "Minhas Gerações"
   },
   "header": {
+    "home": "Início",
     "logout": "Sair",
     "greeting": "Olá",
     "prompt": "O que você quer criar hoje?",

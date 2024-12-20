@@ -48,9 +48,7 @@ export default function Header(): JSX.Element {
     const current = mainControl || tab;
 
     switch (current) {
-      case "Home":
-      case "Início":
-      case "Inicio":
+      case text("home"):
         return (
           <div>
             <h1 className="text-2xl text-black">
@@ -60,25 +58,18 @@ export default function Header(): JSX.Element {
           </div>
         );
 
-      case "My Generations":
-      case "Minhas Gerações":
-      case "Mis generaciones":
+      case text("my_generations"):
         return (
           <h1 className="text-2xl text-black">{text("my_generations")}</h1>
         );
 
-      case "Vestir Modelo":
-      case "Dress Model":
+      case text("dress-model"):
         return <h1 className="text-2xl text-black">{text("dress-model")}</h1>;
 
-      case "Imagem a partir de Texto":
-      case "Image from Text":
-      case "Imagen a partir de Texto":
+      case text("txt2img"):
         return <h1 className="text-2xl text-black">{text("txt2img")}</h1>;
 
-      case "Renderizar Traços":
-      case "Render Traces":
-      case "Renderizar Trazos":
+      case text("render-traces"):
         return <h1 className="text-2xl text-black">{text("render-traces")}</h1>;
 
       default:

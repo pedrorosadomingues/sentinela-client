@@ -53,6 +53,8 @@
     "start": "Start generating"
   },
   "header": {
+    "my-perfil": "My Perfil",
+    "home": "Home",
     "logout": "Logout",
     "greeting": "Hello",
     "prompt": "What do you want to create today?",
@@ -62,6 +64,7 @@
     "render-traces": "Render Traces"
   },
   "sidebar": {
+    "my-perfil": "My Perfil",
     "": "",
     "home": "Home",
     "my_generations": "My Generations",

@@ -53,6 +53,7 @@
     "start": "Comenzar"
   },
   "header": {
+    "home": "Inicio",
     "logout": "Cerrar sesión",
     "greeting": "Hola",
     "prompt": "¿Qué quieres crear hoy?",
