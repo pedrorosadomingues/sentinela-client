@@ -19,10 +19,10 @@ export default function CategoryButtons({
 
   return (
     <div className="mb-5">
-      <label style={
-        { fontSize: "16px" }
-      }>{text("category")}</label>
-      <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px]">
+      <label style={{ fontSize: "16px" }}>
+        {text("category")}
+      </label>
+      <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px] mt-[5px]">
         {CATEGORIES_GARMENT.map((category) => (
           <button
             key={category.value}
