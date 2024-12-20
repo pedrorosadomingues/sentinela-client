@@ -42,6 +42,8 @@
     "have_account": "Já tem conta?"
   },
   "home": {
+    "my_profile": "Meu Perfil",
+    "home": "Início",
     "access_generations": "Acessar Gerações",
     "dress-model": "Vestir Modelo",
     "dress_model_description": "Adicione qualquer roupas únicas ou peças completas a um modelo utilizando IA.",
@@ -53,6 +55,7 @@
     "my_generations": "Minhas Gerações"
   },
   "header": {
+    "my_profile": "Meu Perfil",
     "home": "Início",
     "logout": "Sair",
     "greeting": "Olá",
@@ -63,6 +66,7 @@
     "render-traces": "Renderizar Traços"
   },
   "sidebar": {
+    "my_profile": "Meu Perfil",
     "": "",
     "home": "Início",
     "my_generations": "Minhas Gerações",

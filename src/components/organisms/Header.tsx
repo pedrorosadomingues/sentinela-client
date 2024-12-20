@@ -72,6 +72,9 @@ export default function Header(): JSX.Element {
       case text("render-traces"):
         return <h1 className="text-2xl text-black">{text("render-traces")}</h1>;
 
+      case text("my_profile"):
+        return <h1 className="text-2xl text-black">{text("my_profile")}</h1>;
+
       default:
         return <h1 className="text-2xl text-black">{mainControl}</h1>;
     }
@@ -89,7 +92,13 @@ export default function Header(): JSX.Element {
       </button>
       {isOpenMenuPerfil && (
         <div className="absolute flex flex-col bg-white right-[57px] top-[42px] p-4 z-[1000] rounded box-border border border-gray-200 shadow-md rounded-md">
-          <button className="hover:cursor-pointer text-black z-[1000] mb-[5px]">
+          <button
+            className="hover:cursor-pointer text-black z-[1000] mb-[5px]"
+            onClick={() => {
+              setIsOpenMenuPerfil((prev) => !prev);
+              setMainControl(text("my_profile"));
+            }}
+          >
             Meu Perfil
           </button>
           <Divider />

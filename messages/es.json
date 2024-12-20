@@ -42,6 +42,8 @@
     "have_account": "¿Tienes una cuenta?"
   },
   "home": {
+    "my_profile": "Mi Perfil",
+    "home": "Inicio",
     "my_generations": "Mis Generaciones",
     "access_generations": "Acceder a Generaciones",
     "dress-model": "Vestir Modelo",
@@ -53,6 +55,7 @@
     "start": "Comenzar"
   },
   "header": {
+    "my_profile": "Mi Perfil",
     "home": "Inicio",
     "logout": "Cerrar sesión",
     "greeting": "Hola",
@@ -63,6 +66,7 @@
     "render-traces": "Renderizar Trazos"
   },
   "sidebar": {
+    "my_profile": "Mi Perfil",
     "": "",
     "home": "Inicio",
     "my_generations": "Mis Generaciones",

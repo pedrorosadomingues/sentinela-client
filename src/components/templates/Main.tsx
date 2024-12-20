@@ -11,12 +11,16 @@ import Home from "@/components/organisms/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
+import MyProfile from "./My-Profile";
+import { useTranslations } from "next-intl";
 
 export default function Main(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
   const [isLoading, setIsLoading] = useState(true);
+  const text = useTranslations("home");
+
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab) {
@@ -47,26 +51,18 @@ export default function Main(): JSX.Element {
     <div className="bg-primary min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
-      {mainControl === "Home" ||
-      mainControl === "Início" ||
-      mainControl === "Inicio" ? (
+      {mainControl === text("home") ? (
         <Home />
-      ) : mainControl === "Dress Model" ||
-        mainControl === "Vestir Modelo" ||
-        mainControl === "Vestir Modelo" ? (
+      ) : mainControl === text("dress-model") ? (
         <DressModel />
-      ) : mainControl === "My Generations" ||
-        mainControl === "Minhas Gerações" ||
-        mainControl === "Mis Generaciones" ? (
+      ) : mainControl === text("my_generations") ? (
         <MyGenerations />
-      ) : mainControl === "Image from Text" ||
-        mainControl === "Imagem a partir de Texto" ||
-        mainControl === "Imagen a partir de Texto" ? (
+      ) : mainControl === text("txt2img") ? (
         <ImageFromText />
-      ) : mainControl === "Render Traces" ||
-        mainControl === "Renderizar Traços" ||
-        mainControl === "Renderizar Trazos" ? (
+      ) : mainControl === text("render-traces") ? (
         <RenderTraces />
+      ) : mainControl === text("my_profile") ? (
+        <MyProfile />
       ) : (
         <div>Main</div>
       )}

@@ -42,6 +42,8 @@
     "have_account": "Already have an account?"
   },
   "home": {
+    "my_profile": "My Perfil",
+    "home": "Home",
     "my_generations": "My Generations",
     "access_generations": "Access Generations",
     "dress-model": "Dress Model",
@@ -53,7 +55,7 @@
     "start": "Start generating"
   },
   "header": {
-    "my-perfil": "My Perfil",
+    "my_profile": "My Perfil",
     "home": "Home",
     "logout": "Logout",
     "greeting": "Hello",
@@ -64,7 +66,7 @@
     "render-traces": "Render Traces"
   },
   "sidebar": {
-    "my-perfil": "My Perfil",
+    "my_profile": "My Perfil",
     "": "",
     "home": "Home",
     "my_generations": "My Generations",
