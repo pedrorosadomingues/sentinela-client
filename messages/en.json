@@ -48,7 +48,7 @@
     "access_generations": "Access Generations",
     "dress-model": "Dress Model",
     "dress_model_description": "Add any unique clothing or full outfits to a model using AI.",
-    "txt2img": "Text to Image",
+    "txt2img": "Image from Text",
     "txt2img_description": "Create an image from a textual description. Turn ideas into visual representations for creative or conceptual projects.",
     "render-traces": "Render Traces",
     "render_traces_description": "Turn your sketches, drawings, and drafts into reality with Vestiq's trace rendering tool.",

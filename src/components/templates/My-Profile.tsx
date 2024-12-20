@@ -5,7 +5,7 @@ import PlanBilling from "../organisms/my-profile/Plan-Billing";
 
 export default function MyProfile(): JSX.Element {
   return (
-    <div className="bg-primary min-h-screen flex justify-center w-full items-center">
+    <div className="bg-primary min-h-screen flex justify-start w-full items-start mt-[80px] ml-[80px]">
       <MenuProfile />
       <PersonalData />
       <UserProfile />

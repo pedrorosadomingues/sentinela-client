@@ -30,7 +30,7 @@ export default function WelcomePage() {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
         <img
-          src="/icons/logo-vestiq.png"
+          src="/icons/logo-vestiq.ico"
           alt="Loading"
           className="animate-spin-bounce w-24 h-24"
         />

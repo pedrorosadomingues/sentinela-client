@@ -29,16 +29,12 @@ export default function LanguageSwitcher() {
   };
 
   useEffect(() => {
-    if (user) {
-      setLocalUser(user);
-    } else {
-      setLocalUser(null);
-    }
+    setLocalUser(null);
   }, [user]);
 
   if (!localUser) {
     return ( 
-      <div className="fixed right-[60px] top-0 p-4 z-[40]">
+      <div className="fixed right-[60px] top-0 p-4 z-[400]">
         <button
           className="bg-transparent border-0 text-2xl cursor-pointer"
           onClick={() => setIsOpen((prev) => !prev)}
