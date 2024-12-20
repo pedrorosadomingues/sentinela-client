@@ -127,7 +127,7 @@ export default function Sidebar(): JSX.Element {
     <aside
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`select-none fixed h-screen left-0 z-40 transition-all duration-700 ease-smooth-return-end overflow-hidden
+      className={`select-none fixed h-screen left-0 z-[5000] transition-all duration-700 ease-smooth-return-end overflow-hidden
         ${isExpanded ? "w-[281px] flex items-start" : "w-20"} 
         bg-white border-r border-gray-200`}
     >

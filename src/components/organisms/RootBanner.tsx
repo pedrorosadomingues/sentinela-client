@@ -6,7 +6,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSwitcher from "./RootLanguageSwitcher";
 
 export default function Banner() {
   const lottieRef = useRef<LottieRefCurrentProps>(null);

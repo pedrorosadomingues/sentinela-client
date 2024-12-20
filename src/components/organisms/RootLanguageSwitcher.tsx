@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
@@ -28,24 +29,21 @@ export default function LanguageSwitcher() {
   };
 
   useEffect(() => {
-    setUser(null);
-  }, [setUser]);
-
-  useEffect(() => {
     if (user) {
       setLocalUser(user);
     } else {
       setLocalUser(null);
     }
   }, [user]);
+
   if (!localUser) {
-    return (
+    return ( 
       <div className="fixed right-[60px] top-0 p-4 z-[40]">
         <button
           className="bg-transparent border-0 text-2xl cursor-pointer"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <span className="text-[12px] text-black">{text("change")}</span>
+          <span className="text-[16px] text-black">{text("change")}</span>
         </button>
 
         {isOpen && (

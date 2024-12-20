@@ -6,8 +6,9 @@ import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore } from "@/zustand-stores";
+import LanguageSwitcher from "./MainLanguageSwitcher";
+import { Divider } from "@nextui-org/react";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <header className="flex items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px]">
+    <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white">
       {renderHeaderContent()}
 
       <button
@@ -96,14 +97,19 @@ export default function Header(): JSX.Element {
         <PermIdentityIcon />
       </button>
       {isOpenMenuPerfil && (
-        <div className="absolute flex flex-col gap-2 bg-gray right-[57px] h-full top-[42px] p-2 z-[1000] border-gray-300 rounded">
+        <div className="absolute flex flex-col bg-white right-[57px] top-[42px] p-4 z-[1000] rounded box-border border border-gray-200 shadow-md rounded-md">
+          <button className="hover:cursor-pointer text-black z-[1000] mb-[5px]">
+            Meu Perfil
+          </button>
+          <Divider />
+          <LanguageSwitcher />
+          <Divider />
           <button
-            className="hover:cursor-pointer text-black"
+            className="hover:cursor-pointer text-black bg-white mt-[5px]"
             onClick={handleLogout}
           >
             {text("logout")}
           </button>
-          <LanguageSwitcher />
         </div>
       )}
     </header>
