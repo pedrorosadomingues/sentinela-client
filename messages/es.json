@@ -1,4 +1,9 @@
 {
+  "menu_profile": {
+    "user_profile": "Perfil de Usuario",
+    "personal_data": "Datos Personales",
+    "plan_billing": "Plan y Facturación"
+  },
   "root_banner": {
     "main_title": " Redraw: el ecosistema de IA que impulsa tus proyectos",
     "sub_title": " Explora lo mejor de la Inteligencia Artificial para Arquitectura, Ingeniería y Diseño."

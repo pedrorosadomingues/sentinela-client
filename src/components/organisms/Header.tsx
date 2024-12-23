@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useUserStore, useMainStore } from "@/zustand-stores";
 import LanguageSwitcher from "./MainLanguageSwitcher";
 import { Divider } from "@nextui-org/react";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -84,12 +84,18 @@ export default function Header(): JSX.Element {
     <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white">
       {renderHeaderContent()}
 
-      <button
-        className="border-0 text-2xl cursor-pointer text-[#F10641]"
-        onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
-      >
-        <PermIdentityIcon />
-      </button>
+      <div>
+        <button
+          className="border text-2xl bg-gray-200 cursor-pointer text-[#F10641] rounded-[50%] pl-2 pr-2 border-secondary"
+          onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+        >
+          {user && "name" in user ? user.name[0] : ""}
+        </button>
+        <KeyboardArrowDownIcon
+          className="text-[#F10641] cursor-pointer"
+          onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+        />
+      </div>
       {isOpenMenuPerfil && (
         <div className="absolute flex flex-col bg-white right-[57px] top-[42px] p-4 z-[1000] rounded box-border border border-gray-200 shadow-md rounded-md">
           <button

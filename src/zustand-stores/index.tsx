@@ -4,3 +4,4 @@ export * from "./imageFunctionStore";
 export * from "./rootStore";
 export * from "./generationStore";
 export * from "./globalStore";
+export * from "./myProfileStore";

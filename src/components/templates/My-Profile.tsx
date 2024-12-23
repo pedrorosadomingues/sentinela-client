@@ -2,14 +2,21 @@ import MenuProfile from "../organisms/my-profile/Menu-Profile";
 import PersonalData from "../organisms/my-profile/Personal-Data";
 import UserProfile from "../organisms/my-profile/User-Profile";
 import PlanBilling from "../organisms/my-profile/Plan-Billing";
+import { useMyProfileStore } from "@/zustand-stores";
+import { useTranslations } from "next-intl";
 
 export default function MyProfile(): JSX.Element {
+  const { profileControl } = useMyProfileStore();
+  const text = useTranslations("menu_profile");
+
   return (
     <div className="bg-primary min-h-screen flex justify-start w-full items-start mt-[80px] ml-[80px]">
       <MenuProfile />
-      <PersonalData />
-      <UserProfile />
-      <PlanBilling />
+      <div className="flex flex-col w-full">
+        {profileControl === text("user_profile") && <UserProfile />}
+        {profileControl === text("personal_data") && <PersonalData />}
+        {profileControl === text("plan_billing") && <PlanBilling />}
+      </div>
     </div>
   );
 }

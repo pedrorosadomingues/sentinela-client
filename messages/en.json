@@ -1,4 +1,9 @@
 {
+  "menu_profile": {
+    "user_profile": "User Profile",
+    "personal_data": "Personal Data",
+    "plan_billing": "Plan & Billing"
+  },
   "root_banner": {
     "main_title": " Redraw: the AI ecosystem that powers your projects",
     "sub_title": " Explore the best of Artificial Intelligence for Architecture, Engineering and Design."

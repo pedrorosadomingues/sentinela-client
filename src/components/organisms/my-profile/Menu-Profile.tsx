@@ -1,65 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { FaInfoCircle } from "react-icons/fa";
-import { AiFillCamera } from "react-icons/ai";
+import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useMainStore, useImageFunctionStore } from "@/zustand-stores";
+import { useMyProfileStore } from "@/zustand-stores";
 import { Divider } from "@nextui-org/react";
-import { ImageFunction, ImageFunctionName } from "@/interfaces/imageFunction";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import CheckroomIcon from "@mui/icons-material/Checkroom";
-import HistoryIcon from "@mui/icons-material/History";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
-export default function Sidebar(): JSX.Element {
-  const { setMainControl, mainControl } = useMainStore();
+export default function MenuProfile(): JSX.Element {
+  const { setProfileControl, profileControl } = useMyProfileStore();
 
-  const text = useTranslations("sidebar");
+  const text = useTranslations("menu_profile");
 
   const MAIN_ITEMS = [
     {
-      name: text("home"),
+      name: text("user_profile"),
     },
     {
-      name: text("my_generations"),
+      name: text("personal_data"),
     },
+    { name: text("plan_billing") },
   ];
 
   useEffect(() => {
-
-    const normalizedControl = mainControl.toLowerCase();
+    const normalizedControl = profileControl.toLowerCase();
 
     switch (normalizedControl) {
-      case "home":
-      case "início":
-      case "inicio":
-        setMainControl(text("home"));
+      case "user profile":
+      case "perfil de usuario":
+      case "perfil do usuário":
+        setProfileControl(text("user_profile"));
         break;
 
-      case "minhas gerações":
-      case "my generations":
-      case "mis generaciones":
-        setMainControl(text("my_generations"));
+      case "datos personales":
+      case "dados pessoais":
+      case "peronal data":
+        setProfileControl(text("personal_data"));
         break;
 
-      case "vestir modelo":
-      case "dress model":
-        setMainControl(text("dress-model"));
-        break;
-
-      case "imagem a partir de texto":
-      case "image from text":
-      case "imagen a partir de texto":
-        setMainControl(text("txt2img"));
-        break;
-
-      case "renderizar traços":
-      case "render traces":
-      case "renderizar trazos":
-        setMainControl(text("render-traces"));
+      case "plan & billing":
+      case "plano e faturamento":
+      case "plan y facturación":
+        setProfileControl(text("plan_billing"));
         break;
 
       default:
@@ -69,7 +48,7 @@ export default function Sidebar(): JSX.Element {
 
   return (
     <div
-      className={`select-none z-[4000] w-[251px] flex items-start bg-white border-r border-gray-200`}
+      className={`select-none z-[4000] w-[451px] flex items-start bg-white border-r border-gray-200`}
     >
       <div className="p-4 flex flex-col items-center relative h-full">
         <div className="flex flex-col justify-between h-full">
@@ -82,11 +61,11 @@ export default function Sidebar(): JSX.Element {
                 key={item.name}
                 className={` mb-2 flex flex-col items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                    ${
-                     mainControl === item.name
+                     profileControl === item.name
                        ? "text-[#F10641] bg-[#FED2DD]"
                        : ""
                    }`}
-                onClick={() => setMainControl(item.name)}
+                onClick={() => setProfileControl(item.name)}
               >
                 <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
                   {item.name}
