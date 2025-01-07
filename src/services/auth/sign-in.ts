@@ -21,6 +21,8 @@ export async function login({
     const response = await api.post("/auth/sign-in", {
       email,
       password,
+    }, {
+      withCredentials: true,
     });
     return {
       status: httpStatus.OK,
