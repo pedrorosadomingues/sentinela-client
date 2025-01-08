@@ -81,23 +81,6 @@ export default function SignUpTemplate(): JSX.Element {
             </div>
             <div className="mb-5">
               <TextField
-                label={text("last_name")}
-                variant="outlined"
-                name="lastname"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                className="w-full"
-                type="text"
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
-                required
-              />
-            </div>
-            <div className="mb-5">
-              <TextField
                 label={text("email")}
                 variant="outlined"
                 name="email"
