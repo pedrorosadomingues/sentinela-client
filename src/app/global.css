@@ -7,10 +7,10 @@
   --foreground: #000000; /* Cor do texto no modo claro */
 }
 
-.dark {
-  --background: #000000; /* Cor de fundo no modo escuro */
-  --foreground: #ffffff; /* Cor do texto no modo escuro */
-}
+/* .dark {
+  --background: #000000;
+  --foreground: #ffffff;
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {

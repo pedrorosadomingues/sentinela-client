@@ -7,6 +7,7 @@ import { signUp } from "@/services/user/sign-up";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { useRootStore } from "@/zustand-stores/rootStore";
+import RootBanner from "@/components/organisms/RootBanner";
 
 export default function SignUpTemplate(): JSX.Element {
   const text = useTranslations("sign_up_page");
@@ -162,14 +163,17 @@ export default function SignUpTemplate(): JSX.Element {
             className="flex justify-center mt-5 text-sm ml-auto mr-auto"
             onClick={() => setRootControl("login")}
           >
-           <p>{text("have_account")} <span className="hover:cursor-pointer text-[#F83A14] hover:underline hover:text-[#F83A14] font-medium">{text("back_to_login")}</span></p>
+            <p>
+              {text("have_account")}{" "}
+              <span className="hover:cursor-pointer text-[#F83A14] hover:underline hover:text-[#F83A14] font-medium">
+                {text("back_to_login")}
+              </span>
+            </p>
           </p>
         </div>
       </div>
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
-        <p className="text-white mt-5 text-sm">
-          {text("powered_by")} <strong>Vestiq</strong>
-        </p>
+        <RootBanner />
       </div>
     </div>
   );
