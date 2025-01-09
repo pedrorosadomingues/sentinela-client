@@ -34,7 +34,7 @@
   },
   "sign_up_page": {
     "sign_up": "Sign up",
-    "name": "Name",
+    "name": "Full Name",
     "last_name": "Last name",
     "email": "Email",
     "password": "Password",

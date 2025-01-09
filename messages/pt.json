@@ -34,7 +34,7 @@
   },
   "sign_up_page": {
     "sign_up": "Cadastre-se",
-    "name": "Nome",
+    "name": "Nome Completo",
     "last_name": "Sobrenome",
     "email": "Email",
     "password": "Senha",
