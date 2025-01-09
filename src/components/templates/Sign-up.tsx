@@ -113,7 +113,7 @@ export default function SignUpTemplate(): JSX.Element {
                 required
               />
             </div>
-            <div className="mb-5">
+            {/* <div className="mb-5">
               <TextField
                 label={text("confirm_password")}
                 variant="outlined"
@@ -129,7 +129,7 @@ export default function SignUpTemplate(): JSX.Element {
                 }}
                 required
               />
-            </div>
+            </div> */}
             <div className="ml-auto mb-5 w-full">
               <Button
                 type="submit"
