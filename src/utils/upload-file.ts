@@ -15,7 +15,7 @@ export async function uploadFile(
     }).toString();
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}upload/generate-presigned-url?${queryParams}`,
+      `${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/upload/generate-presigned-url?${queryParams}`,
       {
         method: "POST",
         headers: {
