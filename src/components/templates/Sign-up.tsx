@@ -4,12 +4,14 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { useRootStore } from "@/zustand-stores/rootStore";
+import { login } from "@/services";
 import RootBanner from "@/components/organisms/RootBanner";
 
 export default function SignUpTemplate(): JSX.Element {
+  const locale = useLocale();
   const text = useTranslations("sign_up_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -32,7 +34,17 @@ export default function SignUpTemplate(): JSX.Element {
 
         if (response.status === 200) {
           toast.success(text("user_created_successfully"));
-          window.location.href = "/main";
+          const response = await login({
+            email: formik.values.email,
+            password: formik.values.password,
+          });
+
+          if (response.status === 200) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user_id", response.data.user.id);
+            localStorage.setItem("user_name", response.data.user.name);
+            window.location.href = `/${locale}/main`;
+          }
         } else {
           toast.error(
             text("error_creating_user") +
