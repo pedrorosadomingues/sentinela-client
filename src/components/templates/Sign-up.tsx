@@ -32,7 +32,7 @@ export default function SignUpTemplate(): JSX.Element {
 
         if (response.status === 200) {
           toast.success(text("user_created_successfully"));
-          window.location.href = "/";
+          window.location.href = "/main";
         } else {
           toast.error(
             text("error_creating_user") +

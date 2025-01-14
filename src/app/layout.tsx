@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vestiq - Fash.AI",
-  description: "Vestiq - Fash.AI",
+  title: "Vestiq",
+  description: "Vestiq",
   icons: [
     {
       url: "/icons/logo-vestiq.ico",
