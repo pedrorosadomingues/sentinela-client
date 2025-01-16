@@ -35,7 +35,7 @@ export default function DressModel(): JSX.Element {
       category: "",
       model_image: "",
       garment_image: "",
-      fn: "main",
+      fn: "dress-model",
       cover_feet: false,
       adjust_hands: false,
       restore_clothes: false,
