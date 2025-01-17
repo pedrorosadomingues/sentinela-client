@@ -5,6 +5,7 @@ export interface User {
   password: string;
   created_at: Date | null;
   updated_at: Date | null;
+  v_coins: number;
 }
 
 export interface GetUserByIdParams {

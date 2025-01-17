@@ -4,12 +4,15 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { useRootStore } from "@/zustand-stores/rootStore";
+import { login, createCoinReceiptService } from "@/services";
 import RootBanner from "@/components/organisms/RootBanner";
+import { FIRST_ACCESSS_TYPE_ID, FIRST_ACCESS_COINS } from "@/constants";
 
 export default function SignUpTemplate(): JSX.Element {
+  const locale = useLocale();
   const text = useTranslations("sign_up_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -24,20 +27,35 @@ export default function SignUpTemplate(): JSX.Element {
     onSubmit: async () => {
       setIsLoading(true);
       try {
-        const response = await signUp({
+        const responseSignUp = await signUp({
           name: formik.values.name,
           email: formik.values.email,
           password: formik.values.password,
         });
 
-        if (response.status === 200) {
+        if (responseSignUp.status === 200) {
           toast.success(text("user_created_successfully"));
-          window.location.href = "/";
+          const responseLogin = await login({
+            email: formik.values.email,
+            password: formik.values.password,
+          });
+
+          if (responseLogin.status === 200) {
+            localStorage.setItem("token", responseLogin.data.token);
+            localStorage.setItem("user_id", responseLogin.data.user.id);
+            localStorage.setItem("user_name", responseLogin.data.user.name);
+            await createCoinReceiptService({
+              v_coins: FIRST_ACCESS_COINS,
+              type_id: FIRST_ACCESSS_TYPE_ID,
+              user_email: responseLogin.data.user.email,
+            });
+            window.location.href = `/${locale}/main`;
+          }
         } else {
           toast.error(
             text("error_creating_user") +
               " " +
-              JSON.stringify(response.message?.error)
+              JSON.stringify(responseSignUp.message?.error)
           );
         }
       } catch (error) {

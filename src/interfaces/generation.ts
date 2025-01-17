@@ -14,7 +14,7 @@ export interface FormValues {
   garment_photo_type: string;
 }
 
-export interface CreateGenerationParams {
+export interface CreateGenerationBody {
   category: string;
   model_image: string;
   garment_image: string;

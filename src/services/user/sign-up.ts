@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { SignUpParams, SignUpResponse } from "@/interfaces";
+import { SignUpBody, SignUpResponse } from "@/interfaces";
 
 export async function signUp({
   email,
   password,
   name,
-}: SignUpParams): Promise<SignUpResponse> {
+}: SignUpBody): Promise<SignUpResponse> {
   try {
     const response = await api.post("/user/sign-up", {
       email,

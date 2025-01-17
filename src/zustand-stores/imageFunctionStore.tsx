@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { getAllImageFns } from "@/services";
-import { ImageFunction } from "@/interfaces/imageFunction";
+import { ImageFunction } from "@/interfaces/image-function";
 
 interface ImageFunctionStore {
   imageFunctions: [ImageFunction];
