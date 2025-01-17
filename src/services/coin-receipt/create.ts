@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { CreateGenerationBody, CreateGenerationResponse } from "@/interfaces";
+import { CreateCoinReceiptBody, CoinReceiptResponse } from "@/interfaces";
 
-export async function createGeneration(
-  createGenerationBody: CreateGenerationBody
-): Promise<CreateGenerationResponse> {
+export async function createCoinReceiptService(
+  createCoinReceiptBody: CreateCoinReceiptBody
+): Promise<CoinReceiptResponse> {
   const token = localStorage.getItem("token");
   if (!token) {
     return {
@@ -18,19 +18,17 @@ export async function createGeneration(
       Authorization: `Bearer ${token}`,
     },
   };
-
   try {
-    const response = await api.post("/generation", createGenerationBody, config);
+    const response = await api.post("/coin-receipt", createCoinReceiptBody, config);
     return {
       status: httpStatus.OK,
       data: response.data,
     };
   } catch (error: any) {
-    console.log("error", error);
     if (error.response) {
       return {
-        status: error.status,
-        message: error.response.data.error || "Unknown error",
+        status: error.response.status,
+        message: error.response.data || "Unknown error",
       };
     } else {
       return {

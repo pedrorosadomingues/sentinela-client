@@ -4,15 +4,20 @@ import Image from "next/image";
 import { FaInfoCircle } from "react-icons/fa";
 import { AiFillCamera } from "react-icons/ai";
 import { useTranslations } from "next-intl";
-import { useMainStore, useImageFunctionStore } from "@/zustand-stores";
+import {
+  useMainStore,
+  useImageFunctionStore,
+  useUserStore,
+} from "@/zustand-stores";
 import { Divider } from "@nextui-org/react";
-import { ImageFunction, ImageFunctionName } from "@/interfaces/imageFunction";
+import { ImageFunction, ImageFunctionName } from "@/interfaces/image-function";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import HistoryIcon from "@mui/icons-material/History";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { User } from "@/interfaces";
 
 export default function Sidebar(): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -21,6 +26,7 @@ export default function Sidebar(): JSX.Element {
 
   const { setMainControl, mainControl } = useMainStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
+  const { user } = useUserStore();
 
   const text = useTranslations("sidebar");
 
@@ -228,7 +234,11 @@ export default function Sidebar(): JSX.Element {
                 className={`fixed flex border border-gray-200 z-[99] rounded-[10px] p-2 left-[65px] bottom-[20px] mb-[12px] bg-white
                   ${openCoinModal ? "" : "hidden"}`}
               >
-                {<span className="text-[#F10641]">0/1000</span>}
+                {
+                  <span className="text-[#F10641]">
+                    {Number((user as User)?.v_coins).toFixed(2)}V
+                  </span>
+                }
               </div>
               <Image
                 src="/icons/coins-icon.png"
@@ -237,7 +247,11 @@ export default function Sidebar(): JSX.Element {
                 height={25}
                 priority={true}
               />
-              {isExpanded && <span className="text-[#F10641]">0/1000</span>}
+              {isExpanded && user && "v_coins" in user && (
+                <span className="text-[#F10641]">
+                  {Number((user as User)?.v_coins).toFixed(2)}V
+                </span>
+              )}
             </div>
           </div>
         </div>

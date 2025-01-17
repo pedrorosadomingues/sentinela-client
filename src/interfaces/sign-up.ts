@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface SignUpParams {
+export interface SignUpBody {
   email: string;
   password: string;
   name: string;

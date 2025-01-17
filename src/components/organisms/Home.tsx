@@ -4,7 +4,7 @@ import HistoryIcon from "@mui/icons-material/History";
 import Card from "@/components/molecules/MainOptionCard";
 import { useImageFunctionStore, useMainStore } from "@/zustand-stores";
 import { AiFillCamera } from "react-icons/ai";
-import { ImageFunctionName } from "@/interfaces/imageFunction";
+import { ImageFunctionName } from "@/interfaces/image-function";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import { useTranslations } from "next-intl";
