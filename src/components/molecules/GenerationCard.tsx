@@ -1,28 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
-import { FaEllipsisV } from "react-icons/fa"; // Ícone de menu
-import { useTranslations } from "next-intl";
+import { FaEllipsisV } from "react-icons/fa";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadButton from "../atoms/DownloadButton";
 
 export default function GenerationCard({ data }: { data: Generation }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const t = useTranslations("view-image-modal");
-
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
   };
 
   const handleDelete = async () => {
     alert("Imagem deletada!");
-    // Adicionar lógica de exclusão aqui
   };
 
   return (
     <div className="relative w-[300px] aspect-square rounded-xl overflow-hidden">
       <div className="absolute top-2 right-2 z-[2]">
-        {/* Botão do menu */}
         <button
           className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
           onClick={toggleMenu}
@@ -30,7 +25,6 @@ export default function GenerationCard({ data }: { data: Generation }) {
           <FaEllipsisV />
         </button>
 
-        {/* Menu de ações */}
         {isMenuVisible && (
           <div className="absolute top-10 right-0 bg-white shadow-lg rounded-lg p-2 z-[3]">
             <ul className="flex flex-col gap-2">
