@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
-import ConfirmationModal from "@/components/organisms/ConfirmationModal";
+import DownloadButton from "../atoms/DownloadButton";
 
 export default function GenerationCard({ data }: { data: Generation }) {
   const [isHidden, setIsHidden] = useState(true);
@@ -89,6 +89,8 @@ export default function GenerationCard({ data }: { data: Generation }) {
   // const currentItem = generations.find((item: any) => item.id === data.id);
   //const isChecked = currentItem?.checked || false;
 
+  console.log(data);
+
   return (
     <>
       <div
@@ -96,6 +98,7 @@ export default function GenerationCard({ data }: { data: Generation }) {
         onMouseEnter={() => setIsHidden(true)}
         onMouseLeave={() => setIsHidden(false)}
       >
+        <DownloadButton path={(data.path) as string} />
         <DeleteIcon
           className={`absolute top-2 right-2 z-[2] cursor-pointer`}
           style={{ color: "#F10641", display: "block" }}
@@ -135,7 +138,6 @@ export default function GenerationCard({ data }: { data: Generation }) {
           </div> */}
         </div>
       </div>
-   
     </>
   );
 }
