@@ -1,4 +1,5 @@
 import { extractFileName } from "@/utils/extract-filename";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 export default function DownloadButton({ path }: { path: string }) {
   async function fetchDownloadUrl() {
@@ -44,9 +45,9 @@ export default function DownloadButton({ path }: { path: string }) {
   return (
     <button
       onClick={fetchDownloadUrl}
-      className="bg-blue-500 text-white px-4 py-2 rounded-md"
+      className="bg-blue-700 text-white rounded-md"
     >
-      Baixar Imagem
+      <FileDownloadIcon className="bg-blue-700 rounded" />
     </button>
   );
 }
