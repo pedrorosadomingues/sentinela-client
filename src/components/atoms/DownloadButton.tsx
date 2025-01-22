@@ -19,8 +19,6 @@ export default function DownloadButton({ path }: { path: string }) {
       const data = await response.json();
 
       if (data.downloadUrl) {
-        console.log("Download URL:", data.downloadUrl);
-
         // Faz o download diretamente sem abrir outra aba
         const downloadResponse = await fetch(data.downloadUrl);
         const blob = await downloadResponse.blob();
