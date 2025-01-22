@@ -37,7 +37,7 @@ export default function GenerationCard({ data }: { data: Generation }) {
                 </button>
               </li>
               <li>
-                <DownloadButton path={data.path as string} />
+                <DownloadButton generation={data}/>
               </li>
             </ul>
           </div>
