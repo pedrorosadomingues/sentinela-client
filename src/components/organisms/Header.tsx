@@ -28,15 +28,15 @@ export default function Header(): JSX.Element {
   }
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("user_id");
+    const stored_user_id = localStorage.getItem("user_id");
+    const local_user = stored_user_id
+      ? getUser({ user_id: stored_user_id })
+      : null;
 
-    if (storedUserId && storedUserId !== "null") {
-      getUser({ user_id: storedUserId });
-    } else {
+    if (!local_user) {
       alert("Please login again");
       redirect(`/${locale}`);
     }
-
     const currentTab = searchParams.get("tab");
     if (currentTab) {
       setMainControl(currentTab);
