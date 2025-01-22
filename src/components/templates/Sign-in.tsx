@@ -60,14 +60,15 @@ export default function LoginTemplate(): JSX.Element {
 
   return (
     <div className="min-h-screen w-screen flex items-center aqui">
-      <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
-        <div className="w-[65%] h-[450px] flex-col justify-between flex">
+      <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center max1030:w-full max1030:p-0 max1030:pb-[150px] max1030:max-w-[576px] max1030:m-auto">
+        <div className="w-[65%] h-[450px] flex-col justify-between flex max1030:w-[85%]">
           <Image
             src={"/images/logo-vestiq.png"}
             alt="Vestiq logo"
             width={150}
             height={250}
             priority={true}
+            className="mb-[40px]"
           />
           <p className="text-[30px] font-bold">{text("login")}</p>
           <p className="text-gray-500 text-sm mb-[35px]">
@@ -125,7 +126,7 @@ export default function LoginTemplate(): JSX.Element {
                 variant="contained"
                 disabled={isLoading}
                 fullWidth
-                className="bg-primary-background"
+                className="bg-primary-background h-[48px] !rounded-[0.5rem]"
               >
                 {text("login") + ">>"}
               </Button>
@@ -142,7 +143,7 @@ export default function LoginTemplate(): JSX.Element {
           </p>
         </div>
       </div>
-      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
+      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
         <RootBanner />
       </div>
     </div>

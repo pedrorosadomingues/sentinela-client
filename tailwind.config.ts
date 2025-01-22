@@ -19,7 +19,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        "secondary": "#F10641FF",
+        secondary: "#F10641FF",
       },
       transitionTimingFunction: {
         "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",
@@ -51,6 +51,14 @@ const config: Config = {
           },
         },
       },
+    },
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      max515: { max: "1030px" },
+      max1030: { max: '1030px' },
     },
   },
   plugins: [],

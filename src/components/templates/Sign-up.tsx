@@ -69,7 +69,7 @@ export default function SignUpTemplate(): JSX.Element {
 
   return (
     <div className="min-h-screen w-screen flex items-center">
-      <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center">
+      <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center  max1030:w-full max1030:p-0 max1030:pb-[150px] max1030:max-w-[576px] max1030:m-auto">
         <div className="w-[65%] h-[100%] flex-col justify-center flex gap-[25px]">
           <Image
             src={"/images/logo-vestiq.png"}
@@ -154,7 +154,7 @@ export default function SignUpTemplate(): JSX.Element {
                 variant="contained"
                 disabled={isLoading}
                 fullWidth
-                className="bg-primary-background"
+               className="bg-primary-background h-[48px] !rounded-[0.5rem]"
               >
                 {text("register")}
               </Button>
@@ -173,7 +173,7 @@ export default function SignUpTemplate(): JSX.Element {
           </p>
         </div>
       </div>
-      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center">
+      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden ">
         <RootBanner />
       </div>
     </div>
