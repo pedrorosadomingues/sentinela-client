@@ -30,3 +30,9 @@ body {
     text-wrap: balance;
   }
 }
+
+@media (max-width: 515px) {
+  .hide-when-515 {
+    display: none !important;
+  }
+}
