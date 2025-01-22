@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { extractFileName } from "@/utils/extract-filename";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { createDownloadImage } from "@/services/download-image/create";
 
-export default function DownloadButton({ path }: { path: string }) {
+export default function DownloadButton({ generation }: { generation: any }) {
   async function fetchDownloadUrl() {
-    const fileName = extractFileName(path);
+    const fileName = extractFileName(generation.path);
     const token = localStorage.getItem("token");
 
     try {
@@ -19,8 +21,6 @@ export default function DownloadButton({ path }: { path: string }) {
       const data = await response.json();
 
       if (data.downloadUrl) {
-        console.log("Download URL:", data.downloadUrl);
-
         // Faz o download diretamente sem abrir outra aba
         const downloadResponse = await fetch(data.downloadUrl);
         const blob = await downloadResponse.blob();
@@ -36,6 +36,10 @@ export default function DownloadButton({ path }: { path: string }) {
         // Remover o link após o download
         document.body.removeChild(link);
         URL.revokeObjectURL(blobUrl);
+        createDownloadImage({
+          generation_id: generation.id,
+          user_id: generation.user_id,
+        });
       }
     } catch (error) {
       console.error("Erro ao obter URL de download:", error);
