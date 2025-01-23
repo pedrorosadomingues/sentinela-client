@@ -19,7 +19,7 @@ export default function Main(): JSX.Element {
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
   const [isLoading, setIsLoading] = useState(true);
-  const text = useTranslations("home");
+  const text = useTranslations("teste");
 
   useEffect(() => {
     const tab = searchParams.get("tab");

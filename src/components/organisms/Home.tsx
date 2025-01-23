@@ -16,7 +16,7 @@ export default function Home(): JSX.Element {
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const { setMainControl } = useMainStore();
 
-  const text = useTranslations("home");
+  const text = useTranslations("teste");
 
   const ICON_MAPPING = {
     "dress-model": (
