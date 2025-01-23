@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* components/templates/Studio.tsx */
 "use client";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../organisms/Header";
@@ -12,7 +13,7 @@ import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import MyProfile from "./My-Profile";
-import { useTranslations } from "next-intl";
+
 
 export default function Main(): JSX.Element {
   const text = useTranslations("teste");
