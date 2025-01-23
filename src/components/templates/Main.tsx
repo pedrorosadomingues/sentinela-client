@@ -15,11 +15,12 @@ import MyProfile from "./My-Profile";
 import { useTranslations } from "next-intl";
 
 export default function Main(): JSX.Element {
+  const text = useTranslations("teste");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
   const [isLoading, setIsLoading] = useState(true);
-  const text = useTranslations("teste");
+
 
   useEffect(() => {
     const tab = searchParams.get("tab");
