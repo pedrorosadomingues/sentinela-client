@@ -14,14 +14,12 @@ import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import MyProfile from "./My-Profile";
 
-
 export default function Main(): JSX.Element {
   const text = useTranslations("teste");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     const tab = searchParams.get("tab");

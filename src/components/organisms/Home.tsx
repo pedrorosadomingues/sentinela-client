@@ -79,16 +79,16 @@ export default function Home(): JSX.Element {
   }, [imageFunctions]);
 
   return (
-    <div className="mt-10 p-10 rounded-xl w-full ml-[55px] bg-white mt-[90px] mb-auto flex flex-wrap gap-[1%]">
-      <div className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center mb-[15px] bg-white w-[17%] h-[268px] justify-center gap-[8px] min-w-[254px] animate-fade-in hover:shadow-lg">
+    <div className="mt-10 p-10 rounded-xl w-full ml-[55px] bg-white mt-[90px] mb-auto flex flex-wrap gap-[1%] max765:ml-0 max765:p-5">
+      <div
+        onClick={() => setMainControl(text("my_generations"))}
+        className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center mb-[15px] bg-white w-[17%] h-[268px] justify-center gap-[8px] min-w-[254px] animate-fade-in hover:shadow-lg"
+      >
         <HistoryIcon
           className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
           style={{ width: "80px", height: "80px", paddingRight: "10px" }}
         />
-        <button
-          className="text-[#49424A] font-bold text-sm hover:underline "
-          onClick={() => setMainControl(text("my_generations"))}
-        >
+        <button className="text-[#49424A] font-bold text-sm hover:underline ">
           {text("access_generations")}
         </button>
       </div>
@@ -108,7 +108,7 @@ export default function Home(): JSX.Element {
             />
           );
         })}
-          <ConfirmationModal />
+      <ConfirmationModal />
     </div>
   );
 }

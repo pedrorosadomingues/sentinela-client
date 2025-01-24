@@ -5,10 +5,12 @@ import { logout } from "@/utils";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useUserStore, useMainStore } from "@/zustand-stores";
+import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
 import LanguageSwitcher from "./MainLanguageSwitcher";
 import { Divider } from "@nextui-org/react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
+import { User } from "@/interfaces";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -17,6 +19,14 @@ export default function Header(): JSX.Element {
   const text = useTranslations("header");
   const { user, getUser, setUser } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
+  const {
+    isExpanded,
+    isLocked,
+    openCoinModal,
+    setOpenCoinModal,
+    setIsExpanded,
+    setIsLocked,
+  } = useSidebarStore();
 
   const [tab, setTab] = useState<string | null>(null);
   const [isOpenMenuPerfil, setIsOpenMenuPerfil] = useState(false);
@@ -25,6 +35,10 @@ export default function Header(): JSX.Element {
     logout();
     router.push(`/${locale}`);
     setUser(null);
+  }
+  function toggleLock(): void {
+    setIsLocked(!isLocked);
+    setIsExpanded(!isExpanded);
   }
 
   useEffect(() => {
@@ -81,9 +95,18 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white">
-      {renderHeaderContent()}
-
+    <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
+      <div className="max765:hidden">{renderHeaderContent()}</div>
+      <div className="min765:hidden">
+        <ExpandSideBarButton
+          isLocked={isLocked}
+          isExpanded={isExpanded}
+          openCoinModal={openCoinModal}
+          user={user as User}
+          toggleLock={toggleLock}
+          setOpenCoinModal={setOpenCoinModal}
+        />
+      </div>
       <div>
         <button
           className="border text-2xl bg-gray-200 cursor-pointer text-[#F10641] rounded-[50%] pl-2 pr-2 border-secondary"
