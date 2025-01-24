@@ -108,25 +108,42 @@ export default function Header(): JSX.Element {
           setOpenCoinModal={setOpenCoinModal}
         />
         <Image
-                    src={"/images/logo-vestiq.png"}
-                    alt="Logo"
-                    style={{ height: "auto" }}
-                    width={70}
-                    height={70}
-                    priority={true}
-                  />
-      </div>
-      <div>
-        <button
-          className="border text-2xl bg-gray-200 cursor-pointer text-[#F10641] rounded-[50%] pl-2 pr-2 border-secondary"
-          onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
-        >
-          {user && "name" in user ? user.name[0] : ""}
-        </button>
-        <KeyboardArrowDownIcon
-          className="text-[#F10641] cursor-pointer"
-          onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+          src={"/images/logo-vestiq.png"}
+          alt="Logo"
+          style={{ height: "auto" }}
+          width={70}
+          height={70}
+          priority={true}
         />
+      </div>
+
+      <div className="flex gap-2">
+        <Image
+          src="/icons/coins-icon.png"
+          alt="Logo"
+          width={30}
+          height={30}
+          priority={true}
+        />
+
+        {user && "v_coins" in user && (
+          <span className="text-[#F10641]">
+            {Number(user.v_coins).toFixed(2)}V
+          </span>
+        )}
+        <div className="ml-[35px]">
+          <button
+            className="border text-2xl bg-gray-200 cursor-pointer text-[#F10641] rounded-[50%] pl-2 pr-2 border-secondary"
+            onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+          >
+            {user && "name" in user ? user.name[0] : ""}
+          </button>
+
+          <KeyboardArrowDownIcon
+            className="text-[#F10641] cursor-pointer"
+            onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+          />
+        </div>
       </div>
       {isOpenMenuPerfil && (
         <div className="absolute flex flex-col bg-white right-[57px] top-[42px] p-4 z-[1000] rounded box-border border border-gray-200 shadow-md rounded-md">
