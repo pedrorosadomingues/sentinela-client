@@ -25,7 +25,7 @@ export default function Card({
       <div className="flex items-center justify-between w-full">
         <h3 className=" mt-[5px] text-lg font-bold text-[#49424A]">{title}</h3>
         {isBeta && (
-          <span className="px-2 py-1 text-xs text-white bg-red-500 rounded-full fixed right-0 top-0">
+          <span className="px-2 py-1 text-xs text-white bg-red-500 rounded-full fixed right-2 top-2">
             BETA
           </span>
         )}
