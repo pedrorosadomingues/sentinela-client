@@ -16,7 +16,7 @@ export default function GenerationCard({ data }: { data: Generation }) {
   };
 
   return (
-    <div className="relative w-[300px] aspect-square rounded-xl overflow-hidden">
+    <div className="relative w-[80%] max-w-[250px] aspect-square rounded-xl overflow-hidden">
       <div className="absolute top-2 right-2 z-[2]">
         <button
           className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
