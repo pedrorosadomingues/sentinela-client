@@ -19,7 +19,7 @@ export default function Card({
   return (
     <div
       className={`border relative border-gray-200 rounded-lg p-6 shadow-md 
-        flex flex-col items-start bg-white w-[25%] h-[268px] min-w-[369px] animate-fade-in hover:shadow-lg`}
+        flex flex-col items-start bg-white max-w-[250px] w-[100%] animate-fade-in hover:shadow-lg`}
     >
       {icon}
       <div className="flex items-center justify-between w-full">

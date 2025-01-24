@@ -189,7 +189,10 @@ export default function Sidebar(): JSX.Element {
                        ? "text-[#F10641] bg-[#FED2DD]"
                        : ""
                    }`}
-                onClick={() => setMainControl(item.name)}
+                onClick={() => {
+                  setMainControl(item.name);
+                  setIsExpanded(false);
+                }}
               >
                 {item.icon_path}
                 {isExpanded && (
@@ -214,6 +217,7 @@ export default function Sidebar(): JSX.Element {
                       } `}
                   onClick={() => {
                     setMainControl(text(func.name));
+                    setIsExpanded(false);
                   }}
                 >
                   {ICON_MAPPING[func.name as ImageFunctionName] || (
