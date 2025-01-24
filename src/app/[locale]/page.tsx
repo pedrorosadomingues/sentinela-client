@@ -13,7 +13,12 @@ export default function WelcomePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const tab = searchParams.get("tab");
+    if (!searchParams) return;
+
+  }, [searchParams]);
+
+  useEffect(() => {
+    const tab = searchParams?.get("tab");
     if (tab) {
       setRootControl(tab);
     }
@@ -21,7 +26,7 @@ export default function WelcomePage() {
 
   useEffect(() => {
     if (rootControl) {
-      router.push(`?tab=${rootControl}`);
+      router.replace(`?tab=${rootControl}`);
       setIsLoading(false);
     }
   }, [rootControl, router]);
@@ -44,3 +49,4 @@ export default function WelcomePage() {
     </div>
   );
 }
+

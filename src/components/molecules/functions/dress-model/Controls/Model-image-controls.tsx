@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToggleButton from "@/components/atoms/Toggle-button";
+import ToggleButton from "@/components/atoms/ToggleButton";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
 import { CHECKBOX_OPTIONS } from "@/constants/options";
 import { useTranslations } from "next-intl";

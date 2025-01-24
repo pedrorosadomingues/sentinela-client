@@ -59,6 +59,8 @@ const config: Config = {
       xl: "1280px",
       max515: { max: "1030px" },
       max1030: { max: '1030px' },
+      max765: { max: '765px' },
+      min765: { min: '765px' },
     },
   },
   plugins: [],

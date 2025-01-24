@@ -11,7 +11,6 @@ export default function DownloadButton({ generation }: { generation: any }) {
     const fileName = extractFileName(generation.path);
     const token = localStorage.getItem("token");
 
-    // Desabilita o botão antes de iniciar a requisição
     setIsDownloading(true);
 
     try {

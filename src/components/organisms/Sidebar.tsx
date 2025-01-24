@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { FaInfoCircle } from "react-icons/fa";
 import { AiFillCamera } from "react-icons/ai";
@@ -8,6 +8,7 @@ import {
   useMainStore,
   useImageFunctionStore,
   useUserStore,
+  useSidebarStore,
 } from "@/zustand-stores";
 import { Divider } from "@nextui-org/react";
 import { ImageFunction, ImageFunctionName } from "@/interfaces/image-function";
@@ -15,14 +16,19 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import HistoryIcon from "@mui/icons-material/History";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import CoinsHoverBox from "../atoms/VCoinsbox";
 import { User } from "@/interfaces";
+import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 
 export default function Sidebar(): JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isLocked, setIsLocked] = useState(false);
-  const [openCoinModal, setOpenCoinModal] = useState(false);
+  const {
+    isExpanded,
+    isLocked,
+    openCoinModal,
+    setOpenCoinModal,
+    setIsExpanded,
+    setIsLocked,
+  } = useSidebarStore();
 
   const { setMainControl, mainControl } = useMainStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
@@ -73,8 +79,8 @@ export default function Sidebar(): JSX.Element {
   };
 
   const toggleLock = () => {
-    setIsLocked((prev) => !prev);
-    setIsExpanded((prev) => !prev);
+    setIsLocked(!isLocked);
+    setIsExpanded(!isExpanded);
   };
 
   const handleMouseEnter = () => {
@@ -134,19 +140,31 @@ export default function Sidebar(): JSX.Element {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`select-none fixed h-screen left-0 z-[5000] transition-all duration-700 ease-smooth-return-end overflow-hidden
-        ${isExpanded ? "w-[281px] flex items-start" : "w-20"} 
+        ${isExpanded ? "w-[281px] flex items-start" : "w-20 max765:w-0"} 
         bg-white border-r border-gray-200`}
     >
       <div className="p-4 flex flex-col items-center relative h-full">
         {isExpanded ? (
-          <Image
-            src={"/images/logo-vestiq.png"}
-            alt="Logo"
-            style={{ height: "auto" }}
-            width={70}
-            height={70}
-            priority={true}
-          />
+          <div className="flex">
+            <Image
+              src={"/images/logo-vestiq.png"}
+              alt="Logo"
+              style={{ height: "auto" }}
+              width={70}
+              height={70}
+              priority={true}
+            />
+            <div className="min765:hidden">
+              <ExpandSideBarButton
+                isLocked={isLocked}
+                isExpanded={isExpanded}
+                openCoinModal={openCoinModal}
+                user={user as User}
+                toggleLock={toggleLock}
+                setOpenCoinModal={setOpenCoinModal}
+              />
+            </div>
+          </div>
         ) : (
           <Image
             src={"/icons/logo-vestiq.ico"}
@@ -211,48 +229,24 @@ export default function Sidebar(): JSX.Element {
                 </li>
               ))}
           </ul>
-          <div className="flex items-center justify-center flex-col">
-            <button
-              onClick={toggleLock}
-              className={`bg-transparent p-2 rounded-full z-50 text-gray-600 hover:text-gray-800 focus:outline-none flex items-center justify-center ${
-                isExpanded && "w-full"
-              }`}
-              title={isLocked ? "Fechar Sidebar" : "Abrir Sidebar"}
-            >
-              {!isLocked ? (
-                <KeyboardDoubleArrowLeftIcon />
-              ) : (
-                <KeyboardDoubleArrowRightIcon />
-              )}
-            </button>
-            <div
-              className="relative flex border border-gray-200 rounded-[10px] p-2 mt-4 gap-4"
-              onMouseEnter={() => isLocked && setOpenCoinModal(true)}
-              onMouseLeave={() => isLocked && setOpenCoinModal(false)}
-            >
-              <div
-                className={`fixed flex border border-gray-200 z-[99] rounded-[10px] p-2 left-[65px] bottom-[20px] mb-[12px] bg-white
-                  ${openCoinModal ? "" : "hidden"}`}
-              >
-                {
-                  <span className="text-[#F10641]">
-                    {Number((user as User)?.v_coins).toFixed(2)}V
-                  </span>
-                }
-              </div>
-              <Image
-                src="/icons/coins-icon.png"
-                alt="Logo"
-                width={25}
-                height={25}
-                priority={true}
+          <div>
+            <div className="max765:hidden">
+              <ExpandSideBarButton
+                isLocked={isLocked}
+                isExpanded={isExpanded}
+                openCoinModal={openCoinModal}
+                user={user as User}
+                toggleLock={toggleLock}
+                setOpenCoinModal={setOpenCoinModal}
               />
-              {isExpanded && user && "v_coins" in user && (
-                <span className="text-[#F10641]">
-                  {Number((user as User)?.v_coins).toFixed(2)}V
-                </span>
-              )}
             </div>
+            <CoinsHoverBox
+              isLocked={isLocked}
+              isExpanded={isExpanded}
+              openCoinModal={openCoinModal}
+              user={user as User}
+              setOpenCoinModal={setOpenCoinModal}
+            />
           </div>
         </div>
       </div>

@@ -46,7 +46,7 @@
     "unexpected_error": "Ocurrió un error inesperado",
     "have_account": "¿Tienes una cuenta?"
   },
-  "home": {
+  "teste": {
     "my_profile": "Mi Perfil",
     "home": "Inicio",
     "my_generations": "Mis Generaciones",
@@ -63,7 +63,7 @@
     "my_profile": "Mi Perfil",
     "home": "Inicio",
     "logout": "Cerrar sesión",
-    "greeting": "Hola",
+    "greeting": "Hola,",
     "prompt": "¿Qué quieres crear hoy?",
     "my_generations": "Mis Generaciones",
     "dress-model": "Vestir Modelo",

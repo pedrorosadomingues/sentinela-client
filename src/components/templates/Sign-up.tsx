@@ -160,7 +160,7 @@ export default function SignUpTemplate(): JSX.Element {
               </Button>
             </div>
           </form>
-          <p
+          <div
             className="flex justify-center mt-5 text-sm ml-auto mr-auto"
             onClick={() => setRootControl("login")}
           >
@@ -170,7 +170,7 @@ export default function SignUpTemplate(): JSX.Element {
                 {text("back_to_login")}
               </span>
             </p>
-          </p>
+          </div>
         </div>
       </div>
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden ">
