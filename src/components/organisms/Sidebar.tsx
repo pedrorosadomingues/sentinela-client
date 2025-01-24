@@ -140,19 +140,31 @@ export default function Sidebar(): JSX.Element {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`select-none fixed h-screen left-0 z-[5000] transition-all duration-700 ease-smooth-return-end overflow-hidden
-        ${isExpanded ? "w-[281px] flex items-start" : "w-20"} 
-        bg-white border-r border-gray-200 ${!isExpanded && "max765:w-0"}`}
+        ${isExpanded ? "w-[281px] flex items-start" : "w-20 max765:w-0"} 
+        bg-white border-r border-gray-200`}
     >
       <div className="p-4 flex flex-col items-center relative h-full">
         {isExpanded ? (
-          <Image
-            src={"/images/logo-vestiq.png"}
-            alt="Logo"
-            style={{ height: "auto" }}
-            width={70}
-            height={70}
-            priority={true}
-          />
+          <div className="flex">
+            <Image
+              src={"/images/logo-vestiq.png"}
+              alt="Logo"
+              style={{ height: "auto" }}
+              width={70}
+              height={70}
+              priority={true}
+            />
+            <div className="min765:hidden">
+              <ExpandSideBarButton
+                isLocked={isLocked}
+                isExpanded={isExpanded}
+                openCoinModal={openCoinModal}
+                user={user as User}
+                toggleLock={toggleLock}
+                setOpenCoinModal={setOpenCoinModal}
+              />
+            </div>
+          </div>
         ) : (
           <Image
             src={"/icons/logo-vestiq.ico"}
@@ -218,14 +230,16 @@ export default function Sidebar(): JSX.Element {
               ))}
           </ul>
           <div>
-            <ExpandSideBarButton
-              isLocked={isLocked}
-              isExpanded={isExpanded}
-              openCoinModal={openCoinModal}
-              user={user as User}
-              toggleLock={toggleLock}
-              setOpenCoinModal={setOpenCoinModal}
-            />
+            <div className="max765:hidden">
+              <ExpandSideBarButton
+                isLocked={isLocked}
+                isExpanded={isExpanded}
+                openCoinModal={openCoinModal}
+                user={user as User}
+                toggleLock={toggleLock}
+                setOpenCoinModal={setOpenCoinModal}
+              />
+            </div>
             <CoinsHoverBox
               isLocked={isLocked}
               isExpanded={isExpanded}

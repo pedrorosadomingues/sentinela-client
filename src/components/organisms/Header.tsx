@@ -11,6 +11,7 @@ import { Divider } from "@nextui-org/react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 import { User } from "@/interfaces";
+import Image from "next/image";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -97,7 +98,7 @@ export default function Header(): JSX.Element {
   return (
     <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
       <div className="max765:hidden">{renderHeaderContent()}</div>
-      <div className="min765:hidden">
+      <div className="min765:hidden flex">
         <ExpandSideBarButton
           isLocked={isLocked}
           isExpanded={isExpanded}
@@ -106,6 +107,14 @@ export default function Header(): JSX.Element {
           toggleLock={toggleLock}
           setOpenCoinModal={setOpenCoinModal}
         />
+        <Image
+                    src={"/images/logo-vestiq.png"}
+                    alt="Logo"
+                    style={{ height: "auto" }}
+                    width={70}
+                    height={70}
+                    priority={true}
+                  />
       </div>
       <div>
         <button

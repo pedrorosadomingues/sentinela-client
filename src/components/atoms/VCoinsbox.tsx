@@ -19,7 +19,7 @@ export default function CoinsHoverBox({
 }: CoinsHoverBoxProps) {
   return (
     <div
-      className="relative flex border border-gray-200 rounded-[10px] p-2 mt-4 gap-4 esta"
+      className="relative flex border border-gray-200 rounded-[10px] p-2 mt-4 gap-4"
       onMouseEnter={() => isLocked && setOpenCoinModal(true)}
       onMouseLeave={() => isLocked && setOpenCoinModal(false)}
     >
@@ -40,7 +40,6 @@ export default function CoinsHoverBox({
         priority={true}
       />
 
-      {/* Exibe as coins se estiver expandido e se o user existir */}
       {isExpanded && user && "v_coins" in user && (
         <span className="text-[#F10641]">
           {Number(user.v_coins).toFixed(2)}V
