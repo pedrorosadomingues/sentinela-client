@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
 import LanguageSwitcher from "./MainLanguageSwitcher";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 import { User } from "@/interfaces";
@@ -96,7 +96,7 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <header className="flex z-[1000] items-center justify-between p-4 bg-[#FFFFFF] text-white fixed w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
+    <header className="flex items-center justify-between p-4 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
       <div className="max765:hidden">{renderHeaderContent()}</div>
       <div className="min765:hidden flex">
         <ExpandSideBarButton

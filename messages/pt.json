@@ -18,6 +18,11 @@
   "dress_model": {
     "generate_image": "Gerar Imagem"
   },
+  "choose_model_modal": {
+    "title": "Escolha um Modelo",
+    "choose_model_button": "Escolher Modelo Pronto",
+    "select_button": "Selecionar"
+  },
   "welcome_page": {
     "welcome_message": "Bem-vindo ao Vestiq",
     "go_to_login": "Ir para login"

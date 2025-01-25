@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useMyProfileStore } from "@/zustand-stores";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 
 export default function MenuProfile(): JSX.Element {
   const { setProfileControl, profileControl } = useMyProfileStore();
