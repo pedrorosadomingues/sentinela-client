@@ -10,7 +10,7 @@ import {
   useUserStore,
   useSidebarStore,
 } from "@/zustand-stores";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import { ImageFunction, ImageFunctionName } from "@/interfaces/image-function";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
@@ -139,7 +139,7 @@ export default function Sidebar(): JSX.Element {
     <aside
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`select-none fixed h-screen left-0 z-[5000] transition-all duration-700 ease-smooth-return-end overflow-hidden
+      className={`select-none fixed z-10 h-screen left-0 transition-all duration-700 ease-smooth-return-end overflow-hidden
         ${isExpanded ? "w-[281px] flex items-start" : "w-20 max765:w-0"} 
         bg-white border-r border-gray-200`}
     >

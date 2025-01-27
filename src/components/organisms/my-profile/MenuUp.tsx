@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useMyProfileStore } from "@/zustand-stores";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
