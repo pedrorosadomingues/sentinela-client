@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import { heroui } from "@heroui/react";
-import lineClamp from '@tailwindcss/line-clamp';
 
 const config: Config = {
   darkMode: "class",
@@ -67,6 +66,6 @@ const config: Config = {
       min935: { min: '935px' },
     },
   },
-  plugins: [heroui(), lineClamp],
+  plugins: [heroui()],
 };
 export default config;
