@@ -11,7 +11,7 @@ export default function UserProfile() {
   return (
     <div className="bg-gray-100 min-h-screen flex justify-start items-start">
       <div className="bg-white shadow-lg rounded-lg w-full p-6">
-        <div className="bg-gradient-to-r from-red-500 to-orange-400 rounded-lg p-6 text-white flex items-center">
+        <div className="bg-gradient-to-r from-red-500 to-orange-400 rounded-lg p-6 text-white flex items-center max765:flex-col">
           <div className="flex-shrink-0">
             <div className="w-16 h-16 bg-gray-200 rounded-full flex justify-center items-center text-gray-700 text-2xl font-bold">
             {user && "name" in user ? user.name[0] : ""}
