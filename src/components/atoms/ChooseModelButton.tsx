@@ -15,14 +15,18 @@ import {
 import { useTranslations } from "next-intl";
 import { CloseOutlined } from "@mui/icons-material";
 import { useFormik } from "formik";
+import { z } from "zod";
+import { withZodSchema } from 'formik-validator-zod';
 
 type ChooseModelButtonProps = {
   onModelSelect: (imagePath: string) => void;
 };
 
-type FormValues = {
-  prompt: string;
-};
+const generateCustomModelSchema = z.object({
+  prompt: z.string().nonempty("Prompt is required"),
+});
+
+type FormValues = z.infer<typeof generateCustomModelSchema>;
 
 export default function ChooseModelButton({
   onModelSelect,
@@ -55,7 +59,7 @@ export default function ChooseModelButton({
     initialValues: {
       prompt: "",
     },
-
+    validate: withZodSchema(generateCustomModelSchema),
     onSubmit: (values) => handleGenerateCustomModel(values),
   });
 
@@ -76,6 +80,7 @@ export default function ChooseModelButton({
             name="prompt"
             onChange={formik.handleChange}
             value={formik.values.prompt}
+            isInvalid={formik.errors.prompt ? true : false}
           />
           <Button
             color="secondary"
@@ -99,6 +104,7 @@ export default function ChooseModelButton({
                 alt={`Image of custom model`}
                 className="object-cover w-full h-full"
                 src={customModelImage as string}
+                isLoading={isLoading}
               />
               <CardFooter className="group-hover:-translate-y-0 transition-all ease-in-out translate-y-24 w-full px-2 items-center justify-between bg-black/70 py-2 absolute bottom-0 left-0 shadow-small z-10">
                 <p className="text-tiny text-white/80 line-clamp-1">{prompt}</p>
@@ -106,6 +112,7 @@ export default function ChooseModelButton({
                   color="secondary"
                   size="sm"
                   radius="sm"
+                  isDisabled={isLoading}
                   onPress={() => handleSelectModel(customModelImage as string)}
                 >
                   {t("select_button")}
@@ -116,6 +123,7 @@ export default function ChooseModelButton({
                 size="sm"
                 color="danger"
                 className="absolute z-10 top-2 right-2"
+                isDisabled={isLoading}
                 onPress={() => setCustomModelImage(null)}
               >
                 <CloseOutlined fontSize="small" />
@@ -192,9 +200,10 @@ export default function ChooseModelButton({
       </Button>
       <Modal
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onClose={isLoading ? () => {} : onOpenChange}
         size="2xl"
-        className=" pb-4"
+        className="pb-4"
+        isDismissable={!isLoading}
       >
         <ModalContent>
           <ModalHeader>{t("title")}</ModalHeader>

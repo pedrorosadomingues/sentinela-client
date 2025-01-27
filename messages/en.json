@@ -19,7 +19,7 @@
     "generate_image": "Generate Image"
   },
   "choose_model_modal": {
-    "title": "Choose a Model",
+    "title": "Choose a Model or Generate a Custom One",
     "choose_model_button": "Choose Ready-Made Model",
     "select_button": "Select",
     "generate_label": "Describe your AI Model",
