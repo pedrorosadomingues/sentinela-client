@@ -15,9 +15,14 @@ import {
 } from "@heroui/react";
 import { useLocale, useTranslations } from "next-intl";
 import { CloseOutlined } from "@mui/icons-material";
+import { useFormik } from "formik";
 
 type ChooseModelButtonProps = {
   onModelSelect: (imagePath: string) => void;
+};
+
+type FormValues = {
+  prompt: string;
 };
 
 export default function ChooseModelButton({
@@ -35,10 +40,12 @@ export default function ChooseModelButton({
     onOpenChange();
   };
 
-  const handleGenerateCustomModel = () => {
+  const handleGenerateCustomModel = (values: FormValues) => {
     setIsLoading(true);
+    setPrompt(values.prompt);
     // Call the API to generate a custom
     // model based on the prompt
+    console.log(values.prompt);
 
     setTimeout(() => {
       setCustomModelImage("https://heroui.com/images/hero-card.jpeg");
@@ -46,17 +53,28 @@ export default function ChooseModelButton({
     }, 4000);
   };
 
+  const formik = useFormik({
+    initialValues: {
+      prompt: "",
+    },
+
+    onSubmit: (values) => handleGenerateCustomModel(values),
+  });
+
   return (
     <>
       <Button onPress={onOpen} color="secondary" size="lg" radius="sm">
         {t("choose_model_button")}
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" className=" pb-4">
         <ModalContent>
           <ModalHeader>{t("title")}</ModalHeader>
           <ModalBody className="flex-row gap-4 max-h-[500px]">
             <aside className="basis-3/5 flex flex-col max-h-full gap-4">
-              <div className="flex flex-col gap-4">
+              <form
+                onSubmit={formik.handleSubmit}
+                className="flex flex-col gap-4"
+              >
                 <Textarea
                   label={t("generate_label")}
                   labelPlacement="outside"
@@ -64,20 +82,23 @@ export default function ChooseModelButton({
                   radius="sm"
                   placeholder={t("generate_placeholder")}
                   className="w-full"
+                  maxRows={3}
                   isDisabled={isLoading}
-                  defaultValue={prompt as string}
-                  onChange={(e) => setPrompt(e.target.value)}
+                  id="prompt"
+                  name="prompt"
+                  onChange={formik.handleChange}
+                  value={formik.values.prompt}
                 />
                 <Button
                   color="secondary"
                   radius="sm"
                   className="w-full"
                   isLoading={isLoading}
-                  onPress={handleGenerateCustomModel}
+                  type="submit"
                 >
                   {t("generate_button")}
                 </Button>
-              </div>
+              </form>
 
               {customModelImage ? (
                 <Card
@@ -119,26 +140,23 @@ export default function ChooseModelButton({
                 </Card>
               ) : (
                 <div className="h-full grid grid-cols-2 gap-4">
-                  {suggestions.map(
-                    (suggestion) =>
-                      suggestion.locale === locale && (
-                        <div
-                          key={suggestion.id}
-                          className={`
+                  {suggestions.map((suggestion) => (
+                    <div
+                      key={suggestion.id}
+                      className={`
                               ${
                                 isLoading
                                   ? "opacity-50 pointer-events-none cursor-not-allowed"
                                   : "opacity-100"
                               }
                               flex-1 h-full p-2 border border-gray-200 rounded-lg cursor-pointer select-none`}
-                          onClick={() => setPrompt(suggestion.text)}
-                        >
-                          <p className="text-sm line-clamp-3">
-                            {suggestion.text}
-                          </p>
-                        </div>
-                      )
-                  )}
+                      onClick={() =>
+                        formik.setFieldValue("prompt", suggestion.text)
+                      }
+                    >
+                      <p className="text-sm line-clamp-3">{suggestion.text}</p>
+                    </div>
+                  ))}
                 </div>
               )}
             </aside>
@@ -175,7 +193,6 @@ export default function ChooseModelButton({
               ))}
             </ScrollShadow>
           </ModalBody>
-          <ModalFooter />
         </ModalContent>
       </Modal>
     </>
@@ -234,7 +251,7 @@ const models: Model[] = [
 type SuggestionProps = {
   id: string;
   text: string;
-  locale: "pt-br" | "en" | "es";
+  locale: "pt-br" | "en" | "es"; // to show the suggestion in the correct language
 };
 
 const suggestions: SuggestionProps[] = [
