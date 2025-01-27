@@ -48,33 +48,31 @@ export default function MenuProfile(): JSX.Element {
 
   return (
     <div
-      className={`select-none z-[4000] w-[451px] flex items-start bg-white border-r border-gray-200`}
+      className={`select-none z-[4000] w-[451px] flex items-start bg-white border-r border-gray-200 max765:hidden`}
     >
-      <div className="p-4 flex flex-col items-center relative h-full">
-        <div className="flex flex-col justify-between h-full">
-          <ul
-            className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-center
-            }`}
-          >
-            {MAIN_ITEMS.map((item) => (
-              <li
-                key={item.name}
-                className={` mb-2 flex flex-col items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+      <div className="flex flex-col justify-between h-full">
+        <ul
+          className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-center
+           `}
+        >
+          {MAIN_ITEMS.map((item) => (
+            <li
+              key={item.name}
+              className={` mb-2 flex flex-col items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                    ${
                      profileControl === item.name
                        ? "text-[#F10641] bg-[#FED2DD]"
                        : ""
                    }`}
-                onClick={() => setProfileControl(item.name)}
-              >
-                <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
-                  {item.name}
-                </span>
-                <Divider />
-              </li>
-            ))}
-          </ul>
-        </div>
+              onClick={() => setProfileControl(item.name)}
+            >
+              <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
+                {item.name}
+              </span>
+              <Divider />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

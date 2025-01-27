@@ -21,7 +21,10 @@
   "choose_model_modal": {
     "title": "Escolha um Modelo",
     "choose_model_button": "Escolher Modelo Pronto",
-    "select_button": "Selecionar"
+    "select_button": "Selecionar",
+    "generate_label": "Descreva seu modelo personalizado",
+    "generate_button": "Gerar Modelo Personalizado",
+    "generate_placeholder": "Descreva a aparência do seu modelo personalizado..."
   },
   "welcome_page": {
     "welcome_message": "Bem-vindo ao Vestiq",

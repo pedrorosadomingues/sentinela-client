@@ -55,7 +55,7 @@ export default function DressModel(): JSX.Element {
   ) {
     const { name } = event.target;
     const files = event.target.files;
-    
+
     if (files && files[0]) {
       const file = files[0];
       const setImagePath =
@@ -96,7 +96,7 @@ export default function DressModel(): JSX.Element {
   // to set selected model image path to formik values
   const handleModelSelect = (imagePath: string) => {
     setModelImagePath(imagePath);
-  
+
     formik.setFieldValue("model_image", imagePath);
   };
 
@@ -106,37 +106,68 @@ export default function DressModel(): JSX.Element {
         onSubmit={formik.handleSubmit}
         className="flex flex-col items-center gap-[30px]"
       >
-        <div className="flex gap-[30px] justify-center min-h-[457px]">
-          <ModelImageArea
-            model_image_path={model_image_path}
-            openFileDialog={openFileDialog}
-            handleDrop={(e) => handleDrop(e, "model")}
-            handleDragOver={handleDragOver}
-            handleFileInputChange={handleFileInputChange}
-            modelInputRef={modelInputRef}
-            setModelImageWidth={setModelImageWidth}
-          />
-          <GarmentImageArea
-            garment_image_path={garment_image_path}
-            openFileDialog={openFileDialog}
-            handleDrop={(e) => handleDrop(e, "garment")}
-            handleDragOver={handleDragOver}
-            handleFileInputChange={handleFileInputChange}
-            garmentInputRef={garmentInputRef}
-            setGarmentImageWidth={setGarmentImageWidth}
-          />
-          <ResultImageArea
-            result_image_path={result_image_path}
-            setResultImageWidth={setResultImageWidth}
-          />
+        <div className="flex flex-wrap gap-[30px] w-full justify-center min-h-[457px]">
+          <div>
+            <ModelImageArea
+              model_image_path={model_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "model")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              modelInputRef={modelInputRef}
+              setModelImageWidth={setModelImageWidth}
+            />
+            <div className="h-full flex flex-col gap-4">
+              <ChooseModelButton onModelSelect={handleModelSelect} />
+              <ModelImageControls formik={formik} />
+            </div>
+          </div>
+          <div>
+            <GarmentImageArea
+              garment_image_path={garment_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "garment")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              garmentInputRef={garmentInputRef}
+              setGarmentImageWidth={setGarmentImageWidth}
+            />
+            <div className="w-[320px] justify-start flex flex-col">
+              <TypeBtnArea
+                selectedType={formik.values.garment_photo_type}
+                setFieldValue={formik.setFieldValue}
+              />
+              <CategoryBtnArea
+                selectedCategory={formik.values.category}
+                setFieldValue={formik.setFieldValue}
+              />
+            </div>
+          </div>
+          <div>
+            <ResultImageArea
+              result_image_path={result_image_path}
+              setResultImageWidth={setResultImageWidth}
+            />{" "}
+            <div className="items-start flex-col justify-start w-[320px] ">
+              <div className="mb-5 ">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isLoading}
+                  fullWidth
+                  className="bg-primary-background text-white"
+                >
+                  <AutoAwesomeIcon className="mr-2" />
+                  {text("generate_image")}
+                </Button>
+              </div>
+              <SamplingControls formik={formik} />
+            </div>
+          </div>
         </div>
 
         <div className="flex gap-[30px] justify-center">
-          <div className="h-full flex flex-col gap-4">
-            <ChooseModelButton onModelSelect={handleModelSelect} />
-            <ModelImageControls formik={formik} />
-          </div>
-          <div className="w-[320px] justify-start flex flex-col">
+          {/* <div className="w-[320px] justify-start flex flex-col">
             <TypeBtnArea
               selectedType={formik.values.garment_photo_type}
               setFieldValue={formik.setFieldValue}
@@ -145,8 +176,8 @@ export default function DressModel(): JSX.Element {
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
             />
-          </div>
-          <div className="items-start flex-col justify-start w-[320px] ">
+          </div> */}
+          {/* <div className="items-start flex-col justify-start w-[320px] ">
             <div className="mb-5 ">
               <Button
                 type="submit"
@@ -160,7 +191,7 @@ export default function DressModel(): JSX.Element {
               </Button>
             </div>
             <SamplingControls formik={formik} />
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

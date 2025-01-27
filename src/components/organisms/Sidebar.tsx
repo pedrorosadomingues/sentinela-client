@@ -57,7 +57,7 @@ export default function Sidebar(): JSX.Element {
     },
   ];
 
-  const ICON_MAPPING = {
+  const FUNCTION_ICON_MAPPING = {
     "dress-model": (
       <AiFillCamera
         style={{ fontSize: 30, minWidth: 30 }}
@@ -220,7 +220,7 @@ export default function Sidebar(): JSX.Element {
                     setIsExpanded(false);
                   }}
                 >
-                  {ICON_MAPPING[func.name as ImageFunctionName] || (
+                  {FUNCTION_ICON_MAPPING[func.name as ImageFunctionName] || (
                     <FaInfoCircle
                       className={`text-xl ${!isExpanded && "m-auto"}`}
                     />

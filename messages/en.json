@@ -21,7 +21,10 @@
   "choose_model_modal": {
     "title": "Choose a Model",
     "choose_model_button": "Choose Ready-Made Model",
-    "select_button": "Select"
+    "select_button": "Select",
+    "generate_label": "Describe your AI Model",
+    "generate_button": "Generate Custom Model",
+    "generate_placeholder": "Describe your AI appearance..."
   },
   "welcome_page": {
     "welcome_message": "Welcome to Vestiq",

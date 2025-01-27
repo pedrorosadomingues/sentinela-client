@@ -36,7 +36,7 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <div className="mb-5 max-w-[320px] min-w-[320px]">
+    <div className="max-w-[320px] min-w-[320px min935:h-[580px]">
       <div className="flex items-center justify-center gap-[10px] mb-4">
         <Image src="/icons/number-two-red.ico" alt="2" width={24} height={24} />
         <label>{text("step2_send_garment_image")}</label>
