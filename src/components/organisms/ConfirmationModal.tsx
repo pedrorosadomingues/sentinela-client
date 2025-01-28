@@ -1,27 +1,24 @@
-'use client';
+"use client";
+import { useState } from "react";
 import { useGlobalStore } from "@/zustand-stores";
+import ConfirmationButton from "../atoms/ConfirmationButton";
 
 export default function ConfirmationModal() {
   const { confirmationModal } = useGlobalStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!confirmationModal.isOpen) return null;
 
-  const btnColorMap = (key: "primary" | "danger" | "default") => {
-    const variants = {
-      primary: "btn-primary-gradient",
-      danger: "btn-destructive",
-      default: "btn-primary",
-    };
-
-    return variants[key];
-  };
+  async function handleConfirm() {
+    setIsLoading(true);
+    await confirmationModal.onConfirm();
+    setIsLoading(false);
+  }
 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/50 backdrop-blur-sm"
       style={{ backgroundColor: "transparent" }}
-      // Caso queira fechar ao clicar fora do modal:
-      // onClick={closeConfirmation}
     >
       <div
         className="relative bg-white rounded-[10px] w-full max-w-md mx-4 my-8 shadow-small flex flex-col"
@@ -36,20 +33,22 @@ export default function ConfirmationModal() {
           <p className="text-center">{confirmationModal.message}</p>
         </main>
         <footer className="p-4 flex gap-2">
-          <button
-            className="flex-1 btn btn-secondary border border-gray-300 rounded py-2 text-center"
+          <ConfirmationButton
+            isLoading={false}
             onClick={confirmationModal.onCancel}
+            color="secondary"
+            size="sm"
           >
             Cancelar
-          </button>
-          <button
-            className={`flex-1 btn rounded py-2 text-center ${btnColorMap(
-              confirmationModal.variant ?? "default"
-            )}`}
-            onClick={confirmationModal.onConfirm}
+          </ConfirmationButton>
+          <ConfirmationButton
+            isLoading={isLoading}
+            onClick={handleConfirm}
+            color={"danger"}
+            size="sm"
           >
             Confirmar
-          </button>
+          </ConfirmationButton>
         </footer>
       </div>
     </div>

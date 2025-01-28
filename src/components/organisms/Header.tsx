@@ -63,8 +63,7 @@ export default function Header(): JSX.Element {
       ? getUser({ user_id: stored_user_id })
       : null;
 
-    if (!local_user) {
-      alert("Please login again");
+    if (!local_user || stored_user_name !== (user as User)?.name) {
       redirect(`/${locale}`);
     }
 
