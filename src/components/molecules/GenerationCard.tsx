@@ -4,16 +4,46 @@ import { FaEllipsisV } from "react-icons/fa";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadButton from "../atoms/DownloadButton";
+import { deleteGeneration } from "@/services";
+import { useGlobalStore } from "@/zustand-stores";
+import ConfirmationButton from "../atoms/ConfirmationButton";
 
-export default function GenerationCard({ data }: { data: Generation }) {
+export default function GenerationCard({
+  data,
+  isLoading,
+  setIsLoading,
+}: {
+  data: Generation;
+  isLoading: boolean;
+  setIsLoading: (value: boolean) => void;
+}): JSX.Element {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const toggleMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
+  const { openConfirmation, closeConfirmation } = useGlobalStore();
 
-  const handleDelete = async () => {
-    alert("Imagem deletada!");
-  };
+  function toggleMenu() {
+    setIsMenuVisible(!isMenuVisible);
+  }
+
+  function confirmDelete() {
+    openConfirmation(
+      "Excluir Imagem",
+      "Tem certeza que deseja excluir esta imagem? Essa ação não pode ser desfeita.",
+      handleDelete,
+      closeConfirmation
+    );
+  }
+
+  async function handleDelete() {
+    setIsLoading(true);
+    const res = await deleteGeneration(data.id.toString());
+    setIsLoading(false);
+
+    if (res.status === 200) {
+      closeConfirmation();
+    } else {
+      alert("Falha ao excluir geração.");
+    }
+  }
 
   return (
     <div className="relative w-[80%] max-w-[250px] aspect-square rounded-xl overflow-hidden">
@@ -29,15 +59,17 @@ export default function GenerationCard({ data }: { data: Generation }) {
           <div className="absolute top-10 right-0 bg-white shadow-lg rounded-lg p-2 z-[3]">
             <ul className="flex flex-col gap-2">
               <li>
-                <button
-                  onClick={handleDelete}
-                  className="flex items-center gap-2 text-red-600 hover:text-red-800"
+                <ConfirmationButton
+                  isLoading={isLoading}
+                  onClick={confirmDelete}
+                  color="danger"
+                  size="sm"
                 >
                   <DeleteIcon />
-                </button>
+                </ConfirmationButton>
               </li>
               <li>
-                <DownloadButton generation={data}/>
+                <DownloadButton generation={data} />
               </li>
             </ul>
           </div>

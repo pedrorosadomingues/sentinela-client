@@ -50,10 +50,7 @@ export default function Header(): JSX.Element {
       ? getUser({ user_id: stored_user_id })
       : null;
 
-      console.log("user: ", user);
-
     if (!local_user || stored_user_name !== (user as User)?.name) {
-      alert("Please login again");
       redirect(`/${locale}`);
     }
     const currentTab = searchParams.get("tab");

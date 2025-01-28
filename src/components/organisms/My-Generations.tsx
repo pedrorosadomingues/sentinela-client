@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { useGenerationStore } from "@/zustand-stores";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import GenerationCard from "@/components/molecules/GenerationCard";
 
 export default function MyGenerations(): JSX.Element {
   const { getGenerations, generations } = useGenerationStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getGenerations();
-  }, [getGenerations]);
+  }, [getGenerations, isLoading]);
 
   if (generations.length < 1) {
     return (
@@ -24,7 +25,7 @@ export default function MyGenerations(): JSX.Element {
       <div className="flex flex-wrap justify-center gap-4 ml-[330px]">
         {generations &&
           generations.map((generation) => (
-            <GenerationCard key={generation.id} data={generation} />
+            <GenerationCard key={generation.id} data={generation} isLoading={isLoading} setIsLoading={setIsLoading} />
           ))}
       </div>
     </div>
