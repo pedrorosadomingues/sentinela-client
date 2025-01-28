@@ -43,7 +43,7 @@ export default function RenderTraces(): JSX.Element {
   };
 
   return (
-    <div className="flex justify-center items-start p-8 bg-gray-100 min-h-screen mt-[50px]">
+    <div className="flex justify-center items-start min-h-screen max-w-6xl mx-auto my-4 md:my-8">
       {/* Seção 1: Upload */}
       <div className="flex flex-col items-center w-1/2 bg-white p-6 rounded-lg shadow-md mr-4">
         <div className="flex items-start justify-start gap-[5px]">

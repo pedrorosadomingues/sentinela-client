@@ -48,7 +48,7 @@ export default function MenuProfile(): JSX.Element {
 
   return (
     <div
-      className={`select-none z-[4000] w-[451px] flex items-start bg-white border-r border-gray-200 max765:hidden`}
+      className={`select-none flex items-start bg-white max765:hidden mr-4`}
     >
       <div className="flex flex-col justify-between h-full">
         <ul

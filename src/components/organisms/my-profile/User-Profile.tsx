@@ -9,7 +9,6 @@ export default function UserProfile(): JSX.Element {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex justify-start items-start">
       <div className="bg-white shadow-lg rounded-lg w-full p-6">
         <div className="bg-gradient-to-r from-red-500 to-orange-400 rounded-lg p-6 text-white flex items-center max765:flex-col">
           <div className="flex-shrink-0">
@@ -51,6 +50,5 @@ export default function UserProfile(): JSX.Element {
           </div>
         </div>
       </div>
-    </div>
   );
 }

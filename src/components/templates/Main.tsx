@@ -8,7 +8,7 @@ import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 import DressModel from "@/components/organisms/functions/DressModel";
 import MyGenerations from "../organisms/My-Generations";
-import Home from "@/components/organisms/Home";
+import Home from "@/components/organisms/home/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
@@ -51,21 +51,21 @@ export default function Main(): JSX.Element {
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
-      {mainControl === text("home") ? (
-        <Home />
-      ) : mainControl === text("dress-model") ? (
-        <DressModel />
-      ) : mainControl === text("my_generations") ? (
-        <MyGenerations />
-      ) : mainControl === text("txt2img") ? (
-        <ImageFromText />
-      ) : mainControl === text("render-traces") ? (
-        <RenderTraces />
-      ) : mainControl === text("my_profile") ? (
-        <MyProfile />
-      ) : (
-        <div>Main</div>
-      )}
+      <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
+        {mainControl === text("home") ? (
+          <Home />
+        ) : mainControl === text("dress-model") ? (
+          <DressModel />
+        ) : mainControl === text("my_generations") ? (
+          <MyGenerations />
+        ) : mainControl === text("txt2img") ? (
+          <ImageFromText />
+        ) : mainControl === text("render-traces") ? (
+          <RenderTraces />
+        ) : mainControl === text("my_profile") ? (
+          <MyProfile />
+        ) : null}
+      </main>
     </div>
   );
 }
