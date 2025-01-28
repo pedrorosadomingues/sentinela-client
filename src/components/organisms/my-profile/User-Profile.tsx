@@ -1,7 +1,7 @@
 import React from "react";
 import { useUserStore } from "@/zustand-stores";
 
-export default function UserProfile() {
+export default function UserProfile(): JSX.Element {
   const {  user } = useUserStore();
 
   const onUpgradeClick = () => {

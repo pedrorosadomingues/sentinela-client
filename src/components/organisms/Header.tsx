@@ -18,7 +18,7 @@ export default function Header(): JSX.Element {
   const searchParams = useSearchParams();
   const locale = useLocale();
   const text = useTranslations("header");
-  
+
   const { user, getUser, setUser } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
   const {
@@ -45,7 +45,7 @@ export default function Header(): JSX.Element {
 
   useEffect(() => {
     const stored_user_id = localStorage.getItem("user_id");
-    //const stored_user_name = localStorage.getItem("user_name");
+    const stored_user_name = localStorage.getItem("user_name");
     const local_user = stored_user_id
       ? getUser({ user_id: stored_user_id })
       : null;
@@ -54,10 +54,18 @@ export default function Header(): JSX.Element {
       alert("Please login again");
       redirect(`/${locale}`);
     }
+
     const currentTab = searchParams.get("tab");
     if (currentTab) {
       setMainControl(currentTab);
       setTab(currentTab);
+    }
+    if (
+      (user as User)?.name !== undefined &&
+      (user as User)?.name !== stored_user_name
+    ) {
+      alert("Please login again");
+      handleLogout();
     }
   }, [getUser, searchParams, setMainControl, router, locale]);
 
