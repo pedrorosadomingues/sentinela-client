@@ -80,9 +80,9 @@ export default function Home(): JSX.Element {
   }, [imageFunctions]);
 
   return (
-    <main className="w-full grid grid-cols-1 gap-8 mx-auto">
+    <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-7xl mx-auto">
       <Banner />
-      <div className="rounded-xl w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="rounded-xl w-full mb-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div
           onClick={() => setMainControl(text("my_generations"))}
           className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
@@ -95,6 +95,38 @@ export default function Home(): JSX.Element {
             {text("access_generations")}
           </button>
         </div>
+        {imageFunctions &&
+          imageFunctions.slice(0, visibleCards).map((func) => {
+            const details =
+              imageFunctionDetails[func.name as ImageFunctionName] || {};
+            return (
+              <Card
+                key={func.id}
+                title={text(func.name)}
+                description={details.description}
+                label={details.label}
+                isBeta={details.isBeta}
+                onClick={() => setMainControl(text(func.name))}
+                icon={ICON_MAPPING[func.name as ImageFunctionName]}
+              />
+            );
+          })}
+        {imageFunctions &&
+          imageFunctions.slice(0, visibleCards).map((func) => {
+            const details =
+              imageFunctionDetails[func.name as ImageFunctionName] || {};
+            return (
+              <Card
+                key={func.id}
+                title={text(func.name)}
+                description={details.description}
+                label={details.label}
+                isBeta={details.isBeta}
+                onClick={() => setMainControl(text(func.name))}
+                icon={ICON_MAPPING[func.name as ImageFunctionName]}
+              />
+            );
+          })}
         {imageFunctions &&
           imageFunctions.slice(0, visibleCards).map((func) => {
             const details =

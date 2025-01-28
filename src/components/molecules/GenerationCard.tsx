@@ -4,6 +4,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadButton from "../atoms/DownloadButton";
+import { Image } from "@heroui/react";
 
 export default function GenerationCard({ data }: { data: Generation }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -37,7 +38,7 @@ export default function GenerationCard({ data }: { data: Generation }) {
                 </button>
               </li>
               <li>
-                <DownloadButton generation={data}/>
+                <DownloadButton generation={data} />
               </li>
             </ul>
           </div>
@@ -46,12 +47,12 @@ export default function GenerationCard({ data }: { data: Generation }) {
 
       <div
         id="img-container"
-        className="flex items-center justify-center relative w-full h-full group"
+        className="flex items-center justify-center relative w-full h-full group bg-default-200"
       >
-        <img
+        <Image
           src={data.path as string}
           alt={data.fn as string}
-          className="z-[1] w-full h-full object-cover"
+          className="z-[1] w-full h-full object-contain"
         />
       </div>
     </div>
