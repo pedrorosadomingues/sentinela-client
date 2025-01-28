@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: 'cdn.fashn.ai',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'heroui.com',
+        pathname: '/**',
+      },
     ],
   },
 };

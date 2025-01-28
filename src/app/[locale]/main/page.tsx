@@ -17,9 +17,5 @@ export default function Home() {
     }
   }, [router]);
 
-  return (
-    <div className="w-full flex">
-      <MainTemplate />
-    </div>
-  );
+  return <MainTemplate />;
 }

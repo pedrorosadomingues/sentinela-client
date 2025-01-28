@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
+import Providers from "../providers";
 
 export default async function LocaleLayout({
   children,
@@ -19,13 +20,13 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <div lang={locale}>
-      <div>
-        <NextIntlClientProvider messages={messages}>
+    <main lang={locale}>
+      <NextIntlClientProvider messages={messages}>
+        <Providers>
           <ConfirmationModal />
           {children}
-        </NextIntlClientProvider>
-      </div>
-    </div>
+        </Providers>
+      </NextIntlClientProvider>
+    </main>
   );
 }
