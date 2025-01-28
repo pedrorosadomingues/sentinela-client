@@ -9,6 +9,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import { useTranslations } from "next-intl";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
+import Banner from "./Banner";
 
 export default function Home(): JSX.Element {
   const [visibleCards, setVisibleCards] = useState(0);
@@ -79,36 +80,39 @@ export default function Home(): JSX.Element {
   }, [imageFunctions]);
 
   return (
-    <div className="rounded-xl w-full max-w-7xl bg-white mb-auto grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      <div
-        onClick={() => setMainControl(text("my_generations"))}
-        className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
-      >
-        <HistoryIcon
-          className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
-          style={{ width: "80px", height: "80px", paddingRight: "10px" }}
-        />
-        <button className="text-[#49424A] font-bold text-sm hover:underline ">
-          {text("access_generations")}
-        </button>
+    <main className="w-full grid grid-cols-1 gap-8 mx-auto">
+      <Banner />
+      <div className="rounded-xl w-full grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div
+          onClick={() => setMainControl(text("my_generations"))}
+          className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
+        >
+          <HistoryIcon
+            className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
+            style={{ width: "80px", height: "80px", paddingRight: "10px" }}
+          />
+          <button className="text-[#49424A] font-bold text-sm hover:underline ">
+            {text("access_generations")}
+          </button>
+        </div>
+        {imageFunctions &&
+          imageFunctions.slice(0, visibleCards).map((func) => {
+            const details =
+              imageFunctionDetails[func.name as ImageFunctionName] || {};
+            return (
+              <Card
+                key={func.id}
+                title={text(func.name)}
+                description={details.description}
+                label={details.label}
+                isBeta={details.isBeta}
+                onClick={() => setMainControl(text(func.name))}
+                icon={ICON_MAPPING[func.name as ImageFunctionName]}
+              />
+            );
+          })}
+        <ConfirmationModal />
       </div>
-      {imageFunctions &&
-        imageFunctions.slice(0, visibleCards).map((func) => {
-          const details =
-            imageFunctionDetails[func.name as ImageFunctionName] || {};
-          return (
-            <Card
-              key={func.id}
-              title={text(func.name)}
-              description={details.description}
-              label={details.label}
-              isBeta={details.isBeta}
-              onClick={() => setMainControl(text(func.name))}
-              icon={ICON_MAPPING[func.name as ImageFunctionName]}
-            />
-          );
-        })}
-      <ConfirmationModal />
-    </div>
+    </main>
   );
 }

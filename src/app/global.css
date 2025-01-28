@@ -20,9 +20,11 @@
 } */
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Inter
+}
+
+body {
+  @apply bg-background w-screen overflow-x-hidden;
 }
 
 @layer utilities {

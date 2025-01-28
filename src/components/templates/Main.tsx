@@ -8,7 +8,7 @@ import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 import DressModel from "@/components/organisms/functions/DressModel";
 import MyGenerations from "../organisms/My-Generations";
-import Home from "@/components/organisms/Home";
+import Home from "@/components/organisms/home/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
