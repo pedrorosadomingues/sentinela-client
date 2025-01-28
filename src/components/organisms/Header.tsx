@@ -45,12 +45,12 @@ export default function Header(): JSX.Element {
 
   useEffect(() => {
     const stored_user_id = localStorage.getItem("user_id");
-    const stored_user_name = localStorage.getItem("user_name");
+    //const stored_user_name = localStorage.getItem("user_name");
     const local_user = stored_user_id
       ? getUser({ user_id: stored_user_id })
       : null;
 
-    if (!local_user || stored_user_name !== (user as User)?.name) {
+    if (!local_user) {
       alert("Please login again");
       redirect(`/${locale}`);
     }
