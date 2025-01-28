@@ -11,7 +11,7 @@ export default function MyProfile(): JSX.Element {
   const text = useTranslations("menu_profile");
 
   return (
-    <div className="bg-primary min-h-screen flex justify-start w-[90%] items-start mt-[80px] ml-[80px] p-5 max765:ml-0">
+    <div className="max-w-6xl mx-auto flex my-4 md:my-8">
       <MenuProfile />
       <div className="flex flex-col w-full">
         <MenuUp />

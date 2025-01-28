@@ -79,10 +79,10 @@ export default function Home(): JSX.Element {
   }, [imageFunctions]);
 
   return (
-    <div className="mt-10 p-10 rounded-xl w-[100%] ml-[55px] bg-white mt-[90px] mb-auto flex flex-wrap gap-[1%] max765:ml-0 max765:p-5">
+    <div className="rounded-xl w-full max-w-7xl bg-white mb-auto grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div
         onClick={() => setMainControl(text("my_generations"))}
-        className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center mb-[15px] bg-white w-[17%] justify-center gap-[8px] min-w-[190px] animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
+        className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
       >
         <HistoryIcon
           className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"

@@ -10,7 +10,7 @@ export default function ImageFromText() {
   const [prompt, setPrompt] = useState<string>("");
   const [aspectRatio, setAspectRatio] = useState<string>("free");
   const [generatedImages, setGeneratedImages] = useState<string[]>([
-    "", 
+    "",
     "",
     "",
     "",
@@ -23,12 +23,12 @@ export default function ImageFromText() {
   };
 
   return (
-    <div className="p-8 bg-gray-100 min-h- w-[80%] screen mt-[50px]">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">
+    <div className="flex flex-col gap-4 mx-auto min-h-screen max-w-6xl my-4 md:my-8">
+      <h1 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-800">
         O que você deseja criar hoje?
       </h1>
 
-      <div className="bg-white p-6 w-full rounded-lg shadow-md mb-6">
+      <div className="bg-white p-6 w-full rounded-lg shadow-md">
         <div className="relative w-full">
           <textarea
             value={prompt}
@@ -59,10 +59,7 @@ export default function ImageFromText() {
             }`}
             onClick={() => setAspectRatio("1:1")}
           >
-            <input
-            type="checkbox"
-            className="mr-2"
-            /> 1:1
+            <input type="checkbox" className="mr-2" /> 1:1
           </button>
         </div>
       </div>
@@ -72,22 +69,20 @@ export default function ImageFromText() {
         <p className="text-gray-700 font-medium mb-4">
           Gere uma roupa bem bonita
         </p>
-        <div className="flex gap-[15px]">
+        <div className="grid gap-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
           {generatedImages.map((src, index) => (
             <div
               key={index}
-              className="w-[353px] h-48 bg-gray-200 flex items-center justify-center rounded-lg"
+              className="w-full aspect-square bg-gray-200 flex items-center justify-center rounded-lg"
             >
               {src ? (
                 <Image
                   src={src}
                   alt={`Imagem gerada ${index + 1}`}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="flex-1 object-cover rounded-lg"
                 />
               ) : (
-             <CheckroomIcon
-             className="text-[#565D6DFF]"
-             />
+                <CheckroomIcon className="text-[#565D6DFF]" />
               )}
             </div>
           ))}

@@ -11,7 +11,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
-import { Avatar } from "@heroui/react";
+import { Avatar, Button, Card } from "@heroui/react";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 import { User } from "@/interfaces";
 import Image from "next/image";
@@ -22,6 +22,7 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
+import { StarGroup } from "./icons";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -87,12 +88,16 @@ export default function Header(): JSX.Element {
     switch (current) {
       case text("home"):
         return (
-          <div>
-            <h1 className="text-2xl text-black">
-              {text("greeting")} {user && "name" in user ? user.name : ""}
-            </h1>
-            <p className="text-black">{text("prompt")}</p>
-          </div>
+          user &&
+          "name" in user &&
+          user.name && (
+            <div>
+              <h1 className="text-xl font-medium text-black">
+                {text("greeting")} {user.name}!
+              </h1>
+              <p className="text-black">{text("prompt")}</p>
+            </div>
+          )
         );
 
       case text("my_generations"):
@@ -138,7 +143,7 @@ export default function Header(): JSX.Element {
   };
 
   return (
-    <header className="flex items-center justify-between py-2 px-4 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
+    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
       <div className="max765:hidden">{renderHeaderContent()}</div>
       <div className="min765:hidden flex">
         <ExpandSideBarButton
@@ -159,13 +164,28 @@ export default function Header(): JSX.Element {
         />
       </div>
 
-      <aside className="flex items-center gap-4">
-        <div className="flex gap-2">
+      <aside className="flex items-center gap-2">
+        <Button
+          color="secondary"
+          size="sm"
+          radius="sm"
+          className="hidden sm:flex"
+          startContent={<StarGroup />}
+        >
+          {text("subscribe_now")}
+        </Button>
+        <Card
+          className="flex-row items-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base "
+          shadow="none"
+          radius="sm"
+        >
           <Image
             src="/icons/coins-icon.png"
-            alt="Logo"
-            width={30}
-            height={30}
+            alt="Vestiq coins icon"
+            aria-label="Vestiq coins icon"
+            className="object-contain h-full"
+            width={15}
+            height={15}
             priority={true}
           />
 
@@ -174,13 +194,13 @@ export default function Header(): JSX.Element {
               {Number(user.v_coins).toFixed(2)}V
             </span>
           )}
-        </div>
+        </Card>
         <Dropdown placement="bottom-end" showArrow>
           <DropdownTrigger>
             <Avatar
               as="div"
               size="sm"
-              className="transition-transform cursor-pointer"
+              className="transition-transform cursor-pointer ml-1"
               isBordered={
                 user && "avatar" in user && user.avatar ? false : true
               }
@@ -233,7 +253,7 @@ export default function Header(): JSX.Element {
                 </select>
               }
             >
-              Trocar idioma
+              {text("language_switcher")}
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               {text("logout")}
