@@ -15,6 +15,7 @@ import CategoryBtnArea from "@/components/molecules/functions/dress-model/Contro
 import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-type-controls";
 import { useTranslations } from "next-intl";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import ChooseModelButton from "@/components/atoms/ChooseModelButton";
 
 export default function DressModel(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -92,6 +93,13 @@ export default function DressModel(): JSX.Element {
     }
   }
 
+  // to set selected model image path to formik values
+  const handleModelSelect = (imagePath: string) => {
+    setModelImagePath(imagePath);
+
+    formik.setFieldValue("model_image", imagePath);
+  };
+
   return (
     <div className="p-10 rounded-xl w-[80%] bg-white mt-[90px] mb-[130px]">
       <form
@@ -109,7 +117,10 @@ export default function DressModel(): JSX.Element {
               modelInputRef={modelInputRef}
               setModelImageWidth={setModelImageWidth}
             />
-            <ModelImageControls formik={formik} />
+            <div className="h-full flex flex-col gap-4">
+              <ChooseModelButton onModelSelect={handleModelSelect} />
+              <ModelImageControls formik={formik} />
+            </div>
           </div>
           <div>
             <GarmentImageArea

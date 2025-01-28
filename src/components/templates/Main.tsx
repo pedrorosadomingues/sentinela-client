@@ -48,7 +48,7 @@ export default function Main(): JSX.Element {
   }
 
   return (
-    <div className="bg-primary min-h-screen flex justify-center w-full">
+    <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
       {mainControl === text("home") ? (
