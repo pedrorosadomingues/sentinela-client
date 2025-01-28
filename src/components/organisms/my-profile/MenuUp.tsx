@@ -12,11 +12,11 @@ export default function MenuUp(): JSX.Element {
 
   const text = useTranslations("menu_profile");
 
-const ICON_MAPPING = [
-  { name: text("user_profile"), icon: <PersonOutlineIcon /> },
-  { name: text("personal_data"), icon: <AssignmentIndIcon /> },
-  { name: text("plan_billing"), icon: <AccountBalanceIcon /> },
-]
+  const ICON_MAPPING = [
+    { name: text("user_profile"), icon: <PersonOutlineIcon /> },
+    { name: text("personal_data"), icon: <AssignmentIndIcon /> },
+    { name: text("plan_billing"), icon: <AccountBalanceIcon /> },
+  ];
   useEffect(() => {
     const normalizedControl = profileControl.toLowerCase();
 
@@ -49,9 +49,7 @@ const ICON_MAPPING = [
       className={`select-none z-[4000] flex items-center justify-center bg-white border-r border-gray-200 min765:hidden mr-[100px]`}
     >
       <div className="flex items-center  justify-between h-full">
-        <ul
-          className={`mt-4 flex text-[#565D6DFF] gap-[50%]           `}
-        >
+        <ul className={`mt-4 flex text-[#565D6DFF] gap-[50%]           `}>
           {ICON_MAPPING.map((item) => (
             <li
               key={item.name}
