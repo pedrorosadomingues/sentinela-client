@@ -4,6 +4,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadButton from "../atoms/DownloadButton";
+import { Image } from "@heroui/react";
 import { deleteGeneration } from "@/services";
 import { useGlobalStore } from "@/zustand-stores";
 import ConfirmationButton from "../atoms/ConfirmationButton";
@@ -46,7 +47,7 @@ export default function GenerationCard({
   }
 
   return (
-    <div className="relative w-[80%] max-w-[250px] aspect-square rounded-xl overflow-hidden">
+    <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-default-200">
       <div className="absolute top-2 right-2 z-[2]">
         <button
           className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
@@ -78,9 +79,9 @@ export default function GenerationCard({
 
       <div
         id="img-container"
-        className="flex items-center justify-center relative w-full h-full group"
+        className="flex items-center justify-center relative w-full h-full group bg-default-200"
       >
-        <img
+        <Image
           src={data.path as string}
           alt={data.fn as string}
           className="z-[1] w-full h-full object-contain"

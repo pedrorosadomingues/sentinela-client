@@ -76,7 +76,9 @@
     "my_generations": "Mis Generaciones",
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagen a partir de Texto",
-    "render-traces": "Renderizar Trazos"
+    "render-traces": "Renderizar Trazos",
+    "language_switcher": "Cambiar idioma",
+    "subscribe_now": "¡Suscríbete ahora!"
   },
   "sidebar": {
     "my_profile": "Mi Perfil",
