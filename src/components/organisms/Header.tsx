@@ -2,23 +2,35 @@
 "use client";
 
 import { logout } from "@/utils";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import {
+  redirect,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
-import LanguageSwitcher from "./MainLanguageSwitcher";
-import { Divider } from "@heroui/react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Avatar } from "@heroui/react";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 import { User } from "@/interfaces";
 import Image from "next/image";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/react";
+import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const locale = useLocale();
   const text = useTranslations("header");
-  
+  const pathname = usePathname();
+  const currentLocale = useLocale();
+
   const { user, getUser, setUser } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
   const {
@@ -31,13 +43,13 @@ export default function Header(): JSX.Element {
   } = useSidebarStore();
 
   const [tab, setTab] = useState<string | null>(null);
-  const [isOpenMenuPerfil, setIsOpenMenuPerfil] = useState(false);
 
   function handleLogout(): void {
     logout();
     router.push(`/${locale}`);
     setUser(null);
   }
+
   function toggleLock(): void {
     setIsLocked(!isLocked);
     setIsExpanded(!isExpanded);
@@ -45,7 +57,6 @@ export default function Header(): JSX.Element {
 
   useEffect(() => {
     const stored_user_id = localStorage.getItem("user_id");
-    //const stored_user_name = localStorage.getItem("user_name");
     const local_user = stored_user_id
       ? getUser({ user_id: stored_user_id })
       : null;
@@ -97,8 +108,28 @@ export default function Header(): JSX.Element {
     }
   }
 
+  // Função para controlar as ações do Dropdown
+  function handleAction(key: string): void {
+    switch (key) {
+      case "my_profile":
+        setMainControl(text("my_profile"));
+        break;
+      case "logout":
+        handleLogout();
+        break;
+    }
+  }
+
+  const handleLocaleChange = (locale: string) => {
+    const pathnameWithoutLocale = pathname.replace(
+      new RegExp(`^/${currentLocale}`),
+      ""
+    );
+    router.push(`/${locale}${pathnameWithoutLocale}`);
+  };
+
   return (
-    <header className="flex items-center justify-between p-4 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
+    <header className="flex items-center justify-between py-2 px-4 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
       <div className="max765:hidden">{renderHeaderContent()}</div>
       <div className="min765:hidden flex">
         <ExpandSideBarButton
@@ -119,56 +150,88 @@ export default function Header(): JSX.Element {
         />
       </div>
 
-      <div className="flex gap-2">
-        <Image
-          src="/icons/coins-icon.png"
-          alt="Logo"
-          width={30}
-          height={30}
-          priority={true}
-        />
-
-        {user && "v_coins" in user && (
-          <span className="text-[#F10641]">
-            {Number(user.v_coins).toFixed(2)}V
-          </span>
-        )}
-        <div className="ml-[35px]">
-          <button
-            className="border text-2xl bg-gray-200 cursor-pointer text-[#F10641] rounded-[50%] pl-2 pr-2 border-secondary"
-            onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
-          >
-            {user && "name" in user ? user.name[0] : ""}
-          </button>
-
-          <KeyboardArrowDownIcon
-            className="text-[#F10641] cursor-pointer"
-            onClick={() => setIsOpenMenuPerfil((prev) => !prev)}
+      <aside className="flex items-center gap-4">
+        <div className="flex gap-2">
+          <Image
+            src="/icons/coins-icon.png"
+            alt="Logo"
+            width={30}
+            height={30}
+            priority={true}
           />
+
+          {user && "v_coins" in user && (
+            <span className="text-[#F10641]">
+              {Number(user.v_coins).toFixed(2)}V
+            </span>
+          )}
         </div>
-      </div>
-      {isOpenMenuPerfil && (
-        <div className="absolute flex flex-col bg-white right-[57px] top-[42px] p-4 z-[1000] rounded box-border border border-gray-200 shadow-md rounded-md">
-          <button
-            className="hover:cursor-pointer text-black z-[1000] mb-[5px]"
-            onClick={() => {
-              setIsOpenMenuPerfil((prev) => !prev);
-              setMainControl(text("my_profile"));
-            }}
+        <Dropdown placement="bottom-end" showArrow>
+          <DropdownTrigger>
+            <Avatar
+              as="div"
+              size="sm"
+              className="transition-transform cursor-pointer"
+              isBordered={
+                user && "avatar" in user && user.avatar ? false : true
+              }
+              classNames={{
+                name: "text-2xl text-secondary",
+                base: "bg-gray-200",
+              }}
+              showFallback
+              color="secondary"
+              name={user && "name" in user ? user.name[0] : ""}
+            />
+          </DropdownTrigger>
+          <DropdownMenu
+            aria-label="Profile Actions"
+            variant="flat"
+            onAction={(key) => handleAction(key as string)}
           >
-            Meu Perfil
-          </button>
-          <Divider />
-          <LanguageSwitcher />
-          <Divider />
-          <button
-            className="hover:cursor-pointer text-black bg-white mt-[5px]"
-            onClick={handleLogout}
-          >
-            {text("logout")}
-          </button>
-        </div>
-      )}
+            <DropdownItem
+              key="profile"
+              className="h-14 gap-2 cursor-default"
+              textValue="signed user info"
+              isReadOnly
+            >
+              <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">
+                {user && "email" in user ? user.email : ""}
+              </p>
+            </DropdownItem>
+            <DropdownItem key="my_profile">{text("my_profile")}</DropdownItem>
+            <DropdownItem
+              key="locale_switcher"
+              isReadOnly
+              className="cursor-default"
+              textValue="Language Switcher"
+              endContent={
+                <select
+                  className="z-10 mx-auto outline-none p-2 rounded-md text-tiny border-small bg-transparent text-default-500"
+                  id="locale-switcher"
+                  name="locale-switcher"
+                  onChange={(e) => handleLocaleChange(e.target.value)}
+                  value={currentLocale}
+                >
+                  {LOCALES.map((locale) => (
+                    <option key={locale} value={locale}>
+                      <span role="img" aria-label={locale}>
+                        {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
+                      </span>
+                    </option>
+                  ))}
+                </select>
+              }
+            >
+              Trocar idioma
+            </DropdownItem>
+            <DropdownItem key="logout" color="danger">
+              {text("logout")}
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </aside>
     </header>
   );
 }
