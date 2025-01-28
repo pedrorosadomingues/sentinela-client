@@ -13,7 +13,7 @@ export default function MyProfile(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto flex my-4 md:my-8">
       <MenuProfile />
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col items-center justify-center w-full">
         <MenuUp />
         {profileControl === text("user_profile") && <UserProfile />}
         {profileControl === text("personal_data") && <PersonalData />}
