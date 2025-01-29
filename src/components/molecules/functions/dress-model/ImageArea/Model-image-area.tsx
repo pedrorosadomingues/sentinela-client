@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Button } from "@heroui/react";
+import { Button, Tooltip } from "@heroui/react";
 import { CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 
@@ -52,15 +52,17 @@ export default function ModelImageArea({
       >
         {model_image_path ? (
           <>
-            <Button
-              onPress={() => onClearImage("model")}
-              color="danger"
-              size="sm"
-              isIconOnly
-              // isDisabled={}
-              startContent={<CloseOutlined fontSize="small" />}
-              className="absolute top-2 right-2"
-            />
+            <Tooltip content={text("clear_image")} placement="right" showArrow>
+              <Button
+                onPress={() => onClearImage("model")}
+                color="danger"
+                size="sm"
+                isIconOnly
+                // isDisabled={}
+                startContent={<CloseOutlined fontSize="small" />}
+                className="absolute top-2 right-2"
+              />
+            </Tooltip>
             <Image
               src={model_image_path}
               alt={text("model_preview_alt")}

@@ -93,18 +93,21 @@
     "step1_send_model_image": "Imagem do Modelo",
     "model_preview_alt": "Pré-visualização do Modelo",
     "drag_file_instruction": "Para começar a renderizar sua imagem, arraste um arquivo",
-    "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo"
+    "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo",
+    "clear_image": "Remover Imagem"
   },
   "garment_image_area": {
     "step2_send_garment_image": "Imagem da peça referência",
     "garment_preview_alt": "Pré-visualização da Peça",
     "drag_file_instruction": "Em seguida, arraste um arquivo",
-    "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça"
+    "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça",
+    "clear_image": "Remover Imagem"
   },
   "result_image_area": {
     "step3_your_image": "Imagem gerada pela IA",
     "result_preview_alt": "Pré-visualização do Resultado",
-    "your_image_will_be_displayed_here": "Sua imagem será exibida aqui"
+    "your_image_will_be_displayed_here": "Sua imagem será exibida aqui",
+    "reset_images": "Remover todas as imagens"
   },
   "model_image_controls": {
     "title": "Controles da Imagem do Modelo",

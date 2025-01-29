@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { CreateGenerationBody, CreateGenerationResponse } from "@/interfaces";
 
-export async function createGeneration(
-  createGenerationBody: CreateGenerationBody
-): Promise<CreateGenerationResponse> {
+export async function deleteGeneration(id: string) {
   const token = localStorage.getItem("token");
   if (!token) {
     return {
@@ -20,8 +17,7 @@ export async function createGeneration(
   };
 
   try {
-    const response = await api.post("/generation", createGenerationBody, config);
-
+    const response = await api.delete(`/generation/${id}`, config);
     return {
       status: httpStatus.OK,
       data: response.data,

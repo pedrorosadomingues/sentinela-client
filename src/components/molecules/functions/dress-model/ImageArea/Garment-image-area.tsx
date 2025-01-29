@@ -4,7 +4,7 @@
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Button } from "@heroui/react";
+import { Button, Tooltip } from "@heroui/react";
 import { CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 
@@ -53,15 +53,17 @@ export default function GarmentImageArea({
       >
         {garment_image_path ? (
           <>
-            <Button
-              onPress={() => onClearImage("garment")}
-              color="danger"
-              size="sm"
-              isIconOnly
-              // isDisabled={}
-              startContent={<CloseOutlined fontSize="small" />}
-              className="absolute top-2 right-2"
-            />
+            <Tooltip content={text("clear_image")} placement="right" showArrow>
+              <Button
+                onPress={() => onClearImage("garment")}
+                color="danger"
+                size="sm"
+                isIconOnly
+                // isDisabled={}
+                startContent={<CloseOutlined fontSize="small" />}
+                className="absolute top-2 right-2"
+              />
+            </Tooltip>
             <Image
               src={garment_image_path}
               alt={text("garment_preview_alt")}

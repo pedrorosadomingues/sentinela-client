@@ -187,7 +187,11 @@ export default function DressModel(): JSX.Element {
               className="w-full"
               isDisabled={isLoading}
               isLoading={isLoading}
-              startContent={<StarGroup className="mr-2" width={24} height={24} />}
+              startContent={
+                !isLoading ? (
+                  <StarGroup className="mr-2" width={24} height={24} />
+                ) : null
+              }
             >
               {text("generate_image")}
             </Button>

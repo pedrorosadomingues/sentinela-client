@@ -6,6 +6,7 @@ interface UserStore {
   user: UserProps | null;
   setUser: (user: UserProps | null) => void;
   getUser: (user_id: number | string) => Promise<void>;
+  handleUpdateCoins: (current: number) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -15,9 +16,25 @@ export const useUserStore = create<UserStore>((set) => ({
     const response = await getUserById({ user_id });
 
     if (response.status === 200 && response.data) {
-      set({ user: response.data});
+      set({ user: response.data });
     } else {
       console.error(response.message);
     }
+  },
+  handleUpdateCoins: (current) => {
+    set((state) => {
+      if (state.user) {
+        return {
+          user: {
+            ...state.user,
+            v_coins: {
+              ...state.user.v_coins,
+              current: current,
+            },
+          },
+        };
+      }
+      return state;
+    });
   },
 }));

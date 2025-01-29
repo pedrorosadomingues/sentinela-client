@@ -5,7 +5,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { Button } from "@heroui/react";
+import { Button, Tooltip } from "@heroui/react";
 import {
   CloseOutlined,
   DeleteSweepOutlined,
@@ -45,14 +45,20 @@ export default function ResultImageArea({
         {result_image_path ? (
           <>
             <nav className="flex flex-col gap-2 absolute top-2 right-2">
-              <Button
-                onPress={() => onClearImage("reset")}
-                color="danger"
-                size="sm"
-                isIconOnly
-                // isDisabled={}
-                startContent={<RotateLeftOutlined fontSize="small" />}
-              />
+              <Tooltip
+                content={text("reset_images")}
+                placement="right"
+                showArrow
+              >
+                <Button
+                  onPress={() => onClearImage("reset")}
+                  color="danger"
+                  size="sm"
+                  isIconOnly
+                  // isDisabled={}
+                  startContent={<RotateLeftOutlined fontSize="small" />}
+                />
+              </Tooltip>
             </nav>
             <img
               src={result_image_path}

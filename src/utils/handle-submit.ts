@@ -1,10 +1,11 @@
-import { createGeneration  } from "@/services";
+import { createGeneration } from "@/services";
 import { FormValues, } from "@/interfaces/generation";
+import { updateCoins } from "./update-coins";
 
 export async function handleSubmit(
   values: FormValues,
   setIsLoading: (loading: boolean) => void,
-  setResultImagePath: (path: string) => void
+  setResultImagePath: (path: string) => void,
 ): Promise<void> {
   const payload = {
     category: values.category,
@@ -25,10 +26,11 @@ export async function handleSubmit(
 
   try {
     const response = await createGeneration(payload);
-
     const { data: result_image_path } = response;
 
     if (response.status === 200) {
+      await updateCoins();
+      
       setResultImagePath(result_image_path);
     } else {
       alert("Error: " + JSON.stringify(response));

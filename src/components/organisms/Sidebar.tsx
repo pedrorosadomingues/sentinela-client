@@ -171,7 +171,7 @@ export default function Sidebar(): JSX.Element {
                   className={`mb-2 flex items-center justify-center md:justify-start hover:text-secondary w-fit group-hover:w-full hover:cursor-pointer rounded-lg p-2 transition-all duration-700 ease-smooth-return-end
                       ${
                         mainControl === text(func.name)
-                          ? "text-secondary bg-secondary-500/25"
+                          ? "text-secondary bg-secondary/10"
                           : ""
                       } `}
                   onClick={() => {

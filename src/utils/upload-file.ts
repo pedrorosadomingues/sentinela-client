@@ -15,8 +15,6 @@ export async function uploadFile(
       file_type,
     }).toString();
     
-    console.log(file, token);
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/upload/generate-presigned-url?${queryParams}`,
       {
@@ -27,8 +25,6 @@ export async function uploadFile(
         body: formData,
       }
     );
-
-    console.log('response', response);
 
     if (!response.ok) {
       throw new Error("Erro ao obter pre-signed URL");
