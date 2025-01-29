@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
 import { useLocale, useTranslations } from "next-intl";
@@ -10,6 +10,7 @@ import { useRootStore } from "@/zustand-stores/rootStore";
 import { login, createCoinReceiptService } from "@/services";
 import RootBanner from "@/components/organisms/RootBanner";
 import { FIRST_ACCESSS_TYPE_ID, FIRST_ACCESS_COINS } from "@/constants";
+import { Button } from "@heroui/react";
 
 export default function SignUpTemplate(): JSX.Element {
   const locale = useLocale();
@@ -150,11 +151,10 @@ export default function SignUpTemplate(): JSX.Element {
             </div> */}
             <div className="ml-auto mb-5 w-full">
               <Button
-                type="submit"
-                variant="contained"
-                disabled={isLoading}
+                type="submit"                
+                isLoading={isLoading}
                 fullWidth
-               className="bg-primary-background h-[48px] !rounded-[0.5rem]"
+               className="bg-primary-background h-[48px] !rounded-[0.5rem] text-white"
               >
                 {text("register")}
               </Button>

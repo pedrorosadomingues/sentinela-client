@@ -111,38 +111,6 @@ export default function Home(): JSX.Element {
               />
             );
           })}
-        {imageFunctions &&
-          imageFunctions.slice(0, visibleCards).map((func) => {
-            const details =
-              imageFunctionDetails[func.name as ImageFunctionName] || {};
-            return (
-              <Card
-                key={func.id}
-                title={text(func.name)}
-                description={details.description}
-                label={details.label}
-                isBeta={details.isBeta}
-                onClick={() => setMainControl(text(func.name))}
-                icon={ICON_MAPPING[func.name as ImageFunctionName]}
-              />
-            );
-          })}
-        {imageFunctions &&
-          imageFunctions.slice(0, visibleCards).map((func) => {
-            const details =
-              imageFunctionDetails[func.name as ImageFunctionName] || {};
-            return (
-              <Card
-                key={func.id}
-                title={text(func.name)}
-                description={details.description}
-                label={details.label}
-                isBeta={details.isBeta}
-                onClick={() => setMainControl(text(func.name))}
-                icon={ICON_MAPPING[func.name as ImageFunctionName]}
-              />
-            );
-          })}
         <ConfirmationModal />
       </div>
     </main>
