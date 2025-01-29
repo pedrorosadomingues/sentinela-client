@@ -2,7 +2,6 @@
 /* components/organisms/StudioContent.tsx */
 "use client";
 import { useFormik } from "formik";
-import { Button } from "@mui/material";
 import { useState, useRef } from "react";
 import ModelImageControls from "@/components/molecules/functions/dress-model/Controls/Model-image-controls";
 import SamplingControls from "@/components/molecules/functions/dress-model/Controls/Sampling-controls";
@@ -16,6 +15,7 @@ import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/G
 import { useTranslations } from "next-intl";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ChooseModelButton from "@/components/atoms/ChooseModelButton";
+import { Button } from "@heroui/react";
 
 export default function DressModel(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -150,9 +150,8 @@ export default function DressModel(): JSX.Element {
           <div className="items-start flex-col justify-start w-[320px] ">
             <div className="mb-5 ">
               <Button
-                type="submit"
-                variant="contained"
-                disabled={isLoading}
+                type="submit"                
+                isLoading={isLoading}
                 fullWidth
                 className="bg-primary-background text-white"
               >
