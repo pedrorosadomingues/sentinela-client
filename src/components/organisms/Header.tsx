@@ -11,9 +11,8 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
-import { Avatar, Button, Card } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
-import { User } from "@/interfaces";
 import Image from "next/image";
 import {
   Dropdown,
@@ -23,12 +22,13 @@ import {
 } from "@heroui/react";
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
 import { StarGroup } from "./icons";
+import CoinCounter from "../atoms/CoinCounter";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const locale = useLocale();
-  const text = useTranslations("header");
+  const t = useTranslations("header");
   const pathname = usePathname();
   const currentLocale = useLocale();
 
@@ -59,9 +59,7 @@ export default function Header(): JSX.Element {
   useEffect(() => {
     const stored_user_id = localStorage.getItem("user_id");
     const stored_user_name = localStorage.getItem("user_name");
-    const local_user = stored_user_id
-      ? getUser({ user_id: stored_user_id })
-      : null;
+    const local_user = stored_user_id ? getUser(stored_user_id) : null;
 
     if (!local_user) {
       alert("Please login again");
@@ -73,10 +71,7 @@ export default function Header(): JSX.Element {
       setMainControl(currentTab);
       setTab(currentTab);
     }
-    if (
-      (user as User)?.name !== undefined &&
-      (user as User)?.name !== stored_user_name
-    ) {
+    if (user?.name !== undefined && user?.name !== stored_user_name) {
       alert("Please login again");
       handleLogout();
     }
@@ -86,47 +81,42 @@ export default function Header(): JSX.Element {
     const current = mainControl || tab;
 
     switch (current) {
-      case text("home"):
+      case t("home"):
         return (
-          user &&
-          "name" in user &&
-          user.name && (
+          user?.name && (
             <div>
               <h1 className="text-xl font-medium text-black">
-                {text("greeting")} {user.name}!
+                {t("greeting")} {user.name}!
               </h1>
-              <p className="text-black">{text("prompt")}</p>
+              <p className="text-black">{t("prompt")}</p>
             </div>
           )
         );
 
-      case text("my_generations"):
-        return (
-          <h1 className="text-2xl text-black">{text("my_generations")}</h1>
-        );
+      case t("my_generations"):
+        return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
 
-      case text("dress-model"):
-        return <h1 className="text-2xl text-black">{text("dress-model")}</h1>;
+      case t("dress-model"):
+        return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
 
-      case text("txt2img"):
-        return <h1 className="text-2xl text-black">{text("txt2img")}</h1>;
+      case t("txt2img"):
+        return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
 
-      case text("render-traces"):
-        return <h1 className="text-2xl text-black">{text("render-traces")}</h1>;
+      case t("render-traces"):
+        return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
 
-      case text("my_profile"):
-        return <h1 className="text-2xl text-black">{text("my_profile")}</h1>;
+      case t("my_profile"):
+        return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
 
       default:
         return <h1 className="text-2xl text-black">{mainControl}</h1>;
     }
   }
 
-  // Função para controlar as ações do Dropdown
   function handleAction(key: string): void {
     switch (key) {
       case "my_profile":
-        setMainControl(text("my_profile"));
+        setMainControl(t("my_profile"));
         break;
       case "logout":
         handleLogout();
@@ -150,7 +140,7 @@ export default function Header(): JSX.Element {
           isLocked={isLocked}
           isExpanded={isExpanded}
           openCoinModal={openCoinModal}
-          user={user as User}
+          user={user}
           toggleLock={toggleLock}
           setOpenCoinModal={setOpenCoinModal}
         />
@@ -172,45 +162,24 @@ export default function Header(): JSX.Element {
           className="hidden sm:flex"
           startContent={<StarGroup />}
         >
-          {text("subscribe_now")}
+          {t("subscribe_now")}
         </Button>
-        <Card
-          className="flex-row items-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base "
-          shadow="none"
-          radius="sm"
-        >
-          <Image
-            src="/icons/coins-icon.png"
-            alt="Vestiq coins icon"
-            aria-label="Vestiq coins icon"
-            className="object-contain h-full"
-            width={15}
-            height={15}
-            priority={true}
-          />
+        {user && <CoinCounter user={user} />}
 
-          {user && "v_coins" in user && (
-            <span className="text-[#F10641]">
-              {Number(user.v_coins).toFixed(2)}V
-            </span>
-          )}
-        </Card>
         <Dropdown placement="bottom-end" showArrow>
           <DropdownTrigger>
             <Avatar
               as="div"
               size="sm"
               className="transition-transform cursor-pointer ml-1"
-              isBordered={
-                user && "avatar" in user && user.avatar ? false : true
-              }
+              isBordered={user?.avatar ? false : true}
               classNames={{
                 name: "text-2xl text-secondary",
                 base: "bg-gray-200",
               }}
               showFallback
               color="secondary"
-              name={user && "name" in user ? user.name[0] : ""}
+              name={user?.name[0]}
             />
           </DropdownTrigger>
           <DropdownMenu
@@ -225,11 +194,9 @@ export default function Header(): JSX.Element {
               isReadOnly
             >
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">
-                {user && "email" in user ? user.email : ""}
-              </p>
+              <p className="font-semibold">{user?.email}</p>
             </DropdownItem>
-            <DropdownItem key="my_profile">{text("my_profile")}</DropdownItem>
+            <DropdownItem key="my_profile">{t("my_profile")}</DropdownItem>
             <DropdownItem
               key="locale_switcher"
               isReadOnly
@@ -245,18 +212,16 @@ export default function Header(): JSX.Element {
                 >
                   {LOCALES.map((locale) => (
                     <option key={locale} value={locale}>
-                      <span role="img" aria-label={locale}>
-                        {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
-                      </span>
+                      {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
                     </option>
                   ))}
                 </select>
               }
             >
-              {text("language_switcher")}
+              {t("language_switcher")}
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
-              {text("logout")}
+              {t("logout")}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

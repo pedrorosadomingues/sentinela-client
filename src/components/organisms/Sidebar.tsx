@@ -2,23 +2,21 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { FaInfoCircle } from "react-icons/fa";
-import { AiFillCamera } from "react-icons/ai";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   useMainStore,
   useImageFunctionStore,
   useUserStore,
   useSidebarStore,
 } from "@/zustand-stores";
-import { Divider } from "@heroui/react";
-import { ImageFunction, ImageFunctionName } from "@/interfaces/image-function";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import CheckroomIcon from "@mui/icons-material/Checkroom";
+import { Card, Divider, Tooltip } from "@heroui/react";
+import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
-import CoinsHoverBox from "../atoms/VCoinsbox";
-import { User } from "@/interfaces";
 import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
+import { ICON_MAPPING } from "@/constants";
+import { HomeOutlined } from "@mui/icons-material";
+import CoinCouter from "../atoms/CoinCounter";
+import { VestiqCoins } from "./icons/VestiqCoins";
 
 export default function Sidebar(): JSX.Element {
   const {
@@ -29,7 +27,7 @@ export default function Sidebar(): JSX.Element {
     setIsExpanded,
     setIsLocked,
   } = useSidebarStore();
-
+  const locale = useLocale();
   const { setMainControl, mainControl } = useMainStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const { user } = useUserStore();
@@ -39,64 +37,21 @@ export default function Sidebar(): JSX.Element {
   const MAIN_ITEMS = [
     {
       name: text("home"),
-      icon_path: (
-        <CheckroomIcon
-          style={{ fontSize: 30 }}
-          className={`${!isExpanded && "m-auto"}`}
-        />
-      ),
+      icon_path: <HomeOutlined />,
     },
     {
       name: text("my_generations"),
-      icon_path: (
-        <HistoryIcon
-          style={{ fontSize: 30, minWidth: 30 }}
-          className={`${!isExpanded && "m-auto"}`}
-        />
-      ),
+      icon_path: <HistoryIcon />,
     },
   ];
-
-  const FUNCTION_ICON_MAPPING = {
-    "dress-model": (
-      <AiFillCamera
-        style={{ fontSize: 30, minWidth: 30 }}
-        className={`${!isExpanded && "m-auto"}`}
-      />
-    ),
-    txt2img: (
-      <BorderColorIcon
-        style={{ fontSize: 30, minWidth: 30 }}
-        className={`${!isExpanded && "m-auto"}`}
-      />
-    ),
-    "render-traces": (
-      <DesignServicesIcon
-        style={{ fontSize: 30, minWidth: 30 }}
-        className={`${!isExpanded && "m-auto"}`}
-      />
-    ),
-  };
 
   const toggleLock = () => {
     setIsLocked(!isLocked);
     setIsExpanded(!isExpanded);
   };
 
-  const handleMouseEnter = () => {
-    if (!isLocked) {
-      setIsExpanded(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (!isLocked) {
-      setIsExpanded(false);
-    }
-  };
-
   useEffect(() => {
-    getImageFunctions();
+    getImageFunctions(locale);
 
     const normalizedControl = mainControl.toLowerCase();
 
@@ -136,83 +91,87 @@ export default function Sidebar(): JSX.Element {
   }, [getImageFunctions]);
 
   return (
-    <aside
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={`select-none fixed z-10 h-screen left-0 transition-all duration-700 ease-smooth-return-end overflow-hidden
-        ${isExpanded ? "w-[281px] flex items-start" : "w-20 max765:w-0"} 
-        bg-white border-r border-gray-200`}
-    >
-      <div className="p-4 flex flex-col items-center relative h-full">
-        {isExpanded ? (
-          <div className="flex">
+    <aside className={`${isLocked && "group"}`}>
+      <nav
+        className={`
+          p-4
+          ${isExpanded ? "w-52" : "w-20 group-hover:w-52"}
+          hidden md:flex items-center group-hover:items-start
+          select-none overflow-hidden
+          fixed z-10 h-screen left-0 
+          transition-all duration-500 
+          bg-white border-r border-gray-200
+        `}
+      >
+        <div className="flex flex-col gap-4 h-full">
+          <div className="mb-4 h-16">
+            <div className="hidden group-hover:flex animate-fade-in">
+              <Image
+                src={"/images/logo-vestiq.png"}
+                alt="Logo"
+                style={{ height: "auto" }}
+                width={70}
+                height={70}
+                priority={true}
+              />
+              <div className="md:hidden">
+                <ExpandSideBarButton
+                  isLocked={isLocked}
+                  isExpanded={isExpanded}
+                  openCoinModal={openCoinModal}
+                  user={user}
+                  toggleLock={toggleLock}
+                  setOpenCoinModal={setOpenCoinModal}
+                />
+              </div>
+            </div>
             <Image
-              src={"/images/logo-vestiq.png"}
+              src={"/icons/logo-vestiq.ico"}
               alt="Logo"
+              className="block group-hover:hidden animate-appearance-in"
               style={{ height: "auto" }}
-              width={70}
-              height={70}
+              width={45}
+              height={45}
               priority={true}
             />
-            <div className="min765:hidden">
-              <ExpandSideBarButton
-                isLocked={isLocked}
-                isExpanded={isExpanded}
-                openCoinModal={openCoinModal}
-                user={user as User}
-                toggleLock={toggleLock}
-                setOpenCoinModal={setOpenCoinModal}
-              />
-            </div>
           </div>
-        ) : (
-          <Image
-            src={"/icons/logo-vestiq.ico"}
-            alt="Logo"
-            style={{ height: "auto" }}
-            width={45}
-            height={45}
-            priority={true}
-          />
-        )}
-        <div className="flex flex-col justify-between h-full">
-          <ul
-            className={`mt-4 w-full flex flex-col text-[#565D6DFF] gap-[10px] items-center
+
+          <div className="flex flex-col justify-between h-full">
+            <ul
+              className={`w-full flex flex-col text-[#565D6DFF] gap-[10px]
             }`}
-          >
-            {MAIN_ITEMS.map((item) => (
-              <li
-                key={item.name}
-                className={` mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+            >
+              {MAIN_ITEMS.map((item) => (
+                <li
+                  key={item.name}
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-secondary w-fit group-hover:w-full hover:cursor-pointer rounded-lg p-2
                    ${
                      mainControl === item.name
-                       ? "text-[#F10641] bg-[#FED2DD]"
+                       ? "text-secondary bg-secondary/10"
                        : ""
                    }`}
-                onClick={() => {
-                  setMainControl(item.name);
-                  setIsExpanded(false);
-                }}
-              >
-                {item.icon_path}
-                {isExpanded && (
-                  <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
+                  onClick={() => {
+                    setMainControl(item.name);
+                    setIsExpanded(false);
+                  }}
+                >
+                  {item.icon_path}
+
+                  <span className="hidden group-hover:block ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-secondary transition-all duration-700 ease-smooth-return-end">
                     {item.name}
                   </span>
-                )}
-              </li>
-            ))}
+                </li>
+              ))}
 
-            <Divider className="w-2/3 group-hover:w-[100%] mx-auto" />
+              <Divider className="w-2/3 group-hover:w-full" />
 
-            {imageFunctions &&
-              imageFunctions.map((func: ImageFunction) => (
+              {imageFunctions.map((func) => (
                 <li
                   key={func.id}
-                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]  transition-all duration-700 ease-smooth-return-end
+                  className={`mb-2 flex items-center justify-center md:justify-start hover:text-secondary w-fit group-hover:w-full hover:cursor-pointer rounded-lg p-2 transition-all duration-700 ease-smooth-return-end
                       ${
                         mainControl === text(func.name)
-                          ? "text-[#F10641] bg-[#FED2DD]"
+                          ? "text-secondary bg-secondary-500/25"
                           : ""
                       } `}
                   onClick={() => {
@@ -220,40 +179,61 @@ export default function Sidebar(): JSX.Element {
                     setIsExpanded(false);
                   }}
                 >
-                  {FUNCTION_ICON_MAPPING[func.name as ImageFunctionName] || (
+                  {ICON_MAPPING[func.name as ImageFunctionName]("medium") || (
                     <FaInfoCircle
                       className={`text-xl ${!isExpanded && "m-auto"}`}
                     />
                   )}
-                  {isExpanded && (
-                    <span className="ml-[6px] overflow-hidden whitespace-nowrap text-[16px]">
-                      {text(func.name)}
-                    </span>
-                  )}
+                  <span className="hidden group-hover:block ml-[6px] overflow-hidden whitespace-nowrap">
+                    {text(func.name)}
+                  </span>
                 </li>
               ))}
-          </ul>
-          <div>
-            <div className="max765:hidden">
-              <ExpandSideBarButton
-                isLocked={isLocked}
-                isExpanded={isExpanded}
-                openCoinModal={openCoinModal}
-                user={user as User}
-                toggleLock={toggleLock}
-                setOpenCoinModal={setOpenCoinModal}
-              />
+            </ul>
+
+            <div className="flex flex-col items-center gap-8">
+              <div className="hidden md:block">
+                <ExpandSideBarButton
+                  isLocked={isLocked}
+                  isExpanded={isExpanded}
+                  openCoinModal={openCoinModal}
+                  user={user}
+                  toggleLock={toggleLock}
+                  setOpenCoinModal={setOpenCoinModal}
+                />
+              </div>
+
+              {user && (
+                <>
+                  <Tooltip
+                    content={<CoinCouter user={user} hideBorder />}
+                    placement="right"
+                    showArrow
+                  >
+                    <div className="group-hover:hidden">
+                      <VestiqCoins width={32} height={32} />
+                    </div>
+                  </Tooltip>
+
+                  <Card
+                    className="w-full hidden group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
+                    shadow="none"
+                    radius="sm"
+                  >
+                    <VestiqCoins />
+                    <span className="text-secondary select-none">
+                      {user.v_coins.total -
+                        user?.v_coins.current +
+                        "/" +
+                        user?.v_coins.total}
+                    </span>
+                  </Card>
+                </>
+              )}
             </div>
-            <CoinsHoverBox
-              isLocked={isLocked}
-              isExpanded={isExpanded}
-              openCoinModal={openCoinModal}
-              user={user as User}
-              setOpenCoinModal={setOpenCoinModal}
-            />
           </div>
         </div>
-      </div>
+      </nav>
     </aside>
   );
 }

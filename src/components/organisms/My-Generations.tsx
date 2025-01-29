@@ -3,15 +3,20 @@
 import { useGenerationStore } from "@/zustand-stores";
 import { useEffect } from "react";
 import GenerationCard from "@/components/molecules/GenerationCard";
+import VestiqLoading from "./VestiqLoading";
 
 export default function MyGenerations(): JSX.Element {
-  const { getGenerations, generations } = useGenerationStore();
+  const { getGenerations, generations, isFetching } = useGenerationStore();
 
   useEffect(() => {
     getGenerations();
   }, [getGenerations]);
 
-  if (generations.length < 1) {
+  if (isFetching) {
+    return <VestiqLoading />;
+  }
+
+  if (!isFetching && generations.length < 1) {
     return (
       <div className="flex items-center justify-center animate-fade-in">
         <p className="text-lg font-semibold">No generations found</p>

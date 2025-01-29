@@ -8,6 +8,7 @@ export async function getUserById({
 }: GetUserByIdParams): Promise<GetUserByIdResponse> {
   try {
     const response = await api.get(`/user/${user_id}`);
+    
     return {
       status: httpStatus.OK,
       data: response.data,

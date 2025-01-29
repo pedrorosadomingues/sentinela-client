@@ -4,6 +4,9 @@
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Button } from "@heroui/react";
+import { CloseOutlined } from "@mui/icons-material";
+import StepNumber from "@/components/atoms/StepNumber";
 
 interface GarmentImageAreaProps {
   garment_image_path: string;
@@ -13,6 +16,7 @@ interface GarmentImageAreaProps {
   handleFileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   garmentInputRef: React.RefObject<HTMLInputElement>;
   setGarmentImageWidth: React.Dispatch<React.SetStateAction<number>>;
+  onClearImage: (type: "model" | "garment" | "result") => void;
 }
 
 export default function GarmentImageArea({
@@ -23,6 +27,7 @@ export default function GarmentImageArea({
   handleFileInputChange,
   garmentInputRef,
   setGarmentImageWidth,
+  onClearImage,
 }: GarmentImageAreaProps): JSX.Element {
   const text = useTranslations("garment_image_area");
   const imageRef = React.useRef<HTMLImageElement | null>(null);
@@ -36,30 +41,40 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <div className="max-w-[320px] min-w-[320px min935:h-[580px]">
-      <div className="flex items-center justify-center gap-[10px] mb-4">
-        <Image src="/icons/number-two-red.ico" alt="2" width={24} height={24} />
-        <label>{text("step2_send_garment_image")}</label>
+    <div className="max-w-[320px] w-full">
+      <div className="w-full flex justify-center items-center mb-4">
+        <StepNumber number={2} label={text("step2_send_garment_image")} />
       </div>
       <div
-        className="upload-area"
+        className="relative upload-area"
         onClick={() => openFileDialog("garment")}
         onDrop={(e) => handleDrop(e, "garment")}
         onDragOver={handleDragOver}
       >
         {garment_image_path ? (
-          <Image
-            src={garment_image_path}
-            alt={text("garment_preview_alt")}
-            width={250}
-            height={320}
-            style={{
-              height: "100%",
-              width: "auto",
-              borderRadius: "10px",
-              minHeight: "320px",
-            }}
-          />
+          <>
+            <Button
+              onPress={() => onClearImage("garment")}
+              color="danger"
+              size="sm"
+              isIconOnly
+              // isDisabled={}
+              startContent={<CloseOutlined fontSize="small" />}
+              className="absolute top-2 right-2"
+            />
+            <Image
+              src={garment_image_path}
+              alt={text("garment_preview_alt")}
+              width={250}
+              height={320}
+              style={{
+                height: "100%",
+                width: "auto",
+                borderRadius: "10px",
+                minHeight: "320px",
+              }}
+            />
+          </>
         ) : (
           <div className="flex flex-col justify-center items-center w-full h-full">
             <Image

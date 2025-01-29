@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { getAllGenerations } from "@/services";
 
 interface IGenerationStore {
+  isFetching: boolean;
   generations: any[];
   setGenerations: (generations: any[]) => void;
   getGenerations: () => Promise<void>;
@@ -13,6 +14,7 @@ interface IGenerationStore {
 }
 
 export const useGenerationStore = create<IGenerationStore>((set) => ({
+  isFetching: false,
   generations: [
     {
       id: 0,
@@ -32,9 +34,12 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   ],
   setGenerations: (generations: any[]) => set({ generations }),
   getGenerations: async () => {
+    set({ isFetching: true });
+
     const response = await getAllGenerations();
+
     if (response.status === 200) {
-      set({ generations: response.data });
+      set({ generations: response.data, isFetching: false });
     } else {
       console.error(response.message);
     }

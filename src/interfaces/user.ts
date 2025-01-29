@@ -1,11 +1,11 @@
-export interface User {
-  id: number | null;
-  name: string;
-  email: string;
-  password: string;
-  created_at: Date | null;
-  updated_at: Date | null;
-  v_coins: number;
+import { Tables } from "@/lib/supabase/types";
+
+export interface UserProps extends Tables<"user"> {
+  avatar: string;
+  v_coins: {
+    current: number;
+    total: number;
+  }
 }
 
 export interface GetUserByIdParams {
@@ -14,6 +14,6 @@ export interface GetUserByIdParams {
 
 export interface GetUserByIdResponse {
   status: number;
-  data?: User;
+  data?: UserProps;
   message?: string;
 }

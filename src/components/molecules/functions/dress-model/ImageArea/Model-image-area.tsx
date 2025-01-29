@@ -3,6 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Button } from "@heroui/react";
+import { CloseOutlined } from "@mui/icons-material";
+import StepNumber from "@/components/atoms/StepNumber";
 
 interface ModelImageAreaProps {
   model_image_path: string;
@@ -12,6 +15,7 @@ interface ModelImageAreaProps {
   handleFileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   modelInputRef: React.RefObject<HTMLInputElement>;
   setModelImageWidth: React.Dispatch<React.SetStateAction<number>>;
+  onClearImage: (type: "model" | "garment" | "result") => void;
 }
 
 export default function ModelImageArea({
@@ -22,6 +26,7 @@ export default function ModelImageArea({
   handleFileInputChange,
   modelInputRef,
   setModelImageWidth,
+  onClearImage,
 }: ModelImageAreaProps) {
   const text = useTranslations("model_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -35,31 +40,41 @@ export default function ModelImageArea({
   }, [model_image_path]);
 
   return (
-    <div className="mb-5 max-w-[320px] min-w-[320px]">
-      <div className="flex items-center justify-center gap-[10px] mb-4">
-        <Image src="/icons/number-one-red.ico" alt="1" width={24} height={24} />
-        <label>{text("step1_send_model_image")}</label>
+    <div className="max-w-[320px] w-full">
+      <div className="w-full flex justify-center items-center mb-4">
+        <StepNumber number={1} label={text("step1_send_model_image")} />
       </div>
       <div
-        className="upload-area"
+        className="relative upload-area"
         onClick={() => openFileDialog("model")}
         onDrop={(e) => handleDrop(e, "model")}
         onDragOver={handleDragOver}
       >
         {model_image_path ? (
-          <Image
-            src={model_image_path}
-            alt={text("model_preview_alt")}
-            width={250}
-            height={320}
-            ref={imageRef}
-            style={{
-              height: "100%",
-              width: "auto",
-              borderRadius: "10px",
-              minHeight: "320px",
-            }}
-          />
+          <>
+            <Button
+              onPress={() => onClearImage("model")}
+              color="danger"
+              size="sm"
+              isIconOnly
+              // isDisabled={}
+              startContent={<CloseOutlined fontSize="small" />}
+              className="absolute top-2 right-2"
+            />
+            <Image
+              src={model_image_path}
+              alt={text("model_preview_alt")}
+              width={250}
+              height={320}
+              ref={imageRef}
+              style={{
+                height: "100%",
+                width: "auto",
+                borderRadius: "10px",
+                minHeight: "320px",
+              }}
+            />
+          </>
         ) : (
           <div className="flex flex-col justify-center items-center w-full h-full">
             <Image

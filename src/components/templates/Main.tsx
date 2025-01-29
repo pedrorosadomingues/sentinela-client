@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 /* components/templates/Studio.tsx */
 "use client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../organisms/Header";
@@ -13,13 +14,23 @@ import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import MyProfile from "./My-Profile";
+import VestiqLoading from "../organisms/VestiqLoading";
+import { useImageFunctionStore } from "@/zustand-stores";
+import { VestiqCoins } from "../organisms/icons/VestiqCoins";
 
 export default function Main(): JSX.Element {
-  const text = useTranslations("teste");
+  const text = useTranslations("home");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mainControl, setMainControl } = useMainStore();
+  const { getImageFunctions } = useImageFunctionStore();
   const [isLoading, setIsLoading] = useState(true);
+
+  const locale = useLocale();
+
+  useEffect(() => {
+    getImageFunctions(locale as string);
+  }, []);
 
   useEffect(() => {
     const tab = searchParams.get("tab");
@@ -36,21 +47,14 @@ export default function Main(): JSX.Element {
   }, [mainControl, router]);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen w-screen">
-        <img
-          src="/icons/logo-vestiq.ico"
-          alt="Loading"
-          className="animate-spin-bounce w-24 h-24"
-        />
-      </div>
-    );
+    return <VestiqLoading />;
   }
 
   return (
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
+      <VestiqCoins />
       <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
         {mainControl === text("home") ? (
           <Home />

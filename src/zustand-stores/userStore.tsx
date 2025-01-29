@@ -1,20 +1,21 @@
 import { create } from "zustand";
-import { User, GetUserByIdParams } from "@/interfaces";
 import { getUserById } from "@/services";
+import { UserProps } from "@/interfaces";
 
 interface UserStore {
-  user: User | null | object;
-  setUser: (user: User | null) => void;
-  getUser: ({ user_id }: GetUserByIdParams) => Promise<void>;
+  user: UserProps | null;
+  setUser: (user: UserProps | null) => void;
+  getUser: (user_id: number | string) => Promise<void>;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-  user: {},
-  setUser: (user: User | null) => set({ user }),
-  getUser: async ({ user_id }) => {
+  user: null,
+  setUser: (user: UserProps | null) => set({ user }),
+  getUser: async (user_id) => {
     const response = await getUserById({ user_id });
-    if (response.status === 200) {
-      set({ user: response.data });
+
+    if (response.status === 200 && response.data) {
+      set({ user: response.data});
     } else {
       console.error(response.message);
     }
