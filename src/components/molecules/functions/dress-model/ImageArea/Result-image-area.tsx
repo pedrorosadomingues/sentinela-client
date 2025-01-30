@@ -5,15 +5,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { Button, Tooltip } from "@heroui/react";
+import {
+  CloseOutlined,
+  DeleteSweepOutlined,
+  RemoveOutlined,
+  RotateLeftOutlined,
+} from "@mui/icons-material";
+import StepNumber from "@/components/atoms/StepNumber";
 
 interface ResultImageAreaProps {
   result_image_path: string;
   setResultImageWidth: React.Dispatch<React.SetStateAction<number>>;
+  onClearImage: (type: "model" | "garment" | "result" | "reset") => void;
 }
 
 export default function ResultImageArea({
   result_image_path,
   setResultImageWidth,
+  onClearImage,
 }: ResultImageAreaProps): JSX.Element {
   const text = useTranslations("result_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -27,26 +37,38 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <div className="mb-5 max-w-[320px] min-w-[320px]">
-      <div className="flex items-center gap-[10px] justify-center mb-4">
-        <Image
-          src="/icons/number-three-red.ico"
-          alt="3"
-          width={24}
-          height={24}
-        />
-        <label>{text("step3_your_image")}</label>
+    <div className="max-w-[320px] w-full">
+      <div className="w-full flex justify-center items-center mb-4">
+        <StepNumber number={3} label={text("step3_your_image")} />
       </div>
-      <div className="result-area">
+      <div className="relative result-area">
         {result_image_path ? (
-          <img
-            src={result_image_path}
-            alt={text("result_preview_alt")}
-            style={{ height: "100%", width: "auto", borderRadius: "10px" }}
-            ref={imageRef}
-            width={250}
-            height={320}
-          />
+          <>
+            <nav className="flex flex-col gap-2 absolute top-2 right-2">
+              <Tooltip
+                content={text("reset_images")}
+                placement="right"
+                showArrow
+              >
+                <Button
+                  onPress={() => onClearImage("reset")}
+                  color="danger"
+                  size="sm"
+                  isIconOnly
+                  // isDisabled={}
+                  startContent={<RotateLeftOutlined fontSize="small" />}
+                />
+              </Tooltip>
+            </nav>
+            <img
+              src={result_image_path}
+              alt={text("result_preview_alt")}
+              style={{ height: "100%", width: "auto", borderRadius: "10px" }}
+              ref={imageRef}
+              width={250}
+              height={320}
+            />
+          </>
         ) : (
           <p className="text-center w-[70%]">
             <Image

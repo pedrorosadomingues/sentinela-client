@@ -58,15 +58,15 @@ export default function MenuProfile(): JSX.Element {
           {MAIN_ITEMS.map((item) => (
             <li
               key={item.name}
-              className={` mb-2 flex flex-col items-center justify-center md:justify-start hover:text-[#F10641] w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
+              className={` mb-2 flex flex-col items-center justify-center md:justify-start hover:text-secondary w-full group hover:cursor-pointer rounded-lg p-2 min-w-[50px]
                    ${
                      profileControl === item.name
-                       ? "text-[#F10641] bg-[#FED2DD]"
+                       ? "text-secondary bg-[#FED2DD]"
                        : ""
                    }`}
               onClick={() => setProfileControl(item.name)}
             >
-              <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-[#F10641] text-[16px]  transition-all duration-700 ease-smooth-return-end">
+              <span className="ml-[6px] overflow-hidden whitespace-nowrap group-hover:text-secondary text-[16px]  transition-all duration-700 ease-smooth-return-end">
                 {item.name}
               </span>
               <Divider />

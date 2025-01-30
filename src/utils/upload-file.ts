@@ -2,18 +2,19 @@ export async function uploadFile(
   file: File,
   token: string
 ): Promise<{ uploadUrl: string; localUrl: string }> {
+  
   try {
     const file_name = file.name;
     const file_type = file.type;
-
+    
     const formData = new FormData();
     formData.append("file", file);
-
+    
     const queryParams = new URLSearchParams({
       file_name,
       file_type,
     }).toString();
-
+    
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/upload/generate-presigned-url?${queryParams}`,
       {

@@ -21,6 +21,7 @@ export async function createGeneration(
 
   try {
     const response = await api.post("/generation", createGenerationBody, config);
+
     return {
       status: httpStatus.OK,
       data: response.data,

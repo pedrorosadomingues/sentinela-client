@@ -1,118 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import HistoryIcon from "@mui/icons-material/History";
-import Card from "@/components/molecules/MainOptionCard";
 import { useImageFunctionStore, useMainStore } from "@/zustand-stores";
-import { AiFillCamera } from "react-icons/ai";
-import { ImageFunctionName } from "@/interfaces/image-function";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import { useTranslations } from "next-intl";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Banner from "./Banner";
+import Card from "@/components/molecules/MainOptionCard";
+import {
+  ImageFunctionName,
+  ImageFunctionProps,
+} from "@/interfaces/image-function";
+import VestiqLoading from "../VestiqLoading";
+import { ICON_MAPPING } from "@/constants";
 
 export default function Home(): JSX.Element {
-  const [visibleCards, setVisibleCards] = useState(0);
-
-  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
+  const { imageFunctions, isFetching } = useImageFunctionStore();
   const { setMainControl } = useMainStore();
-
-  const text = useTranslations("teste");
-
-  const ICON_MAPPING = {
-    "dress-model": (
-      <AiFillCamera style={{ fontSize: 47, minWidth: 47, color: "#F10641" }} />
-    ),
-    txt2img: (
-      <BorderColorIcon
-        style={{
-          fontSize: 47,
-          minWidth: 47,
-          color: "#F10641",
-        }}
-      />
-    ),
-    "render-traces": (
-      <DesignServicesIcon
-        style={{ fontSize: 47, minWidth: 47, color: "#F10641" }}
-      />
-    ),
-  };
-
-  const imageFunctionDetails: Record<
-    ImageFunctionName,
-    { description: string; label: string; isBeta: boolean }
-  > = {
-    "dress-model": {
-      description: text("dress_model_description"),
-      label: text("start"),
-      isBeta: true,
-    },
-    "render-traces": {
-      description: text("render_traces_description"),
-      label: text("start"),
-      isBeta: true,
-    },
-    txt2img: {
-      description: text("txt2img_description"),
-      label: text("start"),
-      isBeta: false,
-    },
-  };
-
-  useEffect(() => {
-    getImageFunctions();
-  }, [getImageFunctions]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisibleCards((prev) => {
-        if (prev < imageFunctions.length) {
-          return prev + 1;
-        } else {
-          clearInterval(interval);
-          return prev;
-        }
-      });
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, [imageFunctions]);
+  const t = useTranslations("home");
 
   return (
     <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-7xl mx-auto">
-      <Banner />
-      <div className="rounded-xl w-full mb-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div
-          onClick={() => setMainControl(text("my_generations"))}
-          className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
-        >
-          <HistoryIcon
-            className="text-2xl text-[#FFFFFF] bg-[#F10641] rounded-full p-2"
-            style={{ width: "80px", height: "80px", paddingRight: "10px" }}
-          />
-          <button className="text-[#49424A] font-bold text-sm hover:underline ">
-            {text("access_generations")}
-          </button>
-        </div>
-        {imageFunctions &&
-          imageFunctions.slice(0, visibleCards).map((func) => {
-            const details =
-              imageFunctionDetails[func.name as ImageFunctionName] || {};
-            return (
+      {isFetching ? (
+        <VestiqLoading />
+      ) : (
+        <>
+          <Banner />
+          <div className="rounded-xl w-full mb-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div
+              onClick={() => setMainControl(t("my_generations"))}
+              className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
+            >
+              <HistoryIcon
+                className="text-2xl text-[#FFFFFF] bg-secondary rounded-full p-2"
+                style={{ width: "80px", height: "80px", paddingRight: "10px" }}
+              />
+              <button className="text-[#49424A] font-bold text-sm hover:underline ">
+                {t("access_generations")}
+              </button>
+            </div>
+            {imageFunctions?.map((func: ImageFunctionProps) => (
               <Card
                 key={func.id}
-                title={text(func.name)}
-                description={details.description}
-                label={details.label}
-                isBeta={details.isBeta}
-                onClick={() => setMainControl(text(func.name))}
-                icon={ICON_MAPPING[func.name as ImageFunctionName]}
+                title={func.title}
+                description={func.description}
+                isBeta={func.is_beta}
+                onClick={() => setMainControl(func.title)}
+                icon={ICON_MAPPING[func.name as ImageFunctionName]('large')}
               />
-            );
-          })}
-        <ConfirmationModal />
-      </div>
+            ))}
+            <ConfirmationModal />
+          </div>
+        </>
+      )}
     </main>
   );
 }

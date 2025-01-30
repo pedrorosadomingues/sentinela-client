@@ -4,7 +4,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
@@ -12,6 +12,7 @@ import PasswordVisibilityToggle from "../atoms/PasswordVisibilityToggle";
 import { useRootStore } from "@/zustand-stores/rootStore";
 import { redirect } from "next/navigation";
 import RootBanner from "@/components/organisms/RootBanner";
+import { Button } from "@heroui/react";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
@@ -123,10 +124,9 @@ export default function LoginTemplate(): JSX.Element {
               </div>
               <Button
                 type="submit"
-                variant="contained"
-                disabled={isLoading}
+                isLoading={isLoading}
                 fullWidth
-                className="bg-primary-background h-[48px] !rounded-[0.5rem]"
+                className="bg-primary-background h-[48px] !rounded-[0.5rem] text-white"
               >
                 {text("login") + ">>"}
               </Button>

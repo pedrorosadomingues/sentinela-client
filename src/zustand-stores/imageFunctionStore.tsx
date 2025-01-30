@@ -1,21 +1,26 @@
 import { create } from "zustand";
 import { getAllImageFns } from "@/services";
-import { ImageFunction } from "@/interfaces/image-function";
+import { ImageFunctionProps } from "@/interfaces/image-function";
 
 interface ImageFunctionStore {
-  imageFunctions: [ImageFunction];
-  setImageFunctions: (imageFunctions: [ImageFunction]) => void;
-  getImageFunctions: () => Promise<void>;
+  isFetching: boolean;
+  imageFunctions: ImageFunctionProps[];
+  setImageFunctions: (imageFunctions: ImageFunctionProps[]) => void;
+  getImageFunctions: (locale: string) => Promise<void>;
 }
 
 export const useImageFunctionStore = create<ImageFunctionStore>((set) => ({
-  imageFunctions: [{ id: 0, name: "", title: "" }],
-  setImageFunctions: (imageFunctions: [ImageFunction]) =>
+  isFetching: false,
+  imageFunctions: [],
+  setImageFunctions: (imageFunctions: ImageFunctionProps[]) =>
     set({ imageFunctions }),
-  getImageFunctions: async () => {
-    const response = await getAllImageFns();
+  getImageFunctions: async (locale) => {
+    set({ isFetching: true });
+
+    const response = await getAllImageFns(locale);
+
     if (response.status === 200) {
-      set({ imageFunctions: response.data });
+      set({ imageFunctions: response.data, isFetching: false });
     } else {
       console.error(response.message);
     }

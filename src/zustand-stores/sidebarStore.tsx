@@ -1,21 +1,33 @@
 import { create } from "zustand";
 
 interface ISidebarStore {
-  isExpanded: boolean;
-  isLocked: boolean;
-  openCoinModal: boolean;
-  setIsExpanded: (isExpanded: boolean) => void;
-  setIsLocked: (isLocked: boolean) => void;
-  setOpenCoinModal: (openCoinModal: boolean) => void;
+  sidebar: boolean;
+  toggleSidebar: () => void;
+  sidebarLayout: "minimized" | "expanded";
+  setSidebarLayout: (variant: "minimized" | "expanded") => void;
+  toggleSidebarLayout: () => void;
 }
 
 export const useSidebarStore = create<ISidebarStore>((set) => ({
-  isExpanded: false,
-  isLocked: false,
-  openCoinModal: false,
-  setIsExpanded: (isExpanded) => set({ isExpanded }),
-  setIsLocked: (isLocked) => set({ isLocked }),
-  setOpenCoinModal: (openCoinModal) => set({ openCoinModal }),
+  sidebar: true,
+  toggleSidebar: () => set((state) => ({ sidebar: !state.sidebar })),
+
+  sidebarLayout: "expanded",
+  setSidebarLayout: (variant: "minimized" | "expanded") =>
+    set({ sidebarLayout: variant }),
+  toggleSidebarLayout: () => {
+    const { sidebarLayout } = useSidebarStore.getState();
+
+    set((state) => ({
+      sidebarLayout:
+        state.sidebarLayout === "minimized" ? "expanded" : "minimized",
+    }));
+
+    localStorage.setItem(
+      "sidebar-layout",
+      sidebarLayout === "minimized" ? "expanded" : "minimized"
+    );
+  },
 }));
 
 export default useSidebarStore;

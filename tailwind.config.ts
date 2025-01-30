@@ -21,7 +21,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        secondary: "#F10641FF",
+        secondary: "#F10641",
       },
       transitionTimingFunction: {
         "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",
@@ -29,6 +29,7 @@ const config: Config = {
       animation: {
         "fade-in": "fade-in 0.3s ease-in-out forwards",
         "spin-bounce": "spinBounce 0.9s linear infinite",
+        "coin-spin": "coinSpin 1s linear normal",
       },
       keyframes: {
         "fade-in": {
@@ -51,6 +52,12 @@ const config: Config = {
           "100%": {
             transform: "rotateY(360deg) translateY(0%)",
           },
+        },
+        coinSpin: {
+          "0%": { transform: "rotateY(0deg)" },
+          "30%": { transform: "rotateY(130deg)" },
+          "70%": { transform: "rotateY(240deg)" },
+          "100%": { transform: "rotateY(360deg)" },
         },
       },
     },

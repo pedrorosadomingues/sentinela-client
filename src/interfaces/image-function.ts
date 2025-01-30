@@ -1,8 +1,8 @@
+import { Tables } from "@/lib/supabase/types";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface ImageFunction {
-  id: number;
-  name: string;
-  title: string;
+export interface ImageFunctionProps extends Tables<"image_function"> {
+  description: string;
 }
 
 export type ImageFunctionName = "dress-model" | "render-traces" | "txt2img";
