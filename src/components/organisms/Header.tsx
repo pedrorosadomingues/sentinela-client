@@ -12,7 +12,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
 import { Avatar, Button } from "@heroui/react";
-import ExpandSideBarButton from "@/components/atoms/ExpandSideBarButton";
 import Image from "next/image";
 import {
   Dropdown,
@@ -23,6 +22,7 @@ import {
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
 import { StarGroup } from "./icons";
 import CoinCounter from "../atoms/CoinCounter";
+import { Menu } from "@mui/icons-material";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -34,14 +34,7 @@ export default function Header(): JSX.Element {
 
   const { user, getUser, setUser } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
-  const {
-    isExpanded,
-    isLocked,
-    openCoinModal,
-    setOpenCoinModal,
-    setIsExpanded,
-    setIsLocked,
-  } = useSidebarStore();
+  const { toggleSidebar } = useSidebarStore();
 
   const [tab, setTab] = useState<string | null>(null);
 
@@ -49,11 +42,6 @@ export default function Header(): JSX.Element {
     logout();
     router.push(`/${locale}`);
     setUser(null);
-  }
-
-  function toggleLock(): void {
-    setIsLocked(!isLocked);
-    setIsExpanded(!isExpanded);
   }
 
   useEffect(() => {
@@ -133,22 +121,23 @@ export default function Header(): JSX.Element {
 
   return (
     <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
-      <div className="max765:hidden">{renderHeaderContent()}</div>
-      <div className="min765:hidden flex">
-        <ExpandSideBarButton
-          isLocked={isLocked}
-          isExpanded={isExpanded}
-          openCoinModal={openCoinModal}
-          user={user}
-          toggleLock={toggleLock}
-          setOpenCoinModal={setOpenCoinModal}
-        />
+      <div className="hidden md:block">{renderHeaderContent()}</div>
+      <div className="md:hidden flex gap-2">
+        <Button
+          isIconOnly
+          variant="light"
+          radius="full"
+          className="text-gray-400"
+          onPress={toggleSidebar}
+        >
+          <Menu />
+        </Button>
         <Image
-          src={"/images/logo-vestiq.png"}
+          src={"/icons/logo-vestiq.ico"}
           alt="Logo"
-          style={{ height: "auto" }}
-          width={70}
-          height={70}
+          className="block group-hover:hidden animate-appearance-in"
+          width={45}
+          height={45}
           priority={true}
         />
       </div>
