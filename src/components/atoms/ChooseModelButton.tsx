@@ -194,9 +194,12 @@ export default function ChooseModelButton({
   };
 
   return (
-    <>
-      <Button onPress={onOpen} color="secondary" size="lg" radius="sm">
+    <nav className="w-full flex items-center gap-2 mt-6">
+      <Button onPress={onOpen} color="secondary" className="w-full text-sm" size="lg" radius="sm">
         {t("choose_model_button")}
+      </Button>
+      <Button onPress={onOpen} color="secondary" className="w-full text-sm" size="lg" radius="sm">
+        {t("model_creator_button")}
       </Button>
       <Modal
         isOpen={isOpen}
@@ -213,7 +216,7 @@ export default function ChooseModelButton({
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </nav>
   );
 }
 

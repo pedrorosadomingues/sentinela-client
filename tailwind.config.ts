@@ -11,6 +11,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        "8xl": "1366px",
+        "9xl": "1440px",
+        "10xl": "1536px",
+      },
       fontFamily: {
         //lexend: ["var(--font-lexend)"],
         sans: ["var(--font-inter)", "sans-serif"],

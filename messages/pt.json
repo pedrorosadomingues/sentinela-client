@@ -20,7 +20,8 @@
   },
   "choose_model_modal": {
     "title": "Escolha um Modelo ou Gere um Personalizado",
-    "choose_model_button": "Escolher Modelo Pronto",
+    "choose_model_button": "Escolher Modelo",
+    "model_creator_button": "Gerar Modelo",
     "select_button": "Selecionar",
     "generate_label": "Descreva seu modelo personalizado",
     "generate_button": "Gerar Modelo Personalizado",
@@ -78,7 +79,8 @@
     "txt2img": "Imagem a partir de Texto",
     "render-traces": "Renderizar Traços",
     "language_switcher": "Trocar idioma",
-    "subscribe_now": "Assinar agora!"
+    "subscribe_now": "Assinar agora!",
+    "plans_and_subscriptions": "Planos e Assinaturas"
   },
   "sidebar": {
     "my_profile": "Meu Perfil",
@@ -87,7 +89,8 @@
     "my_generations": "Minhas Gerações",
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagem a partir de Texto",
-    "render-traces": "Renderizar Traços"
+    "render-traces": "Renderizar Traços",
+    "plans_and_subscriptions": "Planos e Assinaturas"
   },
   "model_image_area": {
     "step1_send_model_image": "Imagem do Modelo",
