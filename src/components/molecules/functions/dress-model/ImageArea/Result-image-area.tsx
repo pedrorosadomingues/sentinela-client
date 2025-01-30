@@ -13,6 +13,7 @@ import {
   RotateLeftOutlined,
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
+import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface ResultImageAreaProps {
   result_image_path: string;
@@ -25,6 +26,7 @@ export default function ResultImageArea({
   setResultImageWidth,
   onClearImage,
 }: ResultImageAreaProps): JSX.Element {
+  const { step, current, setStep } = useDressModelStore();
   const text = useTranslations("result_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = useState<number>(320);
@@ -37,7 +39,7 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <div className="max-w-[320px] w-full">
+    <div className="w-full">
       <div className="w-full flex justify-center items-center mb-4">
         <StepNumber number={3} label={text("step3_your_image")} />
       </div>
@@ -60,13 +62,15 @@ export default function ResultImageArea({
                 />
               </Tooltip>
             </nav>
-            <img
+            <Image
               src={result_image_path}
               alt={text("result_preview_alt")}
               style={{ height: "100%", width: "auto", borderRadius: "10px" }}
               ref={imageRef}
               width={250}
               height={320}
+              unoptimized
+              className="object-contain w-full aspect-square"
             />
           </>
         ) : (

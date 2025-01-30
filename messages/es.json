@@ -20,7 +20,8 @@
   },
   "choose_model_modal": {
     "title": "Elige un Modelo o Genera uno Personalizado",
-    "choose_model_button": "Elegir Modelo Listo",
+    "choose_model_button": "Elegir Modelo",
+    "model_creator_button": "Generar Modelo",
     "select_button": "Seleccionar",
     "generate_label": "Descripción del modelo",
     "generate_button": "Generar Modelo Personalizado",
@@ -78,7 +79,8 @@
     "txt2img": "Imagen a partir de Texto",
     "render-traces": "Renderizar Trazos",
     "language_switcher": "Cambiar idioma",
-    "subscribe_now": "¡Suscríbete ahora!"
+    "subscribe_now": "¡Suscríbete ahora!",
+    "plans_and_subscriptions": "Planes y Suscripciones"
   },
   "sidebar": {
     "my_profile": "Mi Perfil",
@@ -87,7 +89,8 @@
     "my_generations": "Mis Generaciones",
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagen a partir de Texto",
-    "render-traces": "Renderizar Trazos"
+    "render-traces": "Renderizar Trazos",
+    "plans_and_subscriptions": "Planes y Suscripciones"
   },
   "model_image_area": {
     "step1_send_model_image": "Imagen del Modelo",

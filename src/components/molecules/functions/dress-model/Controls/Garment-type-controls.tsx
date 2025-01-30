@@ -1,6 +1,8 @@
 import React from "react";
 import { TYPES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
+import { Button } from "@heroui/react";
+import { InfoOutlined } from "@mui/icons-material";
 
 interface TypeButtonsProps {
   selectedType: string;
@@ -18,37 +20,26 @@ export default function TypeButtons({
   const text = useTranslations("type_buttons");
 
   return (
-    <div className="mb-5 flex flex-col">
-      <label style={{ fontSize: "16px", marginBottom: "5px" }}>
-        {text("type")}
+    <div className="flex flex-col gap-1 w-full">
+      <label className="text-sm font-medium text-gray-600">
+        {text("type")} <InfoOutlined fontSize="small" />
       </label>
-      <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px]">
+
+      <div className="w-full flex gap-2">
         {TYPES_GARMENT.map((type) => (
-          <button
+          <Button
             key={type.value}
-            type="button"
-            onClick={() => setFieldValue("garment_photo_type", type.value)}
-            className={`text-[14px] h-[42px] p-[2px] ${
-              selectedType === type.value
-                ? "bg-white text-secondary "
-                : "bg-secondary text-white"
-            }`}
-            style={{ borderRadius: "6px" }}
+            onPress={() => setFieldValue("garment_photo_type", type.value)}
+            variant={selectedType === type.value ? "solid" : "bordered"}
+            color={"secondary"}
+            className="w-full text-sm"
+            radius="sm"
+            size="lg"
           >
             {text(`${type.value}`)}
-          </button>
+          </Button>
         ))}
       </div>
-
-      <style jsx>{`
-        label {
-          font-size: 0.875rem;
-        }
-        button {
-          border-radius: 15px;
-          transition: background-color 0.2s, color 0.2s;
-        }
-      `}</style>
     </div>
   );
 }

@@ -5,7 +5,12 @@
 :root {
   --background: #ffffff; /* Cor de fundo no modo claro */
   --foreground: #000000; /* Cor do texto no modo claro */
+
+  /* Apenas a cor secondary e sua versão transparente para animação */
+  --step-color: rgba(241, 6, 65, 1); /* Vermelho sólido */
+  --step-color-transparent: rgba(241, 6, 65, 0); /* Transparente */
 }
+
 
 /* .dark {
   --background: #000000;
@@ -20,7 +25,7 @@
 } */
 
 body {
-  font-family: Inter
+  font-family: Inter;
 }
 
 body {

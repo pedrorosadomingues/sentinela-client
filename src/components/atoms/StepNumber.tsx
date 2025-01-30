@@ -8,7 +8,7 @@ export default function StepNumber({
   label: string;
 }) {
   return (
-    <div className="flex gap-2 items-center font-lexend">
+    <div className="hidden md:flex gap-2 items-center font-lexend">
       <span className="flex items-center justify-center w-6 h-6 border-3 border-secondary rounded-full text-secondary text-xs font-bold text-center">
         {number}
       </span>

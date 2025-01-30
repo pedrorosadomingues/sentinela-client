@@ -16,6 +16,7 @@ import ImageFromText from "../organisms/functions/ImageFromText";
 import MyProfile from "./My-Profile";
 import VestiqLoading from "../organisms/VestiqLoading";
 import { useImageFunctionStore } from "@/zustand-stores";
+import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
 
 export default function Main(): JSX.Element {
   const text = useTranslations("home");
@@ -45,14 +46,11 @@ export default function Main(): JSX.Element {
     }
   }, [mainControl, router]);
 
-  if (isLoading) {
-    return <VestiqLoading />;
-  }
-
   return (
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
+      {isLoading && <VestiqLoading />}
       <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
         {mainControl === text("home") ? (
           <Home />
@@ -66,6 +64,8 @@ export default function Main(): JSX.Element {
           <RenderTraces />
         ) : mainControl === text("my_profile") ? (
           <MyProfile />
+        ) : mainControl === text("plans_and_subscriptions") ? (
+          <PlansAndSubscriptions />
         ) : null}
       </main>
     </div>

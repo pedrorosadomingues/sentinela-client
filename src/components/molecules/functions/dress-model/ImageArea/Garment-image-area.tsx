@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { Button, Tooltip } from "@heroui/react";
 import { CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
+import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface GarmentImageAreaProps {
   garment_image_path: string;
@@ -29,6 +30,8 @@ export default function GarmentImageArea({
   setGarmentImageWidth,
   onClearImage,
 }: GarmentImageAreaProps): JSX.Element {
+    const { step, setStep, current } = useDressModelStore();
+  
   const text = useTranslations("garment_image_area");
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
@@ -41,7 +44,7 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <div className="max-w-[320px] w-full">
+    <div className="w-full">
       <div className="w-full flex justify-center items-center mb-4">
         <StepNumber number={2} label={text("step2_send_garment_image")} />
       </div>
@@ -69,12 +72,8 @@ export default function GarmentImageArea({
               alt={text("garment_preview_alt")}
               width={250}
               height={320}
-              style={{
-                height: "100%",
-                width: "auto",
-                borderRadius: "10px",
-                minHeight: "320px",
-              }}
+              unoptimized
+              className="object-contain w-full aspect-square"
             />
           </>
         ) : (

@@ -1,8 +1,15 @@
 import { ModelImageControlsFormValues } from "@/interfaces/model-image-controls";
+import {
+  ClothesBottom,
+  ClothesComplete,
+  ClothesTop,
+} from "@/components/organisms/icons";
+import { SVGProps } from "react";
 
 export interface Category {
   label: string;
   value: string;
+  icon?: JSX.Element;
 }
 
 export interface CheckboxOption {
@@ -16,10 +23,20 @@ export interface FnOption {
   selectable: boolean;
 }
 
+const iconProps: SVGProps<SVGSVGElement> = {
+  width: 36,
+  height: 36,
+  className: "text-inherit"
+};
+
 export const CATEGORIES_GARMENT: Category[] = [
-  { label: "Top", value: "tops" },
-  { label: "Bottom", value: "bottoms" },
-  { label: "Full-body", value: "one-pieces" },
+  { label: "Top", value: "tops", icon: <ClothesTop {...iconProps} /> },
+  { label: "Bottom", value: "bottoms", icon: <ClothesBottom {...iconProps} /> },
+  {
+    label: "Full-body",
+    value: "one-pieces",
+    icon: <ClothesComplete {...iconProps} />,
+  },
 ];
 
 export const TYPES_GARMENT: Category[] = [
@@ -38,5 +55,3 @@ export const CHECKBOX_OPTIONS: CheckboxOption[] = [
   { name: "adjust_hands", label: "Adjust Hands" },
   { name: "restore_clothes", label: "Restore Clothes" },
 ];
-
-

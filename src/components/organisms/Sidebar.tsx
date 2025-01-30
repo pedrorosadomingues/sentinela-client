@@ -12,7 +12,7 @@ import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
 import { ICON_MAPPING } from "@/constants";
-import { HomeOutlined, MenuOpenOutlined } from "@mui/icons-material";
+import { HomeOutlined, MenuOpenOutlined, MonetizationOnOutlined } from "@mui/icons-material";
 import CoinCouter from "../atoms/CoinCounter";
 import { VestiqCoins } from "./icons/VestiqCoins";
 import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
@@ -34,6 +34,10 @@ export default function Sidebar(): JSX.Element {
       name: text("my_generations"),
       icon_path: <HistoryIcon />,
     },
+    {
+      name: text("plans_and_subscriptions"),
+      icon_path: <MonetizationOnOutlined />,
+    }
   ];
 
   useEffect(() => {

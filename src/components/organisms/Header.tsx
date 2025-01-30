@@ -157,7 +157,7 @@ export default function Header(): JSX.Element {
         </Button>
         {user && <CoinCounter user={user} />}
 
-        <Dropdown placement="bottom-end" showArrow>
+        <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}>
           <DropdownTrigger>
             <Avatar
               as="div"

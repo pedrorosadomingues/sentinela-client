@@ -16,8 +16,11 @@ import { useTranslations } from "next-intl";
 import ChooseModelButton from "@/components/atoms/ChooseModelButton";
 import { StarGroup } from "../icons";
 import { Button } from "@heroui/react";
+import RowSteps from "@/components/atoms/RowSteps";
+import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 export default function DressModel(): JSX.Element {
+  const { step, setStep, current } = useDressModelStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [model_image_path, setModelImagePath] = useState<string>("");
   const [garment_image_path, setGarmentImagePath] = useState<string>("");
@@ -33,7 +36,6 @@ export default function DressModel(): JSX.Element {
 
   const formik = useFormik({
     initialValues: {
-      category: "",
       model_image: "",
       garment_image: "",
       fn: "dress-model",
@@ -44,7 +46,8 @@ export default function DressModel(): JSX.Element {
       timesteps: 50,
       seed: 42,
       num_samples: 1,
-      garment_photo_type: "auto",
+      garment_photo_type: "flat-lay",
+      category: "tops",
     },
     onSubmit: (values) =>
       handleSubmit(values, setIsLoading, setResultImagePath),
@@ -107,6 +110,8 @@ export default function DressModel(): JSX.Element {
       setResultImagePath("");
       formik.setFieldValue("model_image", "");
       formik.setFieldValue("garment_image", "");
+
+      setStep(0);
     };
 
     switch (type) {
@@ -131,10 +136,10 @@ export default function DressModel(): JSX.Element {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="flex flex-col items-center gap-8 mx-auto my-4 md:my-8"
+      className="h-full w-full flex flex-col items-center gap-8 mx-auto my-4 md:my-8"
     >
-      <div className="w-full h-full flex flex-wrap gap-8 justify-center">
-        <div className="h-full flex flex-col gap-5">
+      <div className="w-full h-full hidden md:grid grid-cols-3 max-w-9xl gap-2 lg:gap-8">
+        <div className="w-full h-fit flex flex-col gap-4">
           <ModelImageArea
             model_image_path={model_image_path}
             openFileDialog={openFileDialog}
@@ -145,12 +150,10 @@ export default function DressModel(): JSX.Element {
             setModelImageWidth={setModelImageWidth}
             onClearImage={handleClearImage}
           />
-          <div className="flex flex-col gap-5 w-full">
-            <ChooseModelButton onModelSelect={handleModelSelect} />
-            <ModelImageControls formik={formik} />
-          </div>
+          <ChooseModelButton onModelSelect={handleModelSelect} />
+          <ModelImageControls formik={formik} />
         </div>
-        <div className="h-full flex flex-col gap-5">
+        <div className="w-full h-fit flex flex-col gap-4">
           <GarmentImageArea
             garment_image_path={garment_image_path}
             openFileDialog={openFileDialog}
@@ -161,47 +164,87 @@ export default function DressModel(): JSX.Element {
             setGarmentImageWidth={setGarmentImageWidth}
             onClearImage={handleClearImage}
           />
-          <div className="flex flex-col gap-5 w-full">
-            <TypeBtnArea
-              selectedType={formik.values.garment_photo_type}
-              setFieldValue={formik.setFieldValue}
-            />
-            <CategoryBtnArea
-              selectedCategory={formik.values.category}
-              setFieldValue={formik.setFieldValue}
-            />
-          </div>
+          <TypeBtnArea
+            selectedType={formik.values.garment_photo_type}
+            setFieldValue={formik.setFieldValue}
+          />
+          <CategoryBtnArea
+            selectedCategory={formik.values.category}
+            setFieldValue={formik.setFieldValue}
+          />
         </div>
-        <div className="h-full flex flex-col gap-5">
+        <div className="w-full h-fit flex flex-col gap-4">
           <ResultImageArea
             result_image_path={result_image_path}
             setResultImageWidth={setResultImageWidth}
             onClearImage={handleClearImage}
           />{" "}
-          <div className="flex flex-col gap-5 w-full">
-            <Button
-              color="secondary"
-              radius="sm"
-              type="submit"
-              size="lg"
-              className="w-full"
-              isDisabled={isLoading}
-              isLoading={isLoading}
-              startContent={
-                !isLoading ? (
-                  <StarGroup className="mr-2" width={24} height={24} />
-                ) : null
-              }
-            >
-              {text("generate_image")}
-            </Button>
-            <SamplingControls formik={formik} />
-          </div>
+          <Button
+            color="secondary"
+            radius="sm"
+            type="submit"
+            size="lg"
+            className="w-full text-sm mt-6"
+            isDisabled={isLoading}
+            isLoading={isLoading}
+            startContent={
+              !isLoading ? (
+                <StarGroup className="mr-2" width={24} height={24} />
+              ) : null
+            }
+          >
+            {text("generate_image")}
+          </Button>
+          <SamplingControls formik={formik} />
         </div>
       </div>
 
-      <div className="flex gap-8 justify-center">
-        {/* <div className="w-[320px] justify-start flex flex-col">
+      {/* MOBILE DRESS FN AREA */}
+      <div className="block md:hidden mx-auto">
+        <RowSteps
+          currentStep={step}
+          onStepChange={setStep}
+          color="secondary"
+          steps={[
+            {
+              title: "Model image",
+            },
+            {
+              title: "Garment image",
+            },
+            {
+              title: "Generate image",
+            },
+          ]}
+        />
+
+        {current === "model" ? (
+          <div className="space-y-4">
+            <ModelImageArea
+              model_image_path={model_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "model")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              modelInputRef={modelInputRef}
+              setModelImageWidth={setModelImageWidth}
+              onClearImage={handleClearImage}
+            />
+            <ChooseModelButton onModelSelect={handleModelSelect} />
+            <ModelImageControls formik={formik} />
+          </div>
+        ) : current === "garment" ? (
+          <div className="space-y-4">
+            <GarmentImageArea
+              garment_image_path={garment_image_path}
+              openFileDialog={openFileDialog}
+              handleDrop={(e) => handleDrop(e, "garment")}
+              handleDragOver={handleDragOver}
+              handleFileInputChange={handleFileInputChange}
+              garmentInputRef={garmentInputRef}
+              setGarmentImageWidth={setGarmentImageWidth}
+              onClearImage={handleClearImage}
+            />
             <TypeBtnArea
               selectedType={formik.values.garment_photo_type}
               setFieldValue={formik.setFieldValue}
@@ -210,22 +253,35 @@ export default function DressModel(): JSX.Element {
               selectedCategory={formik.values.category}
               setFieldValue={formik.setFieldValue}
             />
-          </div> */}
-        {/* <div className="items-start flex-col justify-start w-[320px] ">
-            <div className="mb-5 ">
+          </div>
+        ) : (
+          (current === "generated" || current === "result") && (
+            <div className="space-y-4">
+              <ResultImageArea
+                result_image_path={result_image_path}
+                setResultImageWidth={setResultImageWidth}
+                onClearImage={handleClearImage}
+              />{" "}
               <Button
+                color="secondary"
+                radius="sm"
                 type="submit"
-                variant="contained"
-                disabled={isLoading}
-                fullWidth
-                className="bg-primary-background text-white"
+                size="lg"
+                className="w-full text-sm md:mt-6"
+                isDisabled={isLoading}
+                isLoading={isLoading}
+                startContent={
+                  !isLoading ? (
+                    <StarGroup className="mr-2" width={24} height={24} />
+                  ) : null
+                }
               >
-                <AutoAwesomeIcon className="mr-2" />
                 {text("generate_image")}
               </Button>
+              <SamplingControls formik={formik} />
             </div>
-            <SamplingControls formik={formik} />
-          </div> */}
+          )
+        )}
       </div>
     </form>
   );

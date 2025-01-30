@@ -20,7 +20,8 @@
   },
   "choose_model_modal": {
     "title": "Choose a Model or Generate a Custom One",
-    "choose_model_button": "Choose Ready-Made Model",
+    "choose_model_button": "Choose Model",
+    "model_creator_button": "Generate Model",
     "select_button": "Select",
     "generate_label": "Describe your AI Model",
     "generate_button": "Generate Custom Model",
@@ -78,7 +79,8 @@
     "txt2img": "Image from Text",
     "render-traces": "Render Traces",
     "language_switcher": "Change language",
-    "subscribe_now": "Subscribe now!"
+    "subscribe_now": "Subscribe now!",
+    "plans_and_subscriptions": "Plans and Subscriptions"
   },
   "sidebar": {
     "my_profile": "My Perfil",
@@ -87,7 +89,8 @@
     "my_generations": "My Generations",
     "dress-model": "Dress Model",
     "txt2img": "Image from Text",
-    "render-traces": "Render Traces"
+    "render-traces": "Render Traces",
+    "plans_and_subscriptions": "Plans and Subscriptions"
   },
   "model_image_area": {
     "step1_send_model_image": "Model Image",

@@ -1,7 +1,8 @@
 import React from "react";
 import { CATEGORIES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
-
+import { Button } from "@heroui/react";
+import { InfoOutlined } from "@mui/icons-material";
 interface CategoryButtonsProps {
   selectedCategory: string;
   setFieldValue: (
@@ -18,37 +19,27 @@ export default function CategoryButtons({
   const text = useTranslations("category_buttons");
 
   return (
-    <div className="mb-5">
-      <label style={{ fontSize: "16px" }}>
-        {text("category")}
+    <div className="flex flex-col gap-1 w-full">
+      <label className="text-sm font-medium text-gray-600">
+        {text("category")} <InfoOutlined fontSize="small" />
       </label>
-      <div className="flex gap-3 bg-secondary p-[3px] rounded-[6px] mt-[5px]">
+      
+      <div className="w-full flex gap-2">
         {CATEGORIES_GARMENT.map((category) => (
-          <button
+          <Button
             key={category.value}
-            type="button"
-            onClick={() => setFieldValue("category", category.value)}
-            className={`text-[14px] h-[42px] p-[2px] ${
-              selectedCategory === category.value
-                ? "bg-white text-secondary "
-                : "bg-secondary text-white"
-            }`}
-            style={{ borderRadius: "6px" }}
+            onPress={() => setFieldValue("category", category.value)}
+            variant={selectedCategory === category.value ? "solid" : "bordered"}
+            color={"secondary"}
+            className="w-full text-sm h-24 aspect-square flex flex-col items-center justify-center gap-2"
+            radius="sm"
+            size="lg"
           >
-            {text(`categories.${category.value}`)}
-          </button>
+            <span className="fill-white">{category.icon}</span>
+            <span>{text(`categories.${category.value}`)}</span>
+          </Button>
         ))}
       </div>
-
-      <style jsx>{`
-        label {
-          font-size: 0.875rem;
-        }
-        button {
-          border-radius: 15px;
-          transition: background-color 0.2s, color 0.2s;
-        }
-      `}</style>
     </div>
   );
 }
