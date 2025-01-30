@@ -47,8 +47,6 @@ export default function LoginTemplate(): JSX.Element {
         }
       } catch (error) {
         console.log("Unexpected error:", error);
-      } finally {
-        setIsLoading(false);
       }
     },
   });

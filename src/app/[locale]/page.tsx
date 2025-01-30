@@ -25,11 +25,11 @@ export default function WelcomePage() {
   }, [searchParams, setRootControl]);
 
   useEffect(() => {
-    if (rootControl) {
+    if (rootControl && searchParams) {
       router.replace(`?tab=${rootControl}`);
       setIsLoading(false);
     }
-  }, [rootControl, router]);
+  }, [rootControl, router, searchParams]);
 
   if (isLoading) {
     return (

@@ -49,9 +49,11 @@ export default function Header(): JSX.Element {
     const stored_user_name = localStorage.getItem("user_name");
     const local_user = stored_user_id ? getUser(stored_user_id) : null;
 
-    if (!local_user || stored_user_name !== user?.name) {
-      redirect(`/${locale}`);
-    }
+    const timeout = setTimeout(() => {
+      if (!local_user || stored_user_name !== user?.name) {
+        redirect(`/${locale}`);
+      }
+    }, 2000);
 
     const currentTab = searchParams.get("tab");
     if (currentTab) {
@@ -62,6 +64,7 @@ export default function Header(): JSX.Element {
       alert("Please login again");
       handleLogout();
     }
+    return () => clearTimeout(timeout);
   }, [getUser, searchParams, setMainControl, router, locale]);
 
   function renderHeaderContent() {
