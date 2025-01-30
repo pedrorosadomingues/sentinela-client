@@ -45,14 +45,11 @@ export default function Main(): JSX.Element {
     }
   }, [mainControl, router]);
 
-  if (isLoading) {
-    return <VestiqLoading />;
-  }
-
   return (
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
+      {isLoading && <VestiqLoading />}
       <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
         {mainControl === text("home") ? (
           <Home />

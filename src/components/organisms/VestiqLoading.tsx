@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function VestiqLoading() {
     return (
-      <div className="flex items-center justify-center h-screen w-screen absolute top-0 left-0 bg-white z-50">
+      <div className="flex items-center w-full h-[90%] justify-center absolute bg-white z-50">
         <Image
           unoptimized
           src="/icons/logo-vestiq.ico"
