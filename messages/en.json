@@ -20,8 +20,9 @@
   },
   "choose_model_modal": {
     "title": "Choose a Model or Generate a Custom One",
-    "choose_model_button": "Choose Model",
+    "choose_model_button": "Choose ready Model",
     "model_creator_button": "Generate Model",
+    "model_by_text_button": "Model by Text",
     "select_button": "Select",
     "generate_label": "Describe your AI Model",
     "generate_button": "Generate Custom Model",

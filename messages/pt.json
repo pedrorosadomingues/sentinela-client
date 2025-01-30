@@ -20,8 +20,9 @@
   },
   "choose_model_modal": {
     "title": "Escolha um Modelo ou Gere um Personalizado",
-    "choose_model_button": "Escolher Modelo",
+    "choose_model_button": "Selecionar Modelo pronto",
     "model_creator_button": "Gerar Modelo",
+    "model_by_text_button": "Modelo por Texto",
     "select_button": "Selecionar",
     "generate_label": "Descreva seu modelo personalizado",
     "generate_button": "Gerar Modelo Personalizado",

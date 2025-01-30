@@ -138,7 +138,7 @@ export default function DressModel(): JSX.Element {
       onSubmit={formik.handleSubmit}
       className="h-full w-full flex flex-col items-center gap-8 mx-auto my-4 md:my-8"
     >
-      <div className="w-full h-full hidden md:grid grid-cols-3 max-w-9xl gap-2 lg:gap-8">
+      <div className="w-full h-full hidden md:grid grid-cols-3 max-w-8xl gap-2 lg:gap-8">
         <div className="w-full h-fit flex flex-col gap-4">
           <ModelImageArea
             model_image_path={model_image_path}
@@ -200,7 +200,7 @@ export default function DressModel(): JSX.Element {
       </div>
 
       {/* MOBILE DRESS FN AREA */}
-      <div className="block md:hidden mx-auto">
+      <div className="w-full max-w-md block md:hidden mx-auto">
         <RowSteps
           currentStep={step}
           onStepChange={setStep}
@@ -219,7 +219,7 @@ export default function DressModel(): JSX.Element {
         />
 
         {current === "model" ? (
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <ModelImageArea
               model_image_path={model_image_path}
               openFileDialog={openFileDialog}
@@ -234,7 +234,7 @@ export default function DressModel(): JSX.Element {
             <ModelImageControls formik={formik} />
           </div>
         ) : current === "garment" ? (
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <GarmentImageArea
               garment_image_path={garment_image_path}
               openFileDialog={openFileDialog}
@@ -256,7 +256,7 @@ export default function DressModel(): JSX.Element {
           </div>
         ) : (
           (current === "generated" || current === "result") && (
-            <div className="space-y-4">
+            <div className="space-y-4 w-full">
               <ResultImageArea
                 result_image_path={result_image_path}
                 setResultImageWidth={setResultImageWidth}

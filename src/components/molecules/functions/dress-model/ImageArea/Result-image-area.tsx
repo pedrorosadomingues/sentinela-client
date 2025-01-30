@@ -5,10 +5,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { Button, Tooltip } from "@heroui/react";
+import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import {
   CloseOutlined,
   DeleteSweepOutlined,
+  ImageOutlined,
   RemoveOutlined,
   RotateLeftOutlined,
 } from "@mui/icons-material";
@@ -39,11 +40,11 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <div className="w-full">
-      <div className="w-full flex justify-center items-center mb-4">
+    <Card className="w-full pb-6" shadow="sm">
+      <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={3} label={text("step3_your_image")} />
-      </div>
-      <div className="relative result-area">
+      </CardHeader>
+      <CardBody className="w-full relative result-area h-96">
         {result_image_path ? (
           <>
             <nav className="flex flex-col gap-2 absolute top-2 right-2">
@@ -70,40 +71,23 @@ export default function ResultImageArea({
               width={250}
               height={320}
               unoptimized
-              className="object-contain w-full aspect-square"
+              className="object-contain w-full aspect-square max-h-full"
             />
           </>
         ) : (
-          <p className="text-center w-[70%]">
-            <Image
-              src="/images/dress-model-third-placeholder.png"
-              alt="placeholder"
-              width={300}
-              height={300}
-            />
-            {text("your_image_will_be_displayed_here")}
-          </p>
+          <div className="grid grid-rows-4 grid-cols-1 w-full h-full place-items-center">
+            <div className="row-span-3 col-span-full flex items-center justify-center border-[16px] border-default/25 rounded-full w-36 h-36">
+              <ImageOutlined
+                fontSize="large"
+                className="text-default/95 scale-150"
+              />
+            </div>
+            <p className="row-span-1 text-center text-sm md:text-xs lg:text-sm text-default-600">
+              {text("your_image_will_be_displayed_here")}
+            </p>
+          </div>
         )}
-      </div>
-      <style jsx>{`
-        .result-area {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-width: 1px; 
-          border-color: #E5E7EBFF; 
-          border-style: solid; 
-          border-radius: 6px;
-          box-shadow: 0px 0px 1px
-          max-width: 320px;
-          min-height: 450px;
-          max-height: 550px;
-          text-align: center;
-          color: #888;
-          overflow: hidden;
-          padding: 10px;
-        }
-      `}</style>
-    </div>
+      </CardBody>
+    </Card>
   );
 }

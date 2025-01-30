@@ -36,7 +36,7 @@ export default function CategoryButtons({
             size="lg"
           >
             <span className="fill-white">{category.icon}</span>
-            <span>{text(`categories.${category.value}`)}</span>
+            <span className="text-sm md:text-xs xl:text-sm">{text(`categories.${category.value}`)}</span>
           </Button>
         ))}
       </div>

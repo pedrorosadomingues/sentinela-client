@@ -4,8 +4,8 @@
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Button, Tooltip } from "@heroui/react";
-import { CloseOutlined } from "@mui/icons-material";
+import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
+import { CheckroomOutlined, CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
@@ -30,8 +30,8 @@ export default function GarmentImageArea({
   setGarmentImageWidth,
   onClearImage,
 }: GarmentImageAreaProps): JSX.Element {
-    const { step, setStep, current } = useDressModelStore();
-  
+  const { step, setStep, current } = useDressModelStore();
+
   const text = useTranslations("garment_image_area");
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
@@ -44,12 +44,12 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <div className="w-full">
-      <div className="w-full flex justify-center items-center mb-4">
+    <Card className="w-full pb-6" shadow="sm">
+      <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={2} label={text("step2_send_garment_image")} />
-      </div>
-      <div
-        className="relative upload-area"
+      </CardHeader>
+      <CardBody
+        className="relative upload-area h-96"
         onClick={() => openFileDialog("garment")}
         onDrop={(e) => handleDrop(e, "garment")}
         onDragOver={handleDragOver}
@@ -73,23 +73,26 @@ export default function GarmentImageArea({
               width={250}
               height={320}
               unoptimized
-              className="object-contain w-full aspect-square"
+              className="object-contain w-full aspect-square max-h-full"
             />
           </>
         ) : (
-          <div className="flex flex-col justify-center items-center w-full h-full">
-            <Image
-              src="/images/dress-model-second-placeholder.png"
-              alt="upload"
-              width={300}
-              height={300}
-            />
-            <p className="text-center w-[70%] text-[18px]">
-              {text("drag_file_instruction")}
-            </p>
-            <span className="text-center text-[15px]">
-              {text("or_click_to_choose_garment_image")}
-            </span>
+          <div className="grid grid-rows-4 grid-cols-1 w-full h-full place-items-center">
+            <div className="row-span-3 col-span-full flex items-center justify-center border-[16px] border-default/25 rounded-full w-36 h-36">
+              <CheckroomOutlined
+                fontSize="large"
+                className="text-default/95 scale-150"
+              />
+            </div>
+
+            <div className="row-span-1 space-y-2 text-center">
+              <p className="text-center text-sm md:text-xs lg:text-sm text-default-600">
+                {text("drag_file_instruction")}
+              </p>
+              <span className="text-center text-xs mt-2">
+                {text("or_click_to_choose_garment_image")}
+              </span>
+            </div>
           </div>
         )}
 
@@ -101,34 +104,7 @@ export default function GarmentImageArea({
           ref={garmentInputRef}
           hidden
         />
-      </div>
-
-      <style jsx>{`
-        .upload-area {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-width: 1px; 
-          border-color: #E5E7EBFF; 
-          border-style: solid; 
-          border-radius: 10px;
-          box-shadow: 0px 0px 1px
-          width: 320px;
-          min-height: 450px;
-          max-height: 550px;
-          cursor: pointer;
-          text-align: center;
-          color: #888;
-          overflow: hidden;
-          padding: 10px;
-        }
-        .upload-area p {
-          margin: 0;
-        }
-        .upload-area:hover {
-          border-color: #888;
-        }
-      `}</style>
-    </div>
+      </CardBody>
+    </Card>
   );
 }
