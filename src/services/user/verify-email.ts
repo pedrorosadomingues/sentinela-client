@@ -1,30 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
-import { SignUpBody, SignUpResponse } from "@/interfaces";
 
-export async function signUp({
+export async function verifyEmail({
   email,
-  password,
-  name,
-  locale,
-}: SignUpBody & { locale: string }): Promise<SignUpResponse> {
+  verification_code,
+}: {
+  email: string;
+  verification_code: number;
+}): Promise<unknown> {
   try {
-    const response = await api.post(
-      "/user/sign-up",
-      {
-        email,
-        password,
-        name,
-      },
-      {
-        headers: {
-          "Accept-Language": locale,
-        },
-      }
-    );
+    const response = await api.patch("/user/verify-email", {
+      email,
+      verification_code,
+    });
+
     return {
-      status: httpStatus.OK,
+      status: response.status,
       data: response.data,
     };
   } catch (error: any) {

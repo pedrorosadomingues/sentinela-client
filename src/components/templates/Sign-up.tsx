@@ -7,9 +7,7 @@ import { signUp } from "@/services/user/sign-up";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { useRootStore } from "@/zustand-stores/rootStore";
-import { login, createCoinReceiptService } from "@/services";
 import RootBanner from "@/components/organisms/RootBanner";
-import { FIRST_ACCESSS_TYPE_ID, FIRST_ACCESS_COINS } from "@/constants";
 import { Button } from "@heroui/react";
 
 export default function SignUpTemplate(): JSX.Element {
@@ -27,40 +25,20 @@ export default function SignUpTemplate(): JSX.Element {
     },
     onSubmit: async () => {
       setIsLoading(true);
+
       try {
-        const responseSignUp = await signUp({
+        const response = await signUp({
           name: formik.values.name,
           email: formik.values.email,
           password: formik.values.password,
+          locale,
         });
-
-        if (responseSignUp.status === 200) {
-          toast.success(text("user_created_successfully"));
-          const responseLogin = await login({
-            email: formik.values.email,
-            password: formik.values.password,
-          });
-
-          if (responseLogin.status === 200) {
-            localStorage.setItem("token", responseLogin.data.token);
-            localStorage.setItem("user_id", responseLogin.data.user.id);
-            localStorage.setItem("user_name", responseLogin.data.user.name);
-            await createCoinReceiptService({
-              v_coins: FIRST_ACCESS_COINS,
-              type_id: FIRST_ACCESSS_TYPE_ID,
-              user_email: responseLogin.data.user.email,
-            });
-            window.location.href = `/${locale}/main`;
-          }
-        } else {
-          toast.error(
-            text("error_creating_user") +
-              " " +
-              JSON.stringify(responseSignUp.message?.error)
-          );
+        if (response.status === 200) {
+          alert("Confirmation email sent");
         }
       } catch (error) {
         console.log("Unexpected error:", error);
+
         toast.error(text("unexpected_error"));
       } finally {
         setIsLoading(false);
@@ -151,10 +129,10 @@ export default function SignUpTemplate(): JSX.Element {
             </div> */}
             <div className="ml-auto mb-5 w-full">
               <Button
-                type="submit"                
+                type="submit"
                 isLoading={isLoading}
                 fullWidth
-               className="bg-primary-background h-[48px] !rounded-[0.5rem] text-white"
+                className="bg-primary-background h-[48px] !rounded-[0.5rem] text-white"
               >
                 {text("register")}
               </Button>
