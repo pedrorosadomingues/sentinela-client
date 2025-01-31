@@ -27,12 +27,15 @@ export default function SignUpTemplate(): JSX.Element {
       setIsLoading(true);
 
       try {
-        await signUp({
+        const response = await signUp({
           name: formik.values.name,
           email: formik.values.email,
           password: formik.values.password,
           locale,
         });
+        if (response.status === 200) {
+          alert("Confirmation email sent");
+        }
       } catch (error) {
         console.log("Unexpected error:", error);
 
