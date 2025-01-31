@@ -9,7 +9,7 @@ import { useUserStore } from "@/zustand-stores";
 import { useTranslations } from "next-intl";
 
 export default function LanguageSwitcher() {
-  const { user, setUser } = useUserStore();
+  const { user } = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [localUser, setLocalUser] = useState(user);

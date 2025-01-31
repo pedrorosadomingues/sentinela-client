@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import { CATEGORIES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
@@ -23,7 +24,7 @@ export default function CategoryButtons({
       <label className="text-sm font-medium text-gray-600">
         {text("category")} <InfoOutlined fontSize="small" />
       </label>
-      
+
       <div className="w-full flex gap-2">
         {CATEGORIES_GARMENT.map((category) => (
           <Button
@@ -36,7 +37,10 @@ export default function CategoryButtons({
             size="lg"
           >
             <span className="fill-white">{category.icon}</span>
-            <span className="text-sm md:text-xs xl:text-sm">{text(`categories.${category.value}`)}</span>
+            <span className="text-sm md:text-xs xl:text-sm">
+              {/* @ts-ignore */}
+              {text(`categories.${category.value}`)}
+            </span>
           </Button>
         ))}
       </div>

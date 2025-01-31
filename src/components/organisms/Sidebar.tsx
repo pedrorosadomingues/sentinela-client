@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Image from "next/image";
@@ -12,7 +13,11 @@ import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
 import { ICON_MAPPING } from "@/constants";
-import { HomeOutlined, MenuOpenOutlined, MonetizationOnOutlined } from "@mui/icons-material";
+import {
+  HomeOutlined,
+  MenuOpenOutlined,
+  MonetizationOnOutlined,
+} from "@mui/icons-material";
 import CoinCouter from "../atoms/CoinCounter";
 import { VestiqCoins } from "./icons/VestiqCoins";
 import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
@@ -37,7 +42,7 @@ export default function Sidebar(): JSX.Element {
     {
       name: text("plans_and_subscriptions"),
       icon_path: <MonetizationOnOutlined />,
-    }
+    },
   ];
 
   useEffect(() => {
@@ -130,7 +135,10 @@ export default function Sidebar(): JSX.Element {
                       icon={item.icon_path}
                       name={item.name}
                       active={mainControl}
-                      onPress={() => setMainControl(item.name)}
+                      onPress={() => {
+                        setMainControl(item.name);
+                        toggleSidebar();
+                      }}
                       layout={sidebarLayout}
                     />
                   ))}
@@ -146,8 +154,13 @@ export default function Sidebar(): JSX.Element {
                         "medium"
                       )}
                       active={mainControl}
+                      // @ts-ignore
                       name={text(func.name)}
-                      onPress={() => setMainControl(text(func.name))}
+                      onPress={() => {
+                        // @ts-ignore
+                        setMainControl(text(func.name));
+                        toggleSidebar();
+                      }}
                       layout={sidebarLayout}
                     />
                   ))}
@@ -170,7 +183,7 @@ export default function Sidebar(): JSX.Element {
                     </Tooltip>
 
                     <Card
-                      className="w-full flex md:hidden md:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
+                      className="w-full hidden md:hidden md:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
                       shadow="none"
                       radius="sm"
                     >
