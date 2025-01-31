@@ -12,7 +12,7 @@ export default function StepNumber({
       <span className="flex items-center justify-center w-6 h-6 border-3 border-secondary rounded-full text-secondary text-xs font-bold text-center">
         {number}
       </span>
-      <label className="text-base text-font font-medium">{label}</label>
+      <label className="whitespace-nowrap text-base md:text-sm lg:text-base xl:text-lg text-font font-medium">{label}</label>
     </div>
   );
 }

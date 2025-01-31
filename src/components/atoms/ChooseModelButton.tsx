@@ -13,10 +13,15 @@ import {
   Textarea,
 } from "@heroui/react";
 import { useTranslations } from "next-intl";
-import { CloseOutlined } from "@mui/icons-material";
+import {
+  AddReactionOutlined,
+  ChatOutlined,
+  CloseOutlined,
+  FaceOutlined,
+} from "@mui/icons-material";
 import { useFormik } from "formik";
 import { z } from "zod";
-import { withZodSchema } from 'formik-validator-zod';
+import { withZodSchema } from "formik-validator-zod";
 
 type ChooseModelButtonProps = {
   onModelSelect: (imagePath: string) => void;
@@ -27,6 +32,13 @@ const generateCustomModelSchema = z.object({
 });
 
 type FormValues = z.infer<typeof generateCustomModelSchema>;
+
+interface TriggerProps {
+  key: string;
+  label: string;
+  icon: React.ReactNode;
+  onPress: () => void;
+}
 
 export default function ChooseModelButton({
   onModelSelect,
@@ -193,14 +205,43 @@ export default function ChooseModelButton({
     );
   };
 
+  const triggers: TriggerProps[] = [
+    {
+      key: "select-redraw-models",
+      label: t("choose_model_button"),
+      icon: <FaceOutlined />,
+      onPress: () => onOpen(),
+    },
+    {
+      key: "generate-model-by-text",
+      label: t("model_by_text_button"),
+      icon: <ChatOutlined />,
+      onPress: () => onOpen(),
+    },
+    {
+      key: "generate-custom-model",
+      label: t("model_creator_button"),
+      icon: <AddReactionOutlined />,
+      onPress: () => onOpen(),
+    },
+  ];
+
   return (
-    <nav className="w-full flex items-center gap-2 mt-6">
-      <Button onPress={onOpen} color="secondary" className="w-full text-sm" size="lg" radius="sm">
-        {t("choose_model_button")}
-      </Button>
-      <Button onPress={onOpen} color="secondary" className="w-full text-sm" size="lg" radius="sm">
-        {t("model_creator_button")}
-      </Button>
+    <nav className="w-full space-y-4 mt-6">
+      {triggers.map((trigger) => (
+        <Button
+          key={trigger.key}
+          onPress={trigger.onPress}
+          color="secondary"
+          className="w-full text-sm"
+          size="lg"
+          radius="sm"
+          startContent={trigger.icon}
+        >
+          {trigger.label}
+        </Button>
+      ))}
+
       <Modal
         isOpen={isOpen}
         onClose={isLoading ? () => {} : onOpenChange}
