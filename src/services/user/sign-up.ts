@@ -7,13 +7,22 @@ export async function signUp({
   email,
   password,
   name,
-}: SignUpBody): Promise<SignUpResponse> {
+  locale,
+}: SignUpBody & { locale: string }): Promise<SignUpResponse> {
   try {
-    const response = await api.post("/user/sign-up", {
-      email,
-      password,
-      name,
-    });
+    const response = await api.post(
+      "/user/sign-up",
+      {
+        email,
+        password,
+        name,
+      },
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      }
+    );
     return {
       status: httpStatus.OK,
       data: response.data,
