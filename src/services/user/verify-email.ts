@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import api from "@/config/server";
 import httpStatus from "http-status";
+import { useUserStore } from "@/zustand-stores";
 
 export async function verifyEmail({
-  email,
   verification_code,
 }: {
-  email: string;
   verification_code: number;
 }): Promise<unknown> {
+  const { user } = useUserStore.getState();
   try {
     const response = await api.patch("/user/verify-email", {
-      email,
+      email: user?.email,
       verification_code,
     });
 
