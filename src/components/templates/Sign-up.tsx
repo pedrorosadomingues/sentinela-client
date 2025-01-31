@@ -32,6 +32,7 @@ export default function SignUpTemplate(): JSX.Element {
           name: formik.values.name,
           email: formik.values.email,
           password: formik.values.password,
+          locale,
         });
 
         if (responseSignUp.status === 200) {
