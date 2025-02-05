@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useFormik } from "formik";
@@ -19,8 +20,9 @@ export default function LoginTemplate(): JSX.Element {
   const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-  const token = localStorage.getItem("token");
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const { setRootControl } = useRootStore();
 
@@ -29,13 +31,12 @@ export default function LoginTemplate(): JSX.Element {
       email: "",
       password: "",
     },
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       setIsLoading(true);
+      setErrors({}); // Resetando erros antes da tentativa
+
       try {
-        const response = await login({
-          email: formik.values.email,
-          password: formik.values.password,
-        });
+        const response = await login(values);
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
@@ -44,9 +45,18 @@ export default function LoginTemplate(): JSX.Element {
           window.location.href = `/${locale}/main`;
         } else {
           toast.error(text("invalid_email_or_password"));
+          setErrors({
+            email: text("invalid_email_or_password"),
+            password: text("invalid_email_or_password"),
+          });
         }
       } catch (error) {
-        console.log("Unexpected error:", error);
+        setErrors({
+          email: text("invalid_email_or_password"),
+          password: text("invalid_email_or_password"),
+        });
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -58,9 +68,9 @@ export default function LoginTemplate(): JSX.Element {
   }, []);
 
   return (
-    <div className="min-h-screen w-screen flex items-center aqui">
+    <div className="min-h-screen w-screen flex items-center">
       <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center max1030:w-full max1030:p-0 max1030:pb-[150px] max1030:max-w-[576px] max1030:m-auto">
-        <div className="w-[65%] h-[450px] flex-col justify-between flex max1030:w-[85%]">
+        <div className="w-[65%] h-[450px] flex-col justify-between flex max1030:w-[85%] aqui">
           <Image
             src={"/images/logo-vestiq.png"}
             alt="Vestiq logo"
@@ -74,6 +84,7 @@ export default function LoginTemplate(): JSX.Element {
             {text("access_message")}
           </p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col">
+            {/* Campo de E-mail */}
             <div className="mb-5">
               <TextField
                 label={text("email")}
@@ -81,8 +92,10 @@ export default function LoginTemplate(): JSX.Element {
                 name="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
-                className="w-full "
+                className="w-full"
                 type="email"
+                error={!!errors.email} // Destaca o erro no input
+                helperText={errors.email} // Mostra a mensagem de erro
                 slotProps={{
                   inputLabel: {
                     shrink: true,
@@ -90,7 +103,9 @@ export default function LoginTemplate(): JSX.Element {
                 }}
               />
             </div>
-            <div className="">
+
+            {/* Campo de Senha */}
+            <div className="mb-5">
               <TextField
                 label={text("password")}
                 variant="outlined"
@@ -99,6 +114,8 @@ export default function LoginTemplate(): JSX.Element {
                 value={formik.values.password}
                 className="w-full"
                 type={showPassword ? "text" : "password"}
+                error={!!errors.password} // Destaca o erro no input
+                helperText={errors.password} // Mostra a mensagem de erro
                 slotProps={{
                   input: {
                     endAdornment: (
@@ -114,12 +131,16 @@ export default function LoginTemplate(): JSX.Element {
                 }}
               />
             </div>
+
+            {/* Link para redefinir senha */}
             <div className="ml-auto w-full">
               <div className="flex justify-end mt-[10px] text-sm text-[#F83A14] mb-[25px] ">
                 <a href="/" className="hover:underline font-medium">
                   {text("forgot_password")}
                 </a>
               </div>
+
+              {/* Botão de Login */}
               <Button
                 type="submit"
                 isLoading={isLoading}
@@ -130,6 +151,8 @@ export default function LoginTemplate(): JSX.Element {
               </Button>
             </div>
           </form>
+
+          {/* Link para cadastro */}
           <p className="flex justify-center text-sm mt-[25px]">
             {text("dont_have_account")}{" "}
             <a
@@ -141,6 +164,8 @@ export default function LoginTemplate(): JSX.Element {
           </p>
         </div>
       </div>
+
+      {/* Banner do lado direito */}
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
         <RootBanner />
       </div>

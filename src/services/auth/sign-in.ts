@@ -2,7 +2,7 @@
 import api from "@/config/server";
 import httpStatus from "http-status";
 
-interface SignInParams {
+export interface SignInParams {
   email: string;
   password: string;
 }

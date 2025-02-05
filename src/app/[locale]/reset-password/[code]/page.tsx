@@ -1,33 +1,42 @@
 "use client";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import ConfirmationButton from "@/components/atoms/ConfirmationButton";
+import { useRouter, useParams } from "next/navigation";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const { code } = useParams();
 
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    const response = await fetch("/api/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token, newPassword }),
-    });
+    if (newPassword !== confirmPassword) {
+      setMessage("As senhas não coincidem.");
+      return;
+    }
 
-    const data = await response.json();
-    setLoading(false);
-    setMessage(data.message);
+    try {
+      const body = JSON.stringify({ code, newPassword });
+      
+      const response = await fetch("/api/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+      });
 
-    if (response.ok) {
-      setTimeout(() => router.push("/login"), 2000);
+      const data = await response.json();
+      setLoading(false);
+      setMessage(data.message);
+
+      if (response.ok) {
+        setTimeout(() => router.push("/login"), 2000);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -42,14 +51,20 @@ export default function ResetPasswordPage() {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-        <ConfirmationButton
-          color="primary"
-          size="md"
-          isLoading={loading}
-          onClick={() => handleSubmit}
+        <input
+          type="password"
+          placeholder="Confirmar Senha"
+          className="border p-2 rounded"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          disabled={loading}
         >
           {loading ? "Aguarde..." : "Redefinir Senha"}
-        </ConfirmationButton>
+        </button>
       </form>
       {message && <p className="mt-4">{message}</p>}
     </div>

@@ -49,7 +49,7 @@ export default function SignUpTemplate(): JSX.Element {
   return (
     <div className="min-h-screen w-screen flex items-center">
       <div className="p-10 w-[50%] h-screen items-center flex-col flex justify-center  max1030:w-full max1030:p-0 max1030:pb-[150px] max1030:max-w-[576px] max1030:m-auto">
-        <div className="w-[65%] h-[100%] flex-col justify-center flex gap-[25px] max1030:w-[85%] max1030:mt-[90px]">
+        <div className="w-[65%] h-[100%] flex-col justify-center flex gap-[25px] max1030:w-[85%] max1030:mt-[90px] aqui">
           <Image
             src={"/images/logo-vestiq.png"}
             alt="Vestiq logo"
