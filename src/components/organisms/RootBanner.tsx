@@ -14,7 +14,10 @@ export default function Banner() {
 
   return (
     <aside className="base-blur h-screen w-full relative hidden lg:flex items-center justify-center overflow-hidden">
-      <LanguageSwitcher />
+      <div className="fixed top-0 right-0 z-[1000]">
+        <LanguageSwitcher />
+      </div>
+
       <div className="h-full w-full relative">
         <span className="right-blur"></span>
         <span className="bottom-blur"></span>

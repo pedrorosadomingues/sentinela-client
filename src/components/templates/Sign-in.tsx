@@ -8,38 +8,36 @@ import { login } from "@/services";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
 import RootBanner from "@/components/organisms/RootBanner";
-import AuthForm from "@/components/organisms/DynamicForm";
+import SignInForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignInParams } from "@/services";
 
-// 🔹 Definição do esquema de validação com Zod
-const loginSchema = z.object({
-  email: z.string().email("E-mail inválido"),
-  password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-});
-
-// 🔹 Definição do tipo do formulário
-type LoginFormValues = z.infer<typeof loginSchema>;
-
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
   const text = useTranslations("sign_in_page");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [serverError, setServerError] = useState<Record<string, string> | null>(null);
+  const [serverError, setServerError] = useState<Record<string, string> | null>(
+    null
+  );
+
+  const login_schema = z.object({
+    email: z.string().email(text("invalid_email")),
+    password: z.string().min(6, text("password_min_length")),
+  });
+
+  type LoginFormValues = z.infer<typeof login_schema>;
 
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-  // ✅ Configuração do React Hook Form com Zod
   const {
     formState: { errors },
   } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(login_schema),
   });
 
-  // ✅ Função de Login com tratamento de erros do backend
   const handleLogin: SubmitHandler<LoginFormValues> = async (values) => {
     setIsLoading(true);
     setServerError(null);
@@ -48,8 +46,11 @@ export default function LoginTemplate(): JSX.Element {
       const response = await login(values);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
+
         localStorage.setItem("user_id", response.data.user.id);
+
         localStorage.setItem("user_name", response.data.user.name);
+        
         window.location.href = `/${locale}/main`;
       } else {
         setServerError({ general: text("invalid_email_or_password") });
@@ -76,10 +77,14 @@ export default function LoginTemplate(): JSX.Element {
 
   return (
     <div className="min-h-screen w-screen flex items-center">
-      <AuthForm<LoginFormValues>
+      <SignInForm<LoginFormValues>
         title={text("login")}
-        buttonText={text("login") + ">>"}
-        schema={loginSchema}
+        subtitle={text("access_message")}
+        forgot_password_link={text("forgot_password")}
+        signup_text={text("sign_up_here")}
+        no_account_text={text("dont_have_account")}
+        button_text={text("login") + ">>"}
+        schema={login_schema}
         onSubmit={handleLogin}
         isLoading={isLoading}
         fields={[
@@ -88,15 +93,17 @@ export default function LoginTemplate(): JSX.Element {
             label: text("email"),
             type: "email",
             required: true,
+            error: errors.email?.message as string,
           },
           {
             name: "password",
             label: text("password"),
             type: "password",
             required: true,
+            error: errors.password?.message as string,
           },
         ]}
-        serverError={serverError}
+        server_error={serverError}
       />
 
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
