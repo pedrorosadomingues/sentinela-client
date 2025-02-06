@@ -40,8 +40,7 @@ export default function SignUpTemplate(): JSX.Element {
     setServerError(null);
 
     try {
-
-      if(values.password !== values.password_confirmation) {
+      if (values.password !== values.password_confirmation) {
         setServerError({ general: text("passwords_dont_match") });
         return;
       }
@@ -53,7 +52,7 @@ export default function SignUpTemplate(): JSX.Element {
         setServerError({ general: text("email_already_registered") });
       }
 
-      if( response.message.error.name === "UserNotVerifiedError") {
+      if (response.message.error.name === "UserNotVerifiedError") {
         setServerError({ general: text("user_not_verified") });
       }
 
