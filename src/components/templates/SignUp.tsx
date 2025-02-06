@@ -24,6 +24,7 @@ export default function SignUpTemplate(): JSX.Element {
     name: z.string().min(3, text("name_min_length")),
     email: z.string().email(text("invalid_email")),
     password: z.string().min(6, text("password_min_length")),
+    password_confirmation: z.string().min(6, text("password_min_length")),
   });
 
   type SignUpFormValues = z.infer<typeof signUpSchema>;
@@ -39,10 +40,18 @@ export default function SignUpTemplate(): JSX.Element {
     setServerError(null);
 
     try {
+      if (values.password !== values.password_confirmation) {
+        setServerError({ general: text("passwords_dont_match") });
+        return;
+      }
       const response = await signUp({ ...values, locale });
-    
+
       if (response.status === 409) {
         setServerError({ general: text("email_already_registered") });
+      }
+
+      if (response.message.error.name === "UserNotVerifiedError") {
+        setServerError({ general: text("user_not_verified") });
       }
 
       if (response.status === 200) {
@@ -92,6 +101,13 @@ export default function SignUpTemplate(): JSX.Element {
             type: "password",
             required: true,
             error: errors.password?.message as string,
+          },
+          {
+            name: "password_confirmation",
+            label: text("password_confirmation"),
+            type: "password",
+            required: true,
+            error: errors.password_confirmation?.message as string,
           },
         ]}
         server_error={serverError}
