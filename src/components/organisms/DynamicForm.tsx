@@ -3,10 +3,11 @@
 import { useForm, SubmitHandler, FieldValues, Path } from "react-hook-form";
 import { ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, TextField, Alert } from "@mui/material";
+import {  TextField, Alert } from "@mui/material";
 import Image from "next/image";
 import { useRootStore } from "@/zustand-stores";
 import LanguageSwitcher from "./RootLanguageSwitcher";
+import { Button } from "@heroui/react";
 
 interface Field {
   name: string;
@@ -111,9 +112,8 @@ export default function AuthForm<T extends FieldValues>({
 
           <Button
             type="submit"
-            variant="contained"
             fullWidth
-            disabled={isLoading}
+            isLoading={isLoading}
             className="bg-primary-background text-white"
             style={{ marginTop: "25px" }}
           >
