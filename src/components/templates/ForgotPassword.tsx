@@ -3,18 +3,19 @@
 import { useState } from "react";
 import ForgotPassForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import RootBanner from "../organisms/RootBanner";
 import { useTranslations } from "next-intl";
+import { requestResetPassword } from "@/services";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ForgotPassword() {
   const text = useTranslations("sign_up_page");
 
   const [loading, setLoading] = useState(false);
-  const [serverMessage, setServerMessage] = useState<Record<
-    string,
-    string
-  > | null>(null);
+  const [serverError, setServerError] = useState<Record<string, string> | null>(
+    null
+  );
 
   const forgotPasswordSchema = z.object({
     email: z.string().email("E-mail inválido"),
@@ -22,30 +23,37 @@ export default function ForgotPassword() {
 
   type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
+    const {
+      formState: { errors },
+    } = useForm<ForgotPasswordFormValues>({
+      resolver: zodResolver(forgotPasswordSchema),
+    });
+  
+
   const handleRequestResetPass: SubmitHandler<
     ForgotPasswordFormValues
   > = async (values) => {
     setLoading(true);
-    setServerMessage(null);
+    setServerError(null);
 
     try {
-      const response = await fetch("/api/request-password-reset", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values }),
-      });
+      const response = await requestResetPassword(values);
 
-      const data = await response.json();
-      setServerMessage(
-        data.message
-          ? { message: data.message }
-          : {
-              message: "Se o e-mail estiver cadastrado, você receberá um link.",
-            }
-      );
+      console.log("response", response);
+    
+      if( response.status === 400 ) {
+        setServerError({ general: "Email não cadastrado" });
+      }
+      // setServerError(
+      //   response.message
+      //     ? { general: response.message }
+      //     : {
+      //         general: "Se o e-mail estiver cadastrado, você receberá um link.",
+      //       }
+      // );
     } catch (error) {
       console.error(error);
-      setServerMessage({ message: "Erro ao solicitar redefinição de senha." });
+      setServerError({ message: "Erro ao solicitar redefinição de senha." });
     } finally {
       setLoading(false);
     }
@@ -68,10 +76,10 @@ export default function ForgotPassword() {
               label: "E-mail",
               type: "email",
               required: true,
-              error: "",
+              error: errors.email?.message as string,
             },
           ]}
-          server_error={serverMessage}
+          server_error={serverError}
         />
 
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">

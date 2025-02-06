@@ -78,7 +78,7 @@ export default function AuthForm<T extends FieldValues>({
         )}
 
         {server_error && server_error.general && (
-          <Alert severity="error" className="mb-4">
+          <Alert severity="error" className="mt-4">
             {server_error.general}
           </Alert>
         )}
