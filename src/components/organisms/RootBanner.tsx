@@ -1,5 +1,6 @@
 "use client";
 
+//import { useTranslations } from "next-intl";
 import React, { useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
@@ -13,15 +14,10 @@ export default function Banner() {
 
   return (
     <aside className="base-blur h-screen w-full relative hidden lg:flex items-center justify-center overflow-hidden">
-      <div className="fixed top-0 right-0 z-[1000]">
-        <LanguageSwitcher />
-      </div>
-
+      <LanguageSwitcher />
       <div className="h-full w-full relative">
         <span className="right-blur"></span>
-
         <span className="bottom-blur"></span>
-        
         <span className="top-blur"></span>
       </div>
       <article className="absolute w-full h-full z-10 flex flex-col items-center justify-center gap-8">

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from "react";
 import { TYPES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
@@ -37,7 +36,6 @@ export default function TypeButtons({
             radius="sm"
             size="lg"
           >
-            {/* @ts-ignore */}
             {text(`${type.value}`)}
           </Button>
         ))}

@@ -7,10 +7,9 @@ import { LOCALES, LOCALE_TO_FLAG } from "@/constants/locales";
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/zustand-stores";
 import { useTranslations } from "next-intl";
-import { Dropdown, DropdownItem, DropdownMenu } from "@heroui/react";
 
 export default function LanguageSwitcher() {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [localUser, setLocalUser] = useState(user);
@@ -34,36 +33,32 @@ export default function LanguageSwitcher() {
   }, [user]);
 
   if (!localUser) {
-    return (
-      <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}  className="fixed top-4 right-4 z-[1000] h-12">
-        {[
-          <DropdownMenu aria-label="Profile Actions" variant="flat" key="menu">
-            <DropdownItem
-              key="locale_switcher"
-              isReadOnly
-              className="cursor-default"
-              textValue="Language Switcher"
-              endContent={
-                <select
-                  className="z-10 mx-auto outline-none p-2 rounded-md text-tiny border-small bg-transparent text-default-500"
-                  id="locale-switcher"
-                  name="locale-switcher"
-                  onChange={(e) => handleLocaleChange(e.target.value)}
-                  value={currentLocale}
-                >
-                  {LOCALES.map((locale) => (
-                    <option key={locale} value={locale}>
-                      {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
-                    </option>
-                  ))}
-                </select>
-              }
-            >
-              {text("change")}
-            </DropdownItem>
-          </DropdownMenu>
-        ]}
-      </Dropdown>
+    return ( 
+      <div className="fixed right-[60px] top-0 p-4 z-[400]">
+        <button
+          className="bg-transparent border-0 text-2xl cursor-pointer"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <span className="text-[16px] text-black">{text("change")}</span>
+        </button>
+
+        {isOpen && (
+          <div className="absolute top-10 right-0 flex flex-col gap-2 bg-white border border-gray-300 rounded p-2 z-[1000]">
+            {LOCALES.map((locale) => (
+              <button
+                key={locale}
+                onClick={() => handleLocaleChange(locale)}
+                disabled={locale === currentLocale}
+                className="bg-transparent border-0 cursor-pointer p-0 text-2xl transition-transform duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-default"
+              >
+                <span role="img" aria-label={locale}>
+                  {LOCALE_TO_FLAG[locale as keyof typeof LOCALE_TO_FLAG]}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     );
   }
 }

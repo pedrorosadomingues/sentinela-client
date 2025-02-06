@@ -5,8 +5,8 @@
     "plan_billing": "Plano e Faturamento"
   },
   "root_banner": {
-    "main_title": " Vestiq: o ecossistema de IA que vai impulsionar suas vendas",
-    "sub_title": " Explore o melhor da Inteligência Artificial para lojas, moda e design."
+    "main_title": " Redraw: o ecossistema de IA que impulsiona seus projetos",
+    "sub_title": " Explore o melhor da Inteligência Artificial para Arquitetura, Engenharia e Design."
   },
   "language_switcher": {
     "change": "Trocar idioma"
@@ -40,10 +40,7 @@
     "dont_have_account": "Não tem uma conta?",
     "sign_up_here": "Cadastre-se agora",
     "invalid_email_or_password": "Email ou senha inválidos",
-    "access_message": "Acesse sua conta agora para utilizar o que há de melhor em IA para moda. Se você ainda não tem uma conta, inscreva-se na Vestiq agora para começar a usar em suas criações.",
-    "invalid_email": "Email inválido",
-    "password_min_length": "A senha deve ter no mínimo 6 caracteres",
-    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
+    "access_message": "Acesse sua conta agora para utilizar o que há de melhor em IA para moda. Se você ainda não tem uma conta, inscreva-se na Vestiq agora para começar a usar em suas criações."
   },
   "sign_up_page": {
     "sign_up": "Cadastre-se",
@@ -57,14 +54,7 @@
     "user_created_successfully": "Usuário criado com sucesso",
     "error_creating_user": "Erro ao criar usuário:",
     "unexpected_error": "Ocorreu um erro inesperado",
-    "have_account": "Já tem conta?",
-    "email_already_registered": "Email já registrado",
-    "name_min_length": "O nome deve ter no mínimo 3 caracteres",
-    "invalid_email": "Email inválido",
-    "password_min_length": "A senha deve ter no mínimo 6 caracteres",
-    "passwords_dont_match": "As senhas não coincidem",
-    "password_confirmation": "Confirmação de senha",
-    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
+    "have_account": "Já tem conta?"
   },
   "home": {
     "my_profile": "Meu Perfil",
@@ -77,8 +67,7 @@
     "render-traces": "Renderizar Traços",
     "render_traces_description": "Transforme os seus esboços, desenhos e croquis em realidade com a ferramenta de renderizar traços da Vestiq.",
     "start": "Começar",
-    "my_generations": "Minhas Gerações",
-    "plans_and_subscriptions": "Planos e Assinaturas"
+    "my_generations": "Minhas Gerações"
   },
   "header": {
     "my_profile": "Meu Perfil",
