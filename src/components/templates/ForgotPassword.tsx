@@ -23,12 +23,11 @@ export default function ForgotPassword() {
 
   type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-    const {
-      formState: { errors },
-    } = useForm<ForgotPasswordFormValues>({
-      resolver: zodResolver(forgotPasswordSchema),
-    });
-  
+  const {
+    formState: { errors },
+  } = useForm<ForgotPasswordFormValues>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
 
   const handleRequestResetPass: SubmitHandler<
     ForgotPasswordFormValues
@@ -40,17 +39,13 @@ export default function ForgotPassword() {
       const response = await requestResetPassword(values);
 
       console.log("response", response);
-    
-      if( response.status === 400 ) {
+
+      if (response.status === 400) {
         setServerError({ general: "Email não cadastrado" });
       }
-      // setServerError(
-      //   response.message
-      //     ? { general: response.message }
-      //     : {
-      //         general: "Se o e-mail estiver cadastrado, você receberá um link.",
-      //       }
-      // );
+      if (response.status === 200) {
+        alert("E-mail enviado para " + values.email);
+      }
     } catch (error) {
       console.error(error);
       setServerError({ message: "Erro ao solicitar redefinição de senha." });
@@ -61,26 +56,26 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen w-screen flex items-center">
-        <ForgotPassForm<ForgotPasswordFormValues>
-          title="Esqueci minha senha"
-          subtitle="Insira seu endereço de e-mail abaixo. Você receberá um link para redefinir sua senha diretamente no seu e-mail."
-          button_text={loading ? "Enviando..." : "Enviar e-mail"}
-          have_account_text={text("have_account")}
-          back_login_text={text("back_to_login")}
-          schema={forgotPasswordSchema}
-          onSubmit={handleRequestResetPass}
-          isLoading={loading}
-          fields={[
-            {
-              name: "email",
-              label: "E-mail",
-              type: "email",
-              required: true,
-              error: errors.email?.message as string,
-            },
-          ]}
-          server_error={serverError}
-        />
+      <ForgotPassForm<ForgotPasswordFormValues>
+        title="Esqueci minha senha"
+        subtitle="Insira seu endereço de e-mail abaixo. Você receberá um link para redefinir sua senha diretamente no seu e-mail."
+        button_text={loading ? "Enviando..." : "Enviar e-mail"}
+        have_account_text={text("have_account")}
+        back_login_text={text("back_to_login")}
+        schema={forgotPasswordSchema}
+        onSubmit={handleRequestResetPass}
+        isLoading={loading}
+        fields={[
+          {
+            name: "email",
+            label: "E-mail",
+            type: "email",
+            required: true,
+            error: errors.email?.message as string,
+          },
+        ]}
+        server_error={serverError}
+      />
 
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
         <RootBanner />

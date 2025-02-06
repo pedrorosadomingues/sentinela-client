@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import SignInTemplate from "@/components/templates/Sign-in";
-import SignUpTemplate from "@/components/templates/Sign-up";
+import SignInTemplate from "@/components/templates/SignIn";
+import SignUpTemplate from "@/components/templates/SignUp";
 import { useRootStore } from "@/zustand-stores/rootStore";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
