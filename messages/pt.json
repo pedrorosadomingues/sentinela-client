@@ -60,7 +60,10 @@
     "email_already_registered": "Email já registrado",
     "name_min_length": "O nome deve ter no mínimo 3 caracteres",
     "invalid_email": "Email inválido",
-    "password_min_length": "A senha deve ter no mínimo 6 caracteres"
+    "password_min_length": "A senha deve ter no mínimo 6 caracteres",
+    "passwords_dont_match": "As senhas não coincidem",
+    "password_confirmation": "Confirmação de senha",
+    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
   },
   "home": {
     "my_profile": "Meu Perfil",
