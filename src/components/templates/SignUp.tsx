@@ -46,8 +46,6 @@ export default function SignUpTemplate(): JSX.Element {
       }
       const response = await signUp({ ...values, locale });
 
-      console.log("response", response);
-
       if (response.status === 409) {
         setServerError({ general: text("email_already_registered") });
       }

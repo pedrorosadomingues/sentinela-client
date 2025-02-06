@@ -42,7 +42,8 @@
     "sign_up_here": "Sign up now",
     "invalid_email_or_password": "Invalid email or password",
     "invalid_email": "Invalid email",
-    "password_min_length": "The password must be at least 6 characters long"
+    "password_min_length": "The password must be at least 6 characters long",
+    "user_not_verified": "User not verified. Check your email for the verification link."
   },
   "sign_up_page": {
     "sign_up": "Sign up",

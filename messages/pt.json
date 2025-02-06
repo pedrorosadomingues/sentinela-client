@@ -42,7 +42,8 @@
     "invalid_email_or_password": "Email ou senha inválidos",
     "access_message": "Acesse sua conta agora para utilizar o que há de melhor em IA para moda. Se você ainda não tem uma conta, inscreva-se na Vestiq agora para começar a usar em suas criações.",
     "invalid_email": "Email inválido",
-    "password_min_length": "A senha deve ter no mínimo 6 caracteres"
+    "password_min_length": "A senha deve ter no mínimo 6 caracteres",
+    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
   },
   "sign_up_page": {
     "sign_up": "Cadastre-se",
