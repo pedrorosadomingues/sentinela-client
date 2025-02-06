@@ -1,19 +1,8 @@
 import Image from "next/image";
-import { useMainStore } from "@/zustand-stores";
-import { useTranslations } from "next-intl";
 
 export default function VestiqLoading() {
-  const { mainControl } = useMainStore();
-  const text = useTranslations("home");
-
   return (
-    <div
-      className={`${
-        mainControl === text("my_generations")
-          ? "flex items-center w-full h-[90%] justify-center absolute bg-white z-50"
-          : "flex items-center w-screen h-screen justify-center top-0 right-0 absolute bg-white z-50"
-      }`}
-    >
+    <div className="flex items-center w-screen h-screen justify-center top-0 right-0 absolute bg-white z-50">
       <Image
         unoptimized
         src="/icons/logo-vestiq.ico"

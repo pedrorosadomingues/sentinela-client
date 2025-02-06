@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { Dropdown, DropdownItem, DropdownMenu } from "@heroui/react";
 
 export default function LanguageSwitcher() {
-  const { user, setUser } = useUserStore();
+  const { user } = useUserStore();
 
   const [isOpen, setIsOpen] = useState(false);
   const [localUser, setLocalUser] = useState(user);

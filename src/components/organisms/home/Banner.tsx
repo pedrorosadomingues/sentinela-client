@@ -132,6 +132,7 @@ const BannerCard = ({
         alt="redraw banner background"
         className="w-full h-full object-cover absolute"
         unoptimized
+        priority
       />
       <div className="flex w-full flex-col gap-2 p-4 lg:p-6 lg:w-2/5 z-[1]">
         {title && (

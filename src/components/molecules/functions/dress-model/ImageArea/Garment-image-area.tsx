@@ -30,8 +30,6 @@ export default function GarmentImageArea({
   setGarmentImageWidth,
   onClearImage,
 }: GarmentImageAreaProps): JSX.Element {
-  const { step, setStep, current } = useDressModelStore();
-
   const text = useTranslations("garment_image_area");
   const imageRef = React.useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
@@ -44,18 +42,18 @@ export default function GarmentImageArea({
   }, [garment_image_path]);
 
   return (
-    <Card className="w-full pb-6" shadow="sm">
+    <Card className="w-full pb-6 select-none z-0" shadow="sm">
       <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={2} label={text("step2_send_garment_image")} />
       </CardHeader>
       <CardBody
-        className="relative upload-area h-96"
+        className="cursor-pointer relative upload-area h-96"
         onClick={() => openFileDialog("garment")}
         onDrop={(e) => handleDrop(e, "garment")}
         onDragOver={handleDragOver}
       >
         {garment_image_path ? (
-          <>
+          <div className="w-full h-full bg-default-100 relative">
             <Tooltip content={text("clear_image")} placement="right" showArrow>
               <Button
                 onPress={() => onClearImage("garment")}
@@ -75,10 +73,10 @@ export default function GarmentImageArea({
               unoptimized
               className="object-contain w-full aspect-square max-h-full"
             />
-          </>
+          </div>
         ) : (
           <div className="grid grid-rows-4 grid-cols-1 w-full h-full place-items-center">
-            <div className="row-span-3 col-span-full flex items-center justify-center border-[16px] border-default/25 rounded-full w-36 h-36">
+            <div className="row-span-3 col-span-full flex items-center justify-center border-[24px] border-default/25 rounded-full w-40 h-40">
               <CheckroomOutlined
                 fontSize="large"
                 className="text-default/95 scale-150"
@@ -86,10 +84,10 @@ export default function GarmentImageArea({
             </div>
 
             <div className="row-span-1 space-y-2 text-center">
-              <p className="text-center text-sm md:text-xs lg:text-sm text-default-600">
+              <p className="text-center text-sm md:text-xs lg:text-sm text-default-600 font-medium">
                 {text("drag_file_instruction")}
               </p>
-              <span className="text-center text-xs mt-2">
+              <span className="text-center text-xs mt-2 text-default-500">
                 {text("or_click_to_choose_garment_image")}
               </span>
             </div>
