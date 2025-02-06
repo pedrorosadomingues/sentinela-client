@@ -45,7 +45,6 @@ export default function LoginTemplate(): JSX.Element {
     try {
       const response = await login(values);
 
-      console.log("response", response);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
 
@@ -55,9 +54,11 @@ export default function LoginTemplate(): JSX.Element {
 
         window.location.href = `/${locale}/main`;
       }
+      
       if (response.message.name === "UserNotVerifiedError") {
         setServerError({ general: text("user_not_verified") });
       }
+      
       if (response.message.name === "InvalidCredentialsError") {
         setServerError({ general: text("invalid_email_or_password") });
       }
