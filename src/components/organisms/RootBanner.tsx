@@ -1,6 +1,5 @@
 "use client";
 
-//import { useTranslations } from "next-intl";
 import React, { useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
