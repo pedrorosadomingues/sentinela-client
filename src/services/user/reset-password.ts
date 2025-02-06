@@ -2,25 +2,14 @@
 import api from "@/config/server";
 import httpStatus from "http-status";
 
-export interface SignInParams {
-  email: string;
-  password: string;
-}
-
-interface SignInResponse {
-  status: number;
-  data?: any;
-  message?: any;
-}
-
-export async function login({
+export async function requestResetPassword({
   email,
-  password,
-}: SignInParams): Promise<SignInResponse> {
+}: {
+  email: string;
+}): Promise<any> {
   try {
-    const response = await api.post("/auth/sign-in", {
+    const response = await api.post("/reset-password", {
       email,
-      password,
     });
     return {
       status: httpStatus.OK,
