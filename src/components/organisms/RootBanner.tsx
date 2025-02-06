@@ -19,7 +19,9 @@ export default function Banner() {
 
       <div className="h-full w-full relative">
         <span className="right-blur"></span>
+
         <span className="bottom-blur"></span>
+        
         <span className="top-blur"></span>
       </div>
       <article className="absolute w-full h-full z-10 flex flex-col items-center justify-center gap-8">

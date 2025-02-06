@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, TextField, Alert } from "@mui/material";
 import Image from "next/image";
 import { useRootStore } from "@/zustand-stores";
+import LanguageSwitcher from "./RootLanguageSwitcher";
 
 interface Field {
   name: string;
@@ -57,7 +58,10 @@ export default function AuthForm<T extends FieldValues>({
   const { setRootControl } = useRootStore();
 
   return (
-    <div className="p-10 w-[80%] h-screen flex flex-col justify-center items-center max-w-[576px] mx-auto">
+    <div className="p-2 w-[80%] h-screen flex flex-col justify-center items-center max-w-[576px] m-auto">
+      <div className="fixed top-0 right-0 z-[1000] lg:hidden">
+        <LanguageSwitcher />
+      </div>
       <div className="w-[100%] flex flex-col justify-between ">
         <Image
           src="/images/logo-vestiq.png"
@@ -70,7 +74,7 @@ export default function AuthForm<T extends FieldValues>({
 
         <p className="text-[30px] font-bold">{title}</p>
         {subtitle && (
-          <p className="text-gray-500 text-sm mb-[35px]">{subtitle}</p>
+          <p className="text-gray-500 text-sm">{subtitle}</p>
         )}
 
         {server_error && server_error.general && (
@@ -81,7 +85,7 @@ export default function AuthForm<T extends FieldValues>({
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-4">
           {fields.map((field) => (
-            <div key={field.name} className="mb-5">
+            <div key={field.name} className="mt-5">
               <TextField
                 label={field.label}
                 variant="outlined"
@@ -97,7 +101,10 @@ export default function AuthForm<T extends FieldValues>({
             </div>
           ))}
           {forgot_password_link && (
-            <a href="/" className="hover:underline font-medium text-right">
+            <a
+              onClick={() => setRootControl("forgot-password")}
+              className="hover:underline hover:cursor-pointer font-medium text-right text-secondary mb-5"
+            >
               {forgot_password_link}
             </a>
           )}
@@ -108,6 +115,7 @@ export default function AuthForm<T extends FieldValues>({
             fullWidth
             disabled={isLoading}
             className="bg-primary-background text-white"
+            style={{ marginTop: "25px" }}
           >
             {isLoading ? "Enviando..." : button_text}
           </Button>
@@ -117,7 +125,7 @@ export default function AuthForm<T extends FieldValues>({
               {no_account_text}{" "}
               <a
                 onClick={() => setRootControl("register")}
-                className="text-[#F83A14] ml-[4px] font-medium hover:underline hover:cursor-pointer"
+                className="text-secondary ml-[4px] font-medium hover:underline hover:cursor-pointer"
               >
                 {signup_text}
               </a>
@@ -129,7 +137,7 @@ export default function AuthForm<T extends FieldValues>({
               {have_account_text}{" "}
               <a
                 onClick={() => setRootControl("login")}
-                className="text-[#F83A14] ml-[4px] font-medium hover:underline hover:cursor-pointer"
+                className="text-secondary ml-[4px] font-medium hover:underline hover:cursor-pointer"
               >
                 {back_login_text}
               </a>

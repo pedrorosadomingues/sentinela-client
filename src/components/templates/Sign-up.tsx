@@ -97,7 +97,6 @@ export default function SignUpTemplate(): JSX.Element {
         server_error={serverError}
       />
 
-      {/* Banner do lado direito */}
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
         <RootBanner />
       </div>

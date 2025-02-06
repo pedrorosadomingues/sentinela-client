@@ -1,87 +1,81 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import ForgotPassForm from "@/components/organisms/DynamicForm";
+import { z } from "zod";
+import { SubmitHandler } from "react-hook-form";
+import RootBanner from "../organisms/RootBanner";
+import { useTranslations } from "next-intl";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const text = useTranslations("sign_up_page");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const [loading, setLoading] = useState(false);
+  const [serverMessage, setServerMessage] = useState<Record<
+    string,
+    string
+  > | null>(null);
+
+  const forgotPasswordSchema = z.object({
+    email: z.string().email("E-mail inválido"),
+  });
+
+  type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
+
+  const handleRequestResetPass: SubmitHandler<
+    ForgotPasswordFormValues
+  > = async (values) => {
     setLoading(true);
+    setServerMessage(null);
 
     try {
       const response = await fetch("/api/request-password-reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ ...values }),
       });
 
       const data = await response.json();
-      setMessage(
-        data.message || "Se o e-mail estiver cadastrado, você receberá um link."
+      setServerMessage(
+        data.message
+          ? { message: data.message }
+          : {
+              message: "Se o e-mail estiver cadastrado, você receberá um link.",
+            }
       );
     } catch (error) {
       console.error(error);
-      setMessage("Erro ao solicitar redefinição de senha.");
+      setServerMessage({ message: "Erro ao solicitar redefinição de senha." });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-6">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-md text-center">
-        {/* Logo da Vestiq */}
-        <Image
-          src="/images/logo-vestiq.png"
-          alt="Vestiq Logo"
-          className="mx-auto w-28 mb-4"
+    <div className="min-h-screen w-screen flex items-center">
+        <ForgotPassForm<ForgotPasswordFormValues>
+          title="Esqueci minha senha"
+          subtitle="Insira seu endereço de e-mail abaixo. Você receberá um link para redefinir sua senha diretamente no seu e-mail."
+          button_text={loading ? "Enviando..." : "Enviar e-mail"}
+          have_account_text={text("have_account")}
+          back_login_text={text("back_to_login")}
+          schema={forgotPasswordSchema}
+          onSubmit={handleRequestResetPass}
+          isLoading={loading}
+          fields={[
+            {
+              name: "email",
+              label: "E-mail",
+              type: "email",
+              required: true,
+              error: "",
+            },
+          ]}
+          server_error={serverMessage}
         />
 
-        <h2 className="text-2xl font-bold text-gray-800">
-          Esqueci minha senha
-        </h2>
-        <p className="text-gray-600 mt-2 text-sm">
-          Insira seu endereço de e-mail abaixo. Você receberá um link para
-          redefinir sua senha diretamente no seu e-mail.
-        </p>
-
-        <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
-          <div className="text-left">
-            <label className="text-sm font-medium text-gray-700">E-mail</label>
-            <input
-              type="email"
-              placeholder="Digite seu e-mail"
-              className="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="flex justify-center items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow-md hover:opacity-90 transition disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? "Enviando..." : "Enviar email"}
-            {!loading && <span className="ml-1">»</span>}
-          </button>
-        </form>
-
-        {message && <p className="mt-4 text-gray-700 text-sm">{message}</p>}
-
-        <button
-          onClick={() => router.push("/login")}
-          className="text-purple-600 text-sm font-medium mt-4 hover:underline"
-        >
-          Voltar para o Login
-        </button>
+      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
+        <RootBanner />
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
 
   if (!localUser) {
     return (
-      <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}  className="fixed top-4 right-4 z-[1000]">
+      <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}  className="fixed top-4 right-4 z-[1000] h-12">
         {[
           <DropdownMenu aria-label="Profile Actions" variant="flat" key="menu">
             <DropdownItem
