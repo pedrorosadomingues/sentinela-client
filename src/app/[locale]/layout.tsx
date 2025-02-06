@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/lib/i18n/routing";
+import { routing } from "@/i18n/routing";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
-import Providers from "./providers";
-import { Toaster } from "react-hot-toast";
-import { getMessages, getTimeZone } from "next-intl/server";
+import Providers from "../providers";
 
 export default async function LocaleLayout({
   children,
@@ -18,15 +18,15 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  const timeZone = await getTimeZone();
 
   return (
     <main lang={locale}>
-      <Providers messages={messages} timeZone={timeZone} locale={locale}>
-        <ConfirmationModal />
-        {children}
-        <Toaster position="bottom-right" />
-      </Providers>
+      <NextIntlClientProvider messages={messages}>
+        <Providers>
+          <ConfirmationModal />
+          {children}
+        </Providers>
+      </NextIntlClientProvider>
     </main>
   );
 }

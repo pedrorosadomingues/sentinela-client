@@ -9,6 +9,7 @@ import {
   SentimentSatisfiedAltOutlined,
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
+import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface ModelImageAreaProps {
   model_image_path: string;
@@ -31,6 +32,7 @@ export default function ModelImageArea({
   setModelImageWidth,
   onClearImage,
 }: ModelImageAreaProps) {
+  const { step, setStep, current } = useDressModelStore();
   const text = useTranslations("model_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = useState<number>(320);
@@ -43,18 +45,18 @@ export default function ModelImageArea({
   }, [model_image_path]);
 
   return (
-    <Card className="w-full pb-6 z-0" shadow="sm">
+    <Card className="w-full pb-6" shadow="sm">
       <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={1} label={text("step1_send_model_image")} />
       </CardHeader>
       <CardBody
-        className="cursor-pointer relative upload-area h-96"
+        className="relative upload-area h-96"
         onDrop={(e) => handleDrop(e, "model")}
         onDragOver={handleDragOver}
         onClick={() => openFileDialog("model")}
       >
         {model_image_path ? (
-          <div className="w-full h-full bg-default-100 relative">
+          <>
             <Tooltip content={text("clear_image")} placement="right" showArrow>
               <Button
                 onPress={() => onClearImage("model")}
@@ -75,20 +77,20 @@ export default function ModelImageArea({
               unoptimized
               className="object-contain w-full aspect-square max-h-full"
             />
-          </div>
+          </>
         ) : (
           <div className="grid grid-rows-4 grid-cols-1 w-full h-full place-items-center">
-            <div className="row-span-3 col-span-full flex items-center justify-center border-[24px] border-default/25 rounded-full w-40 h-40">
+            <div className="row-span-3 col-span-full flex items-center justify-center border-[16px] border-default/25 rounded-full w-36 h-36">
               <SentimentSatisfiedAltOutlined
                 fontSize="large"
                 className="text-default/95 scale-150"
               />
             </div>
-            <div className="row-span-1 space-y-2 text-center xs:w-3/4">
-              <p className="text-center text-sm md:text-xs lg:text-sm text-default-600 font-medium">
+            <div className="row-span-1 space-y-2 text-center">
+              <p className="text-center text-sm md:text-xs lg:text-sm text-default-600">
                 {text("drag_file_instruction")}
               </p>
-              <span className="text-center text-xs mt-2 text-default-500">
+              <span className="text-center text-xs mt-2">
                 {text("or_click_to_choose_model_image")}
               </span>
             </div>

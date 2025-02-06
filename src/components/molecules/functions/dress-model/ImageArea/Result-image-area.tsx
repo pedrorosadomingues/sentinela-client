@@ -27,6 +27,7 @@ export default function ResultImageArea({
   setResultImageWidth,
   onClearImage,
 }: ResultImageAreaProps): JSX.Element {
+  const { step, current, setStep } = useDressModelStore();
   const text = useTranslations("result_image_area");
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [renderedWidth, setRenderedWidth] = useState<number>(320);
@@ -39,13 +40,13 @@ export default function ResultImageArea({
   }, [result_image_path]);
 
   return (
-    <Card className="w-full pb-6 z-0" shadow="sm">
+    <Card className="w-full pb-6" shadow="sm">
       <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={3} label={text("step3_your_image")} />
       </CardHeader>
       <CardBody className="w-full relative result-area h-96">
         {result_image_path ? (
-          <div className="w-full h-full bg-default-100 relative flex items-center justify-center">
+          <>
             <nav className="flex flex-col gap-2 absolute top-2 right-2">
               <Tooltip
                 content={text("reset_images")}
@@ -72,16 +73,16 @@ export default function ResultImageArea({
               unoptimized
               className="object-contain w-full aspect-square max-h-full"
             />
-          </div>
+          </>
         ) : (
           <div className="grid grid-rows-4 grid-cols-1 w-full h-full place-items-center">
-            <div className="row-span-3 col-span-full flex items-center justify-center border-[24px] border-default/25 rounded-full w-40 h-40">
+            <div className="row-span-3 col-span-full flex items-center justify-center border-[16px] border-default/25 rounded-full w-36 h-36">
               <ImageOutlined
                 fontSize="large"
                 className="text-default/95 scale-150"
               />
             </div>
-            <p className="row-span-1 text-center text-sm md:text-xs lg:text-sm text-default-600 font-medium">
+            <p className="row-span-1 text-center text-sm md:text-xs lg:text-sm text-default-600">
               {text("your_image_will_be_displayed_here")}
             </p>
           </div>

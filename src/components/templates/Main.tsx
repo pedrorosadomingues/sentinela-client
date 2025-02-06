@@ -13,7 +13,7 @@ import Home from "@/components/organisms/home/Home";
 import { useMainStore } from "@/zustand-stores/mainStore";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
-import MyProfile from "./MyProfile";
+import MyProfile from "./My-Profile";
 import VestiqLoading from "../organisms/VestiqLoading";
 import { useImageFunctionStore } from "@/zustand-stores";
 import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
