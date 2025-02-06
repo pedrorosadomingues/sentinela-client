@@ -3,7 +3,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
@@ -16,8 +16,11 @@ import { SignInParams } from "@/services";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
+
   const text = useTranslations("sign_in_page");
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [serverError, setServerError] = useState<Record<string, string> | null>(
     null
   );
@@ -54,11 +57,11 @@ export default function LoginTemplate(): JSX.Element {
 
         window.location.href = `/${locale}/main`;
       }
-      
+
       if (response.message.name === "UserNotVerifiedError") {
         setServerError({ general: text("user_not_verified") });
       }
-      
+
       if (response.message.name === "InvalidCredentialsError") {
         setServerError({ general: text("invalid_email_or_password") });
       }
@@ -78,9 +81,11 @@ export default function LoginTemplate(): JSX.Element {
     }
   };
 
-  if (token) {
-    redirect(`/${locale}/main`);
-  }
+  useEffect(() => {
+    if (token) {
+      redirect(`/${locale}/main`);
+    }
+  }, [locale, token]);
 
   return (
     <div className="min-h-screen w-screen flex items-center">
