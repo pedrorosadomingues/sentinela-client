@@ -76,7 +76,8 @@
     "txt2img_description": "Crea una imagen a partir de una descripción textual. Convierte ideas en representaciones visuales para proyectos creativos o conceptuales.",
     "render-traces": "Renderizar Trazos",
     "render_traces_description": "Convierte tus bocetos, dibujos y borradores en realidad con la herramienta de renderizado de trazos de Vestiq.",
-    "start": "Comenzar"
+    "start": "Comenzar",
+    "plans_and_subscriptions": "Planes y Suscripciones"
   },
   "header": {
     "my_profile": "Mi Perfil",
