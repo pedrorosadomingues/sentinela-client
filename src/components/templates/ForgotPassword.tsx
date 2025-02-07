@@ -5,14 +5,20 @@ import ForgotPassForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import RootBanner from "../organisms/RootBanner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { requestResetPassword } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRootStore } from "@/zustand-stores";
 
 export default function ForgotPassword() {
+  const locale = useLocale();
+
   const text = useTranslations("sign_up_page");
 
+  const { setEmailSended, setRootControl } = useRootStore();
+
   const [loading, setLoading] = useState(false);
+
   const [serverError, setServerError] = useState<Record<string, string> | null>(
     null
   );
@@ -33,21 +39,26 @@ export default function ForgotPassword() {
     ForgotPasswordFormValues
   > = async (values) => {
     setLoading(true);
+
     setServerError(null);
 
     try {
-      const response = await requestResetPassword(values);
+      const response = await requestResetPassword({ ...values, locale });
 
       console.log("response", response);
 
       if (response.status === 400) {
         setServerError({ general: "Email não cadastrado" });
       }
+
       if (response.status === 200) {
-        alert("E-mail enviado para " + values.email);
+        setRootControl("success-email-sended");
+
+        setEmailSended("forgot-password");
       }
     } catch (error) {
       console.error(error);
+
       setServerError({ message: "Erro ao solicitar redefinição de senha." });
     } finally {
       setLoading(false);

@@ -1,72 +1,136 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
+import { ICON_MAPPING } from "@/constants/icons";
+import { useImageFunctionStore } from "@/zustand-stores";
+import { ImageFunctionProps } from "@/interfaces/image-function";
+import { useLocale } from "next-intl";
+import DynamicForm from "@/components/organisms/DynamicForm";
+import { z } from "zod";
+import { resetPassword } from "@/services";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const LOCAL_ICON_MAPPING: any = ICON_MAPPING;
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const { code } = useParams();
+  const locale = useLocale();
+  const { code } = useParams() as { code: string };
+  
+  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+ 
+  const [serverError, setServerError] = useState<Record<string, string> | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const resetPasswordSchema = z.object({
+    new_password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+    password_confirmation: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+  }).refine((data) => data.new_password === data.password_confirmation, {
+    message: "As senhas não coincidem.",
+    path: ["password_confirmation"], 
+  });
 
-    if (newPassword !== confirmPassword) {
-      setMessage("As senhas não coincidem.");
-      return;
-    }
+  type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+
+  useEffect(() => {
+    getImageFunctions(locale);
+  }, [getImageFunctions, locale]);
+
+ 
+  const {  formState: { errors  }} = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema),
+  });
+
+  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = async (values) => {
+    setIsLoading(true);
+    setServerError(null);
 
     try {
-      const body = JSON.stringify({ code, newPassword });
-      
-      const response = await fetch("/api/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body,
-      });
+      const response = await resetPassword({ ...values, code });
 
-      const data = await response.json();
-      setLoading(false);
-      setMessage(data.message);
-
-      if (response.ok) {
-        setTimeout(() => router.push("/login"), 2000);
+      if (response.status === 200) {
+        alert("Senha redefinida com sucesso.");
+        setTimeout(() => router.push("/"), 2000);
+      } else {
+        setServerError({ general: "Token inválido ou expirado." });
       }
     } catch (error) {
       console.error(error);
+      setServerError({ general: "Erro ao redefinir senha." });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h2 className="text-2xl font-bold">Redefinir Senha</h2>
-      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
-        <input
-          type="password"
-          placeholder="Nova Senha"
-          className="border p-2 rounded"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+    <div className="flex min-h-screen w-[80%] m-auto">
+      <div className="flex flex-col justify-center px-10 w-[80%] bg-white items-center">
+        <div className="flex justify-start items-start w-[60%]">
+          <Image
+            src="/images/logo-vestiq.png"
+            alt="Vestiq Logo"
+            width={150}
+            height={250}
+            priority
+            className="mb-6"
+          />
+        </div>
+
+        <h1 className="text-4xl font-bold w-[60%]">A inteligência artificial que renova ensaios de moda</h1>
+        <p className="mt-4 text-start text-gray-600 w-[60%]">
+          Explore o melhor da Inteligência Artificial para lojas, moda e design.
+        </p>
+
+        <div className="grid grid-cols-2 gap-3 mt-8 text-gray-800 w-[60%]">
+          {imageFunctions?.map((func: ImageFunctionProps) => (
+            <div key={func.id} className="flex-col items-center gap-4 text-secondary w-[80%]">
+              {LOCAL_ICON_MAPPING[func.name]("large")}
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">{func.title}</h3>
+                <p className="text-sm text-gray-400">{func.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center px-10 w-[50%] items-center">
+        <DynamicForm
+          title="Redefinir senha"
+          subtitle="Redefina sua senha para acessar sua conta."
+          schema={resetPasswordSchema}
+          button_text="Confirmar nova senha"
+          onSubmit={handleResetPassword}
+          isLoading={isLoading}
+          fields={[
+            {
+              name: "new_password",
+              label: "Nova senha",
+              type: "password",
+              required: true,
+              
+              error: errors.new_password?.message as string,
+            },
+            {
+              name: "password_confirmation",
+              label: "Confirme a nova senha",
+              type: "password",
+              required: true,
+             
+              error: errors.password_confirmation?.message as string,
+            },
+          ]}
+          back_login_text="Cancelar solicitação"
+          have_account_text="Deseja voltar?"
+          server_error={serverError}
         />
-        <input
-          type="password"
-          placeholder="Confirmar Senha"
-          className="border p-2 rounded"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
-          disabled={loading}
-        >
-          {loading ? "Aguarde..." : "Redefinir Senha"}
-        </button>
-      </form>
-      {message && <p className="mt-4">{message}</p>}
+      </div>
     </div>
   );
 }
+

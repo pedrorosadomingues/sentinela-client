@@ -6,6 +6,7 @@ import { useRootStore } from "@/zustand-stores/rootStore";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ForgotPasswordTemplate from "@/components/templates/ForgotPassword";
+import SuccessEmailSendedTemplate from "@/components/templates/EmailSended";
 
 export default function WelcomePage() {
   const router = useRouter();
@@ -15,7 +16,6 @@ export default function WelcomePage() {
 
   useEffect(() => {
     if (!searchParams) return;
-
   }, [searchParams]);
 
   useEffect(() => {
@@ -45,12 +45,16 @@ export default function WelcomePage() {
   }
 
   return (
-    <div className="w-full flex items-center justify-center flex-col"> 
-      {rootControl === "login" ? <SignInTemplate /> : 
-      rootControl === "register" ? <SignUpTemplate /> : 
-      rootControl === "forgot-password" && <ForgotPasswordTemplate />
-      }
+    <div className="w-full flex items-center justify-center flex-col">
+      {rootControl === "login" ? (
+        <SignInTemplate />
+      ) : rootControl === "register" ? (
+        <SignUpTemplate />
+      ) : rootControl === "forgot-password" ? (
+        <ForgotPasswordTemplate />
+      ) : (
+        rootControl === "success-email-sended" && <SuccessEmailSendedTemplate />
+      )}
     </div>
   );
 }
-

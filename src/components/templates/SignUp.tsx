@@ -4,26 +4,33 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { signUp } from "@/services/user/sign-up";
-import { toast } from "react-toastify";
 import RootBanner from "@/components/organisms/RootBanner";
 import SignUpForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRootStore } from "@/zustand-stores";
 
 export default function SignUpTemplate(): JSX.Element {
   const locale = useLocale();
+
   const text = useTranslations("sign_up_page");
 
+  const { setRootControl, setEmailSended } = useRootStore();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [serverError, setServerError] = useState<Record<string, string> | null>(
     null
   );
 
   const signUpSchema = z.object({
     name: z.string().min(3, text("name_min_length")),
+
     email: z.string().email(text("invalid_email")),
+
     password: z.string().min(6, text("password_min_length")),
+
     password_confirmation: z.string().min(6, text("password_min_length")),
   });
 
@@ -37,11 +44,13 @@ export default function SignUpTemplate(): JSX.Element {
 
   const handleSignUp: SubmitHandler<SignUpFormValues> = async (values) => {
     setIsLoading(true);
+
     setServerError(null);
 
     try {
       if (values.password !== values.password_confirmation) {
         setServerError({ general: text("passwords_dont_match") });
+
         return;
       }
       const response = await signUp({ ...values, locale });
@@ -50,19 +59,23 @@ export default function SignUpTemplate(): JSX.Element {
         setServerError({ general: text("email_already_registered") });
       }
 
-      if (response.message.error.name === "UserNotVerifiedError") {
+      if (response.message?.error?.name === "UserNotVerifiedError") {
         setServerError({ general: text("user_not_verified") });
       }
 
       if (response.status === 200) {
-        toast.success("E-mail de confirmação enviado!");
+        setRootControl("success-email-sended");
+
+        setEmailSended("register");
       }
     } catch (error: any) {
       console.error("Erro de cadastro:", error);
 
-      if (error.response?.status === 409) {
+      if (error?.response?.status === 409) {
         setServerError({ general: text("email_already_registered") });
-      } else {
+      }
+
+      if (error?.response?.status === 500) {
         setServerError({ general: text("unexpected_error") });
       }
     } finally {
