@@ -16,7 +16,7 @@ export default function SignUpTemplate(): JSX.Element {
 
   const text = useTranslations("sign_up_page");
 
-  const { setRootControl, rootControl, setEmailSended } = useRootStore();
+  const { setRootControl, setEmailSended } = useRootStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
