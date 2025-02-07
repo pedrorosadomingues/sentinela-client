@@ -20,20 +20,28 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const locale = useLocale();
   const { code } = useParams() as { code: string };
-  
+
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
- 
-  const [serverError, setServerError] = useState<Record<string, string> | null>(null);
 
-  const resetPasswordSchema = z.object({
-    new_password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-    password_confirmation: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-  }).refine((data) => data.new_password === data.password_confirmation, {
-    message: "As senhas não coincidem.",
-    path: ["password_confirmation"], 
-  });
+  const [serverError, setServerError] = useState<Record<string, string> | null>(
+    null
+  );
+
+  const resetPasswordSchema = z
+    .object({
+      new_password: z
+        .string()
+        .min(6, "A senha deve ter pelo menos 6 caracteres"),
+      password_confirmation: z
+        .string()
+        .min(6, "A senha deve ter pelo menos 6 caracteres"),
+    })
+    .refine((data) => data.new_password === data.password_confirmation, {
+      message: "As senhas não coincidem.",
+      path: ["password_confirmation"],
+    });
 
   type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
@@ -41,12 +49,15 @@ export default function ResetPasswordPage() {
     getImageFunctions(locale);
   }, [getImageFunctions, locale]);
 
- 
-  const {  formState: { errors  }} = useForm<ResetPasswordFormValues>({
+  const {
+    formState: { errors },
+  } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = async (values) => {
+  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = async (
+    values
+  ) => {
     setIsLoading(true);
     setServerError(null);
 
@@ -69,8 +80,8 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex min-h-screen w-[80%] m-auto">
-      <div className="flex flex-col justify-center px-10 w-[80%] bg-white items-center">
-        <div className="flex justify-start items-start w-[60%]">
+      <div className="flex flex-col justify-center bg-white items-center max765:hidden w-[50%]">
+        <div className="flex justify-start items-start w-[80%]">
           <Image
             src="/images/logo-vestiq.png"
             alt="Vestiq Logo"
@@ -81,17 +92,24 @@ export default function ResetPasswordPage() {
           />
         </div>
 
-        <h1 className="text-4xl font-bold w-[60%]">A inteligência artificial que renova ensaios de moda</h1>
-        <p className="mt-4 text-start text-gray-600 w-[60%]">
+        <h1 className="text-4xl font-bold w-[80%]">
+          A inteligência artificial que renova ensaios de moda
+        </h1>
+        <p className="mt-4 text-start text-gray-600 w-[80%]">
           Explore o melhor da Inteligência Artificial para lojas, moda e design.
         </p>
 
-        <div className="grid grid-cols-2 gap-3 mt-8 text-gray-800 w-[60%]">
+        <div className="grid grid-cols-2 gap-3 mt-8 text-gray-800 w-[80%]">
           {imageFunctions?.map((func: ImageFunctionProps) => (
-            <div key={func.id} className="flex-col items-center gap-4 text-secondary w-[80%]">
+            <div
+              key={func.id}
+              className="flex-col items-center gap-4 text-secondary w-[80%]"
+            >
               {LOCAL_ICON_MAPPING[func.name]("large")}
               <div>
-                <h3 className="font-bold text-lg text-gray-900">{func.title}</h3>
+                <h3 className="font-bold text-lg text-gray-900">
+                  {func.title}
+                </h3>
                 <p className="text-sm text-gray-400">{func.description}</p>
               </div>
             </div>
@@ -99,7 +117,7 @@ export default function ResetPasswordPage() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center px-10 w-[50%] items-center">
+      <div className="flex flex-col justify-center items-center max765:w-full w-[50%]">
         <DynamicForm
           title="Redefinir senha"
           subtitle="Redefina sua senha para acessar sua conta."
@@ -113,7 +131,6 @@ export default function ResetPasswordPage() {
               label: "Nova senha",
               type: "password",
               required: true,
-              
               error: errors.new_password?.message as string,
             },
             {
@@ -121,7 +138,6 @@ export default function ResetPasswordPage() {
               label: "Confirme a nova senha",
               type: "password",
               required: true,
-             
               error: errors.password_confirmation?.message as string,
             },
           ]}
@@ -133,4 +149,3 @@ export default function ResetPasswordPage() {
     </div>
   );
 }
-
