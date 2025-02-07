@@ -26,8 +26,11 @@ export default function SignUpTemplate(): JSX.Element {
 
   const signUpSchema = z.object({
     name: z.string().min(3, text("name_min_length")),
+
     email: z.string().email(text("invalid_email")),
+
     password: z.string().min(6, text("password_min_length")),
+
     password_confirmation: z.string().min(6, text("password_min_length")),
   });
 
@@ -41,16 +44,16 @@ export default function SignUpTemplate(): JSX.Element {
 
   const handleSignUp: SubmitHandler<SignUpFormValues> = async (values) => {
     setIsLoading(true);
+
     setServerError(null);
 
     try {
       if (values.password !== values.password_confirmation) {
         setServerError({ general: text("passwords_dont_match") });
+
         return;
       }
       const response = await signUp({ ...values, locale });
-
-      console.log("response", response);
 
       if (response.status === 409) {
         setServerError({ general: text("email_already_registered") });
@@ -70,7 +73,7 @@ export default function SignUpTemplate(): JSX.Element {
 
       if (error?.response?.status === 409) {
         setServerError({ general: text("email_already_registered") });
-      } 
+      }
 
       if (error?.response?.status === 500) {
         setServerError({ general: text("unexpected_error") });
