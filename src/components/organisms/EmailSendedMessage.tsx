@@ -20,7 +20,7 @@ export default function EmailSendedMessage({
   onButtonClick,
 }: EmailSendedMessageProps) {
   return (
-    <div className="p-2 w-[80%] h-screen flex flex-col justify-center items-center max-w-[576px] m-auto text-center">
+    <div className="p-2 w-[80%] h-screen flex flex-col justify-center items-center max-w-[576px] m-auto text-justify">
       {icon}
       <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
       <p className="text-gray-600 mt-2 text-sm max-w-md">{description}</p>

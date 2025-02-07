@@ -1,172 +1,136 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
+import { ICON_MAPPING } from "@/constants/icons";
+import { useImageFunctionStore } from "@/zustand-stores";
+import { ImageFunctionProps } from "@/interfaces/image-function";
+import { useLocale } from "next-intl";
+import DynamicForm from "@/components/organisms/DynamicForm";
+import { z } from "zod";
+import { resetPassword } from "@/services";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const LOCAL_ICON_MAPPING: any = ICON_MAPPING;
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const { code } = useParams();
+  const locale = useLocale();
+  const { code } = useParams() as { code: string };
+  
+  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+ 
+  const [serverError, setServerError] = useState<Record<string, string> | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const resetPasswordSchema = z.object({
+    new_password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+    password_confirmation: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+  }).refine((data) => data.new_password === data.password_confirmation, {
+    message: "As senhas não coincidem.",
+    path: ["password_confirmation"], 
+  });
 
-    if (newPassword !== confirmPassword) {
-      setMessage("As senhas não coincidem.");
-      return;
-    }
+  type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
-    setLoading(true);
+  useEffect(() => {
+    getImageFunctions(locale);
+  }, [getImageFunctions, locale]);
+
+ 
+  const {  formState: { errors  }} = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema),
+  });
+
+  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = async (values) => {
+    setIsLoading(true);
+    setServerError(null);
 
     try {
-      const body = JSON.stringify({ code, newPassword });
+      const response = await resetPassword({ ...values, code });
 
-      const response = await fetch("/api/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body,
-      });
-
-      const data = await response.json();
-      setLoading(false);
-      setMessage(data.message);
-
-      if (response.ok) {
-        setTimeout(() => router.push("/login"), 2000);
+      if (response.status === 200) {
+        alert("Senha redefinida com sucesso.");
+        setTimeout(() => router.push("/"), 2000);
+      } else {
+        setServerError({ general: "Token inválido ou expirado." });
       }
     } catch (error) {
       console.error(error);
-      setMessage("Erro ao redefinir senha.");
-      setLoading(false);
+      setServerError({ general: "Erro ao redefinir senha." });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen w-screen">
-      <div className="flex flex-col justify-center px-10 w-[60%] bg-white">
-        <Image
-          src="/images/logo-vestiq.png"
-          alt="Vestiq Logo"
-          width={150}
-          height={250}
-          priority
-          className="mb-6"
-        />
+    <div className="flex min-h-screen w-[80%] m-auto">
+      <div className="flex flex-col justify-center px-10 w-[80%] bg-white items-center">
+        <div className="flex justify-start items-start w-[60%]">
+          <Image
+            src="/images/logo-vestiq.png"
+            alt="Vestiq Logo"
+            width={150}
+            height={250}
+            priority
+            className="mb-6"
+          />
+        </div>
 
-        <h1 className="text-4xl font-bold text-gray-900">
-          A inteligência artificial que renova casas e ambiente
-        </h1>
-
-        <p className="text-gray-600 mt-4">
-          Explore o melhor da Inteligência Artificial para Arquitetura,
-          Engenharia e Design.
+        <h1 className="text-4xl font-bold w-[60%]">A inteligência artificial que renova ensaios de moda</h1>
+        <p className="mt-4 text-start text-gray-600 w-[60%]">
+          Explore o melhor da Inteligência Artificial para lojas, moda e design.
         </p>
 
-        <div className="grid grid-cols-2 gap-6 mt-8 text-gray-800">
-          <div>
-            <h3 className="font-bold text-lg">Renderizar imagem</h3>
-
-            <p className="text-sm">
-              Modele imagens incríveis para o seu projeto
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg">Renderize traços</h3>
-
-            <p className="text-sm">
-              Modele imagens incríveis para o seu projeto
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg">Gerador de ideias</h3>
-
-            <p className="text-sm">
-              Modele imagens incríveis para o seu projeto
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg">Gerar cômodo/mobília</h3>
-
-            <p className="text-sm">
-              Modele imagens incríveis para o seu projeto
-            </p>
-          </div>
+        <div className="grid grid-cols-2 gap-3 mt-8 text-gray-800 w-[60%]">
+          {imageFunctions?.map((func: ImageFunctionProps) => (
+            <div key={func.id} className="flex-col items-center gap-4 text-secondary w-[80%]">
+              {LOCAL_ICON_MAPPING[func.name]("large")}
+              <div>
+                <h3 className="font-bold text-lg text-gray-900">{func.title}</h3>
+                <p className="text-sm text-gray-400">{func.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="w-[40%] flex flex-col justify-center items-center bg-gray-100 p-8">
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-          <h2 className="text-2xl font-bold text-gray-900">Redefinir senha</h2>
-
-          <p className="text-gray-600 mt-1 text-sm">
-            Redefina sua senha para acessar sua conta.
-          </p>
-
-          <div className="flex justify-center my-5">
-            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Nova senha
-              </label>
-
-              <input
-                type="password"
-                placeholder="Digite sua nova senha"
-                className="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Confirme a nova senha
-              </label>
-
-              <input
-                type="password"
-                placeholder="Digite novamente a senha"
-                className="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-3 rounded-md font-semibold shadow-md hover:opacity-90 transition disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? "Aguarde..." : "Confirmar nova senha"}
-            </button>
-
-            <button
-              type="button"
-              className="w-full text-purple-600 font-medium text-sm mt-2 hover:underline"
-              onClick={() => router.push("/login")}
-            >
-              Cancelar solicitação
-            </button>
-          </form>
-
-          {message && (
-            <p className="mt-4 text-center text-sm text-gray-700">{message}</p>
-          )}
-        </div>
+      <div className="flex flex-col justify-center px-10 w-[50%] items-center">
+        <DynamicForm
+          title="Redefinir senha"
+          subtitle="Redefina sua senha para acessar sua conta."
+          schema={resetPasswordSchema}
+          button_text="Confirmar nova senha"
+          onSubmit={handleResetPassword}
+          isLoading={isLoading}
+          fields={[
+            {
+              name: "new_password",
+              label: "Nova senha",
+              type: "password",
+              required: true,
+              
+              error: errors.new_password?.message as string,
+            },
+            {
+              name: "password_confirmation",
+              label: "Confirme a nova senha",
+              type: "password",
+              required: true,
+             
+              error: errors.password_confirmation?.message as string,
+            },
+          ]}
+          back_login_text="Cancelar solicitação"
+          have_account_text="Deseja voltar?"
+          server_error={serverError}
+        />
       </div>
     </div>
   );
 }
+

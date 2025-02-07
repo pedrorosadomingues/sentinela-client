@@ -3,11 +3,12 @@
 import { useForm, SubmitHandler, FieldValues, Path } from "react-hook-form";
 import { ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  TextField, Alert } from "@mui/material";
+import { TextField, Alert } from "@mui/material";
 import Image from "next/image";
 import { useRootStore } from "@/zustand-stores";
 import LanguageSwitcher from "./RootLanguageSwitcher";
 import { Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 interface Field {
   name: string;
@@ -31,6 +32,7 @@ interface AuthFormProps<T extends FieldValues> {
   no_account_text?: string;
   have_account_text?: string;
   back_login_text?: string;
+  new_password?: string;
 }
 
 export default function AuthForm<T extends FieldValues>({
@@ -58,6 +60,8 @@ export default function AuthForm<T extends FieldValues>({
 
   const { setRootControl } = useRootStore();
 
+  const router = useRouter();
+
   return (
     <div className="p-2 w-[80%] h-screen flex flex-col justify-center items-center max-w-[576px] m-auto">
       <div className="fixed top-0 right-0 z-[1000] lg:hidden">
@@ -74,9 +78,7 @@ export default function AuthForm<T extends FieldValues>({
         />
 
         <p className="text-[30px] font-bold">{title}</p>
-        {subtitle && (
-          <p className="text-gray-500 text-sm">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-gray-500 text-sm">{subtitle}</p>}
 
         {server_error && server_error.general && (
           <Alert severity="error" className="mt-4">
@@ -136,7 +138,10 @@ export default function AuthForm<T extends FieldValues>({
             <p className="flex justify-center text-sm mt-[25px]">
               {have_account_text}{" "}
               <a
-                onClick={() => setRootControl("login")}
+                onClick={() => {
+                  setRootControl("login");
+                  router.push("/");
+                }}
                 className="text-secondary ml-[4px] font-medium hover:underline hover:cursor-pointer"
               >
                 {back_login_text}
