@@ -12,7 +12,6 @@ import SignInForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignInParams } from "@/services";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
