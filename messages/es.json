@@ -5,8 +5,8 @@
     "plan_billing": "Plan y Facturación"
   },
   "root_banner": {
-    "main_title": " Redraw: el ecosistema de IA que impulsa tus proyectos",
-    "sub_title": " Explora lo mejor de la Inteligencia Artificial para Arquitectura, Ingeniería y Diseño."
+    "main_title": " Vestiq: el ecosistema de IA que potencia tus ventas",
+    "sub_title": " Explora lo mejor de la Inteligencia Artificial para tiendas, moda y diseño."
   },
   "language_switcher": {
     "change": "Cambiar idioma"
@@ -40,7 +40,10 @@
     "dont_have_account": "¿No tienes una cuenta?",
     "sign_up_here": "Regístrate aquí",
     "invalid_email_or_password": "Correo electrónico o contraseña inválidos",
-    "access_message": "Accede a tu cuenta ahora para utilizar lo mejor de la IA para moda. Si aún no tienes una cuenta, regístrate en Vestiq ahora para comenzar a usarla en tus creaciones."
+    "access_message": "Accede a tu cuenta ahora para utilizar lo mejor de la IA para moda. Si aún no tienes una cuenta, regístrate en Vestiq ahora para comenzar a usarla en tus creaciones.",
+    "invalid_email": "Correo electrónico inválido",
+    "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+    "user_not_verified": "Usuario no verificado. Verifica tu correo electrónico para obtener el enlace de verificación."
   },
   "sign_up_page": {
     "sign_up": "Regístrate",
@@ -54,7 +57,14 @@
     "user_created_successfully": "Usuario creado con éxito",
     "error_creating_user": "Error al crear el usuario:",
     "unexpected_error": "Ocurrió un error inesperado",
-    "have_account": "¿Tienes una cuenta?"
+    "have_account": "¿Tienes una cuenta?",
+    "email_already_registered": "Correo electrónico ya registrado",
+    "name_min_length": "El nombre debe tener al menos 3 caracteres",
+    "invalid_email": "Correo electrónico inválido",
+    "password_min_length": "La contraseña debe tener al menos 6 caracteres",
+    "passwords_dont_match": "Las contraseñas no coinciden",
+    "password_confirmation": "Confirmación de contraseña",
+    "user_not_verified": "Usuario no verificado. Verifica tu correo electrónico para obtener el enlace de verificación."
   },
   "home": {
     "my_profile": "Mi Perfil",
@@ -67,7 +77,8 @@
     "txt2img_description": "Crea una imagen a partir de una descripción textual. Convierte ideas en representaciones visuales para proyectos creativos o conceptuales.",
     "render-traces": "Renderizar Trazos",
     "render_traces_description": "Convierte tus bocetos, dibujos y borradores en realidad con la herramienta de renderizado de trazos de Vestiq.",
-    "start": "Comenzar"
+    "start": "Comenzar",
+    "plans_and_subscriptions": "Planes y Suscripciones"
   },
   "header": {
     "my_profile": "Mi Perfil",

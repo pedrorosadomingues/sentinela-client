@@ -17,7 +17,7 @@ import {
 } from "@/zustand-stores";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
-import MyProfile from "./My-Profile";
+import MyProfile from "./MyProfile";
 import VestiqLoading from "../organisms/VestiqLoading";
 import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
 
