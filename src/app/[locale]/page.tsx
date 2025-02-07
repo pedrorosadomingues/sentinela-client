@@ -16,7 +16,6 @@ export default function WelcomePage() {
 
   useEffect(() => {
     if (!searchParams) return;
-
   }, [searchParams]);
 
   useEffect(() => {
@@ -46,13 +45,16 @@ export default function WelcomePage() {
   }
 
   return (
-    <div className="w-full flex items-center justify-center flex-col"> 
-      {rootControl === "login" ? <SignInTemplate /> : 
-      rootControl === "register" ? <SignUpTemplate /> : 
-      rootControl === "forgot-password" ? <ForgotPasswordTemplate /> :
-      rootControl === "success-email-sended" ? <SuccessEmailSendedTemplate /> : null
-      }
+    <div className="w-full flex items-center justify-center flex-col">
+      {rootControl === "login" ? (
+        <SignInTemplate />
+      ) : rootControl === "register" ? (
+        <SignUpTemplate />
+      ) : rootControl === "forgot-password" ? (
+        <ForgotPasswordTemplate />
+      ) : (
+        rootControl === "success-email-sended" && <SuccessEmailSendedTemplate />
+      )}
     </div>
   );
 }
-

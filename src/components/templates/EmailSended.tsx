@@ -21,6 +21,17 @@ export default function ForgotPasswordConfirmation() {
         />
       )}
 
+      {emailSended === "forgot-password" && (
+        <MessageCard
+          icon={<MdEmail className="text-secondary text-6xl mb-4" />}
+          title="E-mail enviado com sucesso 👍"
+          description="Um e-mail com link para redefinição de senha chegou na sua caixa de entrada. Clique no link do e-mail e redefina sua senha!"
+          extraText="Se você não encontrar o e-mail, verifique sua pasta de spam."
+          buttonText="Voltar ao Login"
+          onButtonClick={() => setRootControl("login")}
+        />
+      )}
+
       <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
         <RootBanner />
       </div>
