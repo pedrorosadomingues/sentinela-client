@@ -5,11 +5,13 @@ import ForgotPassForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import RootBanner from "../organisms/RootBanner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { requestResetPassword } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ForgotPassword() {
+  const locale = useLocale();
+
   const text = useTranslations("sign_up_page");
 
   const [loading, setLoading] = useState(false);
@@ -36,7 +38,7 @@ export default function ForgotPassword() {
     setServerError(null);
 
     try {
-      const response = await requestResetPassword(values);
+      const response = await requestResetPassword({ ...values, locale });
 
       console.log("response", response);
 

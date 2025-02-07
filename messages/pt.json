@@ -43,7 +43,7 @@
     "access_message": "Acesse sua conta agora para utilizar o que há de melhor em IA para moda. Se você ainda não tem uma conta, inscreva-se na Vestiq agora para começar a usar em suas criações.",
     "invalid_email": "Email inválido",
     "password_min_length": "A senha deve ter no mínimo 6 caracteres",
-    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
+    "user_not_verified": "Confirme seu cadastro clicando no link que enviamos para o seu email."
   },
   "sign_up_page": {
     "sign_up": "Cadastre-se",
@@ -64,7 +64,7 @@
     "password_min_length": "A senha deve ter no mínimo 6 caracteres",
     "passwords_dont_match": "As senhas não coincidem",
     "password_confirmation": "Confirmação de senha",
-    "user_not_verified": "Usuário não verificado. Verifique seu email para o link de verificação."
+    "user_not_verified": "Usuário não verificado. Confirme seu cadastro clicando no link que enviamos pro seu email."
   },
   "home": {
     "my_profile": "Meu Perfil",

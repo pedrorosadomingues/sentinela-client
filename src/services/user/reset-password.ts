@@ -4,13 +4,23 @@ import httpStatus from "http-status";
 
 export async function requestResetPassword({
   email,
+  locale,
 }: {
   email: string;
+  locale: string;
 }): Promise<any> {
   try {
-    const response = await api.post("/reset-password", {
-      email,
-    });
+    const response = await api.post(
+      "/reset-password",
+      {
+        email,
+      },
+      {
+        headers: {
+          "Accept-Language": locale,
+        },
+      }
+    );
     return {
       status: httpStatus.OK,
       data: response.data,
