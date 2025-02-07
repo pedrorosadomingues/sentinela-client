@@ -15,7 +15,9 @@ import { ICON_MAPPING } from "@/constants";
 
 export default function Home(): JSX.Element {
   const { imageFunctions, isFetching } = useImageFunctionStore();
+
   const { setMainControl } = useMainStore();
+
   const t = useTranslations("home");
 
   return (
@@ -45,7 +47,7 @@ export default function Home(): JSX.Element {
                 description={func.description}
                 isBeta={func.is_beta}
                 onClick={() => setMainControl(func.title)}
-                icon={ICON_MAPPING[func.name as ImageFunctionName]('large')}
+                icon={ICON_MAPPING[func.name as ImageFunctionName]("large")}
               />
             ))}
             <ConfirmationModal />
