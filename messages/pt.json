@@ -19,7 +19,7 @@
     "generate_image": "Gerar Imagem"
   },
   "choose_model_modal": {
-    "title": "Escolha um Modelo ou Gere um Personalizado",
+    "title": "Escolha um Modelo",
     "choose_model_button": "Selecionar Modelo pronto",
     "model_creator_button": "Gerar Modelo",
     "model_by_text_button": "Modelo por Texto",

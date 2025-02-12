@@ -13,11 +13,13 @@ import { handleSubmit } from "@/utils/handle-submit";
 import CategoryBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-category-controls";
 import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-type-controls";
 import { useTranslations } from "next-intl";
-import ChooseModelButton from "@/components/atoms/ChooseModelButton";
 import { StarGroup } from "../icons";
 import { Button } from "@heroui/react";
 import RowSteps from "@/components/atoms/RowSteps";
 import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import CreateModelButton from "../create-model/CreateModel";
+import ChooseDefaultModel from "../create-model/ChooseDefaultModel";
+import GenerateModelByText from "../create-model/GenerateModelByText";
 
 export default function DressModel(): JSX.Element {
   const { step, setStep, current } = useDressModelStore();
@@ -145,7 +147,9 @@ export default function DressModel(): JSX.Element {
         setModelImageWidth={setModelImageWidth}
         onClearImage={handleClearImage}
       />
-      <ChooseModelButton onModelSelect={handleModelSelect} />
+      <ChooseDefaultModel onModelSelect={handleModelSelect} />
+      <GenerateModelByText onModelSelect={handleModelSelect} />
+      <CreateModelButton onModelSelect={handleModelSelect} />
       <ModelImageControls formik={formik} />
     </>
   );

@@ -7,14 +7,10 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import {
-  CloseOutlined,
-  DeleteSweepOutlined,
   ImageOutlined,
-  RemoveOutlined,
   RotateLeftOutlined,
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface ResultImageAreaProps {
   result_image_path: string;

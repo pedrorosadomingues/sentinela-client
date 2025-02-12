@@ -19,16 +19,16 @@ export default function Home(): JSX.Element {
   const t = useTranslations("home");
 
   return (
-    <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-7xl mx-auto">
+    <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
       {isFetching ? (
         <VestiqLoading />
       ) : (
         <>
           <Banner />
-          <div className="rounded-xl w-full mb-10 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
             <div
               onClick={() => setMainControl(t("my_generations"))}
-              className="border border-gray-200 rounded-lg shadow-md flex flex-col items-center bg-white justify-center gap-2 flex-1 animate-fade-in hover:shadow-lg hover:cursor-pointer p-2"
+              className="relative flex flex-col items-center justify-center gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary"
             >
               <HistoryIcon
                 className="text-2xl text-[#FFFFFF] bg-secondary rounded-full p-2"
