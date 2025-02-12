@@ -10,20 +10,30 @@ import Sidebar from "../organisms/Sidebar";
 import DressModel from "@/components/organisms/functions/DressModel";
 import MyGenerations from "../organisms/My-Generations";
 import Home from "@/components/organisms/home/Home";
-import { useMainStore } from "@/zustand-stores/mainStore";
+import {
+  useMainStore,
+  useImageFunctionStore,
+  useGenerationStore,
+} from "@/zustand-stores";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import ImageFromText from "../organisms/functions/ImageFromText";
-import MyProfile from "./My-Profile";
+import MyProfile from "./MyProfile";
 import VestiqLoading from "../organisms/VestiqLoading";
-import { useImageFunctionStore } from "@/zustand-stores";
 import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
 
 export default function Main(): JSX.Element {
   const text = useTranslations("home");
+
   const router = useRouter();
+
   const searchParams = useSearchParams();
+
   const { mainControl, setMainControl } = useMainStore();
+
   const { getImageFunctions } = useImageFunctionStore();
+  
+  const { isFetching } = useGenerationStore();
+
   const [isLoading, setIsLoading] = useState(true);
 
   const locale = useLocale();
@@ -50,7 +60,7 @@ export default function Main(): JSX.Element {
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
-      {isLoading && <VestiqLoading />}
+      {(isLoading || isFetching) && <VestiqLoading />}
       <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
         {mainControl === text("home") ? (
           <Home />

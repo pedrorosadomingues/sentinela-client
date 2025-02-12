@@ -5,8 +5,8 @@
     "plan_billing": "Plan & Billing"
   },
   "root_banner": {
-    "main_title": " Redraw: the AI ecosystem that powers your projects",
-    "sub_title": " Explore the best of Artificial Intelligence for Architecture, Engineering and Design."
+    "main_title": " Vestiq: the AI ecosystem that will boost your sales",
+    "sub_title": " Explore the best of Artificial Intelligence for stores, fashion, and design."
   },
   "language_switcher": {
     "change": "Change language"
@@ -40,7 +40,10 @@
     "forgot_password": "Forgot password?",
     "dont_have_account": "Don't have an account?",
     "sign_up_here": "Sign up now",
-    "invalid_email_or_password": "Invalid email or password"
+    "invalid_email_or_password": "Invalid email or password",
+    "invalid_email": "Invalid email",
+    "password_min_length": "The password must be at least 6 characters long",
+    "user_not_verified": "User not verified. Check your email for the verification link."
   },
   "sign_up_page": {
     "sign_up": "Sign up",
@@ -54,7 +57,14 @@
     "user_created_successfully": "User created successfully",
     "error_creating_user": "Error creating user:",
     "unexpected_error": "An unexpected error occurred",
-    "have_account": "Already have an account?"
+    "have_account": "Already have an account?",
+    "email_already_registered": "Email already registered",
+    "name_min_length": "The name must be at least 3 characters long",
+    "invalid_email": "Invalid email",
+    "password_min_length": "The password must be at least 6 characters long",
+    "passwords_dont_match": "Passwords don't match",
+    "password_confirmation": "Password confirmation",
+    "user_not_verified": "User not verified. Check your email for the verification link."
   },
   "home": {
     "my_profile": "My Perfil",
