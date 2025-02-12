@@ -3,6 +3,7 @@ import ToggleButton from "@/components/atoms/ToggleButton";
 import { ModelImageControlsProps } from "@/interfaces/model-image-controls";
 import { CHECKBOX_OPTIONS } from "@/constants/options";
 import { useTranslations } from "next-intl";
+import ToolInfo from "@/components/atoms/ToolInfo";
 
 export default function ModelImageControls({
   formik,
@@ -20,9 +21,7 @@ export default function ModelImageControls({
         className="flex items-center justify-start gap-[5px] w-full hover:cursor-pointer"
         onClick={toggleControls}
       >
-        <span style={
-        { fontSize: "16px" }
-      }>{text("title")}</span>
+        <span style={{ fontSize: "16px" }}>{text("title")}</span>
         <ToggleButton isOpen={isOpen} onClick={toggleControls} />
       </div>
       <div
@@ -44,6 +43,13 @@ export default function ModelImageControls({
                 }
               />
               {text(`options.${option.name}`)}
+
+              <ToolInfo
+                title="lorem ipsum dolor"
+                text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+                video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
+                href="https://academy.arch.redraw.pro/"
+              />
             </label>
           ))}
         </div>
