@@ -152,5 +152,8 @@
     "timesteps": "Timesteps",
     "seed": "Seed",
     "number_of_samples": "Number of Samples"
+  },
+  "verify_email":{
+    "code_expired": "Code expired. Please request a new one."
   }
 }

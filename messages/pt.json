@@ -152,5 +152,8 @@
     "timesteps": "Passos de Tempo",
     "seed": "Semente",
     "number_of_samples": "Número de Amostras"
+  },
+  "verify_email" : {
+    "code_expired": "Código expirado. Por favor, solicite um novo."
   }
 }
