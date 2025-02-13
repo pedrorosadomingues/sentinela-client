@@ -17,21 +17,19 @@ export default function Card({
   const t = useTranslations("home");
 
   return (
-    <div
-      className={`border relative border-gray-200 rounded-lg p-6 shadow-md 
-        flex flex-col items-start bg-white gap-2 flex-1 animate-fade-in hover:shadow-lg text-secondary`}
-    >
-      {icon}
-      <div className="flex items-center justify-between w-full">
-        <h3 className=" mt-[5px] text-lg font-bold text-[#49424A]">{title}</h3>
-        {isBeta && (
-          <span className="px-2 py-1 text-xs text-white bg-secondary rounded-full fixed right-2 top-2">
-            BETA
-          </span>
-        )}
+    <div className="relative flex flex-col items-start justify-start gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary">
+      {isBeta && (
+        <span className="px-2 py-1 text-xs text-white bg-secondary rounded-full absolute right-2 top-2">
+          BETA
+        </span>
+      )}
+
+      <div className="space-y-2">
+        {icon}
+        <h3 className="text-lg font-semibold text-[#49424A]">{title}</h3>
+        <p className="text-sm text-gray-600">{description}</p>
       </div>
 
-      <p className="mt-2 text-sm text-gray-600">{description}</p>
       <button
         onClick={onClick}
         className="mt-auto text-secondary font-bold text-sm hover:underline"

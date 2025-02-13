@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import { CheckroomOutlined, CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import ToolInfo from "@/components/atoms/ToolInfo";
 
 interface GarmentImageAreaProps {
   garment_image_path: string;
@@ -43,8 +43,14 @@ export default function GarmentImageArea({
 
   return (
     <Card className="w-full pb-6 select-none z-0" shadow="sm">
-      <CardHeader className="w-full justify-center items-center mb-4">
+      <CardHeader className="w-full justify-center items-center gap-2 mb-4">
         <StepNumber number={2} label={text("step2_send_garment_image")} />
+        <ToolInfo
+          title="lorem ipsum dolor"
+          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
+          href="https://academy.arch.redraw.pro/"
+        />
       </CardHeader>
       <CardBody
         className="cursor-pointer relative upload-area h-96"

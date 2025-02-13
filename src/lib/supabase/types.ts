@@ -223,15 +223,73 @@ export type Database = {
           locale?: string
           name?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "image_function_translations_fn_id_fkey"
-            columns: ["fn_id"]
-            isOneToOne: false
-            referencedRelation: "image_function"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
+      }
+      models_default: {
+        Row: {
+          gender: string
+          id: number
+          image_path: string
+          label: string
+          unlocked_by: number | null
+        }
+        Insert: {
+          gender: string
+          id?: number
+          image_path: string
+          label: string
+          unlocked_by?: number | null
+        }
+        Update: {
+          gender?: string
+          id?: number
+          image_path?: string
+          label?: string
+          unlocked_by?: number | null
+        }
+        Relationships: []
+      }
+      models_suggestions: {
+        Row: {
+          id: number
+          locale: string
+          text: string
+        }
+        Insert: {
+          id?: number
+          locale: string
+          text: string
+        }
+        Update: {
+          id?: number
+          locale?: string
+          text?: string
+        }
+        Relationships: []
+      }
+      password_reset_tokens: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: number
+          token: string
+          user_id: number
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: number
+          token: string
+          user_id: number
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: number
+          token?: string
+          user_id?: number
+        }
+        Relationships: []
       }
       transaction: {
         Row: {
@@ -258,9 +316,12 @@ export type Database = {
           downloads_used: number
           email: string
           id: number
+          is_verified: boolean
           name: string
           password: string
           updated_at: string
+          verification_code: number | null
+          verification_expires: string | null
         }
         Insert: {
           created_at?: string
@@ -268,9 +329,12 @@ export type Database = {
           downloads_used?: number
           email: string
           id?: number
+          is_verified?: boolean
           name: string
           password: string
           updated_at: string
+          verification_code?: number | null
+          verification_expires?: string | null
         }
         Update: {
           created_at?: string
@@ -278,9 +342,12 @@ export type Database = {
           downloads_used?: number
           email?: string
           id?: number
+          is_verified?: boolean
           name?: string
           password?: string
           updated_at?: string
+          verification_code?: number | null
+          verification_expires?: string | null
         }
         Relationships: []
       }

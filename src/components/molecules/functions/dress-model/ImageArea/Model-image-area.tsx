@@ -9,6 +9,7 @@ import {
   SentimentSatisfiedAltOutlined,
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
+import ToolInfo from "@/components/atoms/ToolInfo";
 
 interface ModelImageAreaProps {
   model_image_path: string;
@@ -44,8 +45,14 @@ export default function ModelImageArea({
 
   return (
     <Card className="w-full pb-6 z-0" shadow="sm">
-      <CardHeader className="w-full justify-center items-center mb-4">
-        <StepNumber number={1} label={text("step1_send_model_image")} />
+      <CardHeader className="w-full justify-center items-center gap-2 mb-4">
+        <StepNumber number={1} label={text("step1_send_model_image")} />{" "}
+        <ToolInfo
+          title="lorem ipsum dolor"
+          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
+          href="https://academy.arch.redraw.pro/"
+        />
       </CardHeader>
       <CardBody
         className="cursor-pointer relative upload-area h-96"

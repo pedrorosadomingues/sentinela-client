@@ -19,7 +19,7 @@
     "generate_image": "Generate Image"
   },
   "choose_model_modal": {
-    "title": "Choose a Model or Generate a Custom One",
+    "title": "Choose a Model",
     "choose_model_button": "Choose ready Model",
     "model_creator_button": "Generate Model",
     "model_by_text_button": "Model by Text",
