@@ -68,7 +68,7 @@ export default function VerifyEmailPage() {
     }
 
     verify();
-  }, [email, verification_code, locale, router]);
+  }, [email, verification_code, locale, router, text]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50 px-6">
