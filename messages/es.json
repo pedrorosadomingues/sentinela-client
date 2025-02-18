@@ -205,5 +205,35 @@
   },
   "verify_email": {
     "code_expired": "Código expirado. Por favor, solicite uno nuevo."
+  },
+  "my-generations": {
+    "fetching_generations": "Buscando generaciones...",
+    "no_generations_yet": "Nada aquí por ahora, ¡pero puedes cambiar eso!",
+    "start_generating_now": "Comenzar a generar ahora",
+    "showing_total": "Mostrando un total de {length} generaciones.",
+    "download": "Descargar",
+    "move": "Mover",
+    "delete": "Eliminar",
+    "cancel_selection": "Cancelar selección",
+    "selected_count": "{count} seleccionados",
+    "see_more_actions": "Más acciones",
+    "select_all": "Seleccionar todo",
+    "deselect_all": "Deseleccionar todo",
+    "filters": {
+      "any_time": "Cualquier momento",
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "last_30_days": "Últimos 30 días",
+      "last_90_days": "Últimos 90 días",
+      "last_year": "El año pasado",
+      "edit_date": "Fecha de edición",
+      "filter_by_date": "Filtrar por fecha de creación",
+      "newest_editions": "Ediciones más recientes",
+      "oldest_editions": "Ediciones más antiguas",
+      "alphabetical_asc": "Alfabético (A-Z)",
+      "alphabetical_desc": "Alfabético (Z-A)",
+      "sort_actions": "Ordenar acciones",
+      "most_relevant": "Más relevantes"
+    }
   }
 }

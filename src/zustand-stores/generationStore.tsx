@@ -10,7 +10,9 @@ interface IGenerationStore {
   getGenerations: () => Promise<void>;
 
   selectedGenerations: number[];
-  setSelectedGenerations: (selectedGenerations: any[]) => void;
+  setSelectedGenerations: (selectedGenerations: any) => void;
+  clearSelectedGenerations: () => void;
+  handleSelectAllGenerations: () => void;
 }
 
 export const useGenerationStore = create<IGenerationStore>((set) => ({
@@ -48,4 +50,45 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   selectedGenerations: [],
   setSelectedGenerations: (selectedGenerations: number[]) =>
     set({ selectedGenerations }),
+
+  clearSelectedGenerations: () => {
+    const {
+      generations,
+      setSelectedGenerations,
+      setGenerations,
+    } = useGenerationStore.getState();
+
+    const updatedGenerations = generations?.map((item: any) => ({
+      ...item,
+      checked: false,
+    }));
+
+    const selectedGenerationIds = updatedGenerations
+      .filter((item: any) => item.checked)
+      .map((item: any) => item.id);
+
+    setSelectedGenerations(selectedGenerationIds);
+    setGenerations(updatedGenerations);
+  },
+  
+  handleSelectAllGenerations: () => {
+    const {
+      generations,
+      setGenerations,
+      setSelectedGenerations,
+    } = useGenerationStore.getState();
+
+    const updatedGenerations = generations?.map((item: any) => ({
+      ...item,
+      checked: true,
+    }));
+
+    const selectedGenerationIds = updatedGenerations
+      .filter((item: any) => item.checked)
+      .map((item: any) => item.id);
+
+    setSelectedGenerations(selectedGenerationIds);
+    setGenerations(updatedGenerations);
+  },
+
 }));
