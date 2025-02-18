@@ -40,8 +40,8 @@ export default function WelcomeTourModal() {
           <Image
             src="/images/tour/welcome-tour.png"
             alt="vestiq welcome model"
-            width={400}
-            height={400}
+            width={200}
+            height={200}
             quality={100}
             className="w-full object-contain border-b border-default-200"
           />
