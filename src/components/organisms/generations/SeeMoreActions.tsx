@@ -46,6 +46,7 @@ export default function SeeMoreActions() {
           radius="full"
           size="sm"
           variant="light"
+          className="z-0"
         >
           <MoreVertOutlined fontSize="small" />
         </Button>

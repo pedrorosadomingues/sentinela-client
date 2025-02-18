@@ -6,9 +6,11 @@ import { Visibility } from "@mui/icons-material";
 import { Generation } from "@/interfaces";
 import { useGenerationStore } from "@/zustand-stores";
 import { ViewGenerationModal } from "./ViewGenerationModal";
+import { useTranslations } from "next-intl";
 
 export default function ImageCard({ data }: { data: Generation }) {
-  const {
+  const t = useTranslations("my-generations");
+  const {  
     generations,
     setGenerations,
     setSelectedGenerations,
@@ -99,7 +101,7 @@ export default function ImageCard({ data }: { data: Generation }) {
                 onClick={() => handleOpen()}
               >
                 <Visibility className="text-white" fontSize="small" />{" "}
-                Visualizar
+                {t("view_generation")}
               </p>
             </div>
           </div>
