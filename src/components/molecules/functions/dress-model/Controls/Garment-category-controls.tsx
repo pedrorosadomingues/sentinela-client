@@ -4,29 +4,26 @@ import { CATEGORIES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
 import { Button } from "@heroui/react";
 import ToolInfo from "@/components/atoms/ToolInfo";
+import { UseFormSetValue } from "react-hook-form";
+import { FormValues } from "@/interfaces";
 interface CategoryButtonsProps {
   selectedCategory: string;
-  setFieldValue: (
-    field: string,
-    value: string,
-    shouldValidate?: boolean
-  ) => void;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export default function CategoryButtons({
   selectedCategory,
-  setFieldValue,
+  setValue,
 }: CategoryButtonsProps) {
   const text = useTranslations("category_buttons");
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1 w-full dt-twelfth-step">
       <label className="text-sm font-medium text-gray-600">
         {text("category")}{" "}
         <ToolInfo
-          title="lorem ipsum dolor"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
+          title={text("category")}
+          text={text("tooltip")}
           href="https://academy.arch.redraw.pro/"
         />
       </label>
@@ -35,7 +32,7 @@ export default function CategoryButtons({
         {CATEGORIES_GARMENT.map((category) => (
           <Button
             key={category.value}
-            onPress={() => setFieldValue("category", category.value)}
+            onPress={() => setValue("category", category.value)}
             variant={selectedCategory === category.value ? "solid" : "bordered"}
             color={"secondary"}
             className="w-full text-sm h-24 aspect-square flex flex-col items-center justify-center gap-2"

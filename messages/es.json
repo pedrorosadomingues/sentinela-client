@@ -127,14 +127,18 @@
   "model_image_controls": {
     "title": "Controles de Imagen del Modelo",
     "options": {
-      "cover_feet": "Cubrir Pies",
-      "adjust_hands": "Ajustar Manos",
-      "restore_background": "Restaurar Fondo",
-      "restore_clothes": "Restaurar Ropa"
-    }
+      "restore_background": "Restaurar Fondo"
+    },
+    "cover_feet_label": "Cubrir Pies",
+    "cover_feet_description": "Permite que la ropa larga cubra los pies/zapatos o ajuste su apariencia.",
+    "adjust_hands_label": "Ajustar Manos",
+    "adjust_hands_description": "Modifica las manos del modelo para adaptarlas mejor a la ropa.",
+    "restore_clothes_label": "Restaurar Ropa",
+    "restore_clothes_description": "Mantiene partes de la ropa original que no fueron cambiadas (por ejemplo, conservar los pantalones al probar una blusa)."
   },
   "category_buttons": {
     "category": "Categoría",
+    "tooltip": "Elija entre Parte Superior, Inferior o Cuerpo Completo para ajustar la ropa en el modelo.",
     "categories": {
       "tops": "Parte Superior",
       "bottoms": "Parte Inferior",
@@ -144,7 +148,8 @@
   "type_buttons": {
     "type": "Tipo de foto",
     "flat-lay": "Solo ropa",
-    "model": "Modelo"
+    "model": "Modelo",
+    "tooltip": "Tipo de foto: Solo la prenda: Úselo si la imagen contiene solo la prenda de ropa, sin modelo. Modelo: Úselo si la ropa está siendo usada por un modelo en la foto."
   },
   "sampling_controls": {
     "title": "Controles de Muestreo",
@@ -152,5 +157,11 @@
     "timesteps": "Pasos de Tiempo",
     "seed": "Semilla",
     "number_of_samples": "Número de Muestras"
+  },
+  "tours": {
+    "finish_label": "Finalizar Tutorial",
+    "next_label": "Siguiente",
+    "previous_label": "Anterior",
+    "skip_label": "Omitir Tutorial"
   }
 }

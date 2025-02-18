@@ -127,14 +127,18 @@
   "model_image_controls": {
     "title": "Model Image Controls",
     "options": {
-      "cover_feet": "Cover Feet",
-      "adjust_hands": "Adjust Hands",
-      "restore_background": "Restore Background",
-      "restore_clothes": "Restore Clothes"
-    }
+      "restore_background": "Restore Background"
+    },
+    "cover_feet_label": "Cover Feet",
+    "cover_feet_description": "Allows long clothes to cover the feet/shoes or adjust their appearance.",
+    "adjust_hands_label": "Adjust Hands",
+    "adjust_hands_description": "Modifies the model's hands to better adapt to the clothing.",
+    "restore_clothes_label": "Restore Clothes",
+    "restore_clothes_description": "Keeps parts of the original clothing that were not changed (e.g., keep pants when testing a blouse)."
   },
   "category_buttons": {
     "category": "Category",
+    "tooltip": "Choose between Top, Bottom, or Full Body to adjust the clothing on the model.",
     "categories": {
       "tops": "Top",
       "bottoms": "Bottom",
@@ -144,7 +148,8 @@
   "type_buttons": {
     "type": "Photo Type",
     "flat-lay": "Clothing only",
-    "model": "Model"
+    "model": "Model",
+    "tooltip": "Photo type: Clothing only: Use if the image contains only the clothing item, without a model. Model: Use if the clothing is being worn by a model in the photo."
   },
   "sampling_controls": {
     "title": "Sampling Controls",
@@ -152,5 +157,11 @@
     "timesteps": "Timesteps",
     "seed": "Seed",
     "number_of_samples": "Number of Samples"
+  },
+  "tours": {
+    "finish_label": "Finish tutorial",
+    "next_label": "Next",
+    "previous_label": "Previous",
+    "skip_label": "Skip tutorial"
   }
 }

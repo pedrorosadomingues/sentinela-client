@@ -18,10 +18,12 @@ import {
 
 type CreateModelButtonProps = {
   onModelSelect: (imagePath: string) => void;
+  isDisabled: boolean;
 };
 
 export default function CreateModelButton({
   onModelSelect,
+  isDisabled,
 }: CreateModelButtonProps) {
   const t = useTranslations("choose_model_modal");
   const {
@@ -78,9 +80,10 @@ export default function CreateModelButton({
       <Button
         onPress={onOpen}
         color="secondary"
-        className="w-full text-sm"
+        className="w-full text-sm dt-seventh-step"
         size="lg"
         radius="sm"
+        isDisabled={isDisabled}
         startContent={<AddReactionOutlined />}
       >
         {t("model_creator_button")}

@@ -5,6 +5,7 @@ import {
   ClothesTop,
 } from "@/components/organisms/icons";
 import { SVGProps } from "react";
+import { getLocaleMessages } from "@/lib/i18n/utils";
 
 export interface Category {
   label: string;
@@ -15,6 +16,7 @@ export interface Category {
 export interface CheckboxOption {
   name: keyof ModelImageControlsFormValues;
   label: string;
+  description?: string;
 }
 
 export interface FnOption {
@@ -26,7 +28,7 @@ export interface FnOption {
 const iconProps: SVGProps<SVGSVGElement> = {
   width: 36,
   height: 36,
-  className: "text-inherit"
+  className: "text-inherit",
 };
 
 export const CATEGORIES_GARMENT: Category[] = [
@@ -50,8 +52,24 @@ export const FN_OPTIONS: FnOption[] = [
   { label: "Txt2Img", value: "txt2img", selectable: false },
 ];
 
-export const CHECKBOX_OPTIONS: CheckboxOption[] = [
-  { name: "cover_feet", label: "Cover Feet" },
-  { name: "adjust_hands", label: "Adjust Hands" },
-  { name: "restore_clothes", label: "Restore Clothes" },
-];
+export const getCheckboxOptions = (locale: string): CheckboxOption[] => {
+  const messages = getLocaleMessages(locale);
+
+  return [
+    {
+      name: "cover_feet",
+      label: messages.model_image_controls.cover_feet_label,
+      description: messages.model_image_controls.cover_feet_description,
+    },
+    {
+      name: "adjust_hands",
+      label: messages.model_image_controls.adjust_hands_label,
+      description: messages.model_image_controls.adjust_hands_description,
+    },
+    {
+      name: "restore_clothes",
+      label: messages.model_image_controls.restore_clothes_label,
+      description: messages.model_image_controls.restore_clothes_description,
+    },
+  ];
+};

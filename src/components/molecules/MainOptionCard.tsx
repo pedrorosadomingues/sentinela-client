@@ -2,12 +2,14 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function Card({
+  name,
   title,
   description,
   isBeta,
   onClick,
   icon,
 }: {
+  name: string;
   title: string;
   description: string;
   isBeta: boolean;
@@ -17,7 +19,10 @@ export default function Card({
   const t = useTranslations("home");
 
   return (
-    <div className="relative flex flex-col items-start justify-start gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary">
+    <div
+      className={`welcome-tour-second-step
+       relative flex flex-col items-start justify-start gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary`}
+    >
       {isBeta && (
         <span className="px-2 py-1 text-xs text-white bg-secondary rounded-full absolute right-2 top-2">
           BETA
@@ -32,7 +37,9 @@ export default function Card({
 
       <button
         onClick={onClick}
-        className="mt-auto text-secondary font-bold text-sm hover:underline"
+        className={`${
+          name === "dress-model" && "welcome-tour-third-step"
+        } mt-auto text-secondary font-bold text-sm hover:underline`}
       >
         {t("start")}
       </button>

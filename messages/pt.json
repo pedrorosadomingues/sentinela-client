@@ -127,19 +127,24 @@
   "model_image_controls": {
     "title": "Controles da Imagem do Modelo",
     "options": {
-      "cover_feet": "Cobrir Pés",
-      "adjust_hands": "Ajustar Mãos",
-      "restore_background": "Restaurar Fundo",
-      "restore_clothes": "Restaurar Roupas"
-    }
+      "restore_background": "Restaurar Fundo"
+    },
+    "cover_feet_label": "Cobrir Pés",
+    "cover_feet_description": "Permite que roupas longas cubram os pés/sapatos ou ajustem a aparência.",
+    "adjust_hands_label": "Ajustar Mãos",
+    "adjust_hands_description": "Modifica as mãos do modelo para se adaptarem melhor à roupa.",
+    "restore_clothes_label": "Restaurar Roupas",
+    "restore_clothes_description": "Mantém partes da roupa original que não foram trocadas (ex: manter calça ao testar uma blusa)."
   },
   "type_buttons": {
     "type": "Tipo de foto",
     "flat-lay": "Apenas a roupa",
-    "model": "Modelo"
+    "model": "Modelo",
+    "tooltip": "Tipo de foto: Apenas a roupa: Use se a imagem contém só a peça de roupa, sem modelo. Modelo: Use se a roupa está sendo vestida por um modelo na foto."
   },
   "category_buttons": {
     "category": "Categoria",
+    "tooltip": "Escolha entre Topo, Inferior ou Corpo Inteiro para ajustar a roupa no modelo.",
     "categories": {
       "tops": "Parte Superior",
       "bottoms": "Parte Inferior",
@@ -152,5 +157,12 @@
     "timesteps": "Passos de Tempo",
     "seed": "Semente",
     "number_of_samples": "Número de Amostras"
+  },
+  "tours": {
+    "finish_label": "Concluir tutorial",
+    "next_label": "Próximo",
+    "previous_label": "Anterior",
+    "skip_label": "Pular tutorial",
+    "dress-model-tour": {}
   }
 }
