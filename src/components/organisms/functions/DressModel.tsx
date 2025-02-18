@@ -3,10 +3,8 @@
 /* components/organisms/StudioContent.tsx */
 "use client";
 
-import { useFormik } from "formik";
 import { useRef, useEffect } from "react";
 import ModelImageControls from "@/components/molecules/functions/dress-model/Controls/Model-image-controls";
-import SamplingControls from "@/components/molecules/functions/dress-model/Controls/Sampling-controls";
 import ModelImageArea from "@/components/molecules/functions/dress-model/ImageArea/Model-image-area";
 import GarmentImageArea from "@/components/molecules/functions/dress-model/ImageArea/Garment-image-area";
 import ResultImageArea from "@/components/molecules/functions/dress-model/ImageArea/Result-image-area";
@@ -53,15 +51,15 @@ export default function DressModel(): JSX.Element {
     setIsOpen(true);
   };
 
-  // useEffect(() => {
-  //   handleStartTour();
+  useEffect(() => {
+    handleStartTour();
 
-  //   setValue("category", "one-pieces");
-  // }, []);
+    setValue("category", "one-pieces");
+  }, []);
 
-  // useEffect(() => {
-  //   handleDressTour(currentStep);
-  // }, [currentStep]);
+  useEffect(() => {
+    handleDressTour(currentStep);
+  }, [currentStep]);
 
   const modelInputRef = useRef<HTMLInputElement | null>(null);
   const garmentInputRef = useRef<HTMLInputElement | null>(null);
@@ -72,7 +70,6 @@ export default function DressModel(): JSX.Element {
     setValue,
     handleSubmit: formSubmit,
     watch,
-    reset,
     control,
   } = useForm<FormValues>({
     defaultValues: {
@@ -280,8 +277,29 @@ export default function DressModel(): JSX.Element {
         <div className="w-full h-fit flex flex-col gap-4">
           <GarmentArea />
         </div>
-        <div className="w-full h-fit flex flex-col gap-4">
-          <ResultArea />
+        <div className="w-full h-fit flex flex-col gap-4 dt-thirteenth-step">
+          <ResultImageArea
+            src={currentGeneration.result}
+            onClearImage={handleClearImage}
+          />
+          <Button
+            color="secondary"
+            radius="sm"
+            type="submit"
+            size="lg"
+            className="w-full text-sm mt-6"
+            isDisabled={
+              currentGeneration.garment === "" || currentGeneration.model === ""
+            }
+            isLoading={currentGeneration.isLoading}
+            startContent={
+              !currentGeneration.isLoading ? (
+                <StarGroup className="mr-2" width={24} height={24} />
+              ) : null
+            }
+          >
+            {text("generate_image")}
+          </Button>
         </div>
       </div>
 

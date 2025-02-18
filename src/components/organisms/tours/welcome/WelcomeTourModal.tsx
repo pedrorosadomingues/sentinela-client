@@ -8,10 +8,12 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { useTour } from "@reactour/tour";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect } from "react";
 
 export default function WelcomeTourModal() {
+  const t = useTranslations("tours");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { setIsOpen, setCurrentStep, currentStep } = useTour();
 
@@ -32,7 +34,7 @@ export default function WelcomeTourModal() {
     <Modal isOpen={isOpen} size="md" onClose={onClose} placement="center">
       <ModalContent>
         <ModalHeader className="flex flex-col">
-          Boas vindas à Vestiq
+          {t("welcome_tour.greeting_title")}
         </ModalHeader>
         <ModalBody>
           <Image
@@ -44,16 +46,15 @@ export default function WelcomeTourModal() {
             className="w-full object-contain border-b border-default-200"
           />
           <p className="text-sm 2xl:text-base">
-            Aqui você transforma suas ideias em criações incríveis com a ajuda
-            da IA.
+            {t("welcome_tour.greeting_message")}
           </p>
         </ModalBody>
         <ModalFooter>
           <Button color="danger" variant="light" onPress={onClose}>
-            Pular tutorial
+            {t("skip_label")}
           </Button>
           <Button color="secondary" radius="sm" onPress={handleStartTour}>
-            Começar tutorial
+            {t("start_label")}
           </Button>
         </ModalFooter>
       </ModalContent>

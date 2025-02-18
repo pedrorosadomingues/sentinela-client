@@ -37,7 +37,7 @@ export default function Home(): JSX.Element {
         <>
           <WelcomeTourModal />
           <Banner />
-          <div className="welcome-tour-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
+          <div className="wt-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
             <div
               onClick={() => setMainControl(t("my_generations"))}
               className="relative flex flex-col items-center justify-center gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary"

@@ -20,7 +20,7 @@ export default function Card({
 
   return (
     <div
-      className={`welcome-tour-second-step
+      className={`wt-second-step
        relative flex flex-col items-start justify-start gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary`}
     >
       {isBeta && (
@@ -38,7 +38,7 @@ export default function Card({
       <button
         onClick={onClick}
         className={`${
-          name === "dress-model" && "welcome-tour-third-step"
+          name === "dress-model" && "wt-third-step"
         } mt-auto text-secondary font-bold text-sm hover:underline`}
       >
         {t("start")}

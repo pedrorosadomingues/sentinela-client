@@ -4,8 +4,9 @@
 import { TourProvider } from "@reactour/tour";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import Bubble from "../misc/Bubble";
-import { CustomStepType, DRESS_MODEL_TOUR_STEPS } from "@/constants/tours";
+import { CustomStepType, getDressModelTourSteps } from "@/constants/tours";
 import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useLocale } from "next-intl";
 
 export default function DressTourProvider({
   children,
@@ -13,6 +14,8 @@ export default function DressTourProvider({
   children: React.ReactNode;
 }) {
   const { handleExitDressTour } = useDressModelStore();
+  const locale = useLocale();
+  const DRESS_MODEL_TOUR_STEPS = getDressModelTourSteps(locale);
 
   const disableBody = (target: Element | null) =>
     disableBodyScroll(target as Element);

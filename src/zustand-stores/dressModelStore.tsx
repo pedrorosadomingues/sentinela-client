@@ -121,8 +121,6 @@ export const useDressModelStore = create<DressModelStoreProps>((set) => ({
   },
 
   handleDressTour: (idx) => {
-    const { setImagesLoading } = useDressModelStore.getState();
-
     if (idx === 2) {
       set((state) => ({
         currentGeneration: {
@@ -139,11 +137,7 @@ export const useDressModelStore = create<DressModelStoreProps>((set) => ({
             "https://fcoyipufipefrxnqwqbs.supabase.co/storage/v1/object/public/models/garment/dress-model-tour-garment.png",
         },
       }));
-    } else if (idx === 12) {
-      setImagesLoading(true);
     } else if (idx === 13) {
-      setImagesLoading(false);
-      
       set((state) => ({
         currentGeneration: {
           ...state.currentGeneration,

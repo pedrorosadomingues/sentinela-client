@@ -4,13 +4,17 @@
 import { TourProvider } from "@reactour/tour";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import Bubble from "../misc/Bubble";
-import { CustomStepType, WELCOME_TOUR_STEPS } from "@/constants/tours";
+import { CustomStepType, getWelcomeTourSteps } from "@/constants/tours";
+import { useLocale } from "next-intl";
 
 export default function WelcomeTourProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = useLocale();
+  const WELCOME_TOUR_STEPS = getWelcomeTourSteps(locale);
+
   const disableBody = (target: Element | null) =>
     disableBodyScroll(target as Element);
   const enableBody = (target: Element | null) =>

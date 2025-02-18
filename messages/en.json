@@ -162,6 +162,45 @@
     "finish_label": "Finish tutorial",
     "next_label": "Next",
     "previous_label": "Previous",
-    "skip_label": "Skip tutorial"
+    "skip_label": "Skip tutorial",
+    "start_label": "Start tutorial",
+    "dress_tour": {
+      "welcome_title": "Welcome!",
+      "welcome_description": "To get started, click 'Start' in the Dress Model option and see how easy it is to create custom looks.",
+      "upload_image_title": "Upload an Image",
+      "upload_image_description": "To start creating your amazing images with Vestiq, the first step is to add the model's image. Click on the blank space to choose an image from your device.",
+      "image_uploaded_title": "Image Uploaded",
+      "image_uploaded_description": "Your image has been successfully uploaded!",
+      "create_or_select_model_title": "Create or Select a Model",
+      "create_or_select_model_description": "You can also select or create a model.",
+      "select_existing_model_title": "Select an Existing Model",
+      "select_existing_model_description": "Choose a pre-existing model from Vestiq’s gallery or select one you previously created. Perfect for those who want convenience and speed without needing to upload an image.",
+      "text_based_model_title": "Text-Based Model",
+      "text_based_model_description": "Describe the model you want to create using only text. Example: 'Woman with short hair, fair skin, wearing a neutral expression.'",
+      "generate_model_title": "Generate Model",
+      "generate_model_description": "Here you can customize every detail of your model by choosing characteristics. It's an interactive way to create the model, combining different elements for a unique result.",
+      "model_details_title": "Model Details",
+      "model_details_description": "Adjust small details to get your preferred result. Click the arrow to expand the options:",
+      "upload_clothing_image_title": "Upload Clothing Image",
+      "upload_clothing_image_description": "Now, upload the image of the clothing piece or the model wearing the piece you want to dress in the previous model.",
+      "image_type_title": "Image Type",
+      "image_type_description": "Clothing Only – Uses the piece without a model behind it. Model – Piece worn by a model.",
+      "select_clothing_category_title": "Select Clothing Category",
+      "select_clothing_category_description": "Now, select which part of the clothing will be applied to the model.\nTop – Clothing adjusted to the torso and arms area.\nBottom – Piece applied from the waist down.\nFull Body – Clothing that covers the entire body of the model.",
+      "generate_image_title": "Let's Generate Your Image",
+      "generate_image_description": "Click 'Generate Image' so the AI can apply the selected piece to the model realistically.",
+      "view_result_title": "Now It's Time to See the Result",
+      "view_result_description": "Your image will be displayed once the process is complete."
+    },
+    "welcome_tour": {
+      "greeting_title": "Welcome to Vestiq",
+      "greeting_message": "Here, you turn your ideas into amazing creations with the help of AI.",
+      "welcome_title": "Welcome!",
+      "welcome_description": "This is the Vestiq welcome tour. We will show you how easy it is to create personalized looks with our platform.",
+      "functions_list_title": "List of Functions",
+      "functions_list_description": "This is the list of available functions in Vestiq.",
+      "select_function_title": "Select a Function",
+      "select_function_description": "To get started, click 'Start' on the Dress Model option and see how easy it is to create custom looks."
+    }
   }
 }
