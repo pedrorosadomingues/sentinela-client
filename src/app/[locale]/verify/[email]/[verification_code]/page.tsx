@@ -5,11 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { verifyEmail } from "@/services";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function VerifyEmailPage() {
   const { locale, email, verification_code } = useParams();
-  
+
   const router = useRouter();
+
+  const text = useTranslations("verify_email");
 
   const [verificationStatus, setVerificationStatus] = useState<{
     loading: boolean;
@@ -35,7 +38,7 @@ export default function VerifyEmailPage() {
           email: string;
           verification_code: number;
         });
-
+        console.log("Response:", response);
         if (response.status === 200) {
           setVerificationStatus({
             loading: false,
@@ -43,14 +46,15 @@ export default function VerifyEmailPage() {
             message: "Seu e-mail foi verificado com sucesso! 🎉",
           });
 
-          setTimeout(() => {
-            router.push(`/${locale}`);
-          }, 3000);
+          // setTimeout(() => {
+          //   router.push(`/${locale}`);
+          // }, 3000);
         } else {
+          console.error(response);
           setVerificationStatus({
             loading: false,
             success: false,
-            message: response.message || "Falha na verificação do e-mail.",
+            message: text("code_expired") || "Falha na verificação do e-mail.",
           });
         }
       } catch (error) {
@@ -64,7 +68,7 @@ export default function VerifyEmailPage() {
     }
 
     verify();
-  }, [email, verification_code, locale, router]);
+  }, [email, verification_code, locale, router, text]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50 px-6">

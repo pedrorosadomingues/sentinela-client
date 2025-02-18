@@ -201,6 +201,9 @@
       "functions_list_description": "This is the list of available functions in Vestiq.",
       "select_function_title": "Select a Function",
       "select_function_description": "To get started, click 'Start' on the Dress Model option and see how easy it is to create custom looks."
+    },
+    "verify_email": {
+      "code_expired": "Code expired. Please request a new one."
     }
   }
 }

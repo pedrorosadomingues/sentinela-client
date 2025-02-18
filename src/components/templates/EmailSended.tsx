@@ -4,12 +4,9 @@ import RootBanner from "../organisms/RootBanner";
 import { MdEmail } from "react-icons/md";
 import { useRootStore } from "@/zustand-stores";
 import MessageCard from "../organisms/EmailSendedMessage";
-import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordConfirmation() {
   const { emailSended } = useRootStore();
-
-  const router = useRouter();
 
   return (
     <div className="min-h-screen w-screen flex items-center">
@@ -20,7 +17,7 @@ export default function ForgotPasswordConfirmation() {
           description="Seu e-mail foi enviado com sucesso! Verifique sua caixa de entrada para obter mais instruções sobre os próximos passos. Se não encontrar o e-mail, lembre-se de verificar a pasta de spam ou lixo eletrônico, pois às vezes nossas mensagens podem acabar lá por engano. Caso precise de mais ajuda, entre em contato com nossa equipe de suporte."
           extraText="Se você não encontrar o e-mail, verifique sua pasta de spam."
           buttonText="Voltar ao Login"
-          onButtonClick={() => router.push("/")}
+          onButtonClick={() => window.location.replace("/")}
         />
       )}
 
@@ -31,7 +28,7 @@ export default function ForgotPasswordConfirmation() {
           description="Seu e-mail foi enviado com sucesso! Verifique sua caixa de entrada para obter mais instruções sobre os próximos passos. Se não encontrar o e-mail, lembre-se de verificar a pasta de spam ou lixo eletrônico, pois às vezes nossas mensagens podem acabar lá por engano. Caso precise de mais ajuda, entre em contato com nossa equipe de suporte."
           extraText="Se você não encontrar o e-mail, verifique sua pasta de spam."
           buttonText="Voltar ao Login"
-          onButtonClick={() => router.push("/")}
+          onButtonClick={() => window.location.replace("/")}
         />
       )}
 

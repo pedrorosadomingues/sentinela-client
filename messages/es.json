@@ -202,5 +202,8 @@
       "select_function_title": "Selecciona una función",
       "select_function_description": "Para comenzar, haz clic en 'Comenzar' en la opción Vestir Modelo y descubre lo fácil que es crear looks personalizados."
     }
+  },
+  "verify_email": {
+    "code_expired": "Código expirado. Por favor, solicite uno nuevo."
   }
 }
