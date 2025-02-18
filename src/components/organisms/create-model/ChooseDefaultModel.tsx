@@ -20,10 +20,12 @@ import { useCreateModelStore } from "@/zustand-stores/createModelStore";
 
 type ChooseDefaultModelProps = {
   onModelSelect: (imagePath: string) => void;
+  isDisabled: boolean;
 };
 
 export default function ChooseDefaultModel({
   onModelSelect,
+  isDisabled,
 }: ChooseDefaultModelProps) {
   const { defaultModels, setDefaultModels } = useCreateModelStore();
   const t = useTranslations("choose_model_modal");
@@ -64,9 +66,10 @@ export default function ChooseDefaultModel({
       <Button
         onPress={onOpen}
         color="secondary"
-        className="w-full text-sm"
+        className="w-full text-sm dt-fifth-step"
         size="lg"
         radius="sm"
+        isDisabled={isDisabled}
         startContent={<FaceOutlined />}
       >
         {t("choose_model_button")}

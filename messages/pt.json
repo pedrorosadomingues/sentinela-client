@@ -127,19 +127,24 @@
   "model_image_controls": {
     "title": "Controles da Imagem do Modelo",
     "options": {
-      "cover_feet": "Cobrir Pés",
-      "adjust_hands": "Ajustar Mãos",
-      "restore_background": "Restaurar Fundo",
-      "restore_clothes": "Restaurar Roupas"
-    }
+      "restore_background": "Restaurar Fundo"
+    },
+    "cover_feet_label": "Cobrir Pés",
+    "cover_feet_description": "Permite que roupas longas cubram os pés/sapatos ou ajustem a aparência.",
+    "adjust_hands_label": "Ajustar Mãos",
+    "adjust_hands_description": "Modifica as mãos do modelo para se adaptarem melhor à roupa.",
+    "restore_clothes_label": "Restaurar Roupas",
+    "restore_clothes_description": "Mantém partes da roupa original que não foram trocadas (ex: manter calça ao testar uma blusa)."
   },
   "type_buttons": {
     "type": "Tipo de foto",
     "flat-lay": "Apenas a roupa",
-    "model": "Modelo"
+    "model": "Modelo",
+    "tooltip": "Tipo de foto: Apenas a roupa: Use se a imagem contém só a peça de roupa, sem modelo. Modelo: Use se a roupa está sendo vestida por um modelo na foto."
   },
   "category_buttons": {
     "category": "Categoria",
+    "tooltip": "Escolha entre Topo, Inferior ou Corpo Inteiro para ajustar a roupa no modelo.",
     "categories": {
       "tops": "Parte Superior",
       "bottoms": "Parte Inferior",
@@ -153,7 +158,52 @@
     "seed": "Semente",
     "number_of_samples": "Número de Amostras"
   },
-  "verify_email" : {
+  "tours": {
+    "finish_label": "Concluir tutorial",
+    "next_label": "Próximo",
+    "previous_label": "Anterior",
+    "skip_label": "Pular tutorial",
+    "start_label": "Começar tutorial",
+    "dress_tour": {
+      "welcome_title": "Bem-vindo!",
+      "welcome_description": "Para começar, clique em 'Começar' na opção Vestir Modelo e veja como é fácil criar looks personalizados.",
+      "upload_image_title": "Envie uma imagem",
+      "upload_image_description": "Para começar a criar suas imagens incríveis com a Vestiq, o primeiro passo é adicionar a imagem do modelo. Clique no espaço em branco para escolher uma imagem do seu dispositivo.",
+      "image_uploaded_title": "Imagem enviada",
+      "image_uploaded_description": "Sua imagem foi enviada com sucesso!",
+      "create_or_select_model_title": "Crie ou selecione um modelo pronto",
+      "create_or_select_model_description": "Você também pode selecionar ou criar um Modelo.",
+      "select_existing_model_title": "Selecionar modelo pronto",
+      "select_existing_model_description": "Escolha um modelo pré-existente da galeria da Vestiq ou escolha um criado por você anteriormente. Perfeito para quem quer praticidade e agilidade sem precisar enviar uma imagem.",
+      "text_based_model_title": "Modelo por texto",
+      "text_based_model_description": "Descreva o modelo que deseja criar usando apenas texto. Exemplo: 'Mulher com cabelo curto, pele clara, usando expressão neutra.'",
+      "generate_model_title": "Gerar Modelo",
+      "generate_model_description": "Aqui você pode personalizar cada detalhe do seu modelo, escolhendo características. É uma forma interativa de criar o modelo, combinando diferentes elementos para um resultado exclusivo.",
+      "model_details_title": "Detalhes do modelo",
+      "model_details_description": "Ajuste pequenos detalhes para um resultado com sua preferência. Clique na seta para expandir as opções:",
+      "upload_clothing_image_title": "Adicione a Imagem da Roupa",
+      "upload_clothing_image_description": "Agora, envie a imagem da peça ou do modelo com a peça que deseja vestir no modelo do passo anterior.",
+      "image_type_title": "Tipo de imagem",
+      "image_type_description": "Apenas a roupa – Usa a peça sem um modelo por trás. Modelo – Peça presente em um modelo.",
+      "select_clothing_category_title": "Escolha a categoria da peça",
+      "select_clothing_category_description": "Agora, selecione qual parte da roupa será aplicada ao modelo.\nParte Superior – Roupa ajustada à região do tronco e braços.\nParte Inferior – Peça aplicada na região da cintura para baixo.\nCorpo Inteiro – Vestimenta que cobre todo o corpo do modelo.",
+      "generate_image_title": "Vamos gerar sua imagem",
+      "generate_image_description": "Clique em 'Gerar Imagem' para que a IA aplique a peça escolhida no modelo de forma realista.",
+      "view_result_title": "Agora é hora de ver o resultado",
+      "view_result_description": "Sua imagem será exibida assim que o processo for concluído."
+    },
+    "welcome_tour": {
+      "greeting_title": "Boas vindas à Vestiq",
+      "greeting_message": "Aqui você transforma suas ideias em criações incríveis com a ajuda da IA.",
+      "welcome_title": "Bem-vindo!",
+      "welcome_description": "Este é o tour de boas-vindas da Vestiq. Vamos te mostrar como é fácil criar looks personalizados com a nossa plataforma.",
+      "functions_list_title": "Lista de funções",
+      "functions_list_description": "Esta é a lista de funções disponíveis na Vestiq.",
+      "select_function_title": "Selecione uma função",
+      "select_function_description": "Para começar, clique em 'Começar' na opção Vestir Modelo e veja como é fácil criar looks personalizados."
+    }
+  },
+  "verify_email": {
     "code_expired": "Código expirado. Por favor, solicite um novo."
   }
 }

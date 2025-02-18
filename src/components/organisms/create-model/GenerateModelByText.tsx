@@ -24,6 +24,7 @@ import { z } from "zod";
 
 type GenerateModelByTextProps = {
   onModelSelect: (imagePath: string) => void;
+  isDisabled: boolean;
 };
 
 const generateCustomModelSchema = z.object({
@@ -35,6 +36,7 @@ type FormValues = z.infer<typeof generateCustomModelSchema>;
 
 export default function GenerateModelByText({
   onModelSelect,
+  isDisabled,
 }: GenerateModelByTextProps) {
   const t = useTranslations("choose_model_modal");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -107,8 +109,10 @@ export default function GenerateModelByText({
       <Button
         onPress={onOpen}
         color="secondary"
-        className="w-full text-sm"
+        className="w-full text-sm dt-sixth-step"
         radius="sm"
+        size="lg"
+        isDisabled={isDisabled}
         startContent={<ChatOutlined />}
       >
         {t("model_by_text_button")}

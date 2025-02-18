@@ -10,41 +10,33 @@ import {
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import ToolInfo from "@/components/atoms/ToolInfo";
+import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface ModelImageAreaProps {
-  model_image_path: string;
+  src: string;
   openFileDialog: (type: string) => void;
   handleDrop: (e: React.DragEvent<HTMLDivElement>, type: string) => void;
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleFileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   modelInputRef: React.RefObject<HTMLInputElement>;
-  setModelImageWidth: React.Dispatch<React.SetStateAction<number>>;
   onClearImage: (type: "model" | "garment" | "result") => void;
 }
 
 export default function ModelImageArea({
-  model_image_path,
+  src,
   openFileDialog,
   handleDrop,
   handleDragOver,
   handleFileInputChange,
   modelInputRef,
-  setModelImageWidth,
   onClearImage,
 }: ModelImageAreaProps) {
   const text = useTranslations("model_image_area");
+  const { currentGeneration } = useDressModelStore();
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const [renderedWidth, setRenderedWidth] = useState<number>(320);
-
-  useEffect(() => {
-    if (imageRef.current) {
-      setRenderedWidth(imageRef.current.clientWidth);
-      setModelImageWidth(imageRef.current.clientWidth);
-    }
-  }, [model_image_path]);
 
   return (
-    <Card className="w-full pb-6 z-0" shadow="sm">
+    <Card className="w-full pb-6 z-0 dt-second-step dt-third-step" shadow="sm">
       <CardHeader className="w-full justify-center items-center gap-2 mb-4">
         <StepNumber number={1} label={text("step1_send_model_image")} />{" "}
         <ToolInfo
@@ -60,7 +52,7 @@ export default function ModelImageArea({
         onDragOver={handleDragOver}
         onClick={() => openFileDialog("model")}
       >
-        {model_image_path ? (
+        {src ? (
           <div className="w-full h-full bg-default-100 relative">
             <Tooltip content={text("clear_image")} placement="right" showArrow>
               <Button
@@ -68,13 +60,13 @@ export default function ModelImageArea({
                 color="danger"
                 size="sm"
                 isIconOnly
-                // isDisabled={}
+                isDisabled={currentGeneration.isLoading}
                 startContent={<CloseOutlined fontSize="small" />}
                 className="absolute top-2 right-2"
               />
             </Tooltip>
             <Image
-              src={model_image_path}
+              src={src}
               alt={text("model_preview_alt")}
               width={250}
               height={320}

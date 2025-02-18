@@ -12,13 +12,22 @@ import {
 } from "@/interfaces/image-function";
 import VestiqLoading from "../VestiqLoading";
 import { ICON_MAPPING } from "@/constants";
+import WelcomeTourModal from "../tours/welcome/WelcomeTourModal";
+import { useTour } from "@reactour/tour";
 
 export default function Home(): JSX.Element {
   const { imageFunctions, isFetching } = useImageFunctionStore();
+  const { setCurrentStep, currentStep } = useTour();
 
   const { setMainControl } = useMainStore();
 
   const t = useTranslations("home");
+
+  const handleUpdateStep = () => {
+    if (currentStep === 0) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
 
   return (
     <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
@@ -26,8 +35,9 @@ export default function Home(): JSX.Element {
         <VestiqLoading />
       ) : (
         <>
+          <WelcomeTourModal />
           <Banner />
-          <div className="w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
+          <div className="wt-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
             <div
               onClick={() => setMainControl(t("my_generations"))}
               className="relative flex flex-col items-center justify-center gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary"
@@ -43,10 +53,18 @@ export default function Home(): JSX.Element {
             {imageFunctions?.map((func: ImageFunctionProps) => (
               <Card
                 key={func.id}
+                name={func.name}
                 title={func.title}
                 description={func.description}
                 isBeta={func.is_beta}
-                onClick={() => setMainControl(func.title)}
+                onClick={() => {
+                  if (func.name === "dress-model") {
+                    setMainControl(func.title);
+                    handleUpdateStep();
+                  } else {
+                    setMainControl(func.title);
+                  }
+                }}
                 icon={ICON_MAPPING[func.name as ImageFunctionName]("large")}
               />
             ))}
