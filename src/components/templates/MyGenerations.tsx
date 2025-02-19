@@ -6,7 +6,8 @@ import SelectedGenerationsNav from "../organisms/generations/SelectedGenerationN
 import Filters from "../organisms/generations/Filters";
 
 export default function MyGenerations() {
-  const { getGenerations, generations, isFetching, selectedGenerations,  } = useGenerationStore();
+  const { getGenerations, generations, isFetching, selectedGenerations } =
+    useGenerationStore();
 
   useEffect(() => {
     getGenerations();
@@ -18,7 +19,7 @@ export default function MyGenerations() {
 
   return (
     <div>
-      <div className="hidden md:block min-h-10">
+      <div className="hidden md:block min-h-11">
         {selectedGenerations && selectedGenerations.length > 0 ? (
           <SelectedGenerationsNav />
         ) : (
@@ -29,7 +30,7 @@ export default function MyGenerations() {
         <Filters />
       </div>
 
-      {!isFetching && generations.length < 1 ? (
+      {!isFetching && generations && generations.length < 1 ? (
         <div className="flex items-center justify-center animate-fade-in">
           <p className="text-lg font-semibold">No generations found</p>
         </div>

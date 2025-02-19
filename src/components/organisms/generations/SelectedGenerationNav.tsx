@@ -17,24 +17,32 @@ interface ActionsProps {
 
 export default function SelectedGenerationsNav() {
   const t = useTranslations("my-generations");
-  const { selectedGenerations, clearSelectedGenerations } =
-    useGenerationStore();
+  const {
+    selectedGenerations,
+    clearSelectedGenerations,
+    handleDeleteSelectedGenerations,
+    handleDownloadSelectedGenerations,
+    handleMoveSelectedGenerations,
+  } = useGenerationStore();
 
   const actions = [
     {
       key: "download",
       trigger: <DownloadOutlined fontSize="small" />,
       label: t("download"),
+      onPress: () => handleDownloadSelectedGenerations({ mode: "multiple" }),
     },
     {
       key: "move",
       trigger: <DriveFileMoveOutlined fontSize="small" />,
       label: t("move"),
+      onPress: handleMoveSelectedGenerations,
     },
     {
       key: "delete",
       trigger: <DeleteOutlineOutlined fontSize="small" />,
       label: t("delete"),
+      onPress: () => handleDeleteSelectedGenerations({ mode: "multiple" }),
     },
   ];
 
@@ -66,7 +74,7 @@ export default function SelectedGenerationsNav() {
         </Tooltip>
 
         <span>
-          {t("selected_count", { count: selectedGenerations.length })}
+          {t("selected_count", { count: selectedGenerations?.length })}
         </span>
       </div>
 
@@ -79,7 +87,7 @@ export default function SelectedGenerationsNav() {
               radius="full"
               size="sm"
               variant="light"
-              isDisabled={true}
+              onPress={action.onPress}
             >
               <Tooltip
                 content={action.label}

@@ -220,6 +220,11 @@
     "select_all": "Selecionar tudo",
     "deselect_all": "Desmarcar tudo",
     "view_generation": "Visualizar",
+    "edit_image_tooltip": "Editar",
+    "save_image_tooltip": "Salvar",
+    "download_image_tooltip": "Baixar",
+    "generated_image_alt": "Imagem gerada",
+    "delete_image_tooltip": "Apagar arquivo",
     "filters": {
       "any_time": "Qualquer momento",
       "today": "Hoje",

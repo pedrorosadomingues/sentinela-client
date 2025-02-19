@@ -20,23 +20,25 @@ export default function ImageCard({ data }: { data: Generation }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   function handleCheck() {
-    const index = generations.findIndex((item: Generation) => item.id === data.id);
+    if (generations) {
+      const index = generations.findIndex((item: Generation) => item.id === data.id);
 
-    if (index !== -1) {
-      const selectedGenerations = [...generations];
+      if (index !== -1) {
+        const selectedGenerations = [...generations];
 
-      selectedGenerations[index] = {
-        ...selectedGenerations[index],
-        checked: !selectedGenerations[index].checked,
-      };
+        selectedGenerations[index] = {
+          ...selectedGenerations[index],
+          checked: !selectedGenerations[index].checked,
+        };
 
-      setGenerations(selectedGenerations);
+        setGenerations(selectedGenerations);
 
-      const selectedGenerationIds = selectedGenerations
-        .filter((item) => item.checked)
-        .map((item) => item.id);
+        const selectedGenerationIds = selectedGenerations
+          .filter((item) => item.checked)
+          .map((item) => item.id);
 
-      setSelectedGenerations(selectedGenerationIds);
+        setSelectedGenerations(selectedGenerationIds);
+      }
     }
   }
 
@@ -46,9 +48,9 @@ export default function ImageCard({ data }: { data: Generation }) {
     onOpen();
   };
 
-  const currentItem = generations.find((item: Generation) => item.id === data.id);
+  const currentItem = generations?.find((item: Generation) => item.id === data.id);
   const isChecked = currentItem?.checked || false;
-  const isHidden = generations.find((item: Generation) => item.id === data.id)?.hidden;
+  const isHidden = generations?.find((item: Generation) => item.id === data.id)?.hidden;
 
   return (
     <>

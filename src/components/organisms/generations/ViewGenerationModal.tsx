@@ -8,7 +8,11 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { Tables } from "@/lib/supabase/types";
-import { Image } from "@heroui/react";
+import { Button, Image, Spinner, Tooltip } from "@heroui/react";
+import { StarGroup } from "../icons";
+import { DeleteOutlineOutlined } from "@mui/icons-material";
+import { useTranslations } from "next-intl";
+import { useGenerationStore } from "@/zustand-stores";
 
 export function ViewGenerationModal({
   id,
@@ -39,6 +43,10 @@ export function ViewGenerationModal({
   isTextFn?: boolean;
   batch?: string[] | null;
 }) {
+  const t = useTranslations("my-generations");
+  const { handleDeleteSelectedGenerations, handleDownloadSelectedGenerations } =
+    useGenerationStore();
+
   const ParamsContent = () => {
     const ParamsRow = ({ label, value }: { label: string; value: string }) => {
       const labelMap = () => {
@@ -123,6 +131,8 @@ export function ViewGenerationModal({
     );
   };
 
+  const isUseImageLoading = false;
+
   return (
     <>
       {trigger &&
@@ -160,58 +170,64 @@ export function ViewGenerationModal({
                   />
                 </div>
               ) : ( */}
-              <div className="flex items-center justify-center relative w-full h-full">
+              <div className="flex items-center justify-center relative w-full h-full border rounded-xl bg-default-300">
                 <Image
-                  radius="none"
                   src={src}
                   alt="Generation"
-                  className="md:h-96 w-96 object-contain"
+                  className="md:h-96 w-96 max-h-96 object-contain z-0"
                 />
 
-                {/* {!src.includes("mp4") && (
-                    <Tooltip
-                      content={t("edit_image_tooltip")}
-                      color="foreground"
-                      placement="top"
-                    >
-                      <Button
-                        className="btn-primary-gradient border-2 absolute bottom-2 right-2"
-                        endContent={
-                          isUseImageLoading ? (
-                            <Spinner color="current" size="sm" />
-                          ) : (
-                            <StarGroup />
-                          )
-                        }
-                        isDisabled={isUseImageLoading}
-                        onPress={() => onUseImage(src)}
-                        variant="solid"
-                        isIconOnly
-                      />
-                    </Tooltip>
-                  )}
+                {!src.includes("mp4") && (
+                  <Tooltip
+                    content={t("edit_image_tooltip")}
+                    color="foreground"
+                    placement="top"
+                  >
+                    <Button
+                      className="absolute bottom-2 right-2 z-[1]"
+                      endContent={
+                        isUseImageLoading ? (
+                          <Spinner color="current" size="sm" />
+                        ) : (
+                          <StarGroup />
+                        )
+                      }
+                      isDisabled={isUseImageLoading}
+                      color="secondary"
+                      size="sm"
+                      // onPress={() => onUseImage(src)}
+                      variant="solid"
+                      isIconOnly
+                    />
+                  </Tooltip>
+                )}
 
-                  {showDelete && (
-                    <Tooltip
-                      content={t("delete_image_tooltip")}
-                      color="foreground"
-                      placement="top"
-                    >
-                      <Button
-                        className="absolute top-2 right-2 hidden md:flex"
-                        endContent={<DeleteOutlineOutlined />}
-                        variant="solid"
-                        color="danger"
-                        isIconOnly
-                        onPress={handleDelete}
-                      />
-                    </Tooltip>
-                  )} */}
+                {showDelete && (
+                  <Tooltip
+                    content={t("delete_image_tooltip")}
+                    color="foreground"
+                    placement="top"
+                  >
+                    <Button
+                      className="z-[1] absolute top-2 right-2 hidden md:flex"
+                      endContent={<DeleteOutlineOutlined />}
+                      size="sm"
+                      variant="solid"
+                      color="danger"
+                      isIconOnly
+                      onPress={() =>
+                        handleDeleteSelectedGenerations({
+                          mode: "single",
+                          data: [id] as number[],
+                        })
+                      }
+                    />
+                  </Tooltip>
+                )}
               </div>
-              {/* )} */}
             </aside>
 
-            <div className="relative flex flex-col md:basis-3/6 bg-red-500">
+            <div className="relative flex flex-col md:basis-3/6">
               <ScrollShadow className="scrollbar-hide max-h-32 md:max-h-40 xl:max-h-72 space-y-1 mb-6 md:mb-2">
                 {prompt && (
                   <p className="font-lexend font-normal text-xs md:text-sm xl:text-base">
@@ -220,27 +236,36 @@ export function ViewGenerationModal({
                 )}
                 {params && <ParamsContent />}
               </ScrollShadow>
-              {/* <div className="flex flex-col xs:flex-row gap-2 mt-auto h-auto">
-                <ManageGenerationModal
+              <div className="flex flex-col xs:flex-row gap-2 mt-auto h-auto">
+                {/* <ManageGenerationModal
                   actionType="save"
                   generationId={id as string}
-                  trigger={
-                    <Button
-                      variant="bordered"
-                      className="btn flex-1 bg-white hidden md:flex"
-                    >
-                      {t("save_image_tooltip")}
-                    </Button>
-                  }
-                />
+                  trigger={ */}
                 <Button
-                  className="flex-1 btn btn-primary-gradient"
-                  onPress={handleDownloadGeneration}
-                  isLoading={isLoadingDownload}
+                  variant="bordered"
+                  size="sm"
+                  className="w-full bg-white hidden xs:flex"
+                >
+                  {t("save_image_tooltip")}
+                </Button>
+                {/* }
+                /> */}
+                <Button
+                  size="sm"
+                  color="secondary"
+                  className="w-full"
+                  // onPress={handleDownloadGeneration}
+                  onPress={() =>
+                    handleDownloadSelectedGenerations({
+                      mode: "single",
+                      data: [Number(id)],
+                    })
+                  }
+                  // isLoading={isLoadingDownload}
                 >
                   {t("download_image_tooltip")}
                 </Button>
-              </div> */}
+              </div>
             </div>
           </ModalBody>
         </ModalContent>
