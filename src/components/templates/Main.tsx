@@ -8,7 +8,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 import DressModel from "@/components/organisms/functions/DressModel";
-import MyGenerations from "../organisms/My-Generations";
 import Home from "@/components/organisms/home/Home";
 import {
   useMainStore,
@@ -22,6 +21,7 @@ import VestiqLoading from "../organisms/VestiqLoading";
 import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
 import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
 import WelcomeTourProvider from "../organisms/tours/providers/WelcomeTourProvider";
+import MyGenerations from "./MyGenerations";
 
 export default function Main(): JSX.Element {
   const text = useTranslations("home");
