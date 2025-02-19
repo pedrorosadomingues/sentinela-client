@@ -170,9 +170,10 @@ export function ViewGenerationModal({
                   />
                 </div>
               ) : ( */}
-              <div className="flex items-center justify-center relative w-full h-full border rounded-xl bg-default-300">
+              <div className="flex items-center justify-center relative w-full h-full rounded-xl bg-default-300">
                 <Image
                   src={src}
+                  radius="none"
                   alt="Generation"
                   className="md:h-96 w-96 max-h-96 object-contain z-0"
                 />

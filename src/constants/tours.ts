@@ -7,6 +7,7 @@ export interface CustomStepType extends StepType {
     animate?: boolean;
     isLastStep?: boolean;
     delay?: number;
+    hideMask?: boolean;
 }
 
 export const getWelcomeTourSteps = (locale: string): CustomStepType[] => {
@@ -46,6 +47,7 @@ export const getDressModelTourSteps = (locale: string): CustomStepType[] => {
             description: messages.tours.dress_tour.welcome_description,
             animate: true,
             disableActions: true,
+            hideMask: true,
         },
         {
             selector: ".dt-second-step",
@@ -123,7 +125,7 @@ export const getDressModelTourSteps = (locale: string): CustomStepType[] => {
             disableActions: true,
         },
         {
-            selector: ".dt-thirteenth-step",
+            selector: ".dt-thirteenth-step", 
             content: messages.tours.dress_tour.generate_image_title,
             description: messages.tours.dress_tour.generate_image_description,
             animate: true,
