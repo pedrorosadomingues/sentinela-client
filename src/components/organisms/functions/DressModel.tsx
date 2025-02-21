@@ -79,12 +79,11 @@ export default function DressModel(): JSX.Element {
       cover_feet: false,
       adjust_hands: false,
       restore_clothes: false,
-      guidance_scale: 3,
-      timesteps: 50,
       seed: 42,
       num_samples: 1,
       garment_photo_type: "flat-lay",
       category: "tops",
+      mode: "quality",
     },
   });
 

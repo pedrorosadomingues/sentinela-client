@@ -19,7 +19,7 @@ export default function WelcomeTourModal() {
 
   useEffect(() => {
     onOpen();
-  }, []);
+  }, [onOpen]);
 
   const handleStartTour = () => {
     if (currentStep !== 0) {
