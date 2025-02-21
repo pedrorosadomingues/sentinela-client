@@ -2,7 +2,7 @@
 import React from "react";
 import { extractFileName } from "@/utils/extract-filename";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { createDownloadImage } from "@/services/download-image/create";
+import { createDownloadImage } from "@/services/download/create";
 
 export default function DownloadButton({ generation }: { generation: any }) {
   const [isDownloading, setIsDownloading] = React.useState(false);

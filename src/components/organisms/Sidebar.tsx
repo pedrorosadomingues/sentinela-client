@@ -23,7 +23,7 @@ import { VestiqCoins } from "./icons/VestiqCoins";
 import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
 
 export default function Sidebar(): JSX.Element {
-  const { toggleSidebar, sidebar, sidebarLayout } = useSidebarStore();
+  const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout} = useSidebarStore();
   const locale = useLocale();
   const { setMainControl, mainControl } = useMainStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
@@ -84,6 +84,14 @@ export default function Sidebar(): JSX.Element {
         break;
     }
   }, [getImageFunctions]);
+
+  useEffect(() => {
+    const storaggedSidebarLayout = localStorage.getItem("sidebar-layout");
+
+    if (storaggedSidebarLayout) {
+      setSidebarLayout(storaggedSidebarLayout as "minimized" | "expanded");
+    }
+  }, []);
 
   return (
     <>

@@ -7,52 +7,49 @@ import { useTranslations } from "next-intl";
 import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import { CheckroomOutlined, CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
+import ToolInfo from "@/components/atoms/ToolInfo";
 import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface GarmentImageAreaProps {
-  garment_image_path: string;
+  src: string;
   openFileDialog: (type: string) => void;
   handleDrop: (e: React.DragEvent<HTMLDivElement>, type: string) => void;
   handleDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   handleFileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   garmentInputRef: React.RefObject<HTMLInputElement>;
-  setGarmentImageWidth: React.Dispatch<React.SetStateAction<number>>;
   onClearImage: (type: "model" | "garment" | "result") => void;
 }
 
 export default function GarmentImageArea({
-  garment_image_path,
+  src,
   openFileDialog,
   handleDrop,
   handleDragOver,
   handleFileInputChange,
   garmentInputRef,
-  setGarmentImageWidth,
   onClearImage,
 }: GarmentImageAreaProps): JSX.Element {
   const text = useTranslations("garment_image_area");
-  const imageRef = React.useRef<HTMLImageElement | null>(null);
-  const [renderedWidth, setRenderedWidth] = React.useState<number>(320);
-
-  React.useEffect(() => {
-    if (imageRef.current) {
-      setRenderedWidth(imageRef.current.clientWidth);
-      setGarmentImageWidth(imageRef.current.clientWidth);
-    }
-  }, [garment_image_path]);
+  const { currentGeneration } = useDressModelStore();
 
   return (
-    <Card className="w-full pb-6 select-none z-0" shadow="sm">
-      <CardHeader className="w-full justify-center items-center mb-4">
+    <Card className="w-full pb-6 select-none z-0 dt-ninth-step" shadow="sm">
+      <CardHeader className="w-full justify-center items-center gap-2 mb-4">
         <StepNumber number={2} label={text("step2_send_garment_image")} />
+        <ToolInfo
+          title="lorem ipsum dolor"
+          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
+          href="https://academy.arch.redraw.pro/"
+        />
       </CardHeader>
       <CardBody
-        className="cursor-pointer relative upload-area h-96"
+        className="dt-tenth-step cursor-pointer relative upload-area h-96"
         onClick={() => openFileDialog("garment")}
         onDrop={(e) => handleDrop(e, "garment")}
         onDragOver={handleDragOver}
       >
-        {garment_image_path ? (
+        {src ? (
           <div className="w-full h-full bg-default-100 relative">
             <Tooltip content={text("clear_image")} placement="right" showArrow>
               <Button
@@ -60,13 +57,13 @@ export default function GarmentImageArea({
                 color="danger"
                 size="sm"
                 isIconOnly
-                // isDisabled={}
+                isDisabled={currentGeneration.isLoading}
                 startContent={<CloseOutlined fontSize="small" />}
                 className="absolute top-2 right-2"
               />
             </Tooltip>
             <Image
-              src={garment_image_path}
+              src={src}
               alt={text("garment_preview_alt")}
               width={250}
               height={320}

@@ -9,9 +9,7 @@ import { useTranslations } from "next-intl";
 
 export default function VerifyEmailPage() {
   const { locale, email, verification_code } = useParams();
-
   const router = useRouter();
-
   const text = useTranslations("verify_email");
 
   const [verificationStatus, setVerificationStatus] = useState<{

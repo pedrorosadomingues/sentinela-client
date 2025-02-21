@@ -36,7 +36,7 @@ export default function GenerationCard({
 
   async function handleDelete() {
     setIsLoading(true);
-    const res = await deleteGeneration(data.id.toString());
+    const res = await deleteGeneration([data.id]);
     setIsLoading(false);
 
     if (res.status === 200) {

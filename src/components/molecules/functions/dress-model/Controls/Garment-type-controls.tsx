@@ -3,34 +3,37 @@ import React from "react";
 import { TYPES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
 import { Button } from "@heroui/react";
-import { InfoOutlined } from "@mui/icons-material";
+import ToolInfo from "@/components/atoms/ToolInfo";
+import { UseFormSetValue } from "react-hook-form";
+import { FormValues } from "@/interfaces";
 
 interface TypeButtonsProps {
   selectedType: string;
-  setFieldValue: (
-    field: string,
-    value: string,
-    shouldValidate?: boolean
-  ) => void;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export default function TypeButtons({
   selectedType,
-  setFieldValue,
+  setValue,
 }: TypeButtonsProps) {
   const text = useTranslations("type_buttons");
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1 w-full dt-eleventh-step">
       <label className="text-sm font-medium text-gray-600">
-        {text("type")} <InfoOutlined fontSize="small" />
+        {text("type")}{" "}
+        <ToolInfo
+          title={text("type")}
+          text={text("tooltip")}
+          href="https://academy.arch.redraw.pro/"
+        />
       </label>
 
       <div className="w-full flex gap-2">
         {TYPES_GARMENT.map((type) => (
           <Button
             key={type.value}
-            onPress={() => setFieldValue("garment_photo_type", type.value)}
+            onPress={() => setValue("garment_photo_type", type.value)}
             variant={selectedType === type.value ? "solid" : "bordered"}
             color={"secondary"}
             className="w-full text-sm"

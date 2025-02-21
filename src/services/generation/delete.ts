@@ -1,29 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
+import axiosClient from "@/lib/axios/axiosClient";
 import httpStatus from "http-status";
 
-export async function deleteGeneration(id: string) {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return {
-      status: httpStatus.UNAUTHORIZED,
-      message: "Unauthorized",
-    };
-  }
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+export async function deleteGeneration(generationIds: number[]) {
 
   try {
-    const response = await api.delete(`/generation/${id}`, config);
+    const response = await axiosClient.delete("/generation", {
+      data: {
+        generation_ids: generationIds
+      }
+    });
+
     return {
       status: httpStatus.OK,
       data: response.data,
     };
   } catch (error: any) {
     console.log("error", error);
+
     if (error.response) {
       return {
         status: error.status,

@@ -2,49 +2,34 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
-import {
-  CloseOutlined,
-  DeleteSweepOutlined,
-  ImageOutlined,
-  RemoveOutlined,
-  RotateLeftOutlined,
-} from "@mui/icons-material";
+import { ImageOutlined, RotateLeftOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import { useDressModelStore } from "@/zustand-stores/dressModelStore";
 
 interface ResultImageAreaProps {
-  result_image_path: string;
-  setResultImageWidth: React.Dispatch<React.SetStateAction<number>>;
+  src: string;
   onClearImage: (type: "model" | "garment" | "result" | "reset") => void;
 }
 
 export default function ResultImageArea({
-  result_image_path,
-  setResultImageWidth,
+  src,
   onClearImage,
 }: ResultImageAreaProps): JSX.Element {
   const text = useTranslations("result_image_area");
+  const { currentGeneration } = useDressModelStore();
   const imageRef = useRef<HTMLImageElement | null>(null);
-  const [renderedWidth, setRenderedWidth] = useState<number>(320);
-
-  useEffect(() => {
-    if (imageRef.current) {
-      setRenderedWidth(imageRef.current.clientWidth);
-      setResultImageWidth(imageRef.current.clientWidth);
-    }
-  }, [result_image_path]);
 
   return (
-    <Card className="w-full pb-6 z-0" shadow="sm">
+    <Card className="w-full pb-6 z-0 dt-fourteenth-step" shadow="sm">
       <CardHeader className="w-full justify-center items-center mb-4">
         <StepNumber number={3} label={text("step3_your_image")} />
       </CardHeader>
       <CardBody className="w-full relative result-area h-96">
-        {result_image_path ? (
+        {src ? (
           <div className="w-full h-full bg-default-100 relative flex items-center justify-center">
             <nav className="flex flex-col gap-2 absolute top-2 right-2">
               <Tooltip
@@ -57,13 +42,13 @@ export default function ResultImageArea({
                   color="danger"
                   size="sm"
                   isIconOnly
-                  // isDisabled={}
+                  isDisabled={currentGeneration.isLoading}
                   startContent={<RotateLeftOutlined fontSize="small" />}
                 />
               </Tooltip>
             </nav>
             <Image
-              src={result_image_path}
+              src={src}
               alt={text("result_preview_alt")}
               style={{ height: "100%", width: "auto", borderRadius: "10px" }}
               ref={imageRef}

@@ -11,6 +11,7 @@ export async function handleFileChange(
   try {
     const { uploadUrl, localUrl } = await uploadFile(file, token);
 
+    console.log("uploadUrl", uploadUrl);
     setImagePath(localUrl);
     setFieldValue(name, uploadUrl);
   } catch (error) {

@@ -19,7 +19,7 @@
     "generate_image": "Generar Imagen"
   },
   "choose_model_modal": {
-    "title": "Elige un Modelo o Genera uno Personalizado",
+    "title": "Elige un Modelo",
     "choose_model_button": "Elegir Modelo Predefinido",
     "model_creator_button": "Generar Modelo",
     "model_by_text_button": "Modelo por Texto",
@@ -127,14 +127,18 @@
   "model_image_controls": {
     "title": "Controles de Imagen del Modelo",
     "options": {
-      "cover_feet": "Cubrir Pies",
-      "adjust_hands": "Ajustar Manos",
-      "restore_background": "Restaurar Fondo",
-      "restore_clothes": "Restaurar Ropa"
-    }
+      "restore_background": "Restaurar Fondo"
+    },
+    "cover_feet_label": "Cubrir Pies",
+    "cover_feet_description": "Permite que la ropa larga cubra los pies/zapatos o ajuste su apariencia.",
+    "adjust_hands_label": "Ajustar Manos",
+    "adjust_hands_description": "Modifica las manos del modelo para adaptarlas mejor a la ropa.",
+    "restore_clothes_label": "Restaurar Ropa",
+    "restore_clothes_description": "Mantiene partes de la ropa original que no fueron cambiadas (por ejemplo, conservar los pantalones al probar una blusa)."
   },
   "category_buttons": {
     "category": "Categoría",
+    "tooltip": "Elija entre Parte Superior, Inferior o Cuerpo Completo para ajustar la ropa en el modelo.",
     "categories": {
       "tops": "Parte Superior",
       "bottoms": "Parte Inferior",
@@ -144,7 +148,8 @@
   "type_buttons": {
     "type": "Tipo de foto",
     "flat-lay": "Solo ropa",
-    "model": "Modelo"
+    "model": "Modelo",
+    "tooltip": "Tipo de foto: Solo la prenda: Úselo si la imagen contiene solo la prenda de ropa, sin modelo. Modelo: Úselo si la ropa está siendo usada por un modelo en la foto."
   },
   "sampling_controls": {
     "title": "Controles de Muestreo",
@@ -153,7 +158,88 @@
     "seed": "Semilla",
     "number_of_samples": "Número de Muestras"
   },
-  "verify_email" :{
+  "tours": {
+    "finish_label": "Finalizar Tutorial",
+    "next_label": "Siguiente",
+    "previous_label": "Anterior",
+    "skip_label": "Omitir Tutorial",
+    "start_label": "Comenzar Tutorial",
+    "dress_tour": {
+      "welcome_title": "¡Bienvenido!",
+      "welcome_description": "Aquí puedes crear imágenes increíbles combinando ropa con modelos personalizados. ¡Transforma el look con solo unos clics!",
+      "upload_image_title": "Sube una Imagen",
+      "upload_image_description": "Para comenzar a crear tus imágenes increíbles con Vestiq, el primer paso es añadir la imagen del modelo que vestirá la ropa. Puedes subir una imagen desde tu dispositivo o crear una desde cero con IA.",
+      "image_uploaded_title": "Imagen Subida",
+      "image_uploaded_description": "¡Imagen subida con éxito! Después de hacer clic en el cuadro blanco y seleccionar una imagen de tu dispositivo, ¡está lista para ser utilizada!",
+      "create_or_select_model_title": "Crea o Selecciona un Modelo",
+      "create_or_select_model_description": "También puedes seleccionar o crear un modelo.",
+      "select_existing_model_title": "Seleccionar un Modelo Existente",
+      "select_existing_model_description": "Elige un modelo preexistente de la galería de Vestiq o selecciona uno que hayas creado previamente. Perfecto para quienes buscan practicidad y rapidez sin necesidad de subir una imagen.",
+      "text_based_model_title": "Modelo Basado en Texto",
+      "text_based_model_description": "Describe el modelo que deseas crear usando solo texto. Ejemplo: 'Mujer con cabello corto, piel clara, con una expresión neutra.'",
+      "generate_model_title": "Generar Modelo",
+      "generate_model_description": "Aquí puedes personalizar cada detalle de tu modelo eligiendo características. Es una forma interactiva de crear el modelo, combinando diferentes elementos para un resultado único.",
+      "model_details_title": "Detalles del Modelo",
+      "model_details_description": "Ajusta pequeños detalles para obtener el resultado que prefieras. Haz clic en la flecha para expandir las opciones.",
+      "upload_clothing_image_title": "Sube la Imagen de la Prenda",
+      "upload_clothing_image_description": "Aquí puedes subir la imagen de la prenda que deseas aplicar al modelo. Puedes usar una foto de la prenda sola o una imagen de alguien usándola como referencia.",
+      "image_type_title": "Tipo de Imagen",
+      "image_type_description": "Elige cómo deseas subir la prenda de ropa: Solo la prenda – Sube una imagen de la prenda sola, sin que nadie la esté usando. Modelo – Sube una imagen donde la prenda ya esté siendo usada por alguien.",
+      "select_clothing_category_title": "Selecciona la Categoría de la Prenda",
+      "select_clothing_category_description": "Ahora, selecciona qué parte de la prenda se aplicará al modelo.\nParte Superior – Prenda ajustada a la zona del torso y los brazos.\nParte Inferior – Prenda aplicada de la cintura para abajo.\nCuerpo Completo – Prenda que cubre todo el cuerpo del modelo.",
+      "generate_image_title": "Vamos a Generar tu Imagen",
+      "generate_image_description": "Cuando hagas clic en 'Generar Imagen', la IA aplicará la prenda seleccionada al modelo, ajustando los detalles para un resultado realista. ¡Espera unos momentos para ver el resultado final!",
+      "view_result_title": "Ahora es Momento de Ver el Resultado",
+      "view_result_description": "Tu imagen se mostrará una vez que el proceso haya finalizado."
+    },
+    "welcome_tour": {
+      "greeting_title": "Bienvenido a Vestiq",
+      "greeting_message": "Aquí conviertes tus ideas en creaciones increíbles con la ayuda de la IA.",
+      "welcome_title": "¡Bienvenido!",
+      "welcome_description": "Este es el recorrido de bienvenida de Vestiq. Te mostraremos lo fácil que es crear looks personalizados con nuestra plataforma.",
+      "functions_list_title": "Lista de funciones",
+      "functions_list_description": "Esta es la lista de funciones disponibles en Vestiq.",
+      "select_function_title": "Selecciona una función",
+      "select_function_description": "Para comenzar, haz clic en 'Comenzar' en la opción Vestir Modelo y descubre lo fácil que es crear looks personalizados."
+    }
+  },
+  "verify_email": {
     "code_expired": "Código expirado. Por favor, solicite uno nuevo."
-  }  
+  },
+  "my-generations": {
+    "fetching_generations": "Buscando generaciones...",
+    "no_generations_yet": "Nada aquí por ahora, ¡pero puedes cambiar eso!",
+    "start_generating_now": "Comenzar a generar ahora",
+    "showing_total": "Mostrando un total de {length} generaciones.",
+    "download": "Descargar",
+    "move": "Mover",
+    "delete": "Eliminar",
+    "cancel_selection": "Cancelar selección",
+    "selected_count": "{count} seleccionados",
+    "see_more_actions": "Más acciones",
+    "select_all": "Seleccionar todo",
+    "deselect_all": "Deseleccionar todo",
+    "view_generation": "Ver generación",
+    "edit_image_tooltip": "Editar",
+    "save_image_tooltip": "Guardar",
+    "download_image_tooltip": "Descargar",
+    "generated_image_alt": "Imagen generada",
+    "delete_image_tooltip": "Eliminar archivo",
+    "filters": {
+      "any_time": "Cualquier momento",
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "last_30_days": "Últimos 30 días",
+      "last_90_days": "Últimos 90 días",
+      "last_year": "El año pasado",
+      "edit_date": "Fecha de edición",
+      "filter_by_date": "Filtrar por fecha de creación",
+      "newest_editions": "Ediciones más recientes",
+      "oldest_editions": "Ediciones más antiguas",
+      "alphabetical_asc": "Alfabético (A-Z)",
+      "alphabetical_desc": "Alfabético (Z-A)",
+      "sort_actions": "Ordenar acciones",
+      "most_relevant": "Más relevantes"
+    }
+  }
 }

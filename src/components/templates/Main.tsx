@@ -8,7 +8,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../organisms/Header";
 import Sidebar from "../organisms/Sidebar";
 import DressModel from "@/components/organisms/functions/DressModel";
-import MyGenerations from "../organisms/My-Generations";
 import Home from "@/components/organisms/home/Home";
 import {
   useMainStore,
@@ -20,6 +19,9 @@ import ImageFromText from "../organisms/functions/ImageFromText";
 import MyProfile from "./MyProfile";
 import VestiqLoading from "../organisms/VestiqLoading";
 import PlansAndSubscriptions from "../organisms/plans/PlansAndSubscriptions";
+import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
+import WelcomeTourProvider from "../organisms/tours/providers/WelcomeTourProvider";
+import MyGenerations from "./MyGenerations";
 
 export default function Main(): JSX.Element {
   const text = useTranslations("home");
@@ -31,7 +33,7 @@ export default function Main(): JSX.Element {
   const { mainControl, setMainControl } = useMainStore();
 
   const { getImageFunctions } = useImageFunctionStore();
-  
+
   const { isFetching } = useGenerationStore();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -63,9 +65,13 @@ export default function Main(): JSX.Element {
       {(isLoading || isFetching) && <VestiqLoading />}
       <main className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
         {mainControl === text("home") ? (
-          <Home />
+          <WelcomeTourProvider>
+            <Home />
+          </WelcomeTourProvider>
         ) : mainControl === text("dress-model") ? (
-          <DressModel />
+          <DressTourProvider>
+            <DressModel />
+          </DressTourProvider>
         ) : mainControl === text("my_generations") ? (
           <MyGenerations />
         ) : mainControl === text("txt2img") ? (
