@@ -2,7 +2,7 @@
 import { createGeneration } from "@/services";
 import { FormValues, } from "@/interfaces/generation";
 import { updateCoins } from "./update-coins";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 import { uploadFile } from "./upload-file";
 import { base64ToFile } from "./image";
 import { ToastFunction } from "@/hooks/useToast";
@@ -15,17 +15,12 @@ export async function handleSubmit(
   setImagesLoading(true);
 
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("Token not found");
-    }
-
     const modelFile = base64ToFile(currentGeneration.model!, "model.png");
     const garmentFile = base64ToFile(currentGeneration.garment!, "garment.png");
 
     const [modelUpload, garmentUpload] = await Promise.all([
-      uploadFile(modelFile, token),
-      uploadFile(garmentFile, token),
+      uploadFile(modelFile),
+      uploadFile(garmentFile),
     ]);
 
     // URLs dos arquivos enviados

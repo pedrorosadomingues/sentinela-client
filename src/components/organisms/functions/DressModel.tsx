@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import { StarGroup } from "../icons";
 import { Button } from "@heroui/react";
 import RowSteps from "@/components/atoms/RowSteps";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 import CreateModelButton from "../create-model/CreateModel";
 import ChooseDefaultModel from "../create-model/ChooseDefaultModel";
 import GenerateModelByText from "../create-model/GenerateModelByText";
@@ -24,6 +24,7 @@ import { FormValues } from "@/interfaces";
 import { urlToBase64 } from "@/utils/image";
 import { useToast } from "@/hooks/useToast";
 import { useForm } from "react-hook-form";
+import { useUserStore } from "@/stores";
 
 export default function DressModel(): JSX.Element {
   const {
@@ -36,6 +37,7 @@ export default function DressModel(): JSX.Element {
     setCurrentGarmentImage,
     setCurrentResultImage,
   } = useDressModelStore();
+  const { user } = useUserStore();
   const {
     isOpen: isTourOpen,
     setIsOpen,
@@ -44,11 +46,19 @@ export default function DressModel(): JSX.Element {
   } = useTour();
 
   const handleStartTour = () => {
+    const filterTour = user?.watched_tours.filter((tour) => tour.tour_id === 2);
+    
+    if (user && filterTour && filterTour.length > 0) {
+      return;
+    };
+
     if (currentStep !== 0 && !isTourOpen) {
       setCurrentStep(0);
     }
 
-    setIsOpen(true);
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -79,8 +89,6 @@ export default function DressModel(): JSX.Element {
       cover_feet: false,
       adjust_hands: false,
       restore_clothes: false,
-      guidance_scale: 3,
-      timesteps: 50,
       seed: 42,
       num_samples: 1,
       garment_photo_type: "flat-lay",
@@ -264,7 +272,6 @@ export default function DressModel(): JSX.Element {
   return (
     <form
       onSubmit={formSubmit((values) => {
-        console.log("values", values);
         handleSubmit(values, toast.use);
       })}
       className="h-full w-full flex flex-col items-center gap-8 mx-auto my-4 md:my-8"

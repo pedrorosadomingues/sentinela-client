@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
+
 import httpStatus from "http-status";
 import { SignUpBody, SignUpResponse } from "@/interfaces";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
 export async function signUp({
   email,
@@ -10,7 +11,7 @@ export async function signUp({
   locale,
 }: SignUpBody & { locale: string }): Promise<SignUpResponse> {
   try {
-    const response = await api.post(
+    const response = await axiosClient.post(
       "/user/sign-up",
       {
         email,

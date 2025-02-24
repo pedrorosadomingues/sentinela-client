@@ -1,24 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
 import httpStatus from "http-status";
 import { Generation } from "@/interfaces";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
 export async function getAllGenerations(): Promise<{ status: number; data?: [Generation]; message?: string }> {
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return {
-        status: httpStatus.UNAUTHORIZED,
-        message: "Unauthorized",
-      };
-    }
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const response = await api.get("/generation/all", config);
+    const response = await axiosClient.get("/generation/all");
+    
     return {
       status: httpStatus.OK,
       data: response.data,

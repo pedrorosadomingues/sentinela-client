@@ -1,7 +1,7 @@
 import {
   ModelCustomizationsProps,
   useCreateModelStore,
-} from "@/zustand-stores/createModelStore";
+} from "@/stores/createModelStore";
 import React from "react";
 import { SliderSelector } from "../../SliderSelector";
 

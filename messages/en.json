@@ -34,7 +34,9 @@
   },
   "sign_in_page": {
     "email": "Email",
+    "email_placeholder": "Enter your email",
     "password": "Password",
+    "password_placeholder": "Enter your password",
     "login": "Login to your account",
     "access_message": "Access your account now to use the best of AI for fashion. If you don't have an account yet, sign up for Vestiq now to start using it in your creations.",
     "forgot_password": "Forgot password?",
@@ -65,6 +67,19 @@
     "passwords_dont_match": "Passwords don't match",
     "password_confirmation": "Password confirmation",
     "user_not_verified": "User not verified. Check your email for the verification link."
+  },
+  "forgot_password_page": {
+    "forgot_password": "Forgot password",
+    "description": "We will send you a link to reset your password",
+    "email": "Email",
+    "email_placeholder": "Enter your email",
+    "send": "Send Reset Link",
+    "back_to": "I want to back to",
+    "login": "Log in",
+    "email_sent": "Email sent",
+    "email_not_found": "Email not found",
+    "unexpected_error": "An unexpected error occurred",
+    "invalid_email": "Invalid email"
   },
   "home": {
     "my_profile": "My Perfil",

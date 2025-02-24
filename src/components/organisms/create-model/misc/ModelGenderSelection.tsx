@@ -1,7 +1,7 @@
 import {
   ModelCustomizationsProps,
   useCreateModelStore,
-} from "@/zustand-stores/createModelStore";
+} from "@/stores/createModelStore";
 import Image from "next/image";
 import React from "react";
 

@@ -6,7 +6,7 @@ import ToolInfo from "@/components/atoms/ToolInfo";
 import { Accordion, AccordionItem, Switch } from "@heroui/react";
 import { useState } from "react";
 import { FormValues } from "@/interfaces";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface Props {
   control: Control<FormValues>;

@@ -5,7 +5,7 @@ import { TourProvider } from "@reactour/tour";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import Bubble from "../misc/Bubble";
 import { CustomStepType, getDressModelTourSteps } from "@/constants/tours";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 import { useLocale } from "next-intl";
 
 export default function DressTourProvider({

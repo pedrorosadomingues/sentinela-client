@@ -8,7 +8,7 @@ import {
   useImageFunctionStore,
   useUserStore,
   useSidebarStore,
-} from "@/zustand-stores";
+} from "@/stores";
 import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
@@ -21,10 +21,14 @@ import {
 import CoinCouter from "../atoms/CoinCounter";
 import { VestiqCoins } from "./icons/VestiqCoins";
 import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar(): JSX.Element {
-  const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout} = useSidebarStore();
+  const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout } =
+    useSidebarStore();
   const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
   const { setMainControl, mainControl } = useMainStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const { user } = useUserStore();
@@ -32,14 +36,17 @@ export default function Sidebar(): JSX.Element {
 
   const MAIN_ITEMS = [
     {
+      key: "home",
       name: text("home"),
       icon_path: <HomeOutlined />,
     },
     {
+      key: "my_generations",
       name: text("my_generations"),
       icon_path: <HistoryIcon />,
     },
     {
+      key: "plans_and_subscriptions",
       name: text("plans_and_subscriptions"),
       icon_path: <MonetizationOnOutlined />,
     },
@@ -142,9 +149,18 @@ export default function Sidebar(): JSX.Element {
                       key={item.name}
                       icon={item.icon_path}
                       name={item.name}
-                      active={mainControl}
+                      active={pathname}
                       onPress={() => {
-                        setMainControl(item.name);
+                        let filteredRoute;
+                        if (item.key === "home") {
+                          filteredRoute = "/main";
+                        } else if (item.key === "my_generations") {
+                          filteredRoute = "/main/generations?category=results";
+                        } else if (item.key === "plans_and_subscriptions") {
+                          filteredRoute = "/main/profile?view=plans";
+                        }
+
+                        router.push(`${filteredRoute}`);
                         toggleSidebar();
                       }}
                       layout={sidebarLayout}
@@ -161,12 +177,11 @@ export default function Sidebar(): JSX.Element {
                       icon={ICON_MAPPING[func.name as ImageFunctionName](
                         "medium"
                       )}
-                      active={mainControl}
+                      active={pathname.replace("/main/fns/", "")}
                       // @ts-ignore
                       name={text(func.name)}
                       onPress={() => {
-                        // @ts-ignore
-                        setMainControl(text(func.name));
+                        router.push(`/main/fns/${func.name.toLowerCase()}`);
                         toggleSidebar();
                       }}
                       layout={sidebarLayout}

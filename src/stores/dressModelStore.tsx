@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { useUserStore } from "./userStore";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
 interface DressModelStoreProps {
   step: number;
@@ -98,7 +100,7 @@ export const useDressModelStore = create<DressModelStoreProps>((set) => ({
       },
     }));
   },
-  
+
   handleClearCurrentGeneration: () => {
     set(() => ({
       currentGeneration: {
@@ -138,6 +140,8 @@ export const useDressModelStore = create<DressModelStoreProps>((set) => ({
         },
       }));
     } else if (idx === 13) {
+      const { user, getUser } = useUserStore.getState();
+
       set((state) => ({
         currentGeneration: {
           ...state.currentGeneration,
@@ -145,6 +149,20 @@ export const useDressModelStore = create<DressModelStoreProps>((set) => ({
             "https://fcoyipufipefrxnqwqbs.supabase.co/storage/v1/object/public/models/generated/dress-model-tour-result.png",
         },
       }));
+
+      const body = {
+        user_id: user?.id,
+        tour_id: 2, // Dress Model Tour ID
+      };
+
+      axiosClient
+        .post("/user/user_tour", body)
+        .then(() => {
+          getUser(user?.id as number);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   },
 

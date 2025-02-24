@@ -1,15 +1,14 @@
 "use client";
 
-import RootBanner from "../organisms/RootBanner";
 import { MdEmail } from "react-icons/md";
-import { useRootStore } from "@/zustand-stores";
-import MessageCard from "../organisms/EmailSendedMessage";
+import { useRootStore } from "@/stores";
+import MessageCard from "@/components/organisms/EmailSendedMessage";
 
-export default function ForgotPasswordConfirmation() {
+export function EmailSentFeedback() {
   const { emailSended } = useRootStore();
 
   return (
-    <div className="min-h-screen w-screen flex items-center">
+    <>
       {emailSended === "register" && (
         <MessageCard
           icon={<MdEmail className="text-secondary text-6xl mb-4" />}
@@ -31,10 +30,6 @@ export default function ForgotPasswordConfirmation() {
           onButtonClick={() => window.location.replace("/")}
         />
       )}
-
-      <div className="rounded-l-[60px] bg-primary-background h-screen w-[50%] flex items-center justify-center max515:hidden">
-        <RootBanner />
-      </div>
-    </div>
+    </>
   );
 }

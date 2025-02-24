@@ -14,7 +14,7 @@ import { ModelGenderSelection, ModelCustomization, ModelResult } from "./misc";
 import {
   ModelCustomizationsProps,
   useCreateModelStore,
-} from "@/zustand-stores/createModelStore";
+} from "@/stores/createModelStore";
 
 type CreateModelButtonProps = {
   onModelSelect: (imagePath: string) => void;

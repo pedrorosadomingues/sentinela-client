@@ -9,7 +9,7 @@ import SignUpForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRootStore } from "@/zustand-stores";
+import { useRootStore } from "@/stores";
 
 export default function SignUpTemplate(): JSX.Element {
   const locale = useLocale();

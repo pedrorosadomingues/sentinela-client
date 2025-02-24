@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
 import { ImageFunctionProps } from "@/interfaces/image-function";
+import { axiosClient } from "@/lib/axios/axiosClient";
 import httpStatus from "http-status";
 
 export async function getAllImageFns(locale: string): Promise<any> {
   try {
-    const response = await api.get(`/image-function/${locale}`);
+    const response = await axiosClient.get(`/image-function/${locale}`);
 
     const orderedFns = response.data.sort(
       (a: ImageFunctionProps, b: ImageFunctionProps) => {

@@ -4,11 +4,11 @@ import { useState } from "react";
 import ForgotPassForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import RootBanner from "../organisms/RootBanner";
+import RootBanner from "../../../organisms/RootBanner";
 import { useLocale, useTranslations } from "next-intl";
 import { requestResetPassword } from "@/services";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRootStore } from "@/zustand-stores";
+import { useRootStore } from "@/stores";
 
 export default function ForgotPassword() {
   const locale = useLocale();

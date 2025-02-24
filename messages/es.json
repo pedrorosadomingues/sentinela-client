@@ -34,7 +34,9 @@
   },
   "sign_in_page": {
     "email": "Correo electrónico",
+    "email_placeholder": "Introduce tu correo electrónico",
     "password": "Contraseña",
+    "password_placeholder": "Introduce tu contraseña",
     "login": "Inicia sesión en tu cuenta",
     "forgot_password": "¿Olvidaste tu contraseña?",
     "dont_have_account": "¿No tienes una cuenta?",
@@ -65,6 +67,19 @@
     "passwords_dont_match": "Las contraseñas no coinciden",
     "password_confirmation": "Confirmación de contraseña",
     "user_not_verified": "Usuario no verificado. Verifica tu correo electrónico para obtener el enlace de verificación."
+  },
+  "forgot_password_page": {
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "description": "Te enviaremos un enlace para restablecer tu contraseña",
+    "email": "Correo electrónico",
+    "email_placeholder": "Ingresa tu correo electrónico",
+    "send": "Enviar enlace de restablecimiento",
+    "back_to": "Quiero volver a",
+    "login": "Iniciar sesión",
+    "email_sent": "Correo enviado",
+    "email_not_found": "Correo no encontrado",
+    "unexpected_error": "Ocurrió un error inesperado",
+    "invalid_email": "Correo inválido"
   },
   "home": {
     "my_profile": "Mi Perfil",

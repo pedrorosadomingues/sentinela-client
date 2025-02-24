@@ -1,4 +1,4 @@
-import { useCreateModelStore } from "@/zustand-stores/createModelStore";
+import { useCreateModelStore } from "@/stores/createModelStore";
 import React from "react";
 import { SliderSelector } from "../../SliderSelector";
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCreateModelStore } from "@/zustand-stores/createModelStore";
+import { useCreateModelStore } from "@/stores/createModelStore";
 import { Image } from "@heroui/react";
 import React from "react";
 

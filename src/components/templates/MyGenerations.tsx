@@ -1,17 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+'use client';
+
 import React, { useEffect } from "react";
 import Gallery from "../organisms/generations/Gallery";
 import VestiqLoading from "../organisms/VestiqLoading";
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 import SelectedGenerationsNav from "../organisms/generations/SelectedGenerationNav";
 import Filters from "../organisms/generations/Filters";
 
 export default function MyGenerations() {
   const { getGenerations, generations, isFetching, selectedGenerations } =
     useGenerationStore();
-
+    
   useEffect(() => {
+    if(generations && generations.length > 0) {
+      return;
+    };
+    
     getGenerations();
-  }, [getGenerations]);
+  }, []);
 
   if (isFetching) {
     return <VestiqLoading />;

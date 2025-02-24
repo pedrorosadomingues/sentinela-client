@@ -6,23 +6,24 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { login } from "@/services";
 import { toast } from "react-toastify";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import RootBanner from "@/components/organisms/RootBanner";
 import SignInForm from "@/components/organisms/DynamicForm";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useUserStore } from "@/stores";
+import { UserProps } from "@/interfaces";
 
 export default function LoginTemplate(): JSX.Element {
   const locale = useLocale();
-
+  const router = useRouter();
   const text = useTranslations("sign_in_page");
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [serverError, setServerError] = useState<Record<string, string> | null>(
     null
   );
+  const { getUser } = useUserStore();
 
   const login_schema = z.object({
     email: z.string().email(text("invalid_email")),
@@ -30,9 +31,6 @@ export default function LoginTemplate(): JSX.Element {
   });
 
   type LoginFormValues = z.infer<typeof login_schema>;
-
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const {
     formState: { errors },
@@ -48,20 +46,18 @@ export default function LoginTemplate(): JSX.Element {
       const response = await login(values);
 
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
+        const user: UserProps = response.data.user;
 
-        localStorage.setItem("user_id", response.data.user.id);
-
-        localStorage.setItem("user_name", response.data.user.name);
-
-        window.location.href = `/${locale}/main`;
+        await getUser(user.id).then(() => {
+          router.push("/main");
+        });
       }
 
-      if (response.message.name === "UserNotVerifiedError") {
+      if (response.message && response.message?.name === "UserNotVerifiedError") {
         setServerError({ general: text("user_not_verified") });
       }
 
-      if (response.message.name === "InvalidCredentialsError") {
+      if (response.message && response.message?.name === "InvalidCredentialsError") {
         setServerError({ general: text("invalid_email_or_password") });
       }
     } catch (error: any) {
@@ -79,12 +75,6 @@ export default function LoginTemplate(): JSX.Element {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      redirect(`/${locale}/main`);
-    }
-  }, [locale, token]);
 
   return (
     <div className="min-h-screen w-screen flex items-center">

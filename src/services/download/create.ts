@@ -1,28 +1,14 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
 import httpStatus from "http-status";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import axiosClient from "@/lib/axios/axiosClient";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
 export async function createDownloadImage(body: { generation_id: number, user_id: number }): Promise<any> {
-    const token = localStorage.getItem("token");
-    if (!token) {
-        return {
-            status: httpStatus.UNAUTHORIZED,
-            message: "Unauthorized",
-        };
-    }
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
     try {
-        const response = await api.post("/download", body, config);
+        const response = await axiosClient.post("/download", body);
 
         return {
             status: httpStatus.OK,

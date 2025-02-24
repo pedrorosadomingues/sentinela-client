@@ -12,7 +12,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 
 export default function SeeMoreActions() {
   const t = useTranslations("my-generations");
