@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { useImageFunctionStore, useUserStore } from "@/stores";
-import { SessionUserProps } from "@/interfaces";
 import { usePathname } from "next/navigation";
+import { getUserByToken } from "@/services/user/get-user-by-token";
 import VestiqWrapper from "@/components/templates/wrappers/VestiqWrapper";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
 
@@ -15,34 +15,39 @@ export default function Providers({
   messages,
   timeZone,
   locale,
-  session,
 }: {
   children: React.ReactNode;
   messages: AbstractIntlMessages;
   timeZone: string;
   locale: string;
-  session: SessionUserProps | null;
 }) {
   const { user, setUser } = useUserStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
 
-  // 🔹 Rotas privadas (sem o prefixo do idioma)
+  // 🔹 Rotas privadas
   const privateRoutes = ["/main"];
   const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+  const isPrivateRoute = privateRoutes.some((route) => pathWithoutLocale.startsWith(route));
 
-  // 🔹 Verifica se a URL pertence a uma rota privada
-  const isPrivateRoute = privateRoutes.some((route) =>
-    pathWithoutLocale.startsWith(route)
-  );
-
-  // 🔹 Se houver uma sessão, carrega o usuário no Zustand
+  // 🔹 Busca o usuário ao carregar o Provider
   useEffect(() => {
-    if (!user && session) {
-      console.log("📌 Carregando usuário a partir da sessão...");
-      setUser(session.session_user);
-    }
-  }, [session, user]);
+    const fetchSession = async () => {
+      if (!user && isPrivateRoute) {
+        console.log("📌 Buscando sessão via API interna...");
+        const session = await getUserByToken();
+        console.log("📌 Sessão carregada no Providers:", session);
+
+        if (session) {
+          setUser(session.session_user);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchSession();
+  }, []);
 
   useEffect(() => {
     if (imageFunctions.length === 0) {
@@ -54,24 +59,16 @@ export default function Providers({
     console.log("Usuário carregado do Zustand:", user);
   }, [user]);
 
-  // 🔹 Enquanto a sessão não for carregada, exibe um loading
-  if (isPrivateRoute && !user && session) {
+  // 🔹 Exibe loading enquanto busca a sessão
+  if (isPrivateRoute && loading) {
     return <VestiqLoading />;
   }
 
-  // 🔹 Se a rota for privada e o usuário estiver autenticado, coloca o conteúdo dentro do VestiqWrapper
-  const content = isPrivateRoute ? (
-    <VestiqWrapper>{children}</VestiqWrapper>
-  ) : (
-    children
-  );
+  // 🔹 Se for uma rota privada e o usuário estiver autenticado, coloca o conteúdo dentro do VestiqWrapper
+  const content = isPrivateRoute ? <VestiqWrapper>{children}</VestiqWrapper> : children;
 
   return (
-    <NextIntlClientProvider
-      timeZone={timeZone}
-      messages={messages}
-      locale={locale}
-    >
+    <NextIntlClientProvider timeZone={timeZone} messages={messages} locale={locale}>
       <HeroUIProvider>{content}</HeroUIProvider>
     </NextIntlClientProvider>
   );

@@ -5,7 +5,6 @@ import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Providers from "./providers";
 import { Toaster } from "react-hot-toast";
 import { getMessages, getTimeZone } from "next-intl/server";
-import { getUserByToken } from "@/services/user/get-user-by-token";
 
 export default async function LocaleLayout({
   children,
@@ -20,7 +19,6 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
   const timeZone = await getTimeZone();
-  const session = await getUserByToken();
 
   return (
     <main lang={locale}>
@@ -28,7 +26,6 @@ export default async function LocaleLayout({
         messages={messages}
         timeZone={timeZone}
         locale={locale}
-        session={session}
       >
         <ConfirmationModal />
         {children}
