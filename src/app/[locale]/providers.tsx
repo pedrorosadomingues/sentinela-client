@@ -22,7 +22,7 @@ export default function Providers({
   locale: string;
   session: SessionUserProps | null;
 }) {
-  const { getUser } = useUserStore();
+  const { getUser, user } = useUserStore();
   const pathname = usePathname();
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -40,25 +40,33 @@ export default function Providers({
   );
 
   useEffect(() => {
+    console.log("📌 Sessão recebida:", session);
+    console.log("📌 Rota privada?", isPrivateRoute);
+  
     if (session) {
       getUser(session.session_user.id);
-      setIsAuthorized(true); // 🔹 Autoriza a renderização das rotas privadas
+      setIsAuthorized(true);
+      console.log("✅ Usuário autorizado!");
     } else if (isPrivateRoute) {
-      // 🔹 Se for uma rota privada e não houver sessão, redireciona para /auth
+      console.log("🔴 Redirecionando para /auth");
       router.push(`/auth`);
     }
   }, [session, pathWithoutLocale]);
-
+  
   useEffect(() => {
     if (imageFunctions.length === 0) {
       getImageFunctions(locale as string);
     }
   }, [locale]);
 
+  useEffect(() => {
+    console.log("Usuário carregado do Zustand:", user);
+  }, [user]);
+
   // 🔹 Se a rota for privada e o usuário não estiver autorizado, não renderiza nada
   if (isPrivateRoute && !isAuthorized) {
     return null;
-  } 
+  }
 
   // 🔹 Se a rota for privada e o usuário estiver autenticado, coloca o conteúdo dentro do VestiqWrapper
   const content = isPrivateRoute ? (
