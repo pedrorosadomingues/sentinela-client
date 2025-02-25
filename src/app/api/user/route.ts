@@ -6,12 +6,7 @@ export async function GET(req: NextRequest) {
   try {
     console.log("📌 [API Next.js] Recebendo requisição GET /api/user");
 
-    // 🔹 Obtém todos os cookies para depuração
-    const allCookies = cookies();
-    console.log("📌 Cookies recebidos no servidor:", allCookies);
-
-    // 🔹 Obtém o token do cookie específico
-    const token = allCookies.get("vq-access-token")?.value;
+    const token = cookies().get("vq-access-token")?.value;
     console.log("📌 Token obtido do cookie:", token);
 
     if (!token) {
@@ -19,16 +14,28 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Token não encontrado." }, { status: 401 });
     }
 
-    console.log("📌 Token encontrado, chamando API externa para validação...");
+    const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL;
+    console.log("📌 URL da API externa:", apiUrl);
 
-    // 🔹 Faz a requisição para validar o token e obter os dados do usuário
-    const apiResponse = await fetch(
-      `https://${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/auth/get-user`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
-      }
-    );
+    if (!apiUrl) {
+      console.error("🚨 Erro: A variável NEXT_PUBLIC_REACT_APP_API_BASE_URL não está definida!");
+      return NextResponse.json({ error: "Erro de configuração: API URL não definida." }, { status: 500 });
+    }
+
+    const endpoint = `https://${apiUrl}/auth/get-user`;
+    console.log("📌 Endpoint da requisição:", endpoint);
+
+    // 🔹 Teste adicional: chamar a API com timeout para capturar possíveis bloqueios
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // Timeout de 5 segundos
+
+    const apiResponse = await fetch(endpoint, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+      signal: controller.signal, // Adicionando timeout
+    });
+
+    clearTimeout(timeoutId); // Cancela o timeout se a requisição for bem-sucedida
 
     console.log("📌 Resposta da API externa:", apiResponse.status, apiResponse.statusText);
 
