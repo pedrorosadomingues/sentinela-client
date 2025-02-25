@@ -1,11 +1,15 @@
 import axios from "axios";
 
-export async function getUserByToken() {
+export async function getUserByToken(token: string) {
   try {
     console.log("📌 Chamando API interna para obter usuário...");
+    console.log("📌 Enviando token manualmente:", token);
 
     const response = await axios.get("/api/user", {
-      withCredentials: true, // 🔹 Garante que os cookies sejam enviados
+      headers: {
+        Authorization: `Bearer ${token}`, // 🔹 Enviando token no cabeçalho
+      },
+      withCredentials: true, // 🔹 Ainda tenta enviar cookies, se estiverem disponíveis
     });
 
     console.log("✅ Usuário carregado no client:", response.data);

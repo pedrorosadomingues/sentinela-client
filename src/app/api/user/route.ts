@@ -5,13 +5,10 @@ export async function GET() {
   try {
     console.log("📌 [API Next.js] Recebendo requisição GET /api/user");
 
-    // 🔹 Obtém os cookies no servidor
-    const allCookies = cookies();
-    console.log("📌 Cookies recebidos no servidor:", allCookies);
-
-    // 🔹 Obtém o token diretamente
+    // 🔹 Obtém o token dos cookies
     const token = cookies().get("vq-access-token")?.value;
-    console.log("📌 Token extraído do cookie no servidor:", token);
+
+    console.log("📌 Token obtido do cookie:", token);
 
     if (!token) {
       console.log("🚨 Nenhum token encontrado nos cookies.");
@@ -20,13 +17,12 @@ export async function GET() {
 
     console.log("📌 Token encontrado, chamando API externa...");
 
-    // 🔹 Faz a requisição para a API externa
+    // 🔹 Faz a requisição para validar o token e obter os dados do usuário
     const apiResponse = await fetch(
       `https://${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/auth/get-user`,
       {
         headers: { Authorization: `Bearer ${token}` },
         cache: "no-store",
-        credentials: "include", // 🔹 Garante que os cookies sejam enviados corretamente
       }
     );
 

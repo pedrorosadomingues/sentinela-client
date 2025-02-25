@@ -6,9 +6,9 @@ import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { useImageFunctionStore, useUserStore } from "@/stores";
 import { usePathname } from "next/navigation";
-import { getUserByToken } from "@/services/user/get-user-by-token";
 import VestiqWrapper from "@/components/templates/wrappers/VestiqWrapper";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
+import { axiosInternalClient } from "@/lib/axios/axiosClient";
 
 export default function Providers({
   children,
@@ -31,21 +31,30 @@ export default function Providers({
   const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
   const isPrivateRoute = privateRoutes.some((route) => pathWithoutLocale.startsWith(route));
 
-  // 🔹 Busca o usuário ao carregar o Provider
-  useEffect(() => {
-    const fetchSession = async () => {
-      if (!user && isPrivateRoute) {
-        console.log("📌 Buscando sessão via API interna...");
-        const session = await getUserByToken();
-        console.log("📌 Sessão carregada no Providers:", session);
+  // 🔹 Função para buscar o usuário autenticado via API interna
+  const fetchSession = async () => {
+    if (!user && isPrivateRoute) {
+      console.log("📌 Buscando sessão via API interna...");
 
-        if (session) {
-          setUser(session.session_user);
+      try {
+        const response = await axiosInternalClient.get("/user", {
+          withCredentials: true, // 🔹 Garante que os cookies sejam enviados na requisição
+        });
+
+        console.log("✅ Sessão carregada no Providers:", response.data);
+
+        if (response.data) {
+          setUser(response.data.session_user); // 🔹 Define o usuário no Zustand
         }
+      } catch (error) {
+        console.error("❌ Erro ao buscar sessão:", error);
       }
-      setLoading(false);
-    };
 
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchSession();
   }, []);
 
