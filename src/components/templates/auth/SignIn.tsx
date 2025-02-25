@@ -1,14 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useState } from "react";
-import {
-  Button,
-  Input,
-  Checkbox,
-  Link,
-  Divider,
-  Form,
-} from "@heroui/react";
+import React, { useEffect, useState } from "react";
+import { Button, Input, Checkbox, Link, Divider, Form } from "@heroui/react";
 import {
   Facebook,
   Google,
@@ -16,7 +10,7 @@ import {
   VisibilityOutlined,
 } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { useRootStore } from "@/stores";
+import { useRootStore, useUserStore } from "@/stores";
 import { useToast } from "@/hooks/useToast";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -31,6 +25,7 @@ export function SignIn() {
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const { setRootControl } = useRootStore();
+  const { getUser } = useUserStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAwaitingRedirect, setIsAwaitingRedirect] = useState<boolean>(false);
@@ -54,22 +49,21 @@ export function SignIn() {
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (values) => {
     setIsLoading(true);
     setIsAwaitingRedirect(false);
-  
+
     const response = await login(values);
-  
+    let error: null | string = null;
+
     if (response.status === 200) {
       setIsAwaitingRedirect(true);
-  
+
+      await getUser(response.data.user.id);
+
       // 🔹 Atualiza a página e redireciona para a rota privada correta
       router.push(`/main`);
       router.refresh(); // 🔄 Atualiza os dados da sessão
 
       return;
-    }
-  
-    let error: null | string = null;
-  
-    if (response.message?.name === "UserNotVerifiedError") {
+    } else if (response.message?.name === "UserNotVerifiedError") {
       error = t("user_not_verified");
       setError("root", { message: t("user_not_verified") });
     } else if (response.message?.name === "InvalidCredentialsError") {
@@ -81,22 +75,19 @@ export function SignIn() {
     } else {
       toast.use("error", t("unexpected_error"));
     }
-  
+
     if (error) {
       toast.use("error", error);
+      setIsLoading(false);
+      setIsAwaitingRedirect(false);
     }
-  
-    setIsLoading(false);
-    setIsAwaitingRedirect(false);
   };
-  
+
   return (
     <div className="flex w-full max-w-sm flex-col items-center gap-4 p-4">
       <div className="w-full text-left">
         <p className="pb-2 text-xl font-medium">{t("sign_in")}</p>
-        <p className="text-small text-default-500">
-          {t("sign_in_message")}
-        </p>
+        <p className="text-small text-default-500">{t("sign_in_message")}</p>
       </div>
 
       <div className="flex w-full flex-col gap-2">
