@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useToast } from "@/hooks/useToast";
-import axiosClient from "@/lib/axios/axiosClient";
-import { useCreateModelStore } from "@/zustand-stores/createModelStore";
+import { axiosClient } from "@/lib/axios/axiosClient";
+import { useCreateModelStore } from "@/stores/createModelStore";
 import {
   Button,
   Card,

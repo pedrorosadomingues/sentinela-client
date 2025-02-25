@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import ToolInfo from "@/components/atoms/ToolInfo";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface ModelImageAreaProps {
   src: string;

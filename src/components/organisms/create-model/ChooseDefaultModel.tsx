@@ -14,9 +14,9 @@ import {
 } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { FaceOutlined } from "@mui/icons-material";
-import axiosClient from "@/lib/axios/axiosClient";
+import { axiosClient } from "@/lib/axios/axiosClient";
 import { useToast } from "@/hooks/useToast";
-import { useCreateModelStore } from "@/zustand-stores/createModelStore";
+import { useCreateModelStore } from "@/stores/createModelStore";
 
 type ChooseDefaultModelProps = {
   onModelSelect: (imagePath: string) => void;

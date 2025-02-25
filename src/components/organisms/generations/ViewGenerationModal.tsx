@@ -12,7 +12,7 @@ import { Button, Image, Spinner, Tooltip } from "@heroui/react";
 import { StarGroup } from "../icons";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 
 export function ViewGenerationModal({
   id,

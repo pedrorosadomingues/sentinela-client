@@ -1,4 +1,4 @@
-import { useSidebarStore } from '@/zustand-stores';
+import { useSidebarStore } from '@/stores';
 import { KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from '@mui/icons-material';
 import { Button } from '@nextui-org/react';
 import React, { useEffect } from 'react';

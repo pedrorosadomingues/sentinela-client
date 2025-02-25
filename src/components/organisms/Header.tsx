@@ -3,14 +3,13 @@
 
 import { logout } from "@/utils";
 import {
-  redirect,
   usePathname,
   useRouter,
   useSearchParams,
 } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
+import { useUserStore, useMainStore, useSidebarStore } from "@/stores";
 import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import {
@@ -23,49 +22,40 @@ import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
 import { StarGroup } from "./icons";
 import CoinCounter from "../atoms/CoinCounter";
 import { Menu } from "@mui/icons-material";
+import { useToast } from "@/hooks/useToast";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const locale = useLocale();
   const t = useTranslations("header");
   const pathname = usePathname();
   const currentLocale = useLocale();
-
-  const { user, getUser, setUser } = useUserStore();
+  const toast = useToast();
+  const { user } = useUserStore();
   const { mainControl, setMainControl } = useMainStore();
   const { toggleSidebar } = useSidebarStore();
 
   const [tab, setTab] = useState<string | null>(null);
 
-  function handleLogout(): void {
-    logout();
-    router.push(`/${locale}`);
-    setUser(null);
+  async function handleLogout(): Promise<void> {
+    const success = await logout();
+
+    if (success) {
+      router.push("/auth");
+      return router.refresh();
+    } else {
+      toast.use("error", "Erro ao tentar deslogar. Tente novamente.");
+    }
   }
 
   useEffect(() => {
-    const stored_user_id = localStorage.getItem("user_id");
-    const stored_user_name = localStorage.getItem("user_name");
-    const local_user = stored_user_id ? getUser(stored_user_id) : null;
-
-    const timeout = setTimeout(() => {
-      if (!local_user || stored_user_name !== user?.name) {
-        redirect(`/${locale}`);
-      }
-    }, 2000);
-
     const currentTab = searchParams.get("tab");
+
     if (currentTab) {
       setMainControl(currentTab);
       setTab(currentTab);
     }
-    if (user?.name !== undefined && user?.name !== stored_user_name) {
-      alert("Please login again");
-      handleLogout();
-    }
-    return () => clearTimeout(timeout);
-  }, [getUser, searchParams, setMainControl, router, locale]);
+  }, [searchParams]);
 
   function renderHeaderContent() {
     const current = mainControl || tab;

@@ -1,9 +1,11 @@
+'use client';
+
 import MenuProfile from "../organisms/my-profile/MenuLeft";
 import PersonalData from "../organisms/my-profile/Personal-Data";
 import UserProfile from "../organisms/my-profile/User-Profile";
 import PlanBilling from "../organisms/my-profile/Plan-Billing";
 import MenuUp from "../organisms/my-profile/MenuUp";
-import { useMyProfileStore } from "@/zustand-stores";
+import { useMyProfileStore } from "@/stores";
 import { useTranslations } from "next-intl";
 
 export default function MyProfile(): JSX.Element {

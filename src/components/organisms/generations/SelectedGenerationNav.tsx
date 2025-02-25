@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import { Button, Tooltip } from "@nextui-org/react";
 import { useTranslations } from "next-intl";
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 import SeeMoreActions from "./SeeMoreActions";
 
 interface ActionsProps {

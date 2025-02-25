@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserStore } from "@/zustand-stores";
+import { useUserStore } from "@/stores";
 
 export default function UserProfile(): JSX.Element {
   const { user } = useUserStore();

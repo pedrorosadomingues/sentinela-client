@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import { ICON_MAPPING } from "@/constants/icons";
-import { useImageFunctionStore } from "@/zustand-stores";
+import { useImageFunctionStore } from "@/stores";
 import { ImageFunctionProps } from "@/interfaces/image-function";
 import { useLocale } from "next-intl";
 import DynamicForm from "@/components/organisms/DynamicForm";

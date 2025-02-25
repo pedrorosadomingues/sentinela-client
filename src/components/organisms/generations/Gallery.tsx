@@ -1,4 +1,4 @@
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 import ImageCard from "./ImageCard";
 
 export default function Gallery(): JSX.Element {

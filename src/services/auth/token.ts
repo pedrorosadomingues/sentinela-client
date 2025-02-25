@@ -1,0 +1,22 @@
+export async function validateUserToken(token?: string) {
+    if (!token) return null;
+  
+    try {
+      const response = await fetch(`https://${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/auth/get-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!response.ok) {
+        return null; // Token inválido ou expirado
+      }
+  
+      const sessionUser = await response.json();
+      return sessionUser || null;
+    } catch (error) {
+      console.error("Erro ao validar o token:", error);
+      return null;
+    }
+  }
+  

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { useUserStore } from "@/zustand-stores";
+import { useUserStore } from "@/stores";
 import Image from "next/image";
 
 export default function PersonalData() {

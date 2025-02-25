@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { LOCALES, LOCALE_TO_FLAG } from "@/constants/locales";
 import { useEffect, useState } from "react";
-import { useUserStore } from "@/zustand-stores";
+import { useUserStore } from "@/stores";
 import { useTranslations } from "next-intl";
 import { Dropdown, DropdownItem, DropdownMenu } from "@heroui/react";
 

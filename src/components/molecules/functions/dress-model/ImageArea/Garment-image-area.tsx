@@ -8,7 +8,7 @@ import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import { CheckroomOutlined, CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import ToolInfo from "@/components/atoms/ToolInfo";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface GarmentImageAreaProps {
   src: string;
