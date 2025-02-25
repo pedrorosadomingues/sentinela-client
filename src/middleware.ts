@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { routing } from "./lib/i18n/routing";
-import { validateUserToken } from "./services/auth/token";
+// import { validateUserToken } from "./services/auth/token";
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -22,31 +21,29 @@ export default async function middleware(req: NextRequest) {
   const isAuthRoute = authRoutes.some((route) => pathWithoutLocale === route);
 
   // 🔹 Se for uma rota privada, validamos o token e o usuário
-  if (isPrivateRoute) {
-    const sessionUser = await validateUserToken(token);
+  if (isPrivateRoute && !token) {
+    // const sessionUser = await validateUserToken(token);
 
-    if (!sessionUser) {
-      return NextResponse.redirect(new URL(`/${locale}/auth`, req.url));
-    }
+    return NextResponse.redirect(new URL(`/${locale}/auth`, req.url));
   }
 
   // 🔹 Se for uma rota de autenticação e o usuário já estiver logado, redireciona para /main
   if (isAuthRoute && token) {
-    const sessionUser = await validateUserToken(token);
+    // const sessionUser = await validateUserToken(token);
 
-    if (sessionUser) {
-      return NextResponse.redirect(new URL(`/${locale}/main`, req.url));
-    }
+    return NextResponse.redirect(new URL(`/${locale}/main`, req.url));
   }
 
   // 🔹 Se estiver na raiz ("/"), redireciona para /auth
-  if (pathWithoutLocale === "/") {
+  if (pathWithoutLocale === "/" && !token) {
     return NextResponse.redirect(new URL(`/${locale}/auth`, req.url));
-  }
+  } else if (pathWithoutLocale === "/" && token) {
+    return NextResponse.redirect(new URL(`/${locale}/main`, req.url));
+  };
 
   return response;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"], // Impede que o middleware modifique chamadas para "/api/"
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
 };
