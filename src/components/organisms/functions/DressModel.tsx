@@ -93,6 +93,7 @@ export default function DressModel(): JSX.Element {
       num_samples: 1,
       garment_photo_type: "flat-lay",
       category: "tops",
+      mode: "quality",
     },
   });
 

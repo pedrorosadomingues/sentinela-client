@@ -10,6 +10,7 @@ export interface FormValues {
   seed: number;
   num_samples: number;
   garment_photo_type: string;
+  mode: "quality";
 }
 
 export interface CreateGenerationBody {
