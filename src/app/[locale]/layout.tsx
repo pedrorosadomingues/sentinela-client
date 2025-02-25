@@ -5,7 +5,6 @@ import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Providers from "./providers";
 import { Toaster } from "react-hot-toast";
 import { getMessages, getTimeZone } from "next-intl/server";
-import { axiosInternalClient } from "@/lib/axios/axiosClient";
 import { getUserByToken } from "@/services/user/get-user-by-token";
 
 export default async function LocaleLayout({
