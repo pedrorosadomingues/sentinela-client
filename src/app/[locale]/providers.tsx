@@ -22,16 +22,14 @@ export default function Providers({
   locale: string;
   session: SessionUserProps | null;
 }) {
-  const { getUser, user } = useUserStore();
+  const { user, setUser } = useUserStore();
+  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const pathname = usePathname();
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
 
-  // 🔹 Lista de rotas privadas (sem o prefixo do idioma)
+  // 🔹 Rotas privadas (sem o prefixo do idioma)
   const privateRoutes = ["/main"];
-
-  // 🔹 Remove o prefixo do idioma da rota antes da verificação
   const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
 
   // 🔹 Verifica se alguma rota privada é um PREFIXO da URL atual (ex: /main/generations)
@@ -39,21 +37,28 @@ export default function Providers({
     pathWithoutLocale.startsWith(route)
   );
 
-  useEffect(() => {
-    console.log("📌 Sessão recebida:", session);
-    console.log("📌 Rota privada?", isPrivateRoute);
-  
-    if (session) {
-      getUser(session.session_user.id);
+  // 🔹 Função para verificar se há sessão e carregar o usuário
+  const handleSessionCheck = async () => {
+    if (user) {
       setIsAuthorized(true);
-      console.log("✅ Usuário autorizado!");
-    } else if (isPrivateRoute) {
-      console.log("🔴 Redirecionando para /auth");
-      router.push(`/auth`);
-      router.refresh();
+      console.log("✅ Usuário já está autenticado no Zustand.");
+      return;
     }
-  }, [session, pathWithoutLocale]);
-  
+
+    if (session) {
+      console.log("📌 Carregando usuário a partir da sessão...");
+      setUser(session.session_user);
+      setIsAuthorized(true);
+    } else if (isPrivateRoute) {
+      console.log("🔴 Nenhuma sessão encontrada. Redirecionando para /auth");
+      router.push(`/auth`);
+    }
+  };
+
+  useEffect(() => {
+    handleSessionCheck();
+  }, [session, user]); // Executa apenas quando a sessão ou usuário mudar
+
   useEffect(() => {
     if (imageFunctions.length === 0) {
       getImageFunctions(locale as string);
@@ -63,11 +68,6 @@ export default function Providers({
   useEffect(() => {
     console.log("Usuário carregado do Zustand:", user);
   }, [user]);
-
-  // 🔹 Se a rota for privada e o usuário não estiver autorizado, não renderiza nada
-  if (isPrivateRoute && !isAuthorized) {
-    return null;
-  }
 
   // 🔹 Se a rota for privada e o usuário estiver autenticado, coloca o conteúdo dentro do VestiqWrapper
   const content = isPrivateRoute ? (
