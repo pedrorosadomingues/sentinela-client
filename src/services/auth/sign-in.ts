@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { axiosClient } from "@/lib/axios/axiosClient";
-import { useUserStore } from "@/stores";
 import httpStatus from "http-status";
 
 export interface SignInParams {
@@ -20,12 +19,10 @@ export async function login({
 }: SignInParams): Promise<SignInResponse> {
   try {
     const response = await axiosClient.post("auth/sign-in", { email, password });
-    const { getUser } = useUserStore.getState();
-    
+
     if (response.data && response.data.token) {
       // 🔹 Armazena o token nos cookies
       document.cookie = `vq-access-token=${response.data.token}; path=/; Secure; SameSite=Strict`;
-      await getUser(response.data.user.id);
     }
 
     return {

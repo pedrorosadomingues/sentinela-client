@@ -45,7 +45,7 @@ export default function Providers({
       setIsAuthorized(true); // 🔹 Autoriza a renderização das rotas privadas
     } else if (isPrivateRoute) {
       // 🔹 Se for uma rota privada e não houver sessão, redireciona para /auth
-      router.push(`/${locale}/auth`);
+      router.push(`/auth`);
     }
   }, [session, pathWithoutLocale]);
 
