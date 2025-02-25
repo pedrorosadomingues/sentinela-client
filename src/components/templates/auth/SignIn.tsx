@@ -78,7 +78,7 @@ export function SignIn() {
       error = t("invalid_email_or_password");
       setError("root", { message: t("invalid_email_or_password") });
     } else {
-      toast.use("error", "Erro inesperado ao fazer login.");
+      toast.use("error", t("unexpected_error"));
     }
   
     if (error) {
@@ -92,9 +92,9 @@ export function SignIn() {
   return (
     <div className="flex w-full max-w-sm flex-col items-center gap-4 p-4">
       <div className="w-full text-left">
-        <p className="pb-2 text-xl font-medium">Welcome Back</p>
+        <p className="pb-2 text-xl font-medium">{t("sign_in")}</p>
         <p className="text-small text-default-500">
-          Log in to your account to continue
+          {t("sign_in_message")}
         </p>
       </div>
 
@@ -104,20 +104,20 @@ export function SignIn() {
           variant="bordered"
           isDisabled
         >
-          Continue with Google
+          {t("continue_with")} Google
         </Button>
         <Button
           startContent={<Facebook className="text-default-500" width={24} />}
           variant="bordered"
           isDisabled
         >
-          Continue with Facebook
+          {t("continue_with")} Facebook
         </Button>
       </div>
 
       <div className="flex w-full items-center gap-4 py-2">
         <Divider className="flex-1" />
-        <p className="shrink-0 text-tiny text-default-500">OR</p>
+        <p className="shrink-0 text-tiny text-default-500">{t("or")}</p>
         <Divider className="flex-1" />
       </div>
 
@@ -159,7 +159,7 @@ export function SignIn() {
             size="sm"
             isDisabled={isLoading || isAwaitingRedirect}
           >
-            Remember for 15 days
+            {t("remember_me")}
           </Checkbox>
           <Link
             href="#"
@@ -167,7 +167,7 @@ export function SignIn() {
             onPress={() => setRootControl("forgot-password")}
             isDisabled={isLoading || isAwaitingRedirect}
           >
-            Forgot password?
+            {t("forgot_password")}
           </Link>
         </div>
         <Button
@@ -176,21 +176,21 @@ export function SignIn() {
           type="submit"
           isLoading={isLoading}
         >
-          Log In
+          {t("sign_in_label")}
         </Button>
 
         <span className="text-sm text-danger">{errors.root?.message}</span>
       </Form>
 
       <p className="text-center text-small">
-        Need to create an account?&nbsp;
+        {t("dont_have_account")}&nbsp;
         <Link
           href="#"
           size="sm"
           onPress={() => setRootControl("register")}
           isDisabled={isLoading || isAwaitingRedirect}
         >
-          Sign Up
+          {t("sign_up_here")}
         </Link>
       </p>
     </div>

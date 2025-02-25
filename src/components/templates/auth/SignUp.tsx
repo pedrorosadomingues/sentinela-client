@@ -65,7 +65,6 @@ export function SignUp() {
     const response = await signUp({ ...values, locale });
 
     if (response.status === 200) {
-      // return router.refresh(); // 🔄 Atualiza os dados da sessão
       setRootControl("success-email-sended");
       setEmailSended("register");
     }
@@ -91,9 +90,9 @@ export function SignUp() {
   return (
     <div className="flex w-full max-w-sm flex-col items-center gap-4 p-4">
       <div className="w-full text-left">
-        <p className="pb-2 text-xl font-medium">Sign Up</p>
+        <p className="pb-2 text-xl font-medium">{t("sign_up")}</p>
         <p className="text-small text-default-500">
-          Create an account to continue
+          {t("sign_up_message")}
         </p>
       </div>
 
@@ -104,8 +103,8 @@ export function SignUp() {
       >
         <Input
           isRequired
-          label="Name and Surname"
-          placeholder="Enter your name"
+          label={t("name")}
+          placeholder={t("name_placeholder")}
           type="text"
           variant="bordered"
           {...register("name")}
@@ -113,8 +112,8 @@ export function SignUp() {
         />
         <Input
           isRequired
-          label="Email Address"
-          placeholder="Enter your email"
+          label={t("email")}
+          placeholder={t("email_placeholder")}
           type="email"
           variant="bordered"
           {...register("email")}
@@ -131,8 +130,8 @@ export function SignUp() {
               )}
             </button>
           }
-          label="Password"
-          placeholder="Enter your password"
+          label={t("password")}
+          placeholder={t("password_placeholder")}
           type={isVisible ? "text" : "password"}
           variant="bordered"
           {...register("password")}
@@ -149,21 +148,21 @@ export function SignUp() {
               )}
             </button>
           }
-          label="Confirm Password"
-          placeholder="Confirm your password"
+          label={t("confirm_password")}
+          placeholder={t("confirm_password_placeholder")}
           type={isConfirmVisible ? "text" : "password"}
           variant="bordered"
           {...register("confirm_password")}
           isDisabled={isLoading}
         />
         <Checkbox isRequired className="py-4" size="sm" isDisabled={isLoading}>
-          I agree with the&nbsp;
+          {t("agree_with")}&nbsp;
           <Link href="#" size="sm" isDisabled={isLoading}>
-            Terms
+            {t("terms")}
           </Link>
-          &nbsp; and&nbsp;
+          &nbsp; {t("and")}&nbsp;
           <Link href="#" size="sm" isDisabled={isLoading}>
-            Privacy Policy
+            {t("privacy_policy")}
           </Link>
         </Checkbox>
         <Button
@@ -172,43 +171,43 @@ export function SignUp() {
           type="submit"
           isLoading={isLoading}
         >
-          Sign Up
+          {t("sign_up_label")}
         </Button>
 
         <span className="text-sm text-danger">{errors.root?.message}</span>
       </Form>
 
-      <div className="flex w-full items-center gap-4 py-2">
+      <div className="hidden w-full items-center gap-4 py-2">
         <Divider className="flex-1" />
-        <p className="shrink-0 text-tiny text-default-500">OR</p>
+        <p className="shrink-0 text-tiny text-default-500">{t("or")}</p>
         <Divider className="flex-1" />
       </div>
 
-      <div className="flex w-full flex-col gap-2">
+      <div className="hidden w-full flex-col gap-2">
         <Button
           startContent={<Google width={24} />}
           variant="bordered"
           isDisabled
         >
-          Continue with Google
+          {t("continue_with")} Google
         </Button>
         <Button
           startContent={<Facebook className="text-default-500" width={24} />}
           variant="bordered"
           isDisabled
         >
-          Continue with Facebook
+          {t("continue_with")} Facebook
         </Button>
       </div>
       <p className="text-center text-small">
-        Already have an account?&nbsp;
+        {t("have_account")}&nbsp;
         <Link
           href="#"
           size="sm"
           onPress={() => setRootControl("login")}
           isDisabled={isLoading}
         >
-          Log In
+          {t("login")}
         </Link>
       </p>
     </div>
