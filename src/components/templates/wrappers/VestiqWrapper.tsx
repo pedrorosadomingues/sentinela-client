@@ -11,14 +11,10 @@ export default function VestiqWrapper({
 }) {
   const { user } = useUserStore();
 
-  console.log("📌 Estado do usuário no Wrapper:", user);
-
   if (!user) {
-    console.log("🔴 Usuário não encontrado, mostrando VestiqLoading...");
     return <VestiqLoading />;
   }
 
-  console.log("✅ Usuário encontrado, renderizando a página...");
   return (
     <div className="min-h-screen flex justify-center w-full">
       <Header />

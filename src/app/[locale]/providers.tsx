@@ -34,14 +34,11 @@ export default function Providers({
   // 🔹 Função para buscar o usuário autenticado via API interna
   const fetchSession = async () => {
     if (!user && isPrivateRoute) {
-      console.log("📌 Buscando sessão via API interna...");
 
       try {
         const response = await axiosInternalClient.get("/user", {
           withCredentials: true, // 🔹 Garante que os cookies sejam enviados na requisição
         });
-
-        console.log("✅ Sessão carregada no Providers:", response.data);
 
         if (response.data) {
           setUser(response.data.session_user); // 🔹 Define o usuário no Zustand
@@ -63,10 +60,6 @@ export default function Providers({
       getImageFunctions(locale as string);
     }
   }, [locale]);
-
-  useEffect(() => {
-    console.log("Usuário carregado do Zustand:", user);
-  }, [user]);
 
   // 🔹 Exibe loading enquanto busca a sessão
   if (isPrivateRoute && loading) {
