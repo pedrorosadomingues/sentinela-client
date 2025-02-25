@@ -15,7 +15,7 @@ import {
   VisibilityOffOutlined,
   VisibilityOutlined,
 } from "@mui/icons-material";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRootStore } from "@/stores";
 import { useToast } from "@/hooks/useToast";
 import { z } from "zod";
@@ -28,7 +28,6 @@ export function SignIn() {
   const t = useTranslations("sign_in_page");
   const toast = useToast();
   const router = useRouter();
-  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
   const { setRootControl } = useRootStore();
@@ -62,8 +61,10 @@ export function SignIn() {
       setIsAwaitingRedirect(true);
   
       // 🔹 Atualiza a página e redireciona para a rota privada correta
-      router.push(`/${locale}/main`);
-      return router.refresh(); // 🔄 Atualiza os dados da sessão
+      router.push(`/main`);
+      router.refresh(); // 🔄 Atualiza os dados da sessão
+
+      return;
     }
   
     let error: null | string = null;
