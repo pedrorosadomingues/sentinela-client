@@ -10,7 +10,9 @@ export async function logout(): Promise<boolean> {
 
   try {
     // 🔹 Chama a API de logout para remover o token do servidor
-    const response = await axiosInternalClient.get("/auth/logout");
+    const response = await axiosInternalClient.get("/auth/logout", {
+      withCredentials: true,
+    });
 
     if (response.status === 200) {
       setUser(null);
