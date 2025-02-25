@@ -6,9 +6,9 @@ import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { useImageFunctionStore, useUserStore } from "@/stores";
 import { SessionUserProps } from "@/interfaces";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import VestiqWrapper from "@/components/templates/wrappers/VestiqWrapper";
-import VestiqLoading from "@/components/organisms/VestiqLoading"; // 🔹 Para exibir um carregamento caso necessário
+import VestiqLoading from "@/components/organisms/VestiqLoading";
 
 export default function Providers({
   children,
@@ -26,7 +26,6 @@ export default function Providers({
   const { user, setUser } = useUserStore();
   const { imageFunctions, getImageFunctions } = useImageFunctionStore();
   const pathname = usePathname();
-  const router = useRouter();
 
   // 🔹 Rotas privadas (sem o prefixo do idioma)
   const privateRoutes = ["/main"];
@@ -37,14 +36,11 @@ export default function Providers({
     pathWithoutLocale.startsWith(route)
   );
 
-  // 🔹 Carrega o usuário a partir da sessão ou Zustand
+  // 🔹 Se houver uma sessão, carrega o usuário no Zustand
   useEffect(() => {
     if (!user && session) {
       console.log("📌 Carregando usuário a partir da sessão...");
       setUser(session.session_user);
-    } else if (!user && isPrivateRoute) {
-      console.log("🔴 Nenhuma sessão encontrada. Redirecionando para /auth");
-      router.push(`/auth`);
     }
   }, [session, user]);
 
@@ -58,8 +54,8 @@ export default function Providers({
     console.log("Usuário carregado do Zustand:", user);
   }, [user]);
 
-  // 🔹 Se for uma rota privada e o usuário ainda não foi carregado, exibe um loading
-  if (isPrivateRoute && !user) {
+  // 🔹 Enquanto a sessão não for carregada, exibe um loading
+  if (isPrivateRoute && !user && session) {
     return <VestiqLoading />;
   }
 
