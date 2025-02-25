@@ -50,6 +50,7 @@ export default function Providers({
     } else if (isPrivateRoute) {
       console.log("🔴 Redirecionando para /auth");
       router.push(`/auth`);
+      router.refresh();
     }
   }, [session, pathWithoutLocale]);
   
