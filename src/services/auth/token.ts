@@ -2,7 +2,7 @@ export async function validateUserToken(token?: string) {
     if (!token) return null;
   
     try {
-      const response = await fetch(`https://${process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL}/auth/get-user`, {
+      const response = await fetch(`https://${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

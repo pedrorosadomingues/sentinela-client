@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-let API_URL: string = process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL as string;
+let API_URL: string = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
 // 🔹 Garante que a URL tenha "https://" ou "http://"
 if (!API_URL.startsWith("http")) {

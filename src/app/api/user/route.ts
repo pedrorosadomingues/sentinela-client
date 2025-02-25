@@ -1,43 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    console.log("📌 [API Next.js] Recebendo requisição GET /api/user");
+    // 🔹 Obtém todos os cookies para depuração
+    const allCookies = cookies();
 
-    const token = cookies().get("vq-access-token")?.value;
-    console.log("📌 Token obtido do cookie:", token);
+    // 🔹 Obtém o token do cookie específico
+    const token = allCookies.get("vq-access-token")?.value;
 
     if (!token) {
-      console.log("🚨 Nenhum token encontrado nos cookies.");
       return NextResponse.json({ error: "Token não encontrado." }, { status: 401 });
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_REACT_APP_API_BASE_URL;
-    console.log("📌 URL da API externa:", apiUrl);
-
-    if (!apiUrl) {
-      console.error("🚨 Erro: A variável NEXT_PUBLIC_REACT_APP_API_BASE_URL não está definida!");
-      return NextResponse.json({ error: "Erro de configuração: API URL não definida." }, { status: 500 });
-    }
-
-    const endpoint = `https://${apiUrl}/auth/get-user`;
-    console.log("📌 Endpoint da requisição:", endpoint);
-
-    // 🔹 Teste adicional: chamar a API com timeout para capturar possíveis bloqueios
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // Timeout de 5 segundos
-
-    const apiResponse = await fetch(endpoint, {
-      headers: { Authorization: `Bearer ${token}` },
-      cache: "no-store",
-      signal: controller.signal, // Adicionando timeout
-    });
-
-    clearTimeout(timeoutId); // Cancela o timeout se a requisição for bem-sucedida
-
-    console.log("📌 Resposta da API externa:", apiResponse.status, apiResponse.statusText);
+    // 🔹 Faz a requisição para validar o token e obter os dados do usuário
+    const apiResponse = await fetch(
+      `https://${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: "no-store",
+      }
+    );
 
     if (!apiResponse.ok) {
       console.error("🚨 Erro ao buscar usuário na API externa:", await apiResponse.text());
@@ -45,7 +28,6 @@ export async function GET(req: NextRequest) {
     }
 
     const userData = await apiResponse.json();
-    console.log("✅ Usuário carregado com sucesso:", userData);
 
     return NextResponse.json(userData);
   } catch (error) {
