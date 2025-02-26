@@ -2,14 +2,14 @@ import { create } from "zustand";
 import { getAllImageFns } from "@/services";
 import { ImageFunctionProps } from "@/interfaces/image-function";
 
-interface ImageFunctionStore {
+interface FnStoreProps {
   isFetching: boolean;
   imageFunctions: ImageFunctionProps[];
   setImageFunctions: (imageFunctions: ImageFunctionProps[]) => void;
   getImageFunctions: (locale: string) => Promise<void>;
 }
 
-export const useImageFunctionStore = create<ImageFunctionStore>((set) => ({
+export const useFnStore = create<FnStoreProps>((set) => ({
   isFetching: false,
   imageFunctions: [],
   setImageFunctions: (imageFunctions: ImageFunctionProps[]) =>

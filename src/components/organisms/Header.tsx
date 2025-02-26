@@ -5,11 +5,9 @@ import { logout } from "@/utils";
 import {
   usePathname,
   useRouter,
-  useSearchParams,
 } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { useUserStore, useMainStore, useSidebarStore } from "@/stores";
+import { useUserStore, useGlobalStore } from "@/stores";
 import { Avatar, Button } from "@heroui/react";
 import Image from "next/image";
 import {
@@ -26,16 +24,12 @@ import { useToast } from "@/hooks/useToast";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const t = useTranslations("header");
   const pathname = usePathname();
   const currentLocale = useLocale();
   const toast = useToast();
   const { user } = useUserStore();
-  const { mainControl, setMainControl } = useMainStore();
-  const { toggleSidebar } = useSidebarStore();
-
-  const [tab, setTab] = useState<string | null>(null);
+  const { toggleSidebar } = useGlobalStore();
 
   async function handleLogout(): Promise<void> {
     const success = await logout();
@@ -48,17 +42,8 @@ export default function Header(): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    const currentTab = searchParams.get("tab");
-
-    if (currentTab) {
-      setMainControl(currentTab);
-      setTab(currentTab);
-    }
-  }, [searchParams]);
-
   function renderHeaderContent() {
-    const current = mainControl || tab;
+    const current = "teste";
 
     switch (current) {
       case t("home"):
@@ -89,15 +74,12 @@ export default function Header(): JSX.Element {
         return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
 
       default:
-        return <h1 className="text-2xl text-black">{mainControl}</h1>;
+        return <h1 className="text-2xl text-black">{current}</h1>;
     }
   }
 
   function handleAction(key: string): void {
     switch (key) {
-      case "my_profile":
-        setMainControl(t("my_profile"));
-        break;
       case "logout":
         handleLogout();
         break;

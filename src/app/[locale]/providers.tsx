@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
-import { useImageFunctionStore, useUserStore } from "@/stores";
+import { useFnStore, useUserStore } from "@/stores";
 import { usePathname } from "next/navigation";
 import VestiqWrapper from "@/components/templates/wrappers/VestiqWrapper";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
@@ -22,7 +22,7 @@ export default function Providers({
   locale: string;
 }) {
   const { user, setUser } = useUserStore();
-  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
+  const { imageFunctions, getImageFunctions } = useFnStore();
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
 

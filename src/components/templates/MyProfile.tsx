@@ -5,11 +5,11 @@ import PersonalData from "../organisms/my-profile/Personal-Data";
 import UserProfile from "../organisms/my-profile/User-Profile";
 import PlanBilling from "../organisms/my-profile/Plan-Billing";
 import MenuUp from "../organisms/my-profile/MenuUp";
-import { useMyProfileStore } from "@/stores";
+import { useProfileStore } from "@/stores";
 import { useTranslations } from "next-intl";
 
 export default function MyProfile(): JSX.Element {
-  const { profileControl } = useMyProfileStore();
+  const { profileControl } = useProfileStore();
   const text = useTranslations("menu_profile");
 
   return (

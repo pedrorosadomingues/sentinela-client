@@ -9,14 +9,14 @@
 // import { z } from "zod";
 // import { SubmitHandler, useForm } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
-// import { useRootStore } from "@/stores";
+// import { useGlobalStore } from "@/stores";
 
 // export default function SignUpTemplate(): JSX.Element {
 //   const locale = useLocale();
 
 //   const text = useTranslations("sign_up_page");
 
-//   const { setRootControl, setEmailSended } = useRootStore();
+//   const { setRootControl, setEmailSended } = useGlobalStore();
 
 //   const [isLoading, setIsLoading] = useState<boolean>(false);
 

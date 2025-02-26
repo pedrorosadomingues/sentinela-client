@@ -4,7 +4,7 @@
 import React, { useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
 import {
-  useImageFunctionStore,
+  useFnStore,
   useUserStore,
 } from "@/stores";
 import { useLocale, useTranslations } from "next-intl";
@@ -25,7 +25,7 @@ import { useRouter } from "next/navigation";
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
   const { imageFunctions, isFetching, getImageFunctions } =
-    useImageFunctionStore();
+    useFnStore();
   const { setCurrentStep, currentStep, isOpen: isTourOpen } = useTour();
   const { user, getUser } = useUserStore();
   const locale = useLocale();

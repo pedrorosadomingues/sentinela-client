@@ -1,10 +1,10 @@
-import { useSidebarStore } from '@/stores';
+import { useGlobalStore } from '@/stores';
 import { KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from '@mui/icons-material';
 import { Button } from '@nextui-org/react';
 import React, { useEffect } from 'react';
 
 export default function ToggleSidebarLayout() {
-    const { sidebarLayout, setSidebarLayout, toggleSidebarLayout } = useSidebarStore();
+    const { sidebarLayout, setSidebarLayout, toggleSidebarLayout } = useGlobalStore();
 
     // Hook para verificar o tamanho da janela e ajustar o layout da sidebar
     useEffect(() => {

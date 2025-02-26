@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface MyProfileStore {
+interface ProfileStoreProps {
   profileControl: string;
   setProfileControl: (control: string) => void;
 }
 
-export const useMyProfileStore = create<MyProfileStore>((set) => ({
+export const useProfileStore = create<ProfileStoreProps>((set) => ({
   profileControl: "perfil do usuário",
   setProfileControl: (control: string) => set({ profileControl: control }),
 

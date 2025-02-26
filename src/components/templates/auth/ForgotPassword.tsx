@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button, Input, Link, Form } from "@heroui/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRootStore } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import { useToast } from "@/hooks/useToast";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ export function ForgotPassword() {
   const toast = useToast();
   const router = useRouter();
   const locale = useLocale();
-  const { setEmailSended, setRootControl } = useRootStore();
+  const { setEmailSended, setRootControl } = useGlobalStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const forgot_schema = z.object({

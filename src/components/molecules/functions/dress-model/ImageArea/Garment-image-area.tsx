@@ -39,8 +39,8 @@ export default function GarmentImageArea({
         <ToolInfo
           title="lorem ipsum dolor"
           text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
-          href="https://academy.arch.redraw.pro/"
+          video="https://fcoyipufipefrxnqwqbs.supabase.co/storage/v1/object/public/media/videos/select-garment.mp4"
+          href="#"
         />
       </CardHeader>
       <CardBody

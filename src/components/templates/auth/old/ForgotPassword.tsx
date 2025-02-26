@@ -8,14 +8,14 @@
 // import { useLocale, useTranslations } from "next-intl";
 // import { requestResetPassword } from "@/services";
 // import { zodResolver } from "@hookform/resolvers/zod";
-// import { useRootStore } from "@/stores";
+// import { useGlobalStore } from "@/stores";
 
 // export default function ForgotPassword() {
 //   const locale = useLocale();
 
 //   const text = useTranslations("sign_up_page");
 
-//   const { setEmailSended, setRootControl } = useRootStore();
+//   const { setEmailSended, setRootControl } = useGlobalStore();
 
 //   const [loading, setLoading] = useState(false);
 

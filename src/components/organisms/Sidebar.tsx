@@ -2,12 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
-  useMainStore,
-  useImageFunctionStore,
+  useFnStore,
   useUserStore,
-  useSidebarStore,
+  useGlobalStore,
 } from "@/stores";
 import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
@@ -25,12 +24,10 @@ import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar(): JSX.Element {
   const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout } =
-    useSidebarStore();
-  const locale = useLocale();
+    useGlobalStore();
   const router = useRouter();
   const pathname = usePathname();
-  const { setMainControl, mainControl } = useMainStore();
-  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
+  const { imageFunctions } = useFnStore();
   const { user } = useUserStore();
   const text = useTranslations("sidebar");
 
@@ -51,46 +48,6 @@ export default function Sidebar(): JSX.Element {
       icon_path: <MonetizationOnOutlined />,
     },
   ];
-
-  useEffect(() => {
-    getImageFunctions(locale);
-
-    const normalizedControl = mainControl.toLowerCase();
-
-    switch (normalizedControl) {
-      case "home":
-      case "início":
-      case "inicio":
-        setMainControl(text("home"));
-        break;
-
-      case "minhas gerações":
-      case "my generations":
-      case "mis generaciones":
-        setMainControl(text("my_generations"));
-        break;
-
-      case "vestir modelo":
-      case "dress model":
-        setMainControl(text("dress-model"));
-        break;
-
-      case "imagem a partir de texto":
-      case "image from text":
-      case "imagen a partir de texto":
-        setMainControl(text("txt2img"));
-        break;
-
-      case "renderizar traços":
-      case "render traces":
-      case "renderizar trazos":
-        setMainControl(text("render-traces"));
-        break;
-
-      default:
-        break;
-    }
-  }, [getImageFunctions]);
 
   useEffect(() => {
     const storaggedSidebarLayout = localStorage.getItem("sidebar-layout");

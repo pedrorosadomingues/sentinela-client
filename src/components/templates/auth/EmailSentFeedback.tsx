@@ -1,11 +1,11 @@
 "use client";
 
 import { MdEmail } from "react-icons/md";
-import { useRootStore } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import MessageCard from "@/components/organisms/EmailSendedMessage";
 
 export function EmailSentFeedback() {
-  const { emailSended } = useRootStore();
+  const { emailSended } = useGlobalStore();
 
   return (
     <>

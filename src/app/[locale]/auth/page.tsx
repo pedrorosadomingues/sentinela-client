@@ -1,6 +1,6 @@
 "use client";
 
-import { useRootStore } from "@/stores/rootStore";
+import { useGlobalStore } from "@/stores";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
@@ -15,7 +15,7 @@ import AuthWrapper from "@/components/templates/wrappers/AuthWrapper";
 export default function WelcomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { rootControl, setRootControl } = useRootStore();
+  const { rootControl, setRootControl } = useGlobalStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

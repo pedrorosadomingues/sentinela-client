@@ -10,7 +10,7 @@ import {
   VisibilityOutlined,
 } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { useRootStore, useUserStore } from "@/stores";
+import { useGlobalStore, useUserStore } from "@/stores";
 import { useToast } from "@/hooks/useToast";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ export function SignIn() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const { setRootControl } = useRootStore();
+  const { setRootControl } = useGlobalStore();
   const { getUser } = useUserStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

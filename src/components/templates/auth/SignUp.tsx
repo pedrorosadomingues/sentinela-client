@@ -16,7 +16,7 @@ import {
   VisibilityOutlined,
 } from "@mui/icons-material";
 import { useLocale, useTranslations } from "next-intl";
-import { useRootStore } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +27,7 @@ export function SignUp() {
   const t = useTranslations("sign_up_page");
   const toast = useToast();
   const locale = useLocale();
-  const { setRootControl, setEmailSended } = useRootStore();
+  const { setRootControl, setEmailSended } = useGlobalStore();
   const [isVisible, setIsVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);

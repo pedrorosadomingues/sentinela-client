@@ -6,12 +6,12 @@ import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
 import DressModel from "../organisms/functions/DressModel";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import RenderTraces from "../organisms/functions/RenderTraces";
-import { useImageFunctionStore } from "@/stores";
+import { useFnStore } from "@/stores";
 import { notFound } from "next/navigation";
 import VestiqLoading from "../organisms/VestiqLoading";
 
 export default function Functions({ fn }: { fn: string }) {
-  const { imageFunctions, isFetching } = useImageFunctionStore();
+  const { imageFunctions, isFetching } = useFnStore();
 
   const availableFunctions = imageFunctions?.map((fn) => fn.name as string);
 

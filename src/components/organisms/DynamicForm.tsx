@@ -5,7 +5,7 @@ import { ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextField, Alert } from "@mui/material";
 import Image from "next/image";
-import { useRootStore } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import LanguageSwitcher from "./RootLanguageSwitcher";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
@@ -57,7 +57,7 @@ export default function AuthForm<T extends FieldValues>({
   } = useForm<T>({
     resolver: zodResolver(schema),
   });
-  const { setRootControl } = useRootStore();
+  const { setRootControl } = useGlobalStore();
   const router = useRouter();
 
   return (
