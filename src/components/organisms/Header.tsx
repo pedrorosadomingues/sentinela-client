@@ -2,10 +2,7 @@
 "use client";
 
 import { logout } from "@/utils";
-import {
-  usePathname,
-  useRouter,
-} from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useUserStore, useGlobalStore } from "@/stores";
 import { Avatar, Button } from "@heroui/react";
@@ -21,17 +18,23 @@ import { StarGroup } from "./icons";
 import CoinCounter from "../atoms/CoinCounter";
 import { Menu } from "@mui/icons-material";
 import { useToast } from "@/hooks/useToast";
+import { useEffect, useState } from "react";
+import VestiqLoading from "./VestiqLoading";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
   const t = useTranslations("header");
   const pathname = usePathname();
+  const params = useSearchParams();
   const currentLocale = useLocale();
   const toast = useToast();
   const { user } = useUserStore();
-  const { toggleSidebar } = useGlobalStore();
+  const { toggleSidebar, currentPathname, setCurrentPathname } =
+    useGlobalStore();
+  const [isLogoutLoading, setIsLogoutLoading] = useState(false);
 
   async function handleLogout(): Promise<void> {
+    setIsLogoutLoading(true);
     const success = await logout();
 
     if (success) {
@@ -39,14 +42,84 @@ export default function Header(): JSX.Element {
       return router.refresh();
     } else {
       toast.use("error", "Erro ao tentar deslogar. Tente novamente.");
+      setIsLogoutLoading(false);
     }
   }
 
+  function handleAction(key: string): void {
+    switch (key) {
+      case "my_profile":
+        router.push("/main/profile?view=profile");
+        break;
+      case "logout":
+        handleLogout();
+        break;
+    }
+  }
+
+  const handleLocaleChange = (newLocale: string) => {
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    router.refresh();
+  };
+
+  const handleUpdateCurrentPathname = () => {
+    const currentPath = pathname.split("/").pop();
+
+    const paramsList = Array.from(params.entries()).map(([key, value]) => {
+      return { key, value };
+    });
+
+    const selectedParam = paramsList[0];
+
+    if (
+      (currentPath === "generations" && selectedParam.key === "category") ||
+      (currentPath === "profile" && selectedParam.key === "view")
+    ) {
+      setCurrentPathname({
+        basePathname: currentPath,
+        subPathname: null,
+        param: selectedParam,
+      });
+    } else {
+      setCurrentPathname({
+        basePathname: currentPath as string,
+        subPathname: null,
+        param: null,
+      });
+    }
+  };
+
   function renderHeaderContent() {
-    const current = "teste";
+    const current =
+      currentPathname?.param?.value ?? currentPathname?.basePathname;
 
     switch (current) {
-      case t("home"):
+      case "results":
+        return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
+
+      case "models":
+        return <h1 className="text-2xl text-black">{t("my_models")}</h1>;
+
+      case "dress-model":
+        return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
+
+      case "txt2img":
+        return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
+
+      case "render-traces":
+        return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
+
+      case "profile":
+        return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
+
+      case "plans":
+        return (
+          <h1 className="text-2xl text-black">
+            {t("plans_and_subscriptions")}
+          </h1>
+        );
+
+      default:
         return (
           user?.name && (
             <div>
@@ -57,42 +130,16 @@ export default function Header(): JSX.Element {
             </div>
           )
         );
-
-      case t("my_generations"):
-        return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
-
-      case t("dress-model"):
-        return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
-
-      case t("txt2img"):
-        return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
-
-      case t("render-traces"):
-        return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
-
-      case t("my_profile"):
-        return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
-
-      default:
-        return <h1 className="text-2xl text-black">{current}</h1>;
     }
   }
 
-  function handleAction(key: string): void {
-    switch (key) {
-      case "logout":
-        handleLogout();
-        break;
-    }
-  }
+  useEffect(() => {
+    handleUpdateCurrentPathname();
+  }, [pathname, params]);
 
-  const handleLocaleChange = (locale: string) => {
-    const pathnameWithoutLocale = pathname.replace(
-      new RegExp(`^/${currentLocale}`),
-      ""
-    );
-    router.push(`/${locale}${pathnameWithoutLocale}`);
-  };
+  if (isLogoutLoading) {
+    return <VestiqLoading />;
+  }
 
   return (
     <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">

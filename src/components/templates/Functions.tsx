@@ -8,19 +8,14 @@ import ImageFromText from "../organisms/functions/ImageFromText";
 import RenderTraces from "../organisms/functions/RenderTraces";
 import { useFnStore } from "@/stores";
 import { notFound } from "next/navigation";
-import VestiqLoading from "../organisms/VestiqLoading";
 
 export default function Functions({ fn }: { fn: string }) {
-  const { imageFunctions, isFetching } = useFnStore();
+  const { imageFunctions } = useFnStore();
 
   const availableFunctions = imageFunctions?.map((fn) => fn.name as string);
 
   if (!availableFunctions.includes(fn)) {
     return notFound();
-  }
-
-  if (isFetching) {
-    return <VestiqLoading />;
   }
 
   return (

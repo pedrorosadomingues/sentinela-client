@@ -1,17 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from "@/components/organisms/Header";
 import Sidebar from "@/components/organisms/Sidebar";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
-import { useUserStore } from "@/stores";
-import React from "react";
+import { useFnStore, useUserStore } from "@/stores";
+import { useLocale } from "next-intl";
+import React, { useEffect } from "react";
 
 export default function VestiqWrapper({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { getImageFunctions, isFetching } = useFnStore();
   const { user } = useUserStore();
+  const locale = useLocale();
 
-  if (!user) {
+  useEffect(() => {
+    getImageFunctions(locale as string);
+  }, [locale]);
+
+  // 🔹 Exibe loading enquanto busca a sessão
+  if (isFetching || !user) {
     return <VestiqLoading />;
   }
 

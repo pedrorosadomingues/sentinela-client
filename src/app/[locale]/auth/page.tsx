@@ -1,9 +1,8 @@
 "use client";
 
 import { useGlobalStore } from "@/stores";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import VestiqLoading from "@/components/organisms/VestiqLoading";
 import {
   SignIn,
   SignUp,
@@ -16,7 +15,6 @@ export default function WelcomePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { rootControl, setRootControl } = useGlobalStore();
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!searchParams) return;
@@ -33,13 +31,8 @@ export default function WelcomePage() {
   useEffect(() => {
     if (rootControl && searchParams) {
       router.replace(`?type=${rootControl}`);
-      setIsLoading(false);
     }
   }, [rootControl, router, searchParams]);
-
-  if (isLoading) {
-    return <VestiqLoading />;
-  }
 
   return (
     <AuthWrapper>

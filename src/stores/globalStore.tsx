@@ -1,5 +1,11 @@
 import { create } from "zustand";
 
+export interface CurrentPathnameProps {
+  basePathname: string;
+  subPathname: string | null;
+  param: { key: string; value: string } | null;
+};
+
 interface GlobalStoreProps {
   // sidebar resources and functions
   sidebar: boolean;
@@ -7,6 +13,10 @@ interface GlobalStoreProps {
   sidebarLayout: "minimized" | "expanded";
   setSidebarLayout: (variant: "minimized" | "expanded") => void;
   toggleSidebarLayout: () => void;
+
+  // header pathname resources and functions
+  currentPathname: CurrentPathnameProps | null;
+  setCurrentPathname: (pathname: CurrentPathnameProps) => void;
 
   // confirmation modal resources and functions
   confirmationModal: {
@@ -56,6 +66,9 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
     );
   },
 
+  currentPathname: null,
+  setCurrentPathname: (pathname) => set({ currentPathname: pathname }),
+  
   confirmationModal: {
     isOpen: false,
     title: "",

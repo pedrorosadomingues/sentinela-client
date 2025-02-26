@@ -119,6 +119,7 @@
     "greeting": "Hello,",
     "prompt": "What do you want to create today?",
     "my_generations": "My Generations",
+    "my_models": "My Models",
     "dress-model": "Dress Model",
     "txt2img": "Image from Text",
     "render-traces": "Render Traces",

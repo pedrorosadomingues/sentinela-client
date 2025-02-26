@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import HistoryIcon from "@mui/icons-material/History";
 import {
   useFnStore,
   useUserStore,
 } from "@/stores";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Banner from "./Banner";
 import Card from "@/components/molecules/MainOptionCard";
@@ -15,7 +15,6 @@ import {
   ImageFunctionName,
   ImageFunctionProps,
 } from "@/interfaces/image-function";
-import VestiqLoading from "../VestiqLoading";
 import { ICON_MAPPING } from "@/constants";
 import WelcomeTourModal from "../tours/welcome/WelcomeTourModal";
 import { useTour } from "@reactour/tour";
@@ -24,16 +23,11 @@ import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
-  const { imageFunctions, isFetching, getImageFunctions } =
+  const { imageFunctions } =
     useFnStore();
   const { setCurrentStep, currentStep, isOpen: isTourOpen } = useTour();
   const { user, getUser } = useUserStore();
-  const locale = useLocale();
   const router = useRouter();
-
-  useEffect(() => {
-    getImageFunctions(locale as string);
-  }, []);
 
   const handleUpdateStep = () => {
     const body = {
@@ -56,10 +50,6 @@ export default function Home(): JSX.Element {
         console.error(err);
       });
   };
-
-  if (isFetching) {
-    return <VestiqLoading />;
-  }
 
   return (
     <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
