@@ -36,7 +36,7 @@ export default function Header(): JSX.Element {
 
   async function handleLogout(): Promise<void> {
     const success = await logout();
-    console.log("success", success);
+
     if (success) {
       setIsLogoutLoading(false);
 
