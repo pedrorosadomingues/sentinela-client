@@ -19,7 +19,6 @@ export default function VestiqWrapper({
     getImageFunctions(locale as string);
   }, [locale]);
 
-  // 🔹 Exibe loading enquanto busca a sessão
   if (isFetching || !user) {
     return <VestiqLoading />;
   }

@@ -2,3 +2,4 @@ export * from "./sign-up";
 export * from "./user";
 export * from "./generation";
 export * from "./coin-receipt";
+export * from "./plan";

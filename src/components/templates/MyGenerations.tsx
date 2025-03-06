@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-'use client';
+"use client";
 
 import React, { useEffect } from "react";
 import Gallery from "../organisms/generations/Gallery";
@@ -11,12 +11,12 @@ import Filters from "../organisms/generations/Filters";
 export default function MyGenerations() {
   const { getGenerations, generations, isFetching, selectedGenerations } =
     useGenerationStore();
-    
+
   useEffect(() => {
-    if(generations && generations.length > 0) {
+    if (generations && generations.length > 0) {
       return;
-    };
-    
+    }
+
     getGenerations();
   }, []);
 
