@@ -5,6 +5,7 @@ import { Plan } from "@/interfaces";
 
 interface IPlanStore {
   isFetching: boolean;
+
   plans: Plan[] | null;
   setPlans: (plans: Plan[] | null) => void;
   getPlans: () => Promise<void>;

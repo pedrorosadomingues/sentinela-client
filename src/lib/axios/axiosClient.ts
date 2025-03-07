@@ -42,11 +42,11 @@ axiosClient.interceptors.request.use(
 );
 
 // 🟢 Cliente Interno: API Next.js
-const axiosInternalClient: AxiosInstance = axios.create({
-  baseURL: "/api", // Usamos a API interna do Next.js
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+// const axiosInternalClient: AxiosInstance = axios.create({
+//   baseURL: "/api", // Usamos a API interna do Next.js
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 
-export { axiosClient, axiosInternalClient };
+export { axiosClient };
