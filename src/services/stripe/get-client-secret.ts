@@ -19,7 +19,7 @@ export async function fetchClientSecret(stripe_price_id: string): Promise<string
       }
     ],
     mode: 'subscription',
-    return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
+    return_url: `${origin}/checkout/payment-confirmation`
   })
 
   return session.client_secret ?? ''

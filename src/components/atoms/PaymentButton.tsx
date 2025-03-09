@@ -20,16 +20,16 @@ import {
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
 
+import { Plan } from "@/interfaces";
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
 
 type PaymentButtonProps = {
   children: React.ReactNode;
-  plan: any;
+  plan: Plan;
 };
-
-
 
 export default function PaymentButton({
   children,
@@ -56,10 +56,12 @@ export default function PaymentButton({
               <ModalBody>
                 <EmbeddedCheckoutProvider
                   stripe={stripePromise}
-                  options={{ fetchClientSecret: () => fetchClientSecret(plan.stripe_price_id) }}
+                  options={{
+                    fetchClientSecret: () =>
+                      fetchClientSecret(plan.stripe_price_id),
+                  }}
                 >
-                  <EmbeddedCheckout
-                  />
+                  <EmbeddedCheckout />
                 </EmbeddedCheckoutProvider>
               </ModalBody>
               <ModalFooter>
