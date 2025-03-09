@@ -4,19 +4,19 @@ import { axiosClient } from "@/lib/axios/axiosClient";
 
 export async function getAllPlans() {
   try {
-    const response = await axiosClient.get("/plan");
-
-    console.log("respons:", response);
-
+    const plans = await axiosClient.get("/plan");
+    const plans_for_sale = plans.data.filter(
+      (plan: any) => plan.stripe_price_id !== null
+    );
     return {
       status: httpStatus.OK,
-      data: response.data,
+      data: plans_for_sale,
     };
   } catch (error: any) {
-    if (error.response) {
+    if (error.plans) {
       return {
-        status: error.response.status,
-        message: error.response.data || "Unknown error",
+        status: error.plans.status,
+        message: error.plans.data || "Unknown error",
       };
     } else {
       return {

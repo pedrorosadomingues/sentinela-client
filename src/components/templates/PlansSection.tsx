@@ -3,7 +3,7 @@ import { usePlanStore } from "@/stores";
 //import VestiqLoading from "../organisms/VestiqLoading";
 import { useEffect } from "react";
 
-export default function PlansModal(): JSX.Element {
+export default function PlansSection(): JSX.Element {
   const { plans, getPlans, selectedPlan, setSelectedPlan } = usePlanStore();
 
   useEffect(() => {
