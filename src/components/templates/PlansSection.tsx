@@ -1,6 +1,5 @@
 "use client";
 import { usePlanStore } from "@/stores";
-//import VestiqLoading from "../organisms/VestiqLoading";
 import { useEffect } from "react";
 import PaymentButton from "../atoms/PaymentButton";
 
@@ -10,10 +9,6 @@ export default function PlansSection(): JSX.Element {
   useEffect(() => {
     getPlans();
   }, [getPlans]);
-
-  //   if (isFetching) {
-  //     return <VestiqLoading />;
-  //   }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -41,9 +36,9 @@ export default function PlansSection(): JSX.Element {
                 }}
               >
                 <p>{plan.name}</p>
-                <p>{plan.price_br}</p>
-                <PaymentButton>
-                  <button>Comprar</button>
+                <p>{Number(plan.price_br).toFixed(2)} BRL</p>
+                <PaymentButton plan={plan}>
+                  <div>Comprar</div>
                 </PaymentButton>
               </div>
             ))}

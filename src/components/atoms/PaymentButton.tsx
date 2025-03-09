@@ -26,10 +26,14 @@ const stripePromise = loadStripe(
 
 type PaymentButtonProps = {
   children: React.ReactNode;
+  plan: any;
 };
+
+
 
 export default function PaymentButton({
   children,
+  plan,
 }: PaymentButtonProps): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -47,10 +51,16 @@ export default function PaymentButton({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                {plan.name}
               </ModalHeader>
               <ModalBody>
-                <div>Vestiq</div>
+                <EmbeddedCheckoutProvider
+                  stripe={stripePromise}
+                  options={{ fetchClientSecret: () => fetchClientSecret(plan.stripe_price_id) }}
+                >
+                  <EmbeddedCheckout
+                  />
+                </EmbeddedCheckoutProvider>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

@@ -4,7 +4,7 @@ import { headers } from 'next/headers'
 
 import { stripe } from '@/lib/stripe/stripe'
 
-export async function fetchClientSecret(price_id: string) {
+export async function fetchClientSecret(stripe_price_id: string): Promise<string> {
   const origin = (headers()).get('origin')
 
 
@@ -14,13 +14,13 @@ export async function fetchClientSecret(price_id: string) {
       {
         // Provide the exact Price ID (for example, pr_1234) of
         // the product you want to sell
-        price: price_id,
+        price: stripe_price_id,
         quantity: 1
       }
     ],
-    mode: 'payment',
+    mode: 'subscription',
     return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
   })
 
-  return session.client_secret
+  return session.client_secret ?? ''
 }
