@@ -2,6 +2,7 @@
 import { usePlanStore } from "@/stores";
 //import VestiqLoading from "../organisms/VestiqLoading";
 import { useEffect } from "react";
+import PaymentButton from "../atoms/PaymentButton";
 
 export default function PlansSection(): JSX.Element {
   const { plans, getPlans, selectedPlan, setSelectedPlan } = usePlanStore();
@@ -40,7 +41,10 @@ export default function PlansSection(): JSX.Element {
                 }}
               >
                 <p>{plan.name}</p>
-                <p>{plan.price}</p>
+                <p>{plan.price_br}</p>
+                <PaymentButton>
+                  <button>Comprar</button>
+                </PaymentButton>
               </div>
             ))}
         </div>
