@@ -1,5 +1,5 @@
-import PlansModal from "@/components/templates/PlansSection";
+import PlansSection from "@/components/templates/PlansSection";
 
 export default function page() {
-  return <PlansModal />;
+  return <PlansSection />;
 }

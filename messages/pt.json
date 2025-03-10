@@ -274,5 +274,24 @@
       "sort_actions": "Ordenar ações",
       "most_relevant": "Mais relevantes"
     }
+  },
+  "plans_section": {
+    "basic_description": "Todos os recursos essenciais para você começar.",
+    "expert_description": "Ferramentas e capacidades avançadas para uso profissional.",
+    "business_description": "Soluções abrangentes e suporte para empresas.",
+    "plan_basic": "Plano Básico",
+    "plan_expert": "Plano Expert",
+    "plan_business": "Plano Empresarial",
+    "recommended": "Recomendado",
+    "yearly": "por ano",
+    "monthly": "por mês",
+    "features": "Recursos",
+    "dress-model": "Vestir Modelo",
+    "txt2model": "Texto para Modelo",
+    "4x-dress-model": "4x Vestir Modelo (até 4 gerações de uma vez)",
+    "multi-users": "Múltiplos Usuários",
+    "get_basic": "Assine o Básico",
+    "get_expert": "Assine o Expert",
+    "get_business": "Assine o Empresarial"
   }
 }

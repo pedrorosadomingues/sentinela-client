@@ -43,10 +43,19 @@ export default function PaymentButton({
 
   return (
     <>
-      <div className="flex flex-wrap gap-3">
-        <Button onPress={() => handleOpen()}>{children}</Button>
+      <div className="flex flex-wrap gap-3 ">
+        <Button
+          className={`${
+            plan.key === "expert"
+              ? "bg-secondary text-white"
+              : "bg-white text-secondary"
+          } h-[52px] p-[20px] flex items-center justify-center font-inter text-lg leading-[28px] font-normal rounded-[12px] mt-4 mb-2 mr-auto ml-auto border border-secondary`}
+          onPress={() => handleOpen()}
+        >
+          {children}
+        </Button>
       </div>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalContent>
           {(onClose) => (
             <>
