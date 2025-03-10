@@ -35,14 +35,10 @@ export default function Header(): JSX.Element {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
 
   async function handleLogout(): Promise<void> {
-    router.push("/auth");
-
-    console.log("Logging out...");
-
-    const success = await logout();
+    const success: boolean = await logout();
 
     if (success) {
-      Cookies.remove("vq-access-token",{ path: '/' });
+      Cookies.remove("vq-access-token", { path: "/" });
       setIsLogoutLoading(false);
 
       router.push("/auth");
@@ -174,7 +170,7 @@ export default function Header(): JSX.Element {
 
       <aside className="flex items-center gap-2">
         <Button
-        onPress={() => router.push("/main/plans")}
+          onPress={() => router.push("/main/plans")}
           color="secondary"
           size="sm"
           radius="sm"
@@ -183,7 +179,7 @@ export default function Header(): JSX.Element {
         >
           {t("subscribe_now")}
         </Button>
-      
+
         {user && <CoinCounter user={user} />}
 
         <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}>
