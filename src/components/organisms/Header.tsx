@@ -34,7 +34,11 @@ export default function Header(): JSX.Element {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
 
   async function handleLogout(): Promise<void> {
+    router.push("/auth");
+    console.log("Logging out...");
     const success = await logout();
+
+    console.log(success);
 
     if (success) {
       setIsLogoutLoading(false);
