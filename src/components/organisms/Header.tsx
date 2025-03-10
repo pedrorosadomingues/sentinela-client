@@ -20,6 +20,7 @@ import { Menu } from "@mui/icons-material";
 import { useToast } from "@/hooks/useToast";
 import { useEffect, useState } from "react";
 import VestiqLoading from "./VestiqLoading";
+import Cookies from "js-cookie";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -37,12 +38,11 @@ export default function Header(): JSX.Element {
     router.push("/auth");
 
     console.log("Logging out...");
-    
+
     const success = await logout();
 
-    console.log(success);
-
     if (success) {
+      Cookies.remove("vq-access-token");
       setIsLogoutLoading(false);
 
       router.push("/auth");
