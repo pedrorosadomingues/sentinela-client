@@ -26,7 +26,7 @@ export async function uploadFile(file: File): Promise<{ uploadUrl: string; local
     const queryParams = new URLSearchParams({ file_name, file_type }).toString();
 
     // 🔹 Pegamos a URL da API definida no `.env`
-    const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
+    const apiBaseUrl = `https://${process.env.NEXT_PUBLIC_API_BASE_URL}`;
     if (!apiBaseUrl) {
       throw new Error("A variável de ambiente NEXT_PUBLIC_API_BASE_URL não está definida.");
     }
