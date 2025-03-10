@@ -42,7 +42,7 @@ export default function WelcomeTourModal() {
 
   useEffect(() => {
     handleStartTour();
-  }, []);
+  });
 
   const handleOpenTour = () => {
     onClose();

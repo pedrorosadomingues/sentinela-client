@@ -8,7 +8,7 @@ import { useUserStore } from "@/stores";
 import { usePathname } from "next/navigation";
 import VestiqWrapper from "@/components/templates/wrappers/VestiqWrapper";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
-import { axiosInternalClient } from "@/lib/axios/axiosClient";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
 export default function Providers({
   children,
@@ -37,11 +37,11 @@ export default function Providers({
     if (!user && isPrivateRoute) {
       setIsFetchingUser(true);
 
-      try {
-        const response = await axiosInternalClient.get("/user", {
+      try {  
+        const response = await axiosClient.get("/auth/get-user", {
           withCredentials: true, // 🔹 Garante que os cookies sejam enviados na requisição
         });
-
+        console.log("response:", response);
         if (response.data) {
           setUser(response.data.session_user); // 🔹 Define o usuário no Zustand
         }

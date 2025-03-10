@@ -274,5 +274,24 @@
       "sort_actions": "Ordenar acciones",
       "most_relevant": "Más relevantes"
     }
+  },
+  "plans_section": {
+    "basic_description": "Todas las funciones esenciales para comenzar.",
+    "expert_description": "Herramientas y capacidades avanzadas para uso profesional.",
+    "business_description": "Soluciones integrales y soporte para empresas.",
+    "plan_basic": "Básico",
+    "plan_expert": "Experto",
+    "plan_business": "Empresarial",
+    "recommended": "Recomendado",
+    "yearly": "por Año",
+    "monthly": "por Mes",
+    "features": "Características",
+    "dress-model": "Modelo de Vestido",
+    "txt2model": "Texto a Modelo",
+    "4x-dress-model": "Modelo de Vestido 4x",
+    "multi-users": "Múltiples Usuarios",
+    "get_basic": "Obtener Básico",
+    "get_expert": "Obtener Experto",
+    "get_business": "Obtener Empresarial"
   }
 }
