@@ -8,9 +8,12 @@ export async function getAllPlans() {
     const plans_for_sale = plans.data.filter(
       (plan: any) => plan.stripe_price_id !== null
     );
+    const ordered_plans = plans_for_sale.sort((a: any, b: any) => {
+      return a.id - b.id;
+    });
     return {
       status: httpStatus.OK,
-      data: plans_for_sale,
+      data: ordered_plans,
     };
   } catch (error: any) {
     if (error.plans) {
