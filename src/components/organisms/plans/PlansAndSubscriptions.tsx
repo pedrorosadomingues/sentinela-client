@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PlansSection from "@/components/templates/PlansSection";
+import PlansSection from "@/components/organisms/PlansSection";
 
 export default function PlansAndSubscriptions() {
   return (

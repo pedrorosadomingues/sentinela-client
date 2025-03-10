@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PlansSection from "../PlansSection";
 
 type Plan = {
   name: string;
@@ -59,12 +60,6 @@ const plans: Plan[] = [
 ];
 
 export default function BillingPlans() {
-  const [billingCycle, setBillingCycle] = useState<BillingCycle>("Mensal");
-
-  const handleUpgrade = (planName: string) => {
-    alert(`Você escolheu o plano: ${planName}`);
-  };
-
   const handleCancelSubscription = () => {
     alert("Assinatura cancelada.");
   };
@@ -95,71 +90,7 @@ export default function BillingPlans() {
         </div>
       </div>
 
-      {/* Ciclo de Faturamento */}
-      <div className="flex justify-center items-center space-x-4 mb-6">
-        <button
-          onClick={() => setBillingCycle("Mensal")}
-          className={`px-4 py-2 rounded-md font-medium ${
-            billingCycle === "Mensal"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-gray-700"
-          }`}
-        >
-          Mensal
-        </button>
-        <button
-          onClick={() => setBillingCycle("Anual")}
-          className={`px-4 py-2 rounded-md font-medium ${
-            billingCycle === "Anual"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 text-gray-700"
-          }`}
-        >
-          Anual | 2 meses grátis 🎁
-        </button>
-      </div>
-
-      {/* Planos Disponíveis */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        {plans.map((plan) => (
-          <div
-            key={plan.name}
-            className={`border rounded-lg p-4 ${
-              plan.isCurrentPlan ? "border-gray-300" : "border-blue-500"
-            }`}
-          >
-            <h3 className="text-lg font-bold text-gray-800 mb-2">
-              {plan.name}
-            </h3>
-            <p className="text-gray-600 font-medium">
-              R${plan.price}/{billingCycle}
-            </p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              {plan.features.map((feature, index) => (
-                <li key={index} className="flex items-center">
-                  <span className="text-green-500 mr-2">✔️</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            {plan.isCurrentPlan ? (
-              <button
-                disabled
-                className="mt-4 w-full bg-gray-200 text-gray-500 py-2 rounded-md font-medium cursor-not-allowed"
-              >
-                Plano atual
-              </button>
-            ) : (
-              <button
-                onClick={() => handleUpgrade(plan.name)}
-                className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md font-medium hover:bg-blue-600"
-              >
-                Fazer upgrade
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
+      <PlansSection />
 
       {/* Suporte e Cancelamento */}
       <div className="text-center space-y-4">
@@ -167,9 +98,9 @@ export default function BillingPlans() {
           Se você tiver alguma dúvida sobre seu plano ou precisar de ajuda,
           entre em contato com nossa equipe de suporte.
         </p>
-        <button className="text-blue-500 font-medium hover:underline">
+        {/* <button className="text-blue-500 font-medium hover:underline">
           Chamar o suporte
-        </button>
+        </button> */}
         <button
           onClick={handleCancelSubscription}
           className="text-red-500 font-medium hover:underline"

@@ -1,4 +1,4 @@
-import PlansSection from "@/components/templates/PlansSection";
+import PlansSection from "@/components/organisms/PlansSection";
 
 export default function page() {
   return <PlansSection />;
