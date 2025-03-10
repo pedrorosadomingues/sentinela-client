@@ -42,7 +42,7 @@ export default function Header(): JSX.Element {
     const success = await logout();
 
     if (success) {
-      Cookies.remove("vq-access-token");
+      Cookies.remove("vq-access-token",{ path: '/' });
       setIsLogoutLoading(false);
 
       router.push("/auth");
