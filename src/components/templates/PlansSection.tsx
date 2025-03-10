@@ -23,51 +23,64 @@ export default function PlansSection(): JSX.Element {
           return (
             <div
               key={plan.stripe_price_id}
-              className={`flex flex-col p-6 w-full md:w-72 rounded-lg shadow-md border 
-                ${
-                  isRecommended
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-200 bg-white"
-                }
-              `}
+              className={`flex flex-col w-[350px] rounded-tl-lg rounded-tr-lg shadow-md border border-gray-200 bg-white`}
             >
-              {isRecommended && (
-                <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full w-min mb-2">
-                  {text("recommended")}
-                </span>
-              )}
-
-              <h2 className="text-2xl font-semibold">
-                {text(`plan_${plan.key}` as any)}
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                {text(`${plan.key}_description` as any) ?? "No description"}
-              </p>
-
-              <div className="mt-4 text-4xl font-bold">
-                {price === 0 ? "Free" : `$${price.toFixed(2)}`}{" "}
-                <span className="text-sm text-gray-500">
-                  {text(plan.period as any)}
-                </span>
-              </div>
-
-              <PaymentButton plan={plan}>
-                <div>
-                  {price === 0
-                    ? "Join for free"
-                    : text(`get_${plan.key}` as any)}
+              <div
+                className={`${
+                  isRecommended
+                    ? "bg-secondary text-white rounded-t-lg border-secondary"
+                    : "bg-primary-100"
+                } flex-col`}
+              >
+                <div className="flex items-center justify-between p-6">
+                  <h2 className="text-2xl font-semibold font-primary">
+                    {text(`plan_${plan.key}` as any)}
+                  </h2>
+                  {isRecommended && (
+                    <span className="text-xs bg-tertiary text-white rounded-full px-2 py-1 ml-2">
+                      {text("recommended")}
+                    </span>
+                  )}
                 </div>
-              </PaymentButton>
 
-              <ul className="mt-4 mb-6 text-sm text-gray-600 space-y-2">
-                <span className="font-semibold">{text("features")}:</span>
-                {plan.available_resources.map((resource) => (
-                  <li key={resource}>
-                    <CheckIcon className="text-[#05B8EFFF]" />{" "}
-                    {text(resource as any)}
-                  </li>
-                ))}
-              </ul>
+                <p
+                  className={`text-[16px] mt-[-30px] ${
+                    isRecommended ? "text-white" : "text-neutral-900"
+                  } font-primary p-6`}
+                >
+                  {text(`${plan.key}_description` as any) ?? "No description"}
+                </p>
+              </div>
+              <div className="p-6">
+                <div className="mt-4 text-[48px] font-bold text-neutral-700 font-primary">
+                  {price === 0 ? "Free" : <span><span className="text-[25px]">R$</span>{price.toFixed(2)}</span>}{" "}
+                  <span className="text-[14px] text-neutral-600 font-sans">
+                    {text(plan.period as any)}
+                  </span>
+                </div>
+
+                <PaymentButton plan={plan}>
+                  <div className="font-sans">
+                    {price === 0
+                      ? "Join for free"
+                      : text(`get_${plan.key}` as any)}
+                  </div>
+                </PaymentButton>
+
+                <ul className="mt-4 mb-6 text-sm text-gray-600 space-y-2">
+                  <span className="font-semibold font-primary">
+                    {text("features")}:
+                  </span>
+                  {plan.available_resources.map((resource) => (
+                    <li key={resource}>
+                      <CheckIcon className="text-tertiary3-500" />{" "}
+                      <span className="text-neutral-900">
+                        {text(resource as any)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           );
         })}
