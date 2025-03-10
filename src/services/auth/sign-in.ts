@@ -22,7 +22,7 @@ export async function login({
 
     if (response.data && response.data.token) {
       // 🔹 Armazena o token nos cookies
-      document.cookie = `vq-access-token=${response.data.token}; path=/; domain=dev.vestiq.pro; Secure; SameSite=strict`;
+      document.cookie = `vq-access-token=${response.data.token}; path=/; Secure; HttpOnly SameSite=Strict`;
     }
 
     return {
