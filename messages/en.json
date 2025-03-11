@@ -274,5 +274,29 @@
       "sort_actions": "Sort actions",
       "most_relevant": "Most relevant"
     }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Profile",
+      "personal": "Personal Information",
+      "team": "Team",
+      "plans": "Plan & Billing",
+      "achievements": "Achievements",
+      "notifications": "Notifications"
+    },
+    "plan_and_billing": {
+      "current_plan": "Current Plan",
+      "current_plan_description": "Your current plan is {plan} and it will expire on {expiration_date}.",
+      "next_billing": "Next billing on {date}.",
+      "status": {
+        "active": "Active",
+        "canceled": "Canceled",
+        "delayed": "Delayed",
+        "refunded": "Refunded",
+        "trialing": "Trialing"
+      },
+      "annual": "annual",
+      "monthly": "monthly"
+    }
   }
 }

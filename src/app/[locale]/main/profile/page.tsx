@@ -1,23 +1,18 @@
-import PlansAndSubscriptions from "@/components/organisms/plans/PlansAndSubscriptions";
 import MyProfile from "@/components/templates/MyProfile";
-import { notFound } from "next/navigation";
-import React from "react";
+import { profileTabsKeys } from "@/utils/profile";
+import { redirect } from "next/navigation";
 
 export default function page({
   searchParams,
 }: {
   searchParams: { view?: string };
 }) {
-  const availableKeys = ["profile", "plans"];
+  const availableKeys = profileTabsKeys;
 
   if (!availableKeys.includes(searchParams.view as string)) {
-    return notFound();
+    // return notFound();
+    return redirect("/main/profile?view=profile");
   }
 
-  return (
-    <>
-      {searchParams.view === "profile" && <MyProfile />}
-      {searchParams.view === "plans" && <PlansAndSubscriptions />}
-    </>
-  );
+  return <MyProfile view={searchParams.view as string} />;
 }

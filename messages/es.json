@@ -274,5 +274,29 @@
       "sort_actions": "Ordenar acciones",
       "most_relevant": "Más relevantes"
     }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Perfil",
+      "personal": "Datos Personales",
+      "team": "Equipo",
+      "plans": "Plan y Facturación",
+      "achievements": "Logros",
+      "notifications": "Notificaciones"
+    },
+    "plan_and_billing": {
+      "current_plan": "Plan Actual",
+      "current_plan_description": "Tu plan actual es {plan} y expirará el {expiration_date}.",
+      "next_billing": "Próxima facturación el {date}.",
+      "status": {
+        "active": "Activo",
+        "canceled": "Cancelado",
+        "delayed": "Retrasado",
+        "refunded": "Reembolsado",
+        "trialing": "En prueba"
+      },
+      "annual": "anual",
+      "monthly": "mensual"
+    }
   }
 }
