@@ -291,6 +291,90 @@ export type Database = {
         }
         Relationships: []
       }
+      plan: {
+        Row: {
+          available_resources: Json
+          coins: number
+          id: number
+          key: string
+          name: string
+          period: string | null
+          price_br: number
+          storage_limit: number
+          stripe_price_id: string | null
+        }
+        Insert: {
+          available_resources: Json
+          coins: number
+          id?: number
+          key: string
+          name: string
+          period?: string | null
+          price_br: number
+          storage_limit: number
+          stripe_price_id?: string | null
+        }
+        Update: {
+          available_resources?: Json
+          coins?: number
+          id?: number
+          key?: string
+          name?: string
+          period?: string | null
+          price_br?: number
+          storage_limit?: number
+          stripe_price_id?: string | null
+        }
+        Relationships: []
+      }
+      subscription: {
+        Row: {
+          created_at: string
+          id: number
+          plan_id: number
+          stripe_customer_id: string | null
+          stripe_id: string | null
+          stripe_status: string | null
+          user_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          plan_id: number
+          stripe_customer_id?: string | null
+          stripe_id?: string | null
+          stripe_status?: string | null
+          user_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          plan_id?: number
+          stripe_customer_id?: string | null
+          stripe_id?: string | null
+          stripe_status?: string | null
+          user_id?: number
+        }
+        Relationships: []
+      }
+      tour: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
       transaction: {
         Row: {
           created_at: string
@@ -319,6 +403,8 @@ export type Database = {
           is_verified: boolean
           name: string
           password: string
+          plan_id: number | null
+          stripe_customer_id: string | null
           updated_at: string
           verification_code: number | null
           verification_expires: string | null
@@ -332,6 +418,8 @@ export type Database = {
           is_verified?: boolean
           name: string
           password: string
+          plan_id?: number | null
+          stripe_customer_id?: string | null
           updated_at: string
           verification_code?: number | null
           verification_expires?: string | null
@@ -345,9 +433,59 @@ export type Database = {
           is_verified?: boolean
           name?: string
           password?: string
+          plan_id?: number | null
+          stripe_customer_id?: string | null
           updated_at?: string
           verification_code?: number | null
           verification_expires?: string | null
+        }
+        Relationships: []
+      }
+      user_tour: {
+        Row: {
+          id: number
+          joined_at: string
+          tour_id: number
+          user_id: number
+        }
+        Insert: {
+          id?: number
+          joined_at?: string
+          tour_id: number
+          user_id: number
+        }
+        Update: {
+          id?: number
+          joined_at?: string
+          tour_id?: number
+          user_id?: number
+        }
+        Relationships: []
+      }
+      watermarked_generation: {
+        Row: {
+          created_at: string
+          deleted_at: string | null
+          generation_id: number
+          id: number
+          path: string
+          user_id: number
+        }
+        Insert: {
+          created_at?: string
+          deleted_at?: string | null
+          generation_id: number
+          id?: number
+          path: string
+          user_id: number
+        }
+        Update: {
+          created_at?: string
+          deleted_at?: string | null
+          generation_id?: number
+          id?: number
+          path?: string
+          user_id?: number
         }
         Relationships: []
       }

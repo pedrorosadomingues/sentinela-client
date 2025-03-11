@@ -2,24 +2,38 @@
 "use client";
 
 import { logout } from "@/utils";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { useLocale, useTranslations } from "next-intl";
+
 import { useUserStore, useGlobalStore } from "@/stores";
+
 import { Avatar, Button } from "@heroui/react";
+
 import Image from "next/image";
+
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
+
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
+
 import { StarGroup } from "./icons";
+
 import CoinCounter from "../atoms/CoinCounter";
+
 import { Menu } from "@mui/icons-material";
+
 import { useToast } from "@/hooks/useToast";
+
 import { useEffect, useState } from "react";
+
 import VestiqLoading from "./VestiqLoading";
+
 import Cookies from "js-cookie";
 
 export default function Header(): JSX.Element {

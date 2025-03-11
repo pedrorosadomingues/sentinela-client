@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+
 import {
   Modal,
   ModalContent,
@@ -22,6 +23,8 @@ import {
 
 import { Plan } from "@/interfaces";
 
+import { useUserStore } from "@/stores";
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
@@ -37,6 +40,8 @@ export default function PaymentButton({
 }: PaymentButtonProps): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { user } = useUserStore();
+  
   const handleOpen = () => {
     onOpen();
   };
@@ -67,7 +72,7 @@ export default function PaymentButton({
                   stripe={stripePromise}
                   options={{
                     fetchClientSecret: () =>
-                      fetchClientSecret(plan.stripe_price_id),
+                      fetchClientSecret(plan.stripe_price_id, user?.stripe_customer_id ?? ""),
                   }}
                 >
                   <EmbeddedCheckout />
