@@ -4,6 +4,7 @@ import React from "react";
 import CurrentPlan from "./CurrentPlan";
 import { useTranslations } from "next-intl";
 import AvailablePlans from "./AvailablePlans";
+import PlansSection from "@/components/organisms/PlansSection";
 
 export default function PlansAndSubscriptions() {
   const t = useTranslations("profile.plan_and_billing");
@@ -17,6 +18,7 @@ export default function PlansAndSubscriptions() {
       <section className="w-full flex flex-col items-center gap-4 select-none">
         <AvailablePlans />
       </section>
+      <PlansSection />
     </main>
   );
 }

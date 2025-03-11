@@ -20,6 +20,7 @@ import { Menu } from "@mui/icons-material";
 import { useToast } from "@/hooks/useToast";
 import { useEffect, useState } from "react";
 import VestiqLoading from "./VestiqLoading";
+import Cookies from "js-cookie";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
@@ -35,11 +36,14 @@ export default function Header(): JSX.Element {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
 
   async function handleLogout(): Promise<void> {
-    setIsLogoutLoading(true);
-    const success = await logout();
+    const success: boolean = await logout();
 
     if (success) {
+      Cookies.remove("vq-access-token", { path: "/" });
+      setIsLogoutLoading(false);
+
       router.push("/auth");
+
       return router.refresh();
     } else {
       toast.use("error", "Erro ao tentar deslogar. Tente novamente.");
@@ -165,6 +169,7 @@ export default function Header(): JSX.Element {
 
       <aside className="flex items-center gap-2">
         <Button
+          onPress={() => router.push("/main/plans")}
           color="secondary"
           size="sm"
           radius="sm"
@@ -173,6 +178,7 @@ export default function Header(): JSX.Element {
         >
           {t("subscribe_now")}
         </Button>
+
         {user && <CoinCounter user={user} />}
 
         <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}>

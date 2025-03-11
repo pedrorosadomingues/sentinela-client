@@ -298,5 +298,24 @@
       "annual": "annual",
       "monthly": "monthly"
     }
+  },
+  "plans_section": {
+    "basic_description": "All the essential features to get you started.",
+    "expert_description": "Advanced tools and capabilities for professional use.",
+    "business_description": "Comprehensive solutions and support for businesses.",
+    "plan_basic": "Basic",
+    "plan_expert": "Expert",
+    "plan_business": "Business",
+    "recommended": "Recommended",
+    "yearly": "per Year",
+    "monthly": "per Month",
+    "features": "Features",
+    "dress-model": "Dress Model",
+    "txt2model": "Text to Model",
+    "4x-dress-model": "4x Dress Model",
+    "multi-users": "Multi Users",
+    "get_basic": "Get Basic",
+    "get_expert": "Get Expert",
+    "get_business": "Get Business"
   }
 }
