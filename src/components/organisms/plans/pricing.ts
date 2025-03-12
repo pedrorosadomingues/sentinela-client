@@ -7,9 +7,11 @@ export enum FrequencyEnum {
 }
 
 export enum TiersEnum {
-  Free = "free",
-  Pro = "pro",
-  Team = "team",
+  Free = "free-trial",
+  Basic = "basic",
+  Expert = "expert",
+  Courtesy = "courtesy",
+  Business = "business",
 }
 
 export type Frequency = {
@@ -19,6 +21,7 @@ export type Frequency = {
 };
 
 export type Tier = {
+  id: number;
   key: TiersEnum;
   title: string;
   price:
@@ -63,6 +66,7 @@ export const tiers = () => {
     }
 
     return {
+      id: plan.id,
       key: plan.key as TiersEnum,
       title: plan.name,
       price: {
