@@ -13,7 +13,7 @@ export default function TabContent() {
   const availableTabs = getProfileTabs(locale);
 
   return (
-    <aside className="flex w-full lg:w-3/4 bg-background-white h-full">
+    <aside className="flex w-full bg-background-white h-full">
       <main className="w-full">
         <AnimatePresence mode="wait">
           <motion.div

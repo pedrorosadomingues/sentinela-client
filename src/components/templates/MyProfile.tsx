@@ -22,7 +22,7 @@ export default function MyProfile({ view }: { view: string }) {
   }, [view]);
 
   return (
-    <main className="w-full h-auto min-h-[700px] flex">
+    <main className="w-full min-h-screen flex">
       <div className="w-full flex flex-col lg:flex-row rounded-xl overflow-hidden shadow-sm border-grayscale-60">
         <TabList />
         <TabContent />

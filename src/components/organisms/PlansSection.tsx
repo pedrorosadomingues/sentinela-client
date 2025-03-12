@@ -9,6 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 export default function PlansSection(): JSX.Element {
   const { plans, getPlans } = usePlanStore();
   const text = useTranslations("plans_section");
+  
   useEffect(() => {
     getPlans();
   }, [getPlans]);

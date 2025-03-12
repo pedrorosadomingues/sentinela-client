@@ -143,11 +143,11 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
-      <div className="hidden md:block">
+    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 lg:pl-[90px] bg-white max765:pl-5">
+      <div className="hidden lg:block">
         <HeaderPageTitle />
       </div>
-      <div className="md:hidden flex gap-2">
+      <div className="lg:hidden flex gap-2">
         <Button
           isIconOnly
           variant="light"

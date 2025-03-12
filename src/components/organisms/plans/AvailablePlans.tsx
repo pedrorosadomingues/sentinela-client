@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,17 +19,22 @@ import { cn } from "@heroui/react";
 import { FrequencyEnum } from "./pricing";
 import { frequencies, tiers } from "./pricing";
 import { StarOutline } from "@mui/icons-material";
+import { usePlanStore } from "@/stores";
 
 export default function AvailablePlans() {
-  const [selectedFrequency, setSelectedFrequency] = useState(
-    frequencies[0]
-  );
+  const { plans, getPlans } = usePlanStore();
+  const [selectedFrequency, setSelectedFrequency] = useState(frequencies[0]);
+  const availablePlans = tiers();
 
   const onFrequencyChange = (selectedKey: React.Key) => {
     const frequencyIndex = frequencies.findIndex((f) => f.key === selectedKey);
 
     setSelectedFrequency(frequencies[frequencyIndex]);
   };
+
+  useEffect(() => {
+    getPlans();
+  }, []);
 
   return (
     <>
@@ -39,7 +45,8 @@ export default function AvailablePlans() {
         </h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Discover the ideal plan, beginning at under $2 per week.
+          Unlock premium features for less than $19 a week—invest in your
+          success today!
         </h2>
       </div>
       <Spacer y={8} />
@@ -62,14 +69,14 @@ export default function AvailablePlans() {
             </div>
           }
         />
-        <Tab key={FrequencyEnum.Quarterly} title="Pay Quarterly" />
+        <Tab key={FrequencyEnum.Monthly} title="Pay Monthly" />
       </Tabs>
       <Spacer y={12} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {tiers.map((tier) => (
+        {availablePlans?.map((tier) => (
           <Card
             key={tier.key}
-            className={cn("relative p-3", {
+            className={cn("relative p-3 z-0", {
               "overflow-visible bg-secondary shadow-2xl shadow-secondary/20":
                 tier.mostPopular,
               "!border-medium border-default-100 bg-transparent lg:mt-12":
@@ -171,7 +178,7 @@ export default function AvailablePlans() {
         ))}
       </div>
       <Spacer y={12} />
-      
+
       <div className="flex py-2">
         <p className="text-default-400">
           Are you an open source developer?&nbsp;

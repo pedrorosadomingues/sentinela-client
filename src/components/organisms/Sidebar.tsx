@@ -63,12 +63,12 @@ export default function Sidebar(): JSX.Element {
         <aside
           id="app-sidebar"
           className={`select-none
-                fixed h-screen left-0 z-40 w-64 md:w-20 md:group-hover:w-64 transition-all md:duration-700 md:ease-soft-spring pt-4
+                fixed h-screen left-0 z-40 w-64 lg:w-20 lg:group-hover:w-64 transition-all lg:duration-700 lg:ease-soft-spring pt-4
                 ${sidebar ? "-translate-x-full" : "translate-x-0"} 
-                md:translate-x-0 bg-white border-r border-gray-200`}
+                lg:translate-x-0 bg-white border-r border-gray-200`}
           aria-label="Sidebar"
         >
-          <div className="h-full overflow-x-hidden px-3 md:group-hover:px-4 pb-4 overflow-y-scroll scrollbar-hide bg-white flex flex-col justify-between">
+          <div className="h-full overflow-x-hidden px-3 lg:group-hover:px-4 pb-4 overflow-y-scroll scrollbar-hide bg-white flex flex-col justify-between">
             <div className="h-full flex flex-col">
               <div className="w-full flex h-24 justify-center px-4 mt-2 bg-gradient-to-b from-white to-white/20 absolute left-0 top-0">
                 <div className="w-full z-[41] h-16 bg-white flex items-center justify-between gap-2">
@@ -91,7 +91,7 @@ export default function Sidebar(): JSX.Element {
                   <Button
                     isIconOnly
                     onPress={toggleSidebar}
-                    className="md:hidden"
+                    className="lg:hidden"
                     variant="ghost"
                   >
                     <MenuOpenOutlined />
@@ -157,13 +157,13 @@ export default function Sidebar(): JSX.Element {
                       placement="right"
                       showArrow
                     >
-                      <div className="hidden md:block md:group-hover:hidden">
+                      <div className="hidden lg:block lg:group-hover:hidden">
                         <VestiqCoins width={32} height={32} />
                       </div>
                     </Tooltip>
 
                     <Card
-                      className="w-full hidden md:hidden md:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
+                      className="w-full hidden lg:hidden lg:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
                       shadow="none"
                       radius="sm"
                     >
@@ -202,7 +202,7 @@ const SidebarItem = ({
   return (
     <li
       onClick={onPress}
-      className={`cursor-pointer flex items-center p-2 md:w-fit md:group-hover:w-full md:mx-auto md:justify-center md:group-hover:justify-start
+      className={`cursor-pointer flex items-center p-2 lg:w-fit lg:group-hover:w-full lg:mx-auto lg:justify-center lg:group-hover:justify-start
                   ${active === name ? "text-secondary bg-secondary/10" : ""}    
         rounded-lg hover:text-secondary hover:fill-secondary group text-gray-500 fill-gray-500`}
     >
@@ -214,7 +214,7 @@ const SidebarItem = ({
         <div className="relative">{icon}</div>
       )}
       {layout !== "minimized" && (
-        <span className="md:hidden md:group-hover:block ms-3 text-xs md:text-sm 3xl:text-base whitespace-nowrap">
+        <span className="lg:hidden lg:group-hover:block ms-3 text-xs lg:text-sm 3xl:text-base whitespace-nowrap">
           {name}
         </span>
       )}
