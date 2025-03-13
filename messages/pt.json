@@ -142,14 +142,16 @@
     "model_preview_alt": "Pré-visualização do Modelo",
     "drag_file_instruction": "Para começar a renderizar sua imagem, arraste um arquivo",
     "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo",
-    "clear_image": "Remover Imagem"
+    "clear_image": "Remover Imagem",
+    "model_image_area_info": "Para melhores resultados, use fotos no formato vertical, com roupas bem visíveis e ajustadas ao corpo. Fotos de corpo inteiro ou três-quartos, com fundo neutro e boa iluminação, garantem um encaixe perfeito."
   },
   "garment_image_area": {
     "step2_send_garment_image": "Imagem da peça referência",
     "garment_preview_alt": "Pré-visualização da Peça",
     "drag_file_instruction": "Em seguida, arraste um arquivo",
     "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça",
-    "clear_image": "Remover Imagem"
+    "clear_image": "Remover Imagem",
+    "garment_image_area_info": "Para um resultado perfeito, envie fotos da roupa sendo usada por um modelo real ou em manequim invisível. Certifique-se de que a roupa esteja bem ajustada e visível, com fundo neutro para melhor contraste e iluminação uniforme, sem sombras fortes."
   },
   "result_image_area": {
     "step3_your_image": "Imagem gerada pela IA",

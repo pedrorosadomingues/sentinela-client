@@ -142,14 +142,16 @@
     "model_preview_alt": "Model Preview",
     "drag_file_instruction": "To start rendering your image, drag a file",
     "or_click_to_choose_model_image": "or click to choose Model Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "model_image_area_info": "For best results, use vertically oriented photos with well-visible, form-fitting clothing. Full-body or three-quarter shots with a neutral background and good lighting ensure a perfect fit."
   },
   "garment_image_area": {
     "step2_send_garment_image": "Garment reference image",
     "garment_preview_alt": "Garment Preview",
     "drag_file_instruction": "Next, drag a file",
     "or_click_to_choose_garment_image": "or click to choose Garment Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "garment_image_area_info": "For a perfect result, upload photos of the garment being worn by a real model or on an invisible mannequin. Ensure the clothing is well-fitted and visible, with a neutral background for better contrast and even lighting, without harsh shadows."
   },
   "result_image_area": {
     "step3_your_image": "AI-generated Image",

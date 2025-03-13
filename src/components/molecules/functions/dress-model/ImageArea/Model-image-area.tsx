@@ -40,10 +40,9 @@ export default function ModelImageArea({
       <CardHeader className="w-full justify-center items-center gap-2 mb-4">
         <StepNumber number={1} label={text("step1_send_model_image")} />{" "}
         <ToolInfo
-          title="lorem ipsum dolor"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+          title={text("step1_send_model_image")}
+          text={text("model_image_area_info")}
           video="https://fcoyipufipefrxnqwqbs.supabase.co/storage/v1/object/public/media/videos/select-model.mp4"
-          href="#"
         />
       </CardHeader>
       <CardBody
