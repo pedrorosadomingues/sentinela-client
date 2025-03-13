@@ -297,6 +297,29 @@
       },
       "annual": "annual",
       "monthly": "monthly"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "subtitle": "Get unlimited access.",
+      "description": "Unlock premium features for less than $19 a week—invest in your success today.",
+      "pay_yearly": "Pay Yearly",
+      "pay_monthly": "Pay Monthly",
+      "save_25": "Save 25%",
+      "most_popular": "Most Popular",
+      "features": {
+        "users_included": "Users included",
+        "storage": "{value} GB of storage",
+        "help_center_access": "Help center access",
+        "priority_email_support": "Priority email support",
+        "phone_email_support": "Phone & email support"
+      },
+      "buttons": {
+        "continue_free": "Continue with Free",
+        "get_started": "Get started",
+        "contact_us": "Contact us"
+      },
+      "open_source_discount": "Are you an open source developer?",
+      "get_discount": "Get a discount"
     }
   },
   "plans_section": {
