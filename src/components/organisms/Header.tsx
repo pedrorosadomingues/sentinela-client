@@ -2,24 +2,38 @@
 "use client";
 
 import { logout } from "@/utils";
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { useLocale, useTranslations } from "next-intl";
+
 import { useUserStore, useGlobalStore } from "@/stores";
+
 import { Avatar, Button } from "@heroui/react";
+
 import Image from "next/image";
+
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
+
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
+
 import { StarGroup } from "./icons";
+
 import CoinCounter from "../atoms/CoinCounter";
+
 import { Menu } from "@mui/icons-material";
+
 import { useToast } from "@/hooks/useToast";
+
 import { useEffect, useState } from "react";
+
 import VestiqLoading from "./VestiqLoading";
+
 import Cookies from "js-cookie";
 
 export default function Header(): JSX.Element {
@@ -168,16 +182,23 @@ export default function Header(): JSX.Element {
       </div>
 
       <aside className="flex items-center gap-2">
-        <Button
-          onPress={() => router.push("/main/plans")}
-          color="secondary"
-          size="sm"
-          radius="sm"
-          className="hidden sm:flex"
-          startContent={<StarGroup />}
-        >
-          {t("subscribe_now")}
-        </Button>
+        {user?.plan.id === 1 && (
+          <Button
+            onPress={() => router.push("/main/plans")}
+            color="secondary"
+            size="sm"
+            radius="sm"
+            className="hidden sm:flex"
+            startContent={<StarGroup />}
+          >
+            {t("subscribe_now")}
+          </Button>
+        )}
+        
+        <div className="text-sm text-gray-400 hidden sm:flex">
+          {user?.plan.name}
+        </div>
+
 
         {user && <CoinCounter user={user} />}
 

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { verifyEmail } from "@/services";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 export default function VerifyEmailPage() {
-  const { locale, email, verification_code } = useParams();
+  const { email, verification_code } = useParams();
   const router = useRouter();
   const text = useTranslations("verify_email");
 
@@ -22,8 +21,14 @@ export default function VerifyEmailPage() {
     message: "",
   });
 
+  const hasVerified = useRef(false);
+
   useEffect(() => {
     async function verify() {
+      if (hasVerified.current) return;
+
+      hasVerified.current = true;
+
       if (!email || !verification_code) return;
 
       const decoded_email = decodeURIComponent(email as string);
@@ -32,23 +37,15 @@ export default function VerifyEmailPage() {
         const response: any = await verifyEmail({
           email: decoded_email,
           verification_code: Number(verification_code),
-        } as {
-          email: string;
-          verification_code: number;
         });
-        console.log("Response:", response);
+
         if (response.status === 200) {
           setVerificationStatus({
             loading: false,
             success: true,
             message: "Seu e-mail foi verificado com sucesso! 🎉",
           });
-
-          // setTimeout(() => {
-          //   router.push(`/${locale}`);
-          // }, 3000);
         } else {
-          console.error(response);
           setVerificationStatus({
             loading: false,
             success: false,
@@ -66,7 +63,7 @@ export default function VerifyEmailPage() {
     }
 
     verify();
-  }, [email, verification_code, locale, router, text]);
+  }, [email, verification_code, text]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50 px-6">

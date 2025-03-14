@@ -9,7 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 export default function PlansSection(): JSX.Element {
   const { plans, getPlans } = usePlanStore();
   const text = useTranslations("plans_section");
-  
+
   useEffect(() => {
     getPlans();
   }, [getPlans]);
@@ -54,17 +54,22 @@ export default function PlansSection(): JSX.Element {
               </div>
               <div className="p-6">
                 <div className="mt-4 text-[48px] font-bold text-neutral-700 font-primary">
-                  {price === 0 ? "Free" : <span><span className="text-[25px]">R$</span>{price.toFixed(2)}</span>}{" "}
+                  {price === 0 ? (
+                    "Free"
+                  ) : (
+                    <span>
+                      <span className="text-[25px]">R$</span>
+                      {price.toFixed(2)}
+                    </span>
+                  )}{" "}
                   <span className="text-[14px] text-neutral-600 font-sans">
                     {text(plan.period as any)}
                   </span>
                 </div>
 
-                <PaymentButton plan={plan}>
+                <PaymentButton plan={plan}>                 
                   <div className="font-sans">
-                    {price === 0
-                      ? "Join for free"
-                      : text(`get_${plan.key}` as any)}
+                    {text(`get_${plan.key}` as any)}
                   </div>
                 </PaymentButton>
 
