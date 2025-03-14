@@ -4,7 +4,7 @@ export interface CurrentPathnameProps {
   basePathname: string;
   subPathname: string | null;
   param: { key: string; value: string } | null;
-};
+}
 
 interface GlobalStoreProps {
   // sidebar resources and functions
@@ -43,6 +43,13 @@ interface GlobalStoreProps {
   // email sent feedback
   emailSended: string;
   setEmailSended: (email: string) => void;
+
+  //profile resources
+  selectedProfileTab: string;
+  setSelectedProfileTab: (tab: string) => void;
+
+  isEditMode: boolean;
+  setIsEditMode: (value: boolean) => void;
 }
 
 export const useGlobalStore = create<GlobalStoreProps>((set) => ({
@@ -68,7 +75,7 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
 
   currentPathname: null,
   setCurrentPathname: (pathname) => set({ currentPathname: pathname }),
-  
+
   confirmationModal: {
     isOpen: false,
     title: "",
@@ -107,4 +114,10 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
 
   emailSended: "",
   setEmailSended: (email: string) => set({ emailSended: email }),
+
+  selectedProfileTab: "profile",
+  setSelectedProfileTab: (tab) => set({ selectedProfileTab: tab }),
+
+  isEditMode: false,
+  setIsEditMode: (value) => set({ isEditMode: value }),
 }));

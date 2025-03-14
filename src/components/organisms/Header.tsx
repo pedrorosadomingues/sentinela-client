@@ -39,6 +39,7 @@ import Cookies from "js-cookie";
 export default function Header(): JSX.Element {
   const router = useRouter();
   const t = useTranslations("header");
+  const profileT = useTranslations("profile.tabs");
   const pathname = usePathname();
   const params = useSearchParams();
   const currentLocale = useLocale();
@@ -107,7 +108,7 @@ export default function Header(): JSX.Element {
     }
   };
 
-  function renderHeaderContent() {
+  function HeaderPageTitle() {
     const current =
       currentPathname?.param?.value ?? currentPathname?.basePathname;
 
@@ -128,15 +129,11 @@ export default function Header(): JSX.Element {
         return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
 
       case "profile":
-        return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
-
       case "plans":
-        return (
-          <h1 className="text-2xl text-black">
-            {t("plans_and_subscriptions")}
-          </h1>
-        );
-
+      case "team":
+      case "personal":
+      case "achievements":
+        return <h1 className="text-2xl text-black">{profileT(current)}</h1>;
       default:
         return (
           user?.name && (
@@ -160,9 +157,11 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
-      <div className="hidden md:block">{renderHeaderContent()}</div>
-      <div className="md:hidden flex gap-2">
+    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 lg:pl-[90px] bg-white max765:pl-5">
+      <div className="hidden lg:block">
+        <HeaderPageTitle />
+      </div>
+      <div className="lg:hidden flex gap-2">
         <Button
           isIconOnly
           variant="light"

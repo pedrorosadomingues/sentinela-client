@@ -142,14 +142,16 @@
     "model_preview_alt": "Model Preview",
     "drag_file_instruction": "To start rendering your image, drag a file",
     "or_click_to_choose_model_image": "or click to choose Model Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "model_image_area_info": "For best results, use vertically oriented photos with well-visible, form-fitting clothing. Full-body or three-quarter shots with a neutral background and good lighting ensure a perfect fit."
   },
   "garment_image_area": {
     "step2_send_garment_image": "Garment reference image",
     "garment_preview_alt": "Garment Preview",
     "drag_file_instruction": "Next, drag a file",
     "or_click_to_choose_garment_image": "or click to choose Garment Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "garment_image_area_info": "For a perfect result, upload photos of the garment being worn by a real model or on an invisible mannequin. Ensure the clothing is well-fitted and visible, with a neutral background for better contrast and even lighting, without harsh shadows."
   },
   "result_image_area": {
     "step3_your_image": "AI-generated Image",
@@ -273,6 +275,53 @@
       "alphabetical_desc": "Alphabetical (Z-A)",
       "sort_actions": "Sort actions",
       "most_relevant": "Most relevant"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Profile",
+      "personal": "Personal Information",
+      "team": "Team",
+      "plans": "Plan & Billing",
+      "achievements": "Achievements",
+      "notifications": "Notifications"
+    },
+    "plan_and_billing": {
+      "current_plan": "Current Plan",
+      "current_plan_description": "Your current plan is {plan} and it will expire on {expiration_date}.",
+      "next_billing": "Next billing on {date}.",
+      "status": {
+        "active": "Active",
+        "canceled": "Canceled",
+        "delayed": "Delayed",
+        "refunded": "Refunded",
+        "trialing": "Trialing"
+      },
+      "annual": "annual",
+      "monthly": "monthly"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "subtitle": "Get unlimited access.",
+      "description": "Unlock premium features for less than $19 a week—invest in your success today.",
+      "pay_yearly": "Pay Yearly",
+      "pay_monthly": "Pay Monthly",
+      "save_25": "Save 25%",
+      "most_popular": "Most Popular",
+      "features": {
+        "users_included": "Users included",
+        "storage": "{value} GB of storage",
+        "help_center_access": "Help center access",
+        "priority_email_support": "Priority email support",
+        "phone_email_support": "Phone & email support"
+      },
+      "buttons": {
+        "continue_free": "Continue with Free",
+        "get_started": "Get started",
+        "contact_us": "Contact us"
+      },
+      "open_source_discount": "Are you an open source developer?",
+      "get_discount": "Get a discount"
     }
   },
   "plans_section": {

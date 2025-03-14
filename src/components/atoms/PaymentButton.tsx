@@ -9,13 +9,9 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
 } from "@heroui/react";
-
 import { loadStripe } from "@stripe/stripe-js";
-
 import { fetchClientSecret } from "@/services/stripe";
-
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
@@ -29,9 +25,10 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
 
-type PaymentButtonProps = {
-  children: React.ReactNode;
-  plan: Plan;
+type PaymentModalProps = {
+  planId: number;
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
 };
 
 export default function PaymentButton({
@@ -48,24 +45,12 @@ export default function PaymentButton({
 
   return (
     <>
-      <div className="flex flex-wrap gap-3 ">
-        <Button
-          className={`${
-            plan.key === "expert"
-              ? "bg-secondary text-white"
-              : "bg-white text-secondary"
-          } h-[52px] p-[20px] flex items-center justify-center font-inter text-lg leading-[28px] font-normal rounded-[12px] mt-4 mb-2 mr-auto ml-auto border border-secondary`}
-          onPress={() => handleOpen()}
-        >
-          {children}
-        </Button>
-      </div>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                {plan.name}
+                {selectedPlan?.name}
               </ModalHeader>
               <ModalBody>
                 <EmbeddedCheckoutProvider

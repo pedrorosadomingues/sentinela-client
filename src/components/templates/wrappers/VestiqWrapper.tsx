@@ -27,7 +27,7 @@ export default function VestiqWrapper({
     <div className="min-h-screen flex justify-center w-full">
       <Header />
       <Sidebar />
-      <article className="w-full md:ml-24 mt-20 px-4 md:px-0 md:pr-4">
+      <article className="w-full lg:ml-24 mt-20 px-4 lg:pr-4">
         {children}
       </article>
     </div>
