@@ -377,18 +377,30 @@ export type Database = {
       }
       transaction: {
         Row: {
+          amount: number
           created_at: string
+          currency: string
           id: number
+          invoice_stripe_id: string
+          product_id: number
           user_email: string
         }
         Insert: {
+          amount: number
           created_at?: string
+          currency: string
           id?: number
+          invoice_stripe_id: string
+          product_id: number
           user_email: string
         }
         Update: {
+          amount?: number
           created_at?: string
+          currency?: string
           id?: number
+          invoice_stripe_id?: string
+          product_id?: number
           user_email?: string
         }
         Relationships: []

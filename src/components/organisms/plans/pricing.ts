@@ -1,3 +1,4 @@
+import { Plan } from "@/interfaces";
 import { usePlanStore, useUserStore } from "@/stores";
 import type { ButtonProps } from "@heroui/react";
 
@@ -25,11 +26,11 @@ export type Tier = {
   key: TiersEnum;
   title: string;
   price:
-  | {
-    [FrequencyEnum.Yearly]: string;
-    [FrequencyEnum.Monthly]: string;
-  }
-  | string;
+    | {
+        [FrequencyEnum.Yearly]: string;
+        [FrequencyEnum.Monthly]: string;
+      }
+    | string;
   priceSuffix?: string;
   href: string;
   description?: string;
@@ -42,12 +43,16 @@ export type Tier = {
   isRecommended?: boolean;
   isFree?: boolean;
   isCurrentPlan?: boolean;
+  plan: Plan;
 };
-
 
 export const frequencies: Array<Frequency> = [
   { key: FrequencyEnum.Yearly, label: "Pay Yearly", priceSuffix: "per year" },
-  { key: FrequencyEnum.Monthly, label: "Pay monthly", priceSuffix: "per month" },
+  {
+    key: FrequencyEnum.Monthly,
+    label: "Pay monthly",
+    priceSuffix: "per month",
+  },
 ];
 
 export const tiers = () => {
@@ -60,10 +65,14 @@ export const tiers = () => {
     const isCurrentPlan = user?.plan_id === plan.id;
     const price = String(plan.price_br).replace(".", ",");
     const buttonProps = {
-      buttonText: isCurrentPlan ? 'Current plan' : isFree ? "Join for free" : `Get ${plan.name}`,
-      buttonColor: (isFree || isCurrentPlan) ? "default" : "secondary",
-      buttonVariant: (isFree || isCurrentPlan) ? "flat" : "solid",
-    }
+      buttonText: isCurrentPlan
+        ? "Current plan"
+        : isFree
+        ? "Join for free"
+        : `Get ${plan.name}`,
+      buttonColor: isFree || isCurrentPlan ? "default" : "secondary",
+      buttonVariant: isFree || isCurrentPlan ? "flat" : "solid",
+    };
 
     return {
       id: plan.id,
@@ -78,11 +87,16 @@ export const tiers = () => {
       featured: plan.name.toLowerCase().includes("team"),
       mostPopular: isRecommended,
       description: `Includes ${plan.available_resources.length} features with ${plan.storage_limit} GB storage.`,
-      features: [...plan.available_resources, `${plan.storage_limit} GB of storage`, `${plan.coins} coins`],
+      features: [
+        ...plan.available_resources,
+        `${plan.storage_limit} GB of storage`,
+        `${plan.coins} coins`,
+      ],
       ...buttonProps,
       isRecommended,
       isFree,
       isCurrentPlan,
+      plan,
     } as Tier;
   });
 };

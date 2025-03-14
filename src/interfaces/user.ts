@@ -11,6 +11,7 @@ export interface UserProps extends Tables<"user"> {
     total: number;
   },
   watched_tours: WatchedTours[] | [];
+  plan: Tables<"plan">;
 }
 
 export interface SessionUserProps {

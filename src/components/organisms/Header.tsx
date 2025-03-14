@@ -182,16 +182,23 @@ export default function Header(): JSX.Element {
       </div>
 
       <aside className="flex items-center gap-2">
-        <Button
-          onPress={() => router.push("/main/plans")}
-          color="secondary"
-          size="sm"
-          radius="sm"
-          className="hidden sm:flex"
-          startContent={<StarGroup />}
-        >
-          {t("subscribe_now")}
-        </Button>
+        {user?.plan.id === 1 && (
+          <Button
+            onPress={() => router.push("/main/plans")}
+            color="secondary"
+            size="sm"
+            radius="sm"
+            className="hidden sm:flex"
+            startContent={<StarGroup />}
+          >
+            {t("subscribe_now")}
+          </Button>
+        )}
+        
+        <div className="text-sm text-gray-400 hidden sm:flex">
+          {user?.plan.name}
+        </div>
+
 
         {user && <CoinCounter user={user} />}
 

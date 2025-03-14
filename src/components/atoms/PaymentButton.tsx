@@ -9,9 +9,13 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  useDisclosure,
 } from "@heroui/react";
+
 import { loadStripe } from "@stripe/stripe-js";
+
 import { fetchClientSecret } from "@/services/stripe";
+
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
@@ -25,10 +29,9 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
 
-type PaymentModalProps = {
-  planId: number;
-  isOpen: boolean;
-  onOpenChange: (isOpen: boolean) => void;
+type PaymentButtonProps = {
+  children: React.ReactNode;
+  plan: Plan;
 };
 
 export default function PaymentButton({
@@ -38,26 +41,41 @@ export default function PaymentButton({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { user } = useUserStore();
-  
+
   const handleOpen = () => {
     onOpen();
   };
 
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
+      <div className="flex flex-wrap gap-3 ">
+        <Button
+          className={`${
+            plan.key === "expert"
+              ? "bg-secondary-foreground font-medium text-secondary shadow-sm shadow-default-500/50"
+              : "bg-white text-secondary"
+          } h-[52px] p-[20px] flex items-center justify-center font-inter text-lg leading-[28px] font-normal rounded-[12px] mt-4 mb-2 mr-auto ml-auto border border-secondary`}
+          onPress={() => handleOpen()}
+        >
+          {children}
+        </Button>
+      </div>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                {selectedPlan?.name}
+                {plan.name}
               </ModalHeader>
               <ModalBody>
                 <EmbeddedCheckoutProvider
                   stripe={stripePromise}
                   options={{
                     fetchClientSecret: () =>
-                      fetchClientSecret(plan.stripe_price_id, user?.stripe_customer_id ?? ""),
+                      fetchClientSecret(
+                        plan.stripe_price_id,
+                        user?.stripe_customer_id ?? ""
+                      ),
                   }}
                 >
                   <EmbeddedCheckout />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
@@ -22,13 +23,13 @@ import { frequencies, tiers } from "./pricing";
 import { StarOutline } from "@mui/icons-material";
 import { usePlanStore } from "@/stores";
 import PaymentButton from "@/components/atoms/PaymentButton";
-import PaymentModal from "@/components/atoms/PaymentButton";
+import { Plan } from "@/interfaces";
 
 export default function AvailablePlans() {
   const { getPlans } = usePlanStore();
   const [selectedFrequency, setSelectedFrequency] = useState(frequencies[0]);
   const { isOpen, onOpenChange } = useDisclosure();
-  const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const availablePlans = tiers();
 
   const onFrequencyChange = (selectedKey: React.Key) => {
@@ -165,21 +166,7 @@ export default function AvailablePlans() {
               </div>
             </CardBody>
             <CardFooter>
-              <Button
-                fullWidth
-                className={cn({
-                  "bg-secondary-foreground font-medium text-secondary shadow-sm shadow-default-500/50":
-                    tier.mostPopular,
-                })}
-                color={tier.buttonColor}
-                variant={tier.buttonVariant}
-                onPress={() => {
-                  setSelectedPlan(tier.id as number);
-                  onOpenChange();
-                }}
-              >
-                {tier.buttonText}
-              </Button>
+              <PaymentButton plan={tier.plan}>{tier.buttonText}</PaymentButton>
             </CardFooter>
           </Card>
         ))}
@@ -194,14 +181,6 @@ export default function AvailablePlans() {
           </Link>
         </p>
       </div>
-
-      {selectedPlan !== null && (
-        <PaymentModal
-          planId={selectedPlan as number}
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-        />
-      )}
     </>
   );
 }

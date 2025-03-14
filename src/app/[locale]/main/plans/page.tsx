@@ -1,5 +1,5 @@
-import PlansSection from "@/components/organisms/PlansSection";
+import AvailablePlans from "@/components/organisms/plans/AvailablePlans";
 
 export default function page() {
-  return <PlansSection />;
+  return <AvailablePlans />;
 }
