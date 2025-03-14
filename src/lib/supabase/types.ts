@@ -330,29 +330,35 @@ export type Database = {
       subscription: {
         Row: {
           created_at: string
+          expires_at: string
           id: number
           plan_id: number
           stripe_customer_id: string | null
           stripe_id: string | null
           stripe_status: string | null
+          updated_at: string
           user_id: number
         }
         Insert: {
           created_at?: string
+          expires_at: string
           id?: number
           plan_id: number
           stripe_customer_id?: string | null
           stripe_id?: string | null
           stripe_status?: string | null
+          updated_at: string
           user_id: number
         }
         Update: {
           created_at?: string
+          expires_at?: string
           id?: number
           plan_id?: number
           stripe_customer_id?: string | null
           stripe_id?: string | null
           stripe_status?: string | null
+          updated_at?: string
           user_id?: number
         }
         Relationships: []
