@@ -182,7 +182,7 @@ export default function Header(): JSX.Element {
       </div>
 
       <aside className="flex items-center gap-2">
-        {user?.plan.id === 1 && (
+        {(user?.plan?.id === 1 || !user?.plan?.id) && (
           <Button
             onPress={() => router.push("/main/plans")}
             color="secondary"
@@ -196,7 +196,7 @@ export default function Header(): JSX.Element {
         )}
         
         <div className="text-sm text-gray-400 hidden sm:flex">
-          {user?.plan.name}
+          {user?.plan?.name}
         </div>
 
 

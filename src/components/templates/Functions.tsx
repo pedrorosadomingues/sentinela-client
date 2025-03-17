@@ -6,16 +6,18 @@ import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
 import DressModel from "../organisms/functions/DressModel";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import RenderTraces from "../organisms/functions/RenderTraces";
-import { useFnStore } from "@/stores";
-import { notFound } from "next/navigation";
+import { useUserStore } from "@/stores";
+//import { notFound } from "next/navigation";
 
 export default function Functions({ fn }: { fn: string }) {
-  const { imageFunctions } = useFnStore();
+  const { user } = useUserStore();
 
-  const availableFunctions = imageFunctions?.map((fn) => fn.name as string);
+  const availableFunctions = Array.isArray(user?.plan?.available_resources)
+    ? user.plan.available_resources.map((fn) => fn as string)
+    : [];
 
   if (!availableFunctions.includes(fn)) {
-    return notFound();
+    return `Upgrade your plan to access this feature`;  
   }
 
   return (
