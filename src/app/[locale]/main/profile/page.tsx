@@ -2,17 +2,18 @@ import MyProfile from "@/components/templates/MyProfile";
 import { profileTabsKeys } from "@/utils/profile";
 import { redirect } from "next/navigation";
 
-export default function page({
-  searchParams,
-}: {
+interface PageProps {
   searchParams: { view?: string };
-}) {
-  const availableKeys = profileTabsKeys;
+}
 
-  if (!availableKeys.includes(searchParams.view as string)) {
-    // return notFound();
-    return redirect("/main/profile?view=profile");
+export default function Page({ searchParams }: PageProps) {
+  // const availableTabs = profileTabsKeys;
+  const view = searchParams.view;
+
+  // Validação segura do parâmetro 'view'
+  if (!view || !profileTabsKeys.includes(view)) {
+    redirect("/main/profile?view=profile"); // 👈 aqui, sempre use caminho absoluto
   }
 
-  return <MyProfile view={searchParams.view as string} />;
+  return <MyProfile view={view} />;
 }
