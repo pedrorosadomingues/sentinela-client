@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { Generation } from "@/interfaces/generation";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DownloadButton from "../atoms/DownloadButton";
 import { Image } from "@heroui/react";
 import { deleteGeneration } from "@/services";
-import { useGlobalStore } from "@/zustand-stores";
+import { useGlobalStore } from "@/stores";
 import ConfirmationButton from "../atoms/ConfirmationButton";
 
 export default function GenerationCard({
@@ -68,9 +67,6 @@ export default function GenerationCard({
                 >
                   <DeleteIcon />
                 </ConfirmationButton>
-              </li>
-              <li>
-                <DownloadButton generation={data} />
               </li>
             </ul>
           </div>

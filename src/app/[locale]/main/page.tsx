@@ -1,21 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import MainTemplate from "@/components/templates/Main";
-import { useLocale } from "next-intl";
+import WelcomeTourProvider from "@/components/organisms/tours/providers/WelcomeTourProvider";
+import HomeComponent from "@/components/organisms/home/Home";
 
 export default function Home() {
-  const router = useRouter();
-  const locale = useLocale();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push(`/${locale}`);
-    }
-  }, [router]);
-
-  return <MainTemplate />;
+  return (
+    <WelcomeTourProvider>
+      <HomeComponent />
+    </WelcomeTourProvider>
+  );
 }

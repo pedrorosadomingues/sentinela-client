@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axiosClient from "@/lib/axios/axiosClient";
+import { axiosClient } from "@/lib/axios/axiosClient";
 import httpStatus from "http-status";
 
 export async function deleteGeneration(generationIds: number[]) {

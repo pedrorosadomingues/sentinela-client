@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
 import ToolInfo from "@/components/atoms/ToolInfo";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface ModelImageAreaProps {
   src: string;
@@ -40,10 +40,9 @@ export default function ModelImageArea({
       <CardHeader className="w-full justify-center items-center gap-2 mb-4">
         <StepNumber number={1} label={text("step1_send_model_image")} />{" "}
         <ToolInfo
-          title="lorem ipsum dolor"
-          text="lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-          video="https://redrawacademy.s3.sa-east-1.amazonaws.com/videos/tutorial/suggestions.mp4"
-          href="https://academy.arch.redraw.pro/"
+          title={text("step1_send_model_image")}
+          text={text("model_image_area_info")}
+          video="https://fcoyipufipefrxnqwqbs.supabase.co/storage/v1/object/public/media/videos/select-model.mp4"
         />
       </CardHeader>
       <CardBody

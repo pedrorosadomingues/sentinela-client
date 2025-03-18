@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useMyProfileStore } from "@/zustand-stores";
+import { useProfileStore } from "@/stores";
 import { Divider } from "@heroui/react";
 
 export default function MenuProfile(): JSX.Element {
-  const { setProfileControl, profileControl } = useMyProfileStore();
+  const { setProfileControl, profileControl } = useProfileStore();
 
   const text = useTranslations("menu_profile");
 

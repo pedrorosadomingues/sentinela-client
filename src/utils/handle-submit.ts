@@ -2,30 +2,35 @@
 import { createGeneration } from "@/services";
 import { FormValues, } from "@/interfaces/generation";
 import { updateCoins } from "./update-coins";
-import { useDressModelStore } from "@/zustand-stores/dressModelStore";
+import { useDressModelStore } from "@/stores/dressModelStore";
 import { uploadFile } from "./upload-file";
 import { base64ToFile } from "./image";
 import { ToastFunction } from "@/hooks/useToast";
+import { useUserStore } from "@/stores";
+import { v4 as uuidv4 } from 'uuid';
 
 export async function handleSubmit(
   values: FormValues,
   toast: ToastFunction
 ): Promise<void> {
   const { currentGeneration, setImagesLoading, setCurrentResultImage } = useDressModelStore.getState();
+  const { user } = useUserStore.getState();
+
   setImagesLoading(true);
 
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("Token not found");
-    }
+    const modelUuid = uuidv4();
+    const garmentUuid = uuidv4();
 
-    const modelFile = base64ToFile(currentGeneration.model!, "model.png");
-    const garmentFile = base64ToFile(currentGeneration.garment!, "garment.png");
+    const modelFileName = `${user?.id}/${modelUuid}_model.jpg`;
+    const garmentFileName = `${user?.id}/${garmentUuid}_garment.jpg`;
+
+    const modelFile = base64ToFile(currentGeneration.model!, modelFileName);
+    const garmentFile = base64ToFile(currentGeneration.garment!, garmentFileName);
 
     const [modelUpload, garmentUpload] = await Promise.all([
-      uploadFile(modelFile, token),
-      uploadFile(garmentFile, token),
+      uploadFile(modelFile),
+      uploadFile(garmentFile),
     ]);
 
     // URLs dos arquivos enviados

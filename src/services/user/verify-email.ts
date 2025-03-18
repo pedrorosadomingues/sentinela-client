@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
+import { axiosClient } from "@/lib/axios/axiosClient";
 import httpStatus from "http-status";
 
 export async function verifyEmail({
@@ -10,7 +10,7 @@ export async function verifyEmail({
   verification_code: number;
 }): Promise<unknown> {
   try {
-    const response = await api.patch("/user/verify-email", {
+    const response = await axiosClient.patch("/user/verify-email", {
       email,
       verification_code,
     });

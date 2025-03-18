@@ -1,4 +1,4 @@
-import { useCreateModelStore } from "@/zustand-stores/createModelStore";
+import { useCreateModelStore } from "@/stores/createModelStore";
 import { ExpandLess } from "@mui/icons-material";
 import React from "react";
 

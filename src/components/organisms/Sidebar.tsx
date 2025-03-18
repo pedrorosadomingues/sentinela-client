@@ -2,13 +2,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import {
-  useMainStore,
-  useImageFunctionStore,
+  useFnStore,
   useUserStore,
-  useSidebarStore,
-} from "@/zustand-stores";
+  useGlobalStore,
+} from "@/stores";
 import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
@@ -21,69 +20,34 @@ import {
 import CoinCouter from "../atoms/CoinCounter";
 import { VestiqCoins } from "./icons/VestiqCoins";
 import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar(): JSX.Element {
-  const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout} = useSidebarStore();
-  const locale = useLocale();
-  const { setMainControl, mainControl } = useMainStore();
-  const { imageFunctions, getImageFunctions } = useImageFunctionStore();
+  const { toggleSidebar, sidebar, sidebarLayout, setSidebarLayout } =
+    useGlobalStore();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { imageFunctions } = useFnStore();
   const { user } = useUserStore();
   const text = useTranslations("sidebar");
 
   const MAIN_ITEMS = [
     {
+      key: "home",
       name: text("home"),
       icon_path: <HomeOutlined />,
     },
     {
+      key: "my_generations",
       name: text("my_generations"),
       icon_path: <HistoryIcon />,
     },
     {
+      key: "plans_and_subscriptions",
       name: text("plans_and_subscriptions"),
       icon_path: <MonetizationOnOutlined />,
     },
   ];
-
-  useEffect(() => {
-    getImageFunctions(locale);
-
-    const normalizedControl = mainControl.toLowerCase();
-
-    switch (normalizedControl) {
-      case "home":
-      case "início":
-      case "inicio":
-        setMainControl(text("home"));
-        break;
-
-      case "minhas gerações":
-      case "my generations":
-      case "mis generaciones":
-        setMainControl(text("my_generations"));
-        break;
-
-      case "vestir modelo":
-      case "dress model":
-        setMainControl(text("dress-model"));
-        break;
-
-      case "imagem a partir de texto":
-      case "image from text":
-      case "imagen a partir de texto":
-        setMainControl(text("txt2img"));
-        break;
-
-      case "renderizar traços":
-      case "render traces":
-      case "renderizar trazos":
-        setMainControl(text("render-traces"));
-        break;
-
-      default:
-        break;
-    }
-  }, [getImageFunctions]);
 
   useEffect(() => {
     const storaggedSidebarLayout = localStorage.getItem("sidebar-layout");
@@ -99,12 +63,12 @@ export default function Sidebar(): JSX.Element {
         <aside
           id="app-sidebar"
           className={`select-none
-                fixed h-screen left-0 z-40 w-64 md:w-20 md:group-hover:w-64 transition-all md:duration-700 md:ease-soft-spring pt-4
+                fixed h-screen left-0 z-40 w-64 lg:w-20 lg:group-hover:w-64 transition-all lg:duration-700 lg:ease-soft-spring pt-4
                 ${sidebar ? "-translate-x-full" : "translate-x-0"} 
-                md:translate-x-0 bg-white border-r border-gray-200`}
+                lg:translate-x-0 bg-white border-r border-gray-200`}
           aria-label="Sidebar"
         >
-          <div className="h-full overflow-x-hidden px-3 md:group-hover:px-4 pb-4 overflow-y-scroll scrollbar-hide bg-white flex flex-col justify-between">
+          <div className="h-full overflow-x-hidden px-3 lg:group-hover:px-4 pb-4 overflow-y-scroll scrollbar-hide bg-white flex flex-col justify-between">
             <div className="h-full flex flex-col">
               <div className="w-full flex h-24 justify-center px-4 mt-2 bg-gradient-to-b from-white to-white/20 absolute left-0 top-0">
                 <div className="w-full z-[41] h-16 bg-white flex items-center justify-between gap-2">
@@ -127,7 +91,7 @@ export default function Sidebar(): JSX.Element {
                   <Button
                     isIconOnly
                     onPress={toggleSidebar}
-                    className="md:hidden"
+                    className="lg:hidden"
                     variant="ghost"
                   >
                     <MenuOpenOutlined />
@@ -142,9 +106,18 @@ export default function Sidebar(): JSX.Element {
                       key={item.name}
                       icon={item.icon_path}
                       name={item.name}
-                      active={mainControl}
+                      active={pathname}
                       onPress={() => {
-                        setMainControl(item.name);
+                        let filteredRoute;
+                        if (item.key === "home") {
+                          filteredRoute = "/main";
+                        } else if (item.key === "my_generations") {
+                          filteredRoute = "/main/generations?category=results";
+                        } else if (item.key === "plans_and_subscriptions") {
+                          filteredRoute = "/main/profile?view=plans";
+                        }
+
+                        router.push(`${filteredRoute}`);
                         toggleSidebar();
                       }}
                       layout={sidebarLayout}
@@ -161,12 +134,11 @@ export default function Sidebar(): JSX.Element {
                       icon={ICON_MAPPING[func.name as ImageFunctionName](
                         "medium"
                       )}
-                      active={mainControl}
+                      active={pathname.replace("/main/fns/", "")}
                       // @ts-ignore
                       name={text(func.name)}
                       onPress={() => {
-                        // @ts-ignore
-                        setMainControl(text(func.name));
+                        router.push(`/main/fns/${func.name.toLowerCase()}`);
                         toggleSidebar();
                       }}
                       layout={sidebarLayout}
@@ -185,13 +157,13 @@ export default function Sidebar(): JSX.Element {
                       placement="right"
                       showArrow
                     >
-                      <div className="hidden md:block md:group-hover:hidden">
+                      <div className="hidden lg:block lg:group-hover:hidden">
                         <VestiqCoins width={32} height={32} />
                       </div>
                     </Tooltip>
 
                     <Card
-                      className="w-full hidden md:hidden md:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
+                      className="w-full hidden lg:hidden lg:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
                       shadow="none"
                       radius="sm"
                     >
@@ -230,7 +202,7 @@ const SidebarItem = ({
   return (
     <li
       onClick={onPress}
-      className={`cursor-pointer flex items-center p-2 md:w-fit md:group-hover:w-full md:mx-auto md:justify-center md:group-hover:justify-start
+      className={`cursor-pointer flex items-center p-2 lg:w-fit lg:group-hover:w-full lg:mx-auto lg:justify-center lg:group-hover:justify-start
                   ${active === name ? "text-secondary bg-secondary/10" : ""}    
         rounded-lg hover:text-secondary hover:fill-secondary group text-gray-500 fill-gray-500`}
     >
@@ -242,7 +214,7 @@ const SidebarItem = ({
         <div className="relative">{icon}</div>
       )}
       {layout !== "minimized" && (
-        <span className="md:hidden md:group-hover:block ms-3 text-xs md:text-sm 3xl:text-base whitespace-nowrap">
+        <span className="lg:hidden lg:group-hover:block ms-3 text-xs lg:text-sm 3xl:text-base whitespace-nowrap">
           {name}
         </span>
       )}

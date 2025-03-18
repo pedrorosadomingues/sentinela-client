@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import api from "@/config/server";
+import { axiosClient } from "@/lib/axios/axiosClient";
 import httpStatus from "http-status";
 
 export async function requestResetPassword({
@@ -10,7 +10,7 @@ export async function requestResetPassword({
   locale: string;
 }): Promise<any> {
   try {
-    const response = await api.post(
+    const response = await axiosClient.post(
       "/reset-password",
       {
         email,
@@ -49,7 +49,7 @@ export async function resetPassword({
   new_password: string;
 }): Promise<any> {
   try {
-    const response = await api.patch("/user/reset-password", {
+    const response = await axiosClient.patch("/user/reset-password", {
       token: code,
       new_password,
     });

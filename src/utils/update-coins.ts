@@ -1,10 +1,10 @@
-import { useUserStore } from "@/zustand-stores";
-import api from "@/config/server";
+import { axiosClient } from "@/lib/axios/axiosClient";
+import { useUserStore } from "@/stores";
 
 export async function updateCoins(): Promise<void> {
     const { user, handleUpdateCoins } = useUserStore.getState();
     try {
-        const response = await api.get(`/user/active-coins/${user?.id}`);
+        const response = await axiosClient.get(`/user/active-coins/${user?.id}`);
 
         if (response.status === 200 && response.data) {
             handleUpdateCoins(response.data);

@@ -13,7 +13,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as string)) {
     notFound();
   }
 
@@ -22,7 +22,11 @@ export default async function LocaleLayout({
 
   return (
     <main lang={locale}>
-      <Providers messages={messages} timeZone={timeZone} locale={locale}>
+      <Providers
+        messages={messages}
+        timeZone={timeZone}
+        locale={locale}
+      >
         <ConfirmationModal />
         {children}
         <Toaster position="bottom-right" />

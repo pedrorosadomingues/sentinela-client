@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useMyProfileStore } from "@/zustand-stores";
+import { useProfileStore } from "@/stores";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 export default function MenuUp(): JSX.Element {
-  const { setProfileControl, profileControl } = useMyProfileStore();
+  const { setProfileControl, profileControl } = useProfileStore();
 
   const text = useTranslations("menu_profile");
 

@@ -33,9 +33,16 @@
     "go_to_login": "Go to login"
   },
   "sign_in_page": {
+    "sign_in": "Welcome back",
+    "sign_in_message": "Access your account now to use the best of AI for fashion.",
     "email": "Email",
+    "email_placeholder": "Enter your email",
     "password": "Password",
-    "login": "Login to your account",
+    "password_placeholder": "Enter your password",
+    "sign_in_label": "Log in",
+    "continue_with": "Continue with",
+    "or": "or",
+    "remember_me": "Remember for 15 days",
     "access_message": "Access your account now to use the best of AI for fashion. If you don't have an account yet, sign up for Vestiq now to start using it in your creations.",
     "forgot_password": "Forgot password?",
     "dont_have_account": "Don't have an account?",
@@ -43,28 +50,53 @@
     "invalid_email_or_password": "Invalid email or password",
     "invalid_email": "Invalid email",
     "password_min_length": "The password must be at least 6 characters long",
-    "user_not_verified": "User not verified. Check your email for the verification link."
+    "user_not_verified": "User not verified. Check your email for the verification link.",
+    "unexpected_error": "An unexpected error occurred while trying to log in"
   },
   "sign_up_page": {
-    "sign_up": "Sign up",
-    "name": "Full Name",
-    "last_name": "Last name",
+    "sign_up": "Sign Up",
+    "sign_up_message": "Create your account now to start using the best of AI for fashion.",
+    "name": "First and Last Name",
+    "name_placeholder": "Enter your first and last name",
     "email": "Email",
+    "email_placeholder": "Enter your email",
     "password": "Password",
-    "confirm_password": "Confirm password",
-    "register": "Register",
+    "password_placeholder": "Enter your password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Confirm your password",
+    "agree_with": "I agree to the",
+    "terms": "Terms of Use",
+    "and": "and",
+    "privacy_policy": "Privacy Policy",
+    "sign_up_label": "Register",
+    "or": "or",
+    "continue_with": "Continue with",
     "back_to_login": "Back to login",
     "user_created_successfully": "User created successfully",
     "error_creating_user": "Error creating user:",
     "unexpected_error": "An unexpected error occurred",
     "have_account": "Already have an account?",
+    "login": "Log in",
     "email_already_registered": "Email already registered",
-    "name_min_length": "The name must be at least 3 characters long",
+    "name_min_length": "The name must have at least 3 characters",
     "invalid_email": "Invalid email",
-    "password_min_length": "The password must be at least 6 characters long",
-    "passwords_dont_match": "Passwords don't match",
-    "password_confirmation": "Password confirmation",
-    "user_not_verified": "User not verified. Check your email for the verification link."
+    "password_min_length": "The password must have at least 6 characters",
+    "passwords_dont_match": "Passwords do not match",
+    "password_confirmation": "Password Confirmation",
+    "user_not_verified": "User not verified. Confirm your registration by clicking the link we sent to your email."
+  },
+  "forgot_password_page": {
+    "forgot_password": "Forgot password",
+    "description": "We will send you a link to reset your password",
+    "email": "Email",
+    "email_placeholder": "Enter your email",
+    "send": "Send Reset Link",
+    "back_to": "I want to back to",
+    "login": "Log in",
+    "email_sent": "Email sent",
+    "email_not_found": "Email not found",
+    "unexpected_error": "An unexpected error occurred",
+    "invalid_email": "Invalid email"
   },
   "home": {
     "my_profile": "My Perfil",
@@ -87,6 +119,7 @@
     "greeting": "Hello,",
     "prompt": "What do you want to create today?",
     "my_generations": "My Generations",
+    "my_models": "My Models",
     "dress-model": "Dress Model",
     "txt2img": "Image from Text",
     "render-traces": "Render Traces",
@@ -109,14 +142,16 @@
     "model_preview_alt": "Model Preview",
     "drag_file_instruction": "To start rendering your image, drag a file",
     "or_click_to_choose_model_image": "or click to choose Model Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "model_image_area_info": "For best results, use vertically oriented photos with well-visible, form-fitting clothing. Full-body or three-quarter shots with a neutral background and good lighting ensure a perfect fit."
   },
   "garment_image_area": {
     "step2_send_garment_image": "Garment reference image",
     "garment_preview_alt": "Garment Preview",
     "drag_file_instruction": "Next, drag a file",
     "or_click_to_choose_garment_image": "or click to choose Garment Image",
-    "clear_image": "Clear Image"
+    "clear_image": "Clear Image",
+    "garment_image_area_info": "For a perfect result, upload photos of the garment being worn by a real model or on an invisible mannequin. Ensure the clothing is well-fitted and visible, with a neutral background for better contrast and even lighting, without harsh shadows."
   },
   "result_image_area": {
     "step3_your_image": "AI-generated Image",
@@ -241,5 +276,71 @@
       "sort_actions": "Sort actions",
       "most_relevant": "Most relevant"
     }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Profile",
+      "personal": "Personal Information",
+      "team": "Team",
+      "plans": "Plan & Billing",
+      "achievements": "Achievements",
+      "notifications": "Notifications"
+    },
+    "plan_and_billing": {
+      "current_plan": "Current Plan",
+      "current_plan_description": "Your current plan is {plan} and it will expire on {expiration_date}.",
+      "next_billing": "Next billing on {date}.",
+      "status": {
+        "active": "Active",
+        "canceled": "Canceled",
+        "delayed": "Delayed",
+        "refunded": "Refunded",
+        "trialing": "Trialing"
+      },
+      "annual": "annual",
+      "monthly": "monthly"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "subtitle": "Get unlimited access.",
+      "description": "Unlock premium features for less than $19 a week—invest in your success today.",
+      "pay_yearly": "Pay Yearly",
+      "pay_monthly": "Pay Monthly",
+      "save_25": "Save 25%",
+      "most_popular": "Most Popular",
+      "features": {
+        "users_included": "Users included",
+        "storage": "{value} GB of storage",
+        "help_center_access": "Help center access",
+        "priority_email_support": "Priority email support",
+        "phone_email_support": "Phone & email support"
+      },
+      "buttons": {
+        "continue_free": "Continue with Free",
+        "get_started": "Get started",
+        "contact_us": "Contact us"
+      },
+      "open_source_discount": "Are you an open source developer?",
+      "get_discount": "Get a discount"
+    }
+  },
+  "plans_section": {
+    "basic_description": "All the essential features to get you started.",
+    "expert_description": "Advanced tools and capabilities for professional use.",
+    "business_description": "Comprehensive solutions and support for businesses.",
+    "plan_basic": "Basic",
+    "plan_expert": "Expert",
+    "plan_business": "Business",
+    "recommended": "Recommended",
+    "yearly": "per Year",
+    "monthly": "per Month",
+    "features": "Features",
+    "dress-model": "Dress Model",
+    "txt2model": "Text to Model",
+    "4x-dress-model": "4x Dress Model",
+    "multi-users": "Multi Users",
+    "get_basic": "Get Basic",
+    "get_expert": "Get Expert",
+    "get_business": "Get Business"
   }
 }

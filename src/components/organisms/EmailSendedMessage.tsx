@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@heroui/react";
 import { ReactNode } from "react";
 
 interface EmailSendedMessageProps {
@@ -27,12 +28,9 @@ export default function EmailSendedMessage({
 
       {extraText && <p className="text-gray-500 text-xs mt-2">{extraText}</p>}
 
-      <button
-        onClick={onButtonClick}
-        className="mt-6 px-5 py-2 bg-primary-background text-white font-semibold rounded-md shadow-md hover:opacity-90 transition"
-      >
+      <Button onPress={onButtonClick} color="secondary" className="mt-6">
         {buttonText}
-      </button>
+      </Button>
     </div>
   );
 }

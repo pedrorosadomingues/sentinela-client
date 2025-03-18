@@ -1,14 +1,14 @@
-import { toast } from "react-toastify";
+import { axiosClient } from "@/lib/axios/axiosClient";
 
-export function logout(): void {
-  const token = localStorage.getItem("token");
+export async function logout(): Promise<boolean> {
+  try {
+    const response = await axiosClient.get("/auth/logout", {
+      withCredentials: true,
+    });
 
-  if (token) {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
-    localStorage.removeItem("user_name");
-    toast.success("Usuário deslogado com sucesso!");
-  } else {
-    console.log("Nenhum token encontrado. Usuário já está deslogado.");
+    return response.data ?? false;
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error);
+    return false;
   }
 }

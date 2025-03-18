@@ -33,31 +33,50 @@
     "go_to_login": "Ir para login"
   },
   "sign_in_page": {
-    "email": "Email",
+    "sign_in": "Bem-vindo de volta",
+    "sign_in_message": "Acesse sua conta agora para usar o melhor da IA para moda.",
+    "email": "E-mail",
+    "email_placeholder": "Digite seu e-mail",
     "password": "Senha",
-    "login": "Entrar na sua conta",
+    "password_placeholder": "Digite sua senha",
+    "sign_in_label": "Entrar",
+    "continue_with": "Continuar com",
+    "or": "ou",
+    "remember_me": "Lembrar por 15 dias",
+    "access_message": "Acesse sua conta agora para usar o melhor da IA para moda. Se ainda não tem uma conta, cadastre-se no Vestiq agora para começar a usar em suas criações.",
     "forgot_password": "Esqueceu a senha?",
-    "dont_have_account": "Não tem uma conta?",
+    "dont_have_account": "Ainda não tem uma conta?",
     "sign_up_here": "Cadastre-se agora",
-    "invalid_email_or_password": "Email ou senha inválidos",
-    "access_message": "Acesse sua conta agora para utilizar o que há de melhor em IA para moda. Se você ainda não tem uma conta, inscreva-se na Vestiq agora para começar a usar em suas criações.",
-    "invalid_email": "Email inválido",
-    "password_min_length": "A senha deve ter no mínimo 6 caracteres",
-    "user_not_verified": "Confirme seu cadastro clicando no link que enviamos para o seu email."
+    "invalid_email_or_password": "E-mail ou senha inválidos",
+    "invalid_email": "E-mail inválido",
+    "password_min_length": "A senha deve ter pelo menos 6 caracteres",
+    "user_not_verified": "Usuário não verificado. Verifique seu e-mail para acessar o link de verificação.",
+    "unexpected_error": "Ocorreu um erro inesperado ao tentar fazer login"
   },
   "sign_up_page": {
     "sign_up": "Cadastre-se",
-    "name": "Nome Completo",
-    "last_name": "Sobrenome",
+    "sign_up_message": "Crie sua conta agora e comece a usar o melhor da IA para moda.",
+    "name": "Nome e Sobrenome",
+    "name_placeholder": "Digite seu nome e sobrenome",
     "email": "Email",
+    "email_placeholder": "Digite seu email",
     "password": "Senha",
+    "password_placeholder": "Digite sua senha",
     "confirm_password": "Confirme a senha",
-    "register": "Registrar",
+    "confirm_password_placeholder": "Confirme sua senha",
+    "agree_with": "Eu aceito os",
+    "terms": "Termos de Uso",
+    "and": "e",
+    "privacy_policy": "Políticas de Privacidade",
+    "sign_up_label": "Cadastrar",
+    "or": "ou",
+    "continue_with": "Continuar com",
     "back_to_login": "Voltar ao login",
     "user_created_successfully": "Usuário criado com sucesso",
     "error_creating_user": "Erro ao criar usuário:",
     "unexpected_error": "Ocorreu um erro inesperado",
-    "have_account": "Já tem conta?",
+    "have_account": "Já tem uma conta?",
+    "login": "Entrar",
     "email_already_registered": "Email já registrado",
     "name_min_length": "O nome deve ter no mínimo 3 caracteres",
     "invalid_email": "Email inválido",
@@ -65,6 +84,19 @@
     "passwords_dont_match": "As senhas não coincidem",
     "password_confirmation": "Confirmação de senha",
     "user_not_verified": "Usuário não verificado. Confirme seu cadastro clicando no link que enviamos pro seu email."
+  },
+  "forgot_password_page": {
+    "forgot_password": "Esqueceu a senha",
+    "description": "Enviaremos um link para redefinir sua senha",
+    "email": "E-mail",
+    "email_placeholder": "Digite seu e-mail",
+    "send": "Enviar link de redefinição",
+    "back_to": "Voltar para o",
+    "login": "Login",
+    "email_sent": "E-mail enviado",
+    "email_not_found": "E-mail não encontrado",
+    "unexpected_error": "Ocorreu um erro inesperado",
+    "invalid_email": "E-mail inválido"
   },
   "home": {
     "my_profile": "Meu Perfil",
@@ -87,6 +119,7 @@
     "greeting": "Olá,",
     "prompt": "O que você quer criar hoje?",
     "my_generations": "Minhas Gerações",
+    "my_models": "Meus Modelos",
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagem a partir de Texto",
     "render-traces": "Renderizar Traços",
@@ -109,14 +142,16 @@
     "model_preview_alt": "Pré-visualização do Modelo",
     "drag_file_instruction": "Para começar a renderizar sua imagem, arraste um arquivo",
     "or_click_to_choose_model_image": "ou clique para escolher a Imagem do Modelo",
-    "clear_image": "Remover Imagem"
+    "clear_image": "Remover Imagem",
+    "model_image_area_info": "Para melhores resultados, use fotos no formato vertical, com roupas bem visíveis e ajustadas ao corpo. Fotos de corpo inteiro ou três-quartos, com fundo neutro e boa iluminação, garantem um encaixe perfeito."
   },
   "garment_image_area": {
     "step2_send_garment_image": "Imagem da peça referência",
     "garment_preview_alt": "Pré-visualização da Peça",
     "drag_file_instruction": "Em seguida, arraste um arquivo",
     "or_click_to_choose_garment_image": "ou clique para escolher a Imagem da Peça",
-    "clear_image": "Remover Imagem"
+    "clear_image": "Remover Imagem",
+    "garment_image_area_info": "Para um resultado perfeito, envie fotos da roupa sendo usada por um modelo real ou em manequim invisível. Certifique-se de que a roupa esteja bem ajustada e visível, com fundo neutro para melhor contraste e iluminação uniforme, sem sombras fortes."
   },
   "result_image_area": {
     "step3_your_image": "Imagem gerada pela IA",
@@ -241,5 +276,48 @@
       "sort_actions": "Ordenar ações",
       "most_relevant": "Mais relevantes"
     }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Perfil",
+      "personal": "Dados pessoais",
+      "team": "Equipe",
+      "plans": "Plano e faturamento",
+      "achievements": "Conquistas",
+      "notifications": "Notificações"
+    },
+    "plan_and_billing": {
+      "current_plan": "Plano Atual",
+      "current_plan_description": "Seu plano atual é {plan} e expirará em {expiration_date}.",
+      "next_billing": "Próxima cobrança em {date}.",
+      "status": {
+        "active": "Ativo",
+        "canceled": "Cancelado",
+        "delayed": "Atrasado",
+        "refunded": "Reembolsado",
+        "trialing": "Em teste"
+      },
+      "annual": "anual",
+      "monthly": "mensal"
+    }
+  },
+  "plans_section": {
+    "basic_description": "Todos os recursos essenciais para você começar.",
+    "expert_description": "Ferramentas e capacidades avançadas para uso profissional.",
+    "business_description": "Soluções abrangentes e suporte para empresas.",
+    "plan_basic": "Básico",
+    "plan_expert": "Expert",
+    "plan_business": "Empresarial",
+    "recommended": "Recomendado",
+    "yearly": "por Ano",
+    "monthly": "por Mês",
+    "features": "Recursos",
+    "dress-model": "Vestir Modelo",
+    "txt2model": "Texto para Modelo",
+    "4x-dress-model": "4x Vestir Modelo (até 4 gerações de uma vez)",
+    "multi-users": "Múltiplos Usuários",
+    "get_basic": "Assine o Básico",
+    "get_expert": "Assine o Expert",
+    "get_business": "Assine o Empresarial"
   }
 }

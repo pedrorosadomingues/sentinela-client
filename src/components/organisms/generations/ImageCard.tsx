@@ -4,7 +4,7 @@
 import { Image, useDisclosure } from "@nextui-org/react";
 import { Visibility } from "@mui/icons-material";
 import { Generation } from "@/interfaces";
-import { useGenerationStore } from "@/zustand-stores";
+import { useGenerationStore } from "@/stores";
 import { ViewGenerationModal } from "./ViewGenerationModal";
 import { useTranslations } from "next-intl";
 

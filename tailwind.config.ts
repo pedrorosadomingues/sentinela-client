@@ -19,6 +19,7 @@ const config: Config = {
       fontFamily: {
         //lexend: ["var(--font-lexend)"],
         sans: ["var(--font-inter)", "sans-serif"],
+        primary: ["Archivo", "sans-serif"],
       },
       backgroundImage: {
         "primary-background": "linear-gradient(135deg, #F10641FF, #F83A14FF)",
@@ -27,6 +28,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         secondary: "#F10641",
+        tertiary: "#F83A14FF",
+        "neutral-900": "#171A1FFF",
+        "primary-100": "#FFF0F4FF",
+        "neutral-600": "#565D6DFF",
+        "neutral-700": "#323743FF",
+        "tertiary3-500": "#05B8EFFF"
       },
       transitionTimingFunction: {
         "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",
@@ -76,10 +83,10 @@ const config: Config = {
       "3xl": "1920px",
       "4xl": "2560px",
       max515: { max: "1030px" },
-      max1030: { max: '1030px' },
-      max765: { max: '765px' },
-      min765: { min: '765px' },
-      min935: { min: '935px' },
+      max1030: { max: "1030px" },
+      max765: { max: "765px" },
+      min765: { min: "765px" },
+      min935: { min: "935px" },
     },
   },
   plugins: [heroui()],

@@ -1,3 +1,4 @@
+import { useUserStore } from "@/stores";
 import {
   Modal,
   ModalContent,
@@ -15,19 +16,37 @@ import { useEffect } from "react";
 export default function WelcomeTourModal() {
   const t = useTranslations("tours");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { setIsOpen, setCurrentStep, currentStep } = useTour();
-
-  useEffect(() => {
-    onOpen();
-  }, [onOpen]);
+  const {
+    setCurrentStep,
+    currentStep,
+    isOpen: isTourOpen,
+    setIsOpen,
+  } = useTour();
+  const { user } = useUserStore();
 
   const handleStartTour = () => {
-    if (currentStep !== 0) {
+    const filterTour = user?.watched_tours.filter((tour) => tour.tour_id === 1);
+
+    if (user && filterTour && filterTour.length > 0) {
+      return;
+    }
+
+    if (currentStep !== 0 && !isTourOpen) {
       setCurrentStep(0);
     }
 
-    setIsOpen(true);
+    setTimeout(() => {
+      onOpen();
+    }, 2000);
+  };
+
+  useEffect(() => {
+    handleStartTour();
+  });
+
+  const handleOpenTour = () => {
     onClose();
+    setIsOpen(true);
   };
 
   return (
@@ -53,7 +72,7 @@ export default function WelcomeTourModal() {
           <Button color="danger" variant="light" onPress={onClose}>
             {t("skip_label")}
           </Button>
-          <Button color="secondary" radius="sm" onPress={handleStartTour}>
+          <Button color="secondary" radius="sm" onPress={handleOpenTour}>
             {t("start_label")}
           </Button>
         </ModalFooter>

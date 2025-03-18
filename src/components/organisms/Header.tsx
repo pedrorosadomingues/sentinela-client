@@ -2,76 +2,139 @@
 "use client";
 
 import { logout } from "@/utils";
-import {
-  redirect,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { useUserStore, useMainStore, useSidebarStore } from "@/zustand-stores";
+
+import { useUserStore, useGlobalStore } from "@/stores";
+
 import { Avatar, Button } from "@heroui/react";
+
 import Image from "next/image";
+
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
+
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
+
 import { StarGroup } from "./icons";
+
 import CoinCounter from "../atoms/CoinCounter";
+
 import { Menu } from "@mui/icons-material";
+
+import { useToast } from "@/hooks/useToast";
+
+import { useEffect, useState } from "react";
+
+import VestiqLoading from "./VestiqLoading";
+
+import Cookies from "js-cookie";
 
 export default function Header(): JSX.Element {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const locale = useLocale();
   const t = useTranslations("header");
+  const profileT = useTranslations("profile.tabs");
   const pathname = usePathname();
+  const params = useSearchParams();
   const currentLocale = useLocale();
+  const toast = useToast();
+  const { user } = useUserStore();
+  const { toggleSidebar, currentPathname, setCurrentPathname } =
+    useGlobalStore();
+  const [isLogoutLoading, setIsLogoutLoading] = useState(false);
 
-  const { user, getUser, setUser } = useUserStore();
-  const { mainControl, setMainControl } = useMainStore();
-  const { toggleSidebar } = useSidebarStore();
+  async function handleLogout(): Promise<void> {
+    const success: boolean = await logout();
 
-  const [tab, setTab] = useState<string | null>(null);
+    if (success) {
+      Cookies.remove("vq-access-token", { path: "/" });
+      setIsLogoutLoading(false);
 
-  function handleLogout(): void {
-    logout();
-    router.push(`/${locale}`);
-    setUser(null);
+      router.push("/auth");
+
+      return router.refresh();
+    } else {
+      toast.use("error", "Erro ao tentar deslogar. Tente novamente.");
+      setIsLogoutLoading(false);
+    }
   }
 
-  useEffect(() => {
-    const stored_user_id = localStorage.getItem("user_id");
-    const stored_user_name = localStorage.getItem("user_name");
-    const local_user = stored_user_id ? getUser(stored_user_id) : null;
-
-    const timeout = setTimeout(() => {
-      if (!local_user || stored_user_name !== user?.name) {
-        redirect(`/${locale}`);
-      }
-    }, 2000);
-
-    const currentTab = searchParams.get("tab");
-    if (currentTab) {
-      setMainControl(currentTab);
-      setTab(currentTab);
+  function handleAction(key: string): void {
+    switch (key) {
+      case "my_profile":
+        router.push("/main/profile?view=profile");
+        break;
+      case "logout":
+        handleLogout();
+        break;
     }
-    if (user?.name !== undefined && user?.name !== stored_user_name) {
-      alert("Please login again");
-      handleLogout();
-    }
-    return () => clearTimeout(timeout);
-  }, [getUser, searchParams, setMainControl, router, locale]);
+  }
 
-  function renderHeaderContent() {
-    const current = mainControl || tab;
+  const handleLocaleChange = (newLocale: string) => {
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    router.refresh();
+  };
+
+  const handleUpdateCurrentPathname = () => {
+    const currentPath = pathname.split("/").pop();
+
+    const paramsList = Array.from(params.entries()).map(([key, value]) => {
+      return { key, value };
+    });
+
+    const selectedParam = paramsList[0];
+
+    if (
+      (currentPath === "generations" && selectedParam.key === "category") ||
+      (currentPath === "profile" && selectedParam.key === "view")
+    ) {
+      setCurrentPathname({
+        basePathname: currentPath,
+        subPathname: null,
+        param: selectedParam,
+      });
+    } else {
+      setCurrentPathname({
+        basePathname: currentPath as string,
+        subPathname: null,
+        param: null,
+      });
+    }
+  };
+
+  function HeaderPageTitle() {
+    const current =
+      currentPathname?.param?.value ?? currentPathname?.basePathname;
 
     switch (current) {
-      case t("home"):
+      case "results":
+        return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
+
+      case "models":
+        return <h1 className="text-2xl text-black">{t("my_models")}</h1>;
+
+      case "dress-model":
+        return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
+
+      case "txt2img":
+        return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
+
+      case "render-traces":
+        return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
+
+      case "profile":
+      case "plans":
+      case "team":
+      case "personal":
+      case "achievements":
+        return <h1 className="text-2xl text-black">{profileT(current)}</h1>;
+      default:
         return (
           user?.name && (
             <div>
@@ -82,50 +145,23 @@ export default function Header(): JSX.Element {
             </div>
           )
         );
-
-      case t("my_generations"):
-        return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
-
-      case t("dress-model"):
-        return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
-
-      case t("txt2img"):
-        return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
-
-      case t("render-traces"):
-        return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
-
-      case t("my_profile"):
-        return <h1 className="text-2xl text-black">{t("my_profile")}</h1>;
-
-      default:
-        return <h1 className="text-2xl text-black">{mainControl}</h1>;
     }
   }
 
-  function handleAction(key: string): void {
-    switch (key) {
-      case "my_profile":
-        setMainControl(t("my_profile"));
-        break;
-      case "logout":
-        handleLogout();
-        break;
-    }
-  }
+  useEffect(() => {
+    handleUpdateCurrentPathname();
+  }, [pathname, params]);
 
-  const handleLocaleChange = (locale: string) => {
-    const pathnameWithoutLocale = pathname.replace(
-      new RegExp(`^/${currentLocale}`),
-      ""
-    );
-    router.push(`/${locale}${pathnameWithoutLocale}`);
-  };
+  if (isLogoutLoading) {
+    return <VestiqLoading />;
+  }
 
   return (
-    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 pl-[90px] bg-white max765:pl-5">
-      <div className="hidden md:block">{renderHeaderContent()}</div>
-      <div className="md:hidden flex gap-2">
+    <header className="flex items-center justify-between px-4 min-h-16 text-white fixed z-10 w-full border-b border-gray-200 lg:pl-[90px] bg-white max765:pl-5">
+      <div className="hidden lg:block">
+        <HeaderPageTitle />
+      </div>
+      <div className="lg:hidden flex gap-2">
         <Button
           isIconOnly
           variant="light"
@@ -146,15 +182,24 @@ export default function Header(): JSX.Element {
       </div>
 
       <aside className="flex items-center gap-2">
-        <Button
-          color="secondary"
-          size="sm"
-          radius="sm"
-          className="hidden sm:flex"
-          startContent={<StarGroup />}
-        >
-          {t("subscribe_now")}
-        </Button>
+        {(user?.plan?.id === 1 || !user?.plan?.id) && (
+          <Button
+            onPress={() => router.push("/main/plans")}
+            color="secondary"
+            size="sm"
+            radius="sm"
+            className="hidden sm:flex"
+            startContent={<StarGroup />}
+          >
+            {t("subscribe_now")}
+          </Button>
+        )}
+        
+        <div className="text-sm text-gray-400 hidden sm:flex">
+          {user?.plan?.name}
+        </div>
+
+
         {user && <CoinCounter user={user} />}
 
         <Dropdown placement="bottom-end" showArrow shouldBlockScroll={false}>
