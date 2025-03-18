@@ -1,19 +1,18 @@
 import MyProfile from "@/components/templates/MyProfile";
 import { profileTabsKeys } from "@/utils/profile";
-//import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
-interface Props {
+export default function page({
+  searchParams,
+}: {
   searchParams: { view?: string };
-}
+}) {
+  const availableKeys = profileTabsKeys;
 
-export default function Page({ searchParams }: Props) {
-  const view = searchParams.view;
-
-  // Página com parâmetro válido renderiza normalmente
-  if (view && profileTabsKeys.includes(view)) {
-    return <MyProfile view={view} />;
+  if (!availableKeys.includes(searchParams.view as string)) {
+    // return notFound();
+    return redirect("/main/profile?view=profile");
   }
 
-  // Página padrão, sem redirecionamento server-side:
-  return <MyProfile view="profile" />;
+  return <MyProfile view={searchParams.view as string} />;
 }
