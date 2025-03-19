@@ -3,10 +3,7 @@
 
 import React from "react";
 import HistoryIcon from "@mui/icons-material/History";
-import {
-  useFnStore,
-  useUserStore,
-} from "@/stores";
+import { useFnStore, useUserStore } from "@/stores";
 import { useTranslations } from "next-intl";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Banner from "./Banner";
@@ -23,11 +20,12 @@ import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
-  const { imageFunctions } =
-    useFnStore();
+  const { imageFunctions } = useFnStore();
   const { setCurrentStep, currentStep, isOpen: isTourOpen } = useTour();
   const { user, getUser } = useUserStore();
   const router = useRouter();
+  const tours = user?.watched_tours.map((tour) => tour.tour_id);
+  const showHomeTour = !tours?.includes(1);
 
   const handleUpdateStep = () => {
     const body = {
@@ -53,7 +51,7 @@ export default function Home(): JSX.Element {
 
   return (
     <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
-      <WelcomeTourModal />
+      {showHomeTour && <WelcomeTourModal />}
       <Banner />
       <div className="wt-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
         <div

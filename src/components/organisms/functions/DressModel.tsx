@@ -44,27 +44,26 @@ export default function DressModel(): JSX.Element {
     setCurrentStep,
     currentStep,
   } = useTour();
+  const tours = user?.watched_tours.map((tour) => tour.tour_id);
+  const showDressTour = !tours?.includes(2);
 
   const handleStartTour = () => {
-    const filterTour = user?.watched_tours.filter((tour) => tour.tour_id === 2);
-    
-    if (user && filterTour && filterTour.length > 0) {
+    if (user && !showDressTour && isTourOpen) {
       return;
-    };
+    }
 
     if (currentStep !== 0 && !isTourOpen) {
       setCurrentStep(0);
     }
-
+    
     setTimeout(() => {
       setIsOpen(true);
+      setValue("category", "one-pieces");
     }, 2000);
   };
 
   useEffect(() => {
     handleStartTour();
-
-    setValue("category", "one-pieces");
   }, []);
 
   useEffect(() => {
