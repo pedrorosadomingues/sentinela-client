@@ -3,7 +3,7 @@
 
 import React from "react";
 import HistoryIcon from "@mui/icons-material/History";
-import { useFnStore, useUserStore } from "@/stores";
+import { useFnStore } from "@/stores";
 import { useTranslations } from "next-intl";
 import ConfirmationModal from "@/components/organisms/ConfirmationModal";
 import Banner from "./Banner";
@@ -14,40 +14,15 @@ import {
 } from "@/interfaces/image-function";
 import { ICON_MAPPING } from "@/constants";
 import WelcomeTourModal from "../tours/welcome/WelcomeTourModal";
-import { useTour } from "@reactour/tour";
-import { axiosClient } from "@/lib/axios/axiosClient";
+import { useWelcomeTour } from "@/hooks/useWelcomeTour";
 import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
   const { imageFunctions } = useFnStore();
-  const { setCurrentStep, currentStep, isOpen: isTourOpen } = useTour();
-  const { user, getUser } = useUserStore();
   const router = useRouter();
-  const tours = user?.watched_tours.map((tour) => tour.tour_id);
-  const showHomeTour = !tours?.includes(1);
-
-  const handleUpdateStep = () => {
-    const body = {
-      user_id: user?.id,
-      tour_id: 1, // Dress Model Tour ID
-    };
-
-    axiosClient
-      .post("/user/user_tour", body)
-      .then(async () => {
-        await getUser(user?.id as number);
-
-        if (currentStep === 0) {
-          setCurrentStep(currentStep + 1);
-        }
-
-        router.push(`/main/fns/dress-model`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  const { isOpen: isTourOpen, hasSeenWelcomeTour, goToDressModelStep } = useWelcomeTour();
+  const showHomeTour = !hasSeenWelcomeTour();
 
   return (
     <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
@@ -76,7 +51,7 @@ export default function Home(): JSX.Element {
             onClick={() => {
               if (func.name === "dress-model") {
                 if (isTourOpen) {
-                  handleUpdateStep();
+                  goToDressModelStep();
                 } else {
                   router.push(`/main/fns/${func.name}`);
                 }

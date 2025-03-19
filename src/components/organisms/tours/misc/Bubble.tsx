@@ -9,6 +9,7 @@ type BubbleProps = {
   currentStep: number;
   setCurrentStep: (step: number | ((prev: number) => number)) => void;
   setIsOpen: (open: boolean) => void;
+  onSkip?: () => Promise<void>;
 };
 
 export default function Bubble({
@@ -16,6 +17,7 @@ export default function Bubble({
   currentStep,
   setCurrentStep,
   setIsOpen,
+  onSkip,
 }: BubbleProps) {
   const t = useTranslations("tours");
   const { isLastStep, content, description } = steps[currentStep];
@@ -26,6 +28,14 @@ export default function Bubble({
     } else {
       setCurrentStep((s) => s + 1);
     }
+  };
+
+  const handleSkip = async () => {
+    if (onSkip) {
+      await onSkip();
+    }
+    // Sempre fechar o Bubble após pular, independentemente se onSkip existe ou não
+    setIsOpen(false);
   };
 
   return (
@@ -56,18 +66,20 @@ export default function Bubble({
           className="text-white"
           size="sm"
           variant="light"
-          onPress={() => setIsOpen(false)}
+          onPress={handleSkip}
         >
           {t('skip_label')}
         </Button>
         <div className="flex items-center gap-2">
-          <Button
-            className="text-white"
-            variant="light"
-            onPress={() => setCurrentStep((s) => Math.max(s - 1, 0))}
-          >
-            {t('previous_label')}
-          </Button>
+          {currentStep > 0 && (
+            <Button
+              className="text-white"
+              variant="light"
+              onPress={() => setCurrentStep((s) => Math.max(s - 1, 0))}
+            >
+              {t('previous_label')}
+            </Button>
+          )}
           <Button
             className={`bg-white text-default-900 ${
               steps[currentStep].animate
