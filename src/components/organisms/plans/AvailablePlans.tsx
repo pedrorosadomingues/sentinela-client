@@ -40,7 +40,7 @@ export default function AvailablePlans() {
 
   useEffect(() => {
     getPlans();
-  }, []);
+  }, [getPlans]);
 
   return (
     <>
