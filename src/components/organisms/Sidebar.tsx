@@ -3,11 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import {
-  useFnStore,
-  useUserStore,
-  useGlobalStore,
-} from "@/stores";
+import { useFnStore, useUserStore, useGlobalStore } from "@/stores";
 import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
 import HistoryIcon from "@mui/icons-material/History";
@@ -27,9 +23,17 @@ export default function Sidebar(): JSX.Element {
     useGlobalStore();
   const router = useRouter();
   const pathname = usePathname();
-  const { imageFunctions } = useFnStore();
+  let { imageFunctions } = useFnStore();
   const { user } = useUserStore();
   const text = useTranslations("sidebar");
+
+  if (user?.email === "coralfitness6@gmail.com") {
+    imageFunctions = imageFunctions.filter(
+      (func) =>
+        Array.isArray(user?.plan?.available_resources) &&
+        user.plan.available_resources.includes(func.name)
+    );
+  }
 
   const MAIN_ITEMS = [
     {
