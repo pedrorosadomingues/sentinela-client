@@ -29,9 +29,9 @@ export default function Sidebar(): JSX.Element {
 
   if (user?.email === "coralfitness6@gmail.com") {
     imageFunctions = imageFunctions.filter(
-      (func) =>
-        Array.isArray(user?.plan?.available_resources) &&
-        user.plan.available_resources.includes(func.name)
+      (func) => func.name === "dress-model"
+        // Array.isArray(user?.plan?.available_resources) &&
+        // user.plan.available_resources.includes(func.name)
     );
   }
 

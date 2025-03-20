@@ -2,7 +2,7 @@
 "use client";
 
 import React from "react";
-import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
+//import DressTourProvider from "../organisms/tours/providers/DressTourProvider";
 import DressModel from "../organisms/functions/DressModel";
 import ImageFromText from "../organisms/functions/ImageFromText";
 import RenderTraces from "../organisms/functions/RenderTraces";
@@ -23,9 +23,9 @@ export default function Functions({ fn }: { fn: string }) {
   return (
     <>
       {fn === "dress-model" ? (
-        <DressTourProvider>
+        //<DressTourProvider>
           <DressModel />
-        </DressTourProvider>
+       // </DressTourProvider>
       ) : fn === "txt2img" ? (
         <ImageFromText />
       ) : fn === "render-traces" ? (
