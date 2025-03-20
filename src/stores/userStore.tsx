@@ -16,7 +16,9 @@ export const useUserStore = create<UserStore>((set) => ({
     const response = await getUserById({ user_id });
 
     if (response.status === 200 && response.data) {
-      set({ user: response.data });
+      set({
+        user: response.data,
+      });
     } else {
       console.error(response.message);
     }
