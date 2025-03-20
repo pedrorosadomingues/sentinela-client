@@ -79,7 +79,7 @@ export const downloadFiles = async (
     const filePaths = urls.map(getFilePathFromUrl);
 
     // 🔥 Envia todos os caminhos de uma vez para a API
-    const response = await axiosClient.post("/download", {
+    const response = await axiosClient.post("/download/generate-presigned-url", {
       file_paths: filePaths,
     });
 
