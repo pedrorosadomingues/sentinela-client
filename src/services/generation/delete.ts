@@ -7,7 +7,7 @@ export async function deleteGeneration(generationIds: number[]) {
   try {
     const response = await axiosClient.delete("/generation", {
       data: {
-        generation_ids: generationIds
+        selected_generations: generationIds
       }
     });
 

@@ -43,9 +43,9 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       const response = await getAllGenerations();
 
       if (response.status === 200) {
-      set({ generations: response.data });
+        set({ generations: response.data });
       } else {
-      console.error(response.message);
+        console.error(response.message);
       }
     } catch (error) {
       console.error("Failed to fetch generations", error);
@@ -92,13 +92,11 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   },
 
   handleDeleteSelectedGenerations: async (options) => {
-    console.log("Delete selected generations", options);
     const { generations, setGenerations, selectedGenerations } =
       useGenerationStore.getState();
-    
-      console.log("selected generations", selectedGenerations);
 
     if (options.mode === "single" && options.data !== undefined) {
+      console.log("Delete single generation", options.data[0]);
       const res = await deleteGeneration(options.data as number[]);
 
       if (res.status === 200) {
