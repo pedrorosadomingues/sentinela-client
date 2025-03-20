@@ -26,13 +26,15 @@ export default function Home(): JSX.Element {
   const router = useRouter();
   const tours = user?.watched_tours.map((tour) => tour.tour_id);
   const showHomeTour = !tours?.includes(1);
+
   if (user?.email === "coralfitness6@gmail.com") {
     imageFunctions = imageFunctions.filter(
-      (func) =>
-        Array.isArray(user?.plan?.available_resources) &&
-        user.plan.available_resources.includes(func.name)
+      (func) => func.name === "dress-model"
+        // Array.isArray(user?.plan?.available_resources) &&
+        // user.plan.available_resources.includes(func.name)
     );
   }
+
   const handleUpdateStep = () => {
     const body = {
       user_id: user?.id,
