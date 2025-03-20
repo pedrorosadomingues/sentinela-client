@@ -25,9 +25,7 @@ export default function WelcomeTourModal() {
   const { user } = useUserStore();
 
   const handleStartTour = () => {
-    const filterTour = user?.watched_tours.filter((tour) => tour.tour_id === 1);
-
-    if (user && filterTour && filterTour.length > 0) {
+    if (user && isTourOpen) {
       return;
     }
 
@@ -42,7 +40,7 @@ export default function WelcomeTourModal() {
 
   useEffect(() => {
     handleStartTour();
-  });
+  }, []);
 
   const handleOpenTour = () => {
     onClose();
