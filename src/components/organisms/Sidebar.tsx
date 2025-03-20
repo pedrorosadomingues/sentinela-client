@@ -29,13 +29,21 @@ export default function Sidebar(): JSX.Element {
     useGlobalStore();
   const router = useRouter();
   const pathname = usePathname();
-  const { imageFunctions } = useFnStore();
+  let { imageFunctions } = useFnStore();
   const { user } = useUserStore();
   const availableFunctions = Array.isArray(user?.plan?.available_resources)
     ? user.plan.available_resources.map((fn) => fn as string)
     : [];
   const { setIsOpenUpgradeModal } = usePlanStore();
   const text = useTranslations("sidebar");
+
+  if (user?.email === "coralfitness6@gmail.com") {
+    imageFunctions = imageFunctions.filter(
+      (func) => func.name === "dress-model"
+        // Array.isArray(user?.plan?.available_resources) &&
+        // user.plan.available_resources.includes(func.name)
+    );
+  }
 
   const MAIN_ITEMS = [
     {
@@ -74,14 +82,14 @@ export default function Sidebar(): JSX.Element {
                 lg:translate-x-0 bg-white border-r border-gray-200`}
           aria-label="Sidebar"
         >
-          <div className="h-full overflow-x-hidden px-3 lg:group-hover:px-4 pb-4 overflow-y-scroll scrollbar-hide bg-white flex flex-col justify-between">
-            <div className="h-full flex flex-col">
-              <div className="w-full flex h-24 justify-center px-4 mt-2 bg-gradient-to-b from-white to-white/20 absolute left-0 top-0">
-                <div className="w-full z-[41] h-16 bg-white flex items-center justify-between gap-2">
+          <div className="flex flex-col bg-white h-full justify-between lg:group-hover:px-4 overflow-x-hidden overflow-y-scroll pb-4 px-3 scrollbar-hide">
+            <div className="flex flex-col h-full">
+              <div className="flex bg-gradient-to-b h-24 justify-center w-full absolute from-white left-0 mt-2 px-4 to-white/20 top-0">
+                <div className="flex bg-white h-16 justify-between w-full gap-2 items-center z-[41]">
                   <Image
                     src={"/images/logo-vestiq.png"}
                     alt="Logo"
-                    className="w-12 aspect-square hidden group-hover:block animate-fade-in"
+                    className="w-12 animate-fade-in aspect-square group-hover:block hidden"
                     width={70}
                     height={70}
                     priority={true}
@@ -89,7 +97,7 @@ export default function Sidebar(): JSX.Element {
                   <Image
                     src={"/icons/logo-vestiq.ico"}
                     alt="Logo"
-                    className="block group-hover:hidden animate-appearance-in"
+                    className="animate-appearance-in block group-hover:hidden"
                     width={45}
                     height={45}
                     priority={true}
@@ -105,8 +113,8 @@ export default function Sidebar(): JSX.Element {
                 </div>
               </div>
 
-              <div className="space-y-5 mb-4">
-                <ul className="space-y-2 font-medium mt-6 pt-16">
+              <div className="mb-4 space-y-5">
+                <ul className="font-medium mt-6 pt-16 space-y-2">
                   {MAIN_ITEMS.map((item) => (
                     <SidebarItem
                       key={item.name}
@@ -133,7 +141,7 @@ export default function Sidebar(): JSX.Element {
 
                 <Divider className="w-2/3 group-hover:w-[90%] mx-auto" />
 
-                <ul className="space-y-2 font-medium overflow-x-hidden overflow-y-hidden pb-20">
+                <ul className="font-medium overflow-x-hidden overflow-y-hidden pb-20 space-y-2">
                   {imageFunctions.map((func) => (
                     <SidebarItem
                       key={func.id}
@@ -161,7 +169,7 @@ export default function Sidebar(): JSX.Element {
                 </ul>
               </div>
 
-              <div className="flex flex-col items-center gap-8 mt-auto">
+              <div className="flex flex-col gap-8 items-center mt-auto">
                 <ToggleSidebarLayout />
 
                 {user && (
@@ -177,7 +185,7 @@ export default function Sidebar(): JSX.Element {
                     </Tooltip>
 
                     <Card
-                      className="w-full hidden lg:hidden lg:group-hover:flex flex-row items-center justify-center gap-2 px-4 py-1 border-1.5 border-default-300 text-base"
+                      className="flex-row border-1.5 border-default-300 justify-center text-base w-full gap-2 hidden items-center lg:group-hover:flex lg:hidden px-4 py-1"
                       shadow="none"
                       radius="sm"
                     >
@@ -228,7 +236,7 @@ const SidebarItem = ({
         <div className="relative">{icon}</div>
       )}
       {layout !== "minimized" && (
-        <span className="lg:hidden lg:group-hover:block ms-3 text-xs lg:text-sm 3xl:text-base whitespace-nowrap">
+        <span className="text-xs 3xl:text-base lg:group-hover:block lg:hidden lg:text-sm ms-3 whitespace-nowrap">
           {name}
         </span>
       )}

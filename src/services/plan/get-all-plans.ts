@@ -6,7 +6,7 @@ export async function getAllPlans() {
   try {
     const plans = await axiosClient.get("/plan");
     const plans_for_sale = plans.data.filter(
-      (plan: any) => plan.stripe_price_id !== null
+      (plan: any) => plan.stripe_price_id !== null && plan.stripe_price_id !== "free-trial"
     );
     const ordered_plans = plans_for_sale.sort((a: any, b: any) => {
       return a.id - b.id;

@@ -29,19 +29,19 @@ export default function Home(): JSX.Element {
   const showHomeTour = !hasSeenWelcomeTour();
 
   return (
-    <main className="w-full flex flex-col gap-8 3xl:max-w-8xl mx-auto">
+    <main className="flex flex-col w-full 3xl:max-w-8xl gap-8 mx-auto">
       {showHomeTour && <WelcomeTourModal />}
       <Banner />
-      <div className="h-full wt-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)] mt-4">
+      <div className="grid h-full w-full gap-4 md:grid-cols-[repeat(4,1fr)] mt-4 sm:grid-cols-[repeat(3,1fr)] wt-first-step xs:grid-cols-2">
         <div
           onClick={() => router.push("/main/generations?category=results")}
-          className="relative flex flex-col items-center justify-center gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary"
+          className="flex flex-1 flex-col bg-white border justify-center p-4 rounded-2xl shadow-sm text-secondary gap-2 items-center relative select-none"
         >
           <HistoryIcon
-            className="text-2xl text-[#FFFFFF] bg-secondary rounded-full p-2"
+            className="bg-secondary p-2 rounded-full text-[#FFFFFF] text-2xl"
             style={{ width: "80px", height: "80px", paddingRight: "10px" }}
           />
-          <button className="text-[#49424A] font-bold text-sm hover:underline ">
+          <button className="text-[#49424A] text-sm font-bold hover:underline">
             {t("access_generations")}
           </button>
         </div>

@@ -92,8 +92,11 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   },
 
   handleDeleteSelectedGenerations: async (options) => {
+    console.log("Delete selected generations", options);
     const { generations, setGenerations, selectedGenerations } =
       useGenerationStore.getState();
+    
+      console.log("selected generations", selectedGenerations);
 
     if (options.mode === "single" && options.data !== undefined) {
       const res = await deleteGeneration(options.data as number[]);
