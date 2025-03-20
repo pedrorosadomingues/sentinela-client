@@ -96,7 +96,6 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       useGenerationStore.getState();
 
     if (options.mode === "single" && options.data !== undefined) {
-      console.log("Delete single generation", options.data[0]);
       const res = await deleteGeneration(options.data as number[]);
 
       if (res.status === 200) {
@@ -125,11 +124,13 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
   handleDownloadSelectedGenerations: async (options) => {
     const { selectedGenerations, generations } = useGenerationStore.getState();
-    
+
     const isZip =
       (selectedGenerations && selectedGenerations?.length > 1) ||
       (options.data && options.data?.length > 1);
+
     const currentTimeStamp = new Date().getTime();
+    
     let filesToDownload: string[];
 
     if (options.mode === "single" && options.data !== undefined) {
