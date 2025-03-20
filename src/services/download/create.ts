@@ -6,29 +6,32 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { axiosClient } from "@/lib/axios/axiosClient";
 
-// export async function createDownloadImage(body: { generation_id: number, user_id: number }): Promise<any> {
-//     try {
-//         const response = await axiosClient.post("/download", body);
+export async function createDownloadImage(body: {
+  generation_id: number;
+  user_id: number;
+}): Promise<any> {
+  try {
+    const response = await axiosClient.post("/download", body);
 
-//         return {
-//             status: httpStatus.OK,
-//             data: response.data,
-//         };
-//     } catch (error: any) {
-//         console.log("error", error);
-//         if (error.response) {
-//             return {
-//                 status: error.status,
-//                 message: error.response.data.error || "Unknown error",
-//             };
-//         } else {
-//             return {
-//                 status: httpStatus.INTERNAL_SERVER_ERROR,
-//                 message: "Server connection error",
-//             };
-//         }
-//     }
-// }
+    return {
+      status: httpStatus.OK,
+      data: response.data,
+    };
+  } catch (error: any) {
+    console.log("error", error);
+    if (error.response) {
+      return {
+        status: error.status,
+        message: error.response.data.error || "Unknown error",
+      };
+    } else {
+      return {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: "Server connection error",
+      };
+    }
+  }
+}
 
 interface DownloadFile {
   url: string;
@@ -73,32 +76,38 @@ export const downloadFiles = async (
 
   try {
     // 🔥 Convertemos todas as URLs para os caminhos do S3/R2 antes de enviar à API
-    console.log("urls", urls);
     const filePaths = urls.map(getFilePathFromUrl);
 
-    console.log("filePaths", filePaths);
-
     // 🔥 Envia todos os caminhos de uma vez para a API
-    const response = await axiosClient.post(
-      "/download/generate-presigned-url",
-      {
-        file_paths: filePaths,
-      }
-    );
+    const response = await axiosClient.post("/download/generate-presigned-url", {
+      file_paths: filePaths,
+    });
 
     if (!response.data.signedUrls) {
       throw new Error("Erro ao obter Signed URLs.");
     }
 
-    console.log("response", response);
-
     // 🔥 Agora temos todas as Signed URLs de uma só vez
-    const signedUrls = response.data.signedUrls;
+    const signedUrls = response.data.signedUrls.map(
+      (signedUrl: string, index: number) => ({
+        originalPath: urls[index],
+        signedUrl,
+      })
+    );
 
-    // const files: DownloadFile[] = signedUrls.map(({ signedUrl, originalPath }: { signedUrl: string; originalPath: string }) => {
-    //     const fileNameFromUrl = originalPath.split("/").pop() || `file-${Math.random()}`;
-    //     return { url: signedUrl, name: fileNameFromUrl };
-    // });
+    const files: DownloadFile[] = signedUrls.map(
+      ({
+        signedUrl,
+        originalPath,
+      }: {
+        signedUrl: string;
+        originalPath: string;
+      }) => {
+        const fileNameFromUrl =
+          originalPath.split("/").pop() || `file-${Math.random()}`;
+        return { url: signedUrl, name: fileNameFromUrl };
+      }
+    );
 
     let totalSize = 0;
 
@@ -106,11 +115,11 @@ export const downloadFiles = async (
       options.onProgress({ loaded: 0, total: 100, percent: 0 }); // ⏳ 0% - Iniciando...
     }
 
-    if (options.asZip) {
+    if (options.asZip && files.length > 1) {
       const zip = new JSZip();
 
       await Promise.all(
-        signedUrls.map(async (file: any) => {
+        files.map(async (file) => {
           if (options.onProgress) {
             options.onProgress({
               loaded: 0,
@@ -119,11 +128,11 @@ export const downloadFiles = async (
             }); // ⏳ 10%-20% - Obtendo URL
           }
 
-          const response = await axiosClient.get(file, {
+          const response = await axiosClient.get(file.url, {
             responseType: "blob",
           });
           if (response.status !== 200) {
-            throw new Error(`Erro ao baixar o arquivo: ${file}`);
+            throw new Error(`Erro ao baixar o arquivo: ${file.name}`);
           }
 
           if (options.onProgress) {
@@ -150,7 +159,7 @@ export const downloadFiles = async (
         }); // ✅ 100% Concluído
       }
     } else {
-      const file = signedUrls[0];
+      const file = files[0];
 
       if (options.onProgress) {
         options.onProgress({
@@ -164,7 +173,7 @@ export const downloadFiles = async (
         responseType: "blob",
       });
       if (response.status !== 200) {
-        throw new Error(`Erro ao baixar o arquivo: ${file}`);
+        throw new Error(`Erro ao baixar o arquivo: ${file.name}`);
       }
 
       if (options.onProgress) {
