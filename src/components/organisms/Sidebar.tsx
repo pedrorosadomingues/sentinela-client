@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
@@ -7,6 +8,7 @@ import {
   useFnStore,
   useUserStore,
   useGlobalStore,
+  usePlanStore,
 } from "@/stores";
 import { Button, Card, Divider, Tooltip } from "@heroui/react";
 import { ImageFunctionName } from "@/interfaces/image-function";
@@ -29,6 +31,10 @@ export default function Sidebar(): JSX.Element {
   const pathname = usePathname();
   const { imageFunctions } = useFnStore();
   const { user } = useUserStore();
+  const availableFunctions = Array.isArray(user?.plan?.available_resources)
+    ? user.plan.available_resources.map((fn) => fn as string)
+    : [];
+  const { setIsOpenUpgradeModal } = usePlanStore();
   const text = useTranslations("sidebar");
 
   const MAIN_ITEMS = [
@@ -138,8 +144,16 @@ export default function Sidebar(): JSX.Element {
                       // @ts-ignore
                       name={text(func.name)}
                       onPress={() => {
-                        router.push(`/main/fns/${func.name.toLowerCase()}`);
                         toggleSidebar();
+                        router.push(`/main/fns/${func.name.toLowerCase()}`);
+
+                        // toggleSidebar();
+
+                        // if (availableFunctions.includes(func.name)) {
+                        //   router.push(`/main/fns/${func.name.toLowerCase()}`);
+                        // } else {
+                        //   setIsOpenUpgradeModal(true);
+                        // };
                       }}
                       layout={sidebarLayout}
                     />

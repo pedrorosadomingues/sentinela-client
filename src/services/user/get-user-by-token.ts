@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function getUserByToken(token: string) {
   try {
-    const response = await axios.get("/api/user", {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user`, {
       headers: {
         Authorization: `Bearer ${token}`, // 🔹 Enviando token no cabeçalho
       },
