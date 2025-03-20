@@ -8,21 +8,23 @@ import {
   Button,
   useDisclosure,
 } from "@heroui/react";
-import { useTour } from "@reactour/tour";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect } from "react";
+import { useWelcomeTour } from "@/hooks/useWelcomeTour";
 
 export default function WelcomeTourModal() {
   const t = useTranslations("tours");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    setCurrentStep,
-    currentStep,
-    isOpen: isTourOpen,
-    setIsOpen,
-  } = useTour();
   const { user } = useUserStore();
+  const { 
+    currentStep, 
+    isOpen: isTourOpen, 
+    setIsOpen, 
+    startWelcomeTour, 
+    handleSkipTour,
+    hasSkippedOnce 
+  } = useWelcomeTour();
 
   const handleStartTour = () => {
     if (user && isTourOpen) {
@@ -30,7 +32,7 @@ export default function WelcomeTourModal() {
     }
 
     if (currentStep !== 0 && !isTourOpen) {
-      setCurrentStep(0);
+      startWelcomeTour();
     }
 
     setTimeout(() => {
@@ -45,6 +47,11 @@ export default function WelcomeTourModal() {
   const handleOpenTour = () => {
     onClose();
     setIsOpen(true);
+  };
+  
+  const handleSkip = async () => {
+    onClose();
+    await handleSkipTour();
   };
 
   return (
@@ -65,10 +72,19 @@ export default function WelcomeTourModal() {
           <p className="text-sm 2xl:text-base">
             {t("welcome_tour.greeting_message")}
           </p>
+          {hasSkippedOnce && (
+            <p className="text-xs text-warning mt-2">
+              Pular novamente marcará o tour como visualizado permanentemente.
+            </p>
+          )}
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" variant="light" onPress={onClose}>
-            {t("skip_label")}
+          <Button 
+            color={hasSkippedOnce ? "warning" : "danger"} 
+            variant="light" 
+            onPress={handleSkip}
+          >
+            {hasSkippedOnce ? "Pular permanentemente" : t("skip_label")}
           </Button>
           <Button color="secondary" radius="sm" onPress={handleOpenTour}>
             {t("start_label")}

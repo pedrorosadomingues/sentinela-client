@@ -20,16 +20,16 @@ import Image from "next/image";
 
 interface BannerProps {
   id: number | null;
-  title: string | null;
-  description: string | null;
+  title?: string | null;
+  description?: string | null;
   background: string | null;
   creative: string | null;
-  href: string | null;
-  label: string | null;
-  external: boolean | null;
-  icon: string | null;
-  locale: string | null;
-  order: number | null;
+  href?: string | null;
+  label?: string | null;
+  external?: boolean | null;
+  icon?: string | null;
+  locale?: string | null;
+  order?: number | null;
 }
 
 const settings: Settings = {
@@ -52,7 +52,7 @@ export default function Banner() {
   const carouselRef = useRef(null);
 
   return (
-    <section className="min-h-64 w-full row-span-1">
+    <section className="h-full max-h-36 md:max-h-64 w-full row-span-1">
       {banners.length > 1 ? (
         <Slider {...settings} ref={carouselRef}>
           {banners
@@ -61,7 +61,7 @@ export default function Banner() {
               if (a.order === null) return 1; // Deixa `a` no final
               if (b.order === null) return -1; // Deixa `b` no final
 
-              return a.order - b.order; // Ordena os valores numéricos
+              return (a?.order ?? 0) - (b?.order ?? 0); // Ordena os valores numéricos
             })
             .map((banner) => (
               <BannerCard key={banner.id} {...banner} />
@@ -123,7 +123,7 @@ const BannerCard = ({
 
   return (
     <div
-      className={`group h-96 lg:h-64 flex flex-col lg:flex-row overflow-hidden rounded-xl relative transition-opacity duration-300`}
+      className={`group h-36 md:h-72 flex flex-col lg:flex-row overflow-hidden rounded-xl relative transition-opacity duration-300`}
     >
       <Image
         src={background ? background : "/images/banner/default.png"}
@@ -134,7 +134,8 @@ const BannerCard = ({
         unoptimized
         priority
       />
-      <div className="flex w-full flex-col gap-2 p-4 lg:p-6 lg:w-2/5 z-[1]">
+      {title && description && label && (
+        <div className="flex w-full flex-col gap-2 p-4 lg:p-6 lg:w-2/5 z-[1]">
         {title && (
           <h2 className="font-bold text-white md:whitespace-nowrap text-xl md:text-2xl lg:text-2xl">
             {title}
@@ -158,15 +159,16 @@ const BannerCard = ({
           </Button>
         )}
       </div>
+      )}
 
       {creative && (
-        <div className="order-first h-full w-full lg:order-none p-4 lg:w-3/5 overflow-hidden z-[1]">
+        <div className="order-first h-full w-full lg:order-none p-4 overflow-hidden z-[1]">
           <Image
             src={creative}
             width={100}
             height={100}
             alt={title as string}
-            className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-1000"
+            className="h-full w-full object-contain object-center group-hover:scale-105 transition-transform duration-1000"
             unoptimized
           />
         </div>
@@ -178,28 +180,8 @@ const BannerCard = ({
 const banners: BannerProps[] = [
   {
     id: 1,
-    title: "title",
-    description: "description",
-    background: "/images/banners/bg-example.png",
-    creative: "/images/creatives/creative-welcome-vestiq.png",
-    href: "/",
-    label: "label",
-    external: false,
-    icon: "play",
-    locale: "en",
+    background: "/images/banners/bg-vq-red.png",
+    creative: "/images/creatives/creative-vq-welcome.png",
     order: 1,
-  },
-  {
-    id: 2,
-    title: "title",
-    description: "description",
-    background: "/images/banners/bg-example.png",
-    creative: "/images/creatives/creative-welcome-vestiq.png",
-    href: "https://google.com",
-    label: "label",
-    external: true,
-    icon: "whatsapp",
-    locale: "en",
-    order: 2,
   },
 ];
