@@ -19,14 +19,26 @@ import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
-  const { imageFunctions } = useFnStore();
+  let { imageFunctions } = useFnStore();
   const { user } = useUserStore();
   const availableFns = Array.isArray(user?.plan?.available_resources)
-  ? user.plan.available_resources.map((fn) => fn as string)
-  : [];
+    ? user.plan.available_resources.map((fn) => fn as string)
+    : [];
   const router = useRouter();
-  const { isOpen: isTourOpen, hasSeenWelcomeTour, goToDressModelStep } = useWelcomeTour();
+  const {
+    isOpen: isTourOpen,
+    hasSeenWelcomeTour,
+    goToDressModelStep,
+  } = useWelcomeTour();
   const showHomeTour = !hasSeenWelcomeTour();
+
+  if (user?.email === "coralfitness6@gmail.com") {
+    imageFunctions = imageFunctions.filter(
+      (func) => func.name === "dress-model"
+      // Array.isArray(user?.plan?.available_resources) &&
+      // user.plan.available_resources.includes(func.name)
+    );
+  }
 
   return (
     <main className="flex flex-col w-full 3xl:max-w-8xl gap-8 mx-auto">
