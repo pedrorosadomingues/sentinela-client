@@ -125,7 +125,7 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
   handleDownloadSelectedGenerations: async (options) => {
     const { selectedGenerations, generations } = useGenerationStore.getState();
-
+    
     const isZip =
       (selectedGenerations && selectedGenerations?.length > 1) ||
       (options.data && options.data?.length > 1);
