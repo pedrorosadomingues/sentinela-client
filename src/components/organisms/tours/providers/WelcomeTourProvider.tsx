@@ -6,6 +6,7 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import Bubble from "../misc/Bubble";
 import { CustomStepType, getWelcomeTourSteps } from "@/constants/tours";
 import { useLocale } from "next-intl";
+import { useWelcomeTour } from "@/hooks/useWelcomeTour";
 
 export default function WelcomeTourProvider({
   children,
@@ -14,6 +15,7 @@ export default function WelcomeTourProvider({
 }) {
   const locale = useLocale();
   const WELCOME_TOUR_STEPS = getWelcomeTourSteps(locale);
+  const { handleSkipTour } = useWelcomeTour();
 
   const disableBody = (target: Element | null) =>
     disableBodyScroll(target as Element);
@@ -50,7 +52,11 @@ export default function WelcomeTourProvider({
         close: (base) => ({ ...base, right: "auto", left: 8, top: 8 }),
       }}
       ContentComponent={(props) => (
-        <Bubble {...props} steps={WELCOME_TOUR_STEPS as CustomStepType[]} />
+        <Bubble 
+          {...props} 
+          steps={WELCOME_TOUR_STEPS as CustomStepType[]} 
+          onSkip={handleSkipTour}
+        />
       )}
     >
       {children}

@@ -14,63 +14,34 @@ import {
 } from "@/interfaces/image-function";
 import { ICON_MAPPING } from "@/constants";
 import WelcomeTourModal from "../tours/welcome/WelcomeTourModal";
-import { useTour } from "@reactour/tour";
-import { axiosClient } from "@/lib/axios/axiosClient";
+import { useWelcomeTour } from "@/hooks/useWelcomeTour";
 import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
   const t = useTranslations("home");
-  let { imageFunctions } = useFnStore();
-  const { setCurrentStep, currentStep, isOpen: isTourOpen } = useTour();
-  const { user, getUser } = useUserStore();
+  const { imageFunctions } = useFnStore();
+  const { user } = useUserStore();
+  const availableFns = Array.isArray(user?.plan?.available_resources)
+  ? user.plan.available_resources.map((fn) => fn as string)
+  : [];
   const router = useRouter();
-  const tours = user?.watched_tours.map((tour) => tour.tour_id);
-  const showHomeTour = !tours?.includes(1);
-
-  if (user?.email === "coralfitness6@gmail.com") {
-    imageFunctions = imageFunctions.filter(
-      (func) => func.name === "dress-model"
-        // Array.isArray(user?.plan?.available_resources) &&
-        // user.plan.available_resources.includes(func.name)
-    );
-  }
-
-  const handleUpdateStep = () => {
-    const body = {
-      user_id: user?.id,
-      tour_id: 1, // Dress Model Tour ID
-    };
-
-    axiosClient
-      .post("/user/user_tour", body)
-      .then(async () => {
-        await getUser(user?.id as number);
-
-        if (currentStep === 0) {
-          setCurrentStep(currentStep + 1);
-        }
-
-        router.push(`/main/fns/dress-model`);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  const { isOpen: isTourOpen, hasSeenWelcomeTour, goToDressModelStep } = useWelcomeTour();
+  const showHomeTour = !hasSeenWelcomeTour();
 
   return (
-    <main className="w-full grid grid-cols-1 gap-8 3xl:max-w-8xl mx-auto">
+    <main className="flex flex-col w-full 3xl:max-w-8xl gap-8 mx-auto">
       {showHomeTour && <WelcomeTourModal />}
       <Banner />
-      <div className="wt-first-step w-full grid gap-4 xs:grid-cols-2 sm:grid-cols-[repeat(3,1fr)] md:grid-cols-[repeat(4,1fr)]">
+      <div className="grid h-full w-full gap-4 md:grid-cols-[repeat(4,1fr)] mt-4 sm:grid-cols-[repeat(3,1fr)] wt-first-step xs:grid-cols-2">
         <div
           onClick={() => router.push("/main/generations?category=results")}
-          className="relative flex flex-col items-center justify-center gap-2 bg-white flex-1 border shadow-sm rounded-2xl p-4 select-none text-secondary"
+          className="flex flex-1 flex-col bg-white border justify-center p-4 rounded-2xl shadow-sm text-secondary gap-2 items-center relative select-none"
         >
           <HistoryIcon
-            className="text-2xl text-[#FFFFFF] bg-secondary rounded-full p-2"
+            className="bg-secondary p-2 rounded-full text-[#FFFFFF] text-2xl"
             style={{ width: "80px", height: "80px", paddingRight: "10px" }}
           />
-          <button className="text-[#49424A] font-bold text-sm hover:underline ">
+          <button className="text-[#49424A] text-sm font-bold hover:underline">
             {t("access_generations")}
           </button>
         </div>
@@ -81,10 +52,11 @@ export default function Home(): JSX.Element {
             title={func.title}
             description={func.description}
             isBeta={func.is_beta}
+            isLocked={!availableFns.includes(func.name)}
             onClick={() => {
               if (func.name === "dress-model") {
                 if (isTourOpen) {
-                  handleUpdateStep();
+                  goToDressModelStep();
                 } else {
                   router.push(`/main/fns/${func.name}`);
                 }

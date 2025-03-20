@@ -12,6 +12,9 @@ interface IPlanStore {
 
   selectedPlan: string | null;
   setSelectedPlan: (selectedPlan: string | null) => void;
+
+  isOpenUpgradeModal: boolean;
+  setIsOpenUpgradeModal: (isOpenUpgradeModal: boolean) => void;
 }
 
 export const usePlanStore = create<IPlanStore>((set) => ({
@@ -38,5 +41,8 @@ export const usePlanStore = create<IPlanStore>((set) => ({
 
   selectedPlan: null,
   setSelectedPlan: (selectedPlan) => set({ selectedPlan }),
+
+  isOpenUpgradeModal: false,
+  setIsOpenUpgradeModal: (isOpenUpgradeModal) => set({ isOpenUpgradeModal }),
 }));
 

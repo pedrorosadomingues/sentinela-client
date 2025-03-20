@@ -8,7 +8,7 @@ import { CustomStepType, getDressModelTourSteps } from "@/constants/tours";
 import { useDressModelStore } from "@/stores/dressModelStore";
 import { useLocale } from "next-intl";
 
-export default function DressTourProvider({
+export default function DressModelTourProvider({
   children,
 }: {
   children: React.ReactNode;

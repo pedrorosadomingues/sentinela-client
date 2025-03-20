@@ -43,9 +43,9 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       const response = await getAllGenerations();
 
       if (response.status === 200) {
-      set({ generations: response.data });
+        set({ generations: response.data });
       } else {
-      console.error(response.message);
+        console.error(response.message);
       }
     } catch (error) {
       console.error("Failed to fetch generations", error);
@@ -92,11 +92,8 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   },
 
   handleDeleteSelectedGenerations: async (options) => {
-    console.log("Delete selected generations", options);
     const { generations, setGenerations, selectedGenerations } =
       useGenerationStore.getState();
-    
-      console.log("selected generations", selectedGenerations);
 
     if (options.mode === "single" && options.data !== undefined) {
       const res = await deleteGeneration(options.data as number[]);
@@ -131,7 +128,9 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
     const isZip =
       (selectedGenerations && selectedGenerations?.length > 1) ||
       (options.data && options.data?.length > 1);
+
     const currentTimeStamp = new Date().getTime();
+    
     let filesToDownload: string[];
 
     if (options.mode === "single" && options.data !== undefined) {
@@ -140,6 +139,8 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       )?.path;
 
       filesToDownload = filteredPath ? [filteredPath] : [];
+
+      console.log("FILES TO DOWNLOAD: ", filesToDownload);
     } else {
       const filteredSelectedPaths = generations?.map((id) => {
         const generation = useGenerationStore

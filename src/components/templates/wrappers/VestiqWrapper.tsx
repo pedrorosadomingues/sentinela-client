@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Header from "@/components/organisms/Header";
+import UpgradePlanModal from "@/components/organisms/plans/UpgradePlanModal";
 import Sidebar from "@/components/organisms/Sidebar";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
 import { useFnStore, useUserStore } from "@/stores";
@@ -28,6 +29,7 @@ export default function VestiqWrapper({
       <Header />
       <Sidebar />
       <article className="w-full lg:ml-24 mt-20 px-4 lg:pr-4">
+        <UpgradePlanModal />
         {children}
       </article>
     </div>

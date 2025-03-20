@@ -22,12 +22,16 @@ export default function Providers({
   locale: string;
 }) {
   const { user, setUser } = useUserStore();
+
   const [isFetchingUser, setIsFetchingUser] = useState(false);
+  
   const pathname = usePathname();
 
   // 🔹 Rotas privadas
   const privateRoutes = ["/main"];
+
   const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+
   const isPrivateRoute = privateRoutes.some((route) =>
     pathWithoutLocale.startsWith(route)
   );
@@ -41,7 +45,7 @@ export default function Providers({
         const response = await axiosClient.get("/auth/get-user", {
           withCredentials: true, // 🔹 Garante que os cookies sejam enviados na requisição
         });
-        console.log("response:", response);
+      
         if (response.data) {
           setUser(response.data.session_user); // 🔹 Define o usuário no Zustand
         }

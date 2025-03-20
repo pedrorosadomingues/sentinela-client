@@ -19,7 +19,7 @@ import { useDressModelStore } from "@/stores/dressModelStore";
 import CreateModelButton from "../create-model/CreateModel";
 import ChooseDefaultModel from "../create-model/ChooseDefaultModel";
 import GenerateModelByText from "../create-model/GenerateModelByText";
-import { useTour } from "@reactour/tour";
+import { useDressModelTour } from "@/hooks/useDressModelTour";
 import { FormValues } from "@/interfaces";
 import { urlToBase64 } from "@/utils/image";
 import { useToast } from "@/hooks/useToast";
@@ -43,32 +43,25 @@ export default function DressModel(): JSX.Element {
     setIsOpen,
     setCurrentStep,
     currentStep,
-  } = useTour();
+    startDressModelTour
+  } = useDressModelTour();
   const tours = user?.watched_tours.map((tour) => tour.tour_id);
   const showDressTour = !tours?.includes(2);
 
   const handleStartTour = () => {
-    if (user && !showDressTour && isTourOpen) {
+    if ((user && showDressTour === false) || isTourOpen) {
       return;
     }
 
-    if (currentStep !== 0 && !isTourOpen) {
-      setCurrentStep(0);
-    }
-    
     setTimeout(() => {
-      setIsOpen(true);
+      startDressModelTour();
       setValue("category", "one-pieces");
     }, 2000);
   };
 
   useEffect(() => {
-    handleStartTour();
+    if (showDressTour) handleStartTour();
   }, []);
-
-  useEffect(() => {
-    handleDressTour(currentStep);
-  }, [currentStep]);
 
   const modelInputRef = useRef<HTMLInputElement | null>(null);
   const garmentInputRef = useRef<HTMLInputElement | null>(null);

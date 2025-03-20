@@ -3,7 +3,7 @@ export async function validateUserToken(token?: string) {
 
   try {
     const response = await fetch(
-      `https://${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
       {
         credentials: "include",
         headers: {
