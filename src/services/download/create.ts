@@ -88,10 +88,7 @@ export const downloadFiles = async (
         console.log("response", response);
 
         // 🔥 Agora temos todas as Signed URLs de uma só vez
-        const signedUrls = response.data.signedUrls.map((signedUrl: string, index: number) => ({
-            originalPath: urls[index],
-            signedUrl,
-        }));
+        const signedUrls = response.data.signedUrls
 
         const files: DownloadFile[] = signedUrls.map(({ signedUrl, originalPath }: { signedUrl: string; originalPath: string }) => {
             const fileNameFromUrl = originalPath.split("/").pop() || `file-${Math.random()}`;
