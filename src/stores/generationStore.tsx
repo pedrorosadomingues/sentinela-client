@@ -138,6 +138,8 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       )?.path;
 
       filesToDownload = filteredPath ? [filteredPath] : [];
+
+      console.log("FILES TO DOWNLOAD: ", filesToDownload);
     } else {
       const filteredSelectedPaths = generations?.map((id) => {
         const generation = useGenerationStore

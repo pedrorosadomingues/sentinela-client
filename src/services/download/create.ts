@@ -119,11 +119,11 @@ export const downloadFiles = async (
             }); // ⏳ 10%-20% - Obtendo URL
           }
 
-          const response = await axiosClient.get(file.url, {
+          const response = await axiosClient.get(file, {
             responseType: "blob",
           });
           if (response.status !== 200) {
-            throw new Error(`Erro ao baixar o arquivo: ${file.name}`);
+            throw new Error(`Erro ao baixar o arquivo: ${file}`);
           }
 
           if (options.onProgress) {
@@ -164,7 +164,7 @@ export const downloadFiles = async (
         responseType: "blob",
       });
       if (response.status !== 200) {
-        throw new Error(`Erro ao baixar o arquivo: ${file.name}`);
+        throw new Error(`Erro ao baixar o arquivo: ${file}`);
       }
 
       if (options.onProgress) {
