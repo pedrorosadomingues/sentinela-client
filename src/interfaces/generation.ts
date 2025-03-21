@@ -21,7 +21,7 @@ export interface CreateGenerationBody {
 }
 
 export interface CreateGenerationResponse {
-  status: number;
+  status?: number;
   data?: any;
   message?: any;
 }

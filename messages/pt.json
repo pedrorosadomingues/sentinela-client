@@ -160,7 +160,7 @@
     "reset_images": "Remover todas as imagens"
   },
   "model_image_controls": {
-    "title": "Controles da Imagem do Modelo",
+    "title": "Detalhes do Modelo",
     "options": {
       "restore_background": "Restaurar Fundo"
     },
