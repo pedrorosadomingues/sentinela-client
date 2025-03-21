@@ -30,12 +30,18 @@ interface IGenerationStore {
     data?: number[];
   }) => Promise<void>;
   handleMoveSelectedGenerations: () => Promise<void>;
+
+  sortedGenerations: Generations[] | null;
+  setSortedGenerations: (sortedGenerations: Generations[] | null) => void;
+  sortGenerations: (order: "newest-editions" | "oldest-editions") => void;
 }
 
 export const useGenerationStore = create<IGenerationStore>((set) => ({
   isFetching: false,
   generations: null,
+  sortedGenerations: null,
   setGenerations: (generations) => set({ generations }),
+  setSortedGenerations: (sortedGenerations) => set({ sortedGenerations }),
   getGenerations: async () => {
     set({ isFetching: true });
 
@@ -44,6 +50,7 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
       if (response.status === 200) {
         set({ generations: response.data });
+        set({ sortedGenerations: response.data });
       } else {
         console.error(response.message);
       }
@@ -130,7 +137,7 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       (options.data && options.data?.length > 1);
 
     const currentTimeStamp = new Date().getTime();
-    
+
     let filesToDownload: string[];
 
     if (options.mode === "single" && options.data !== undefined) {
@@ -167,6 +174,22 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
     if (selectedGenerations) {
       console.log("Move selected generations", selectedGenerations);
+    }
+  },
+
+  sortGenerations: (order: "newest-editions" | "oldest-editions") => {
+    const { generations, setSortedGenerations, sortedGenerations } =
+      useGenerationStore.getState();
+
+    if (generations) {
+      const ssortedGenerations = [...generations].sort((a, b) => {
+        const dateA = new Date(a.id).getTime();
+        const dateB = new Date(b.id).getTime();
+
+        return order === "newest-editions" ? dateB - dateA : dateA - dateB;
+      });
+
+      setSortedGenerations(ssortedGenerations);
     }
   },
 }));
