@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useGenerationStore } from "@/stores";
 
 interface FilterProps {
   member: string;
@@ -45,6 +46,8 @@ export default function FilterButtons() {
     setFilters({ ...filters, [filter]: key });
   };
 
+  const { filterGenerations } = useGenerationStore();
+
   return (
     <Dropdown
       placement="bottom-start"
@@ -67,7 +70,11 @@ export default function FilterButtons() {
         aria-label={t("filter_by_date")}
         disallowEmptySelection
         variant="flat"
-        onAction={(key) => handleSelectMember(key as string, "date")}
+        onAction={(key) => {
+          filterGenerations(key as string);
+
+          handleSelectMember(key as string, "date");
+        }}
       >
         {dateOptions.map((time) => (
           <DropdownItem key={time.key} textValue={time.label}>
