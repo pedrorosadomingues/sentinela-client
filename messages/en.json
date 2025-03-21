@@ -160,7 +160,7 @@
     "reset_images": "Clear all images"
   },
   "model_image_controls": {
-    "title": "Model Image Controls",
+    "title": "Model Details",
     "options": {
       "restore_background": "Restore Background"
     },
