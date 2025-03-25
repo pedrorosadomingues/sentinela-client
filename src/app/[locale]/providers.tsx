@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { useUserStore } from "@/stores";
@@ -22,51 +22,45 @@ export default function Providers({
   locale: string;
 }) {
   const { user, setUser } = useUserStore();
-
   const [isFetchingUser, setIsFetchingUser] = useState(false);
-  
   const pathname = usePathname();
+  const hasFetchedUser = useRef(false);
 
-  // 🔹 Rotas privadas
   const privateRoutes = ["/main"];
-
   const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
-
   const isPrivateRoute = privateRoutes.some((route) =>
     pathWithoutLocale.startsWith(route)
   );
 
-  // 🔹 Função para buscar o usuário autenticado via API interna
   const fetchSession = async () => {
-    if (!user && isPrivateRoute) {
-      setIsFetchingUser(true);
+    if (hasFetchedUser.current || user || !isPrivateRoute) return;
 
-      try {  
-        const response = await axiosClient.get("/auth/get-user", {
-          withCredentials: true, // 🔹 Garante que os cookies sejam enviados na requisição
-        });
-      
-        if (response.data) {
-          setUser(response.data.session_user); // 🔹 Define o usuário no Zustand
-        }
-      } catch (error) {
-        console.error("❌ Erro ao buscar sessão:", error);
-      } finally {
-        setIsFetchingUser(false);
+    hasFetchedUser.current = true;
+    setIsFetchingUser(true);
+
+    try {
+      const response = await axiosClient.get("/auth/get-user", {
+        withCredentials: true,
+      });
+
+      if (response.data) {
+        setUser(response.data.session_user);
       }
+    } catch (error) {
+      console.error("❌ Erro ao buscar sessão:", error);
+    } finally {
+      setIsFetchingUser(false);
     }
   };
 
   useEffect(() => {
     fetchSession();
-  }, [locale]);
+  }, [locale, isPrivateRoute]);
 
-  // 🔹 Exibe loading enquanto busca a sessão
   if (isPrivateRoute && isFetchingUser) {
     return <VestiqLoading />;
   }
 
-  // 🔹 Se for uma rota privada e o usuário estiver autenticado, coloca o conteúdo dentro do VestiqWrapper
   const content = isPrivateRoute ? (
     <VestiqWrapper>{children}</VestiqWrapper>
   ) : (
