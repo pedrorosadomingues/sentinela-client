@@ -128,6 +128,9 @@ export default function Header(): JSX.Element {
       case "render-traces":
         return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
 
+      case "projects":
+        return <h1 className="text-2xl text-black">{t("my_projects")}</h1>;
+
       case "profile":
       case "plans":
       case "team":

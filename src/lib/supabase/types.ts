@@ -131,7 +131,9 @@ export type Database = {
           id: number
           model_image_path: string
           params_fashn: Json
+          paste_id: number | null
           path: string | null
+          project_id: number | null
           started_at: string
           status: string
           user_id: number
@@ -146,7 +148,9 @@ export type Database = {
           id?: number
           model_image_path: string
           params_fashn: Json
+          paste_id?: number | null
           path?: string | null
+          project_id?: number | null
           started_at: string
           status: string
           user_id: number
@@ -161,7 +165,9 @@ export type Database = {
           id?: number
           model_image_path?: string
           params_fashn?: Json
+          paste_id?: number | null
           path?: string | null
+          project_id?: number | null
           started_at?: string
           status?: string
           user_id?: number
@@ -291,6 +297,36 @@ export type Database = {
         }
         Relationships: []
       }
+      paste: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          parent_id: number | null
+          project_id: number
+          updated_at: string
+          user_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          parent_id?: number | null
+          project_id: number
+          updated_at: string
+          user_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          parent_id?: number | null
+          project_id?: number
+          updated_at?: string
+          user_id?: number
+        }
+        Relationships: []
+      }
       plan: {
         Row: {
           available_resources: Json
@@ -324,6 +360,30 @@ export type Database = {
           price_br?: number
           storage_limit?: number
           stripe_price_id?: string | null
+        }
+        Relationships: []
+      }
+      project: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          updated_at: string
+          user_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          updated_at: string
+          user_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          updated_at?: string
+          user_id?: number
         }
         Relationships: []
       }

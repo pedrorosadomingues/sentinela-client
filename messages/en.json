@@ -125,7 +125,8 @@
     "render-traces": "Render Traces",
     "language_switcher": "Change language",
     "subscribe_now": "Subscribe now!",
-    "plans_and_subscriptions": "Plans and Subscriptions"
+    "plans_and_subscriptions": "Plans and Subscriptions",
+    "my_projects": "My Projects"
   },
   "sidebar": {
     "my_profile": "My Perfil",
@@ -135,7 +136,8 @@
     "dress-model": "Dress Model",
     "txt2img": "Image from Text",
     "render-traces": "Render Traces",
-    "plans_and_subscriptions": "Plans and Subscriptions"
+    "plans_and_subscriptions": "Plans and Subscriptions",
+    "my_projects": "My Projects"
   },
   "model_image_area": {
     "step1_send_model_image": "Model Image",
@@ -342,5 +344,94 @@
     "get_basic": "Get Basic",
     "get_expert": "Get Expert",
     "get_business": "Get Business"
+  },
+  "functions": {
+    "save-generation-modal": {
+      "title": "Choose Save Location",
+      "subtitle": "Navigate to the desired project or folder and click Confirm to save.",
+      "save": "Save",
+      "back": "Back",
+      "continue": "Continue",
+      "confirm": "Confirm",
+      "create_project": "Create New Project",
+      "create-folder": "Create New Folder",
+      "cancel": "Cancel",
+      "create": "Create",
+      "project_name": "Project Name",
+      "folder_name": "Folder Name",
+      "placeholder_project": "Enter the project name",
+      "placeholder_folder": "Enter the folder name",
+      "SVGNM-S200": "Image saved successfully!",
+      "SVGNM-D400": "Error saving the image. Check your connection or try again later.",
+      "SVGNM-G500": "Unexpected error saving the image.",
+      "empty": "Empty",
+      "files": "Files"
+    }
+  },
+  "projects": {
+    "move_generation_button": {
+      "move": "Move",
+      "move_images": "Move images",
+      "select_project": "Select a project.",
+      "select_folder": "Select a folder to move the images.",
+      "back": "Back",
+      "continue": "Continue",
+      "confirm": "Confirm",
+      "create_new_project": "Create New Project",
+      "create_new_folder": "Create New Folder",
+      "project_name": "Project Name",
+      "folder_name": "Folder Name",
+      "enter_project_name": "Enter the project name",
+      "enter_folder_name": "Enter the folder name",
+      "create": "Create",
+      "cancel": "Cancel",
+      "files": "{count} Files",
+      "empty": "Empty",
+      "create_project": "Create Project",
+      "create_folder": "Create Folder",
+      "success_move": "Image moved successfully!",
+      "error_move": "Failed to move the image."
+    },
+    "create_file": {
+      "FSCF-S200": "File created successfully!",
+      "FSCF-S201": "Action completed successfully!",
+      "FSCF-S204": "File updated successfully!",
+      "FSCF-S205": "File deleted successfully!",
+      "FSCF-D400": "Validation error. Please check the provided data.",
+      "FSCF-D401": "You are not authorized to perform this action. Please log in again.",
+      "FSCF-D403": "Access denied. You do not have the necessary permissions.",
+      "FSCF-D404": "Resource not found. Please check the data and try again.",
+      "FSCF-D409": "Conflict detected. The name already exists or cannot be used.",
+      "FSCF-D500": "Internal server error. Please try again later.",
+      "FSCF-D503": "Service temporarily unavailable. Please try again later.",
+      "FSCF-D0": "Connection error. Check your internet or try again later.",
+      "FSCF-D1": "Unexpected error. Please try again."
+    },
+    "project_card": {
+      "rename_file": "Rename file",
+      "delete_file": "Delete file",
+      "confirm_delete": "Are you sure you want to delete {type}?",
+      "folder_contains_files": "This folder contains {count} files",
+      "project_contains_files": "This project contains {count} files",
+      "folders_count": "{count} Folders",
+      "single_folder": "1 Folder",
+      "no_folders": "No folder",
+      "images_count": "{count} Images",
+      "single_image": "1 Image",
+      "no_images": "No image",
+      "back": "Back",
+      "confirm": "Confirm",
+      "input_label": "Project Name",
+      "input_placeholder": "Enter the new project name",
+      "dropdown_aria": "Actions menu for folders and projects"
+    },
+    "projects_content": {
+      "folders": "Folders",
+      "files": "Files",
+      "loading": "Loading..."
+    },
+    "folder_content": {
+      "files": "Files"
+    }
   }
 }

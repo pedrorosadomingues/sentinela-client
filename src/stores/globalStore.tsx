@@ -50,6 +50,9 @@ interface GlobalStoreProps {
 
   isEditMode: boolean;
   setIsEditMode: (value: boolean) => void;
+
+  hasAlert: boolean;
+  setHasAlert: (value: boolean) => void;
 }
 
 export const useGlobalStore = create<GlobalStoreProps>((set) => ({
@@ -120,4 +123,7 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
 
   isEditMode: false,
   setIsEditMode: (value) => set({ isEditMode: value }),
+
+  hasAlert: false,
+  setHasAlert: (value: boolean) => set({ hasAlert: value }),
 }));

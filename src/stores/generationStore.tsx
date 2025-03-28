@@ -30,6 +30,12 @@ interface IGenerationStore {
     data?: number[];
   }) => Promise<void>;
   handleMoveSelectedGenerations: () => Promise<void>;
+
+  isCheckedSelectAllBtn: boolean;
+  setIsCheckedSelectAllBtn: (isCheckedSelectAllBtn: boolean) => void;
+
+  generationsWithoutPaste: Generations[] | null;
+  setGenerationsWithoutPaste: (generations: Generations[] | null) => void;
 }
 
 export const useGenerationStore = create<IGenerationStore>((set) => ({
@@ -130,7 +136,7 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       (options.data && options.data?.length > 1);
 
     const currentTimeStamp = new Date().getTime();
-    
+
     let filesToDownload: string[];
 
     if (options.mode === "single" && options.data !== undefined) {
@@ -169,4 +175,12 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       console.log("Move selected generations", selectedGenerations);
     }
   },
+
+  isCheckedSelectAllBtn: false,
+  setIsCheckedSelectAllBtn: (isCheckedSelectAllBtn) =>
+    set({ isCheckedSelectAllBtn }),
+
+  generationsWithoutPaste: null,
+  setGenerationsWithoutPaste: (generations) =>
+    set({ generationsWithoutPaste: generations }),
 }));

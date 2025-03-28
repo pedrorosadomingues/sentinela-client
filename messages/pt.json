@@ -125,7 +125,8 @@
     "render-traces": "Renderizar Traços",
     "language_switcher": "Trocar idioma",
     "subscribe_now": "Assinar agora!",
-    "plans_and_subscriptions": "Planos e Assinaturas"
+    "plans_and_subscriptions": "Planos e Assinaturas",
+    "my_projects": "Meus Projetos"
   },
   "sidebar": {
     "my_profile": "Meu Perfil",
@@ -135,7 +136,8 @@
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagem a partir de Texto",
     "render-traces": "Renderizar Traços",
-    "plans_and_subscriptions": "Planos e Assinaturas"
+    "plans_and_subscriptions": "Planos e Assinaturas",
+    "my_projects": "Meus Projetos"
   },
   "model_image_area": {
     "step1_send_model_image": "Imagem do Modelo",
@@ -319,5 +321,94 @@
     "get_basic": "Assine o Básico",
     "get_expert": "Assine o Expert",
     "get_business": "Assine o Empresarial"
+  },
+  "functions": {
+    "save-generation-modal": {
+      "title": "Escolha o Local de Salvamento",
+      "subtitle": "Navegue até o projeto ou a pasta desejada e clique em Confirmar para salvar.",
+      "save": "Salvar",
+      "back": "Voltar",
+      "continue": "Continuar",
+      "confirm": "Confirmar",
+      "create_project": "Criar Novo Projeto",
+      "create-folder": "Criar Nova Pasta",
+      "cancel": "Cancelar",
+      "create": "Criar",
+      "project_name": "Nome do Projeto",
+      "folder_name": "Nome da Pasta",
+      "placeholder_project": "Digite o nome do projeto",
+      "placeholder_folder": "Digite o nome da pasta",
+      "SVGNM-S200": "Imagem salva com sucesso!",
+      "SVGNM-D400": "Erro ao salvar a imagem. Verifique sua conexão ou tente novamente mais tarde.",
+      "SVGNM-G500": "Erro inesperado ao salvar a imagem.",
+      "empty": "Vazio",
+      "files": "Arquivos"
+    }
+  },
+  "projects": {
+    "move_generation_button": {
+      "move": "Mover",
+      "move_images": "Mover imagens",
+      "select_project": "Selecione um projeto.",
+      "select_folder": "Seleciona uma pasta para envio das imagens.",
+      "back": "Voltar",
+      "continue": "Continuar",
+      "confirm": "Confirmar",
+      "create_new_project": "Criar Novo Projeto",
+      "create_new_folder": "Criar Nova Pasta",
+      "project_name": "Nome do Projeto",
+      "folder_name": "Nome da Pasta",
+      "enter_project_name": "Digite o nome do projeto",
+      "enter_folder_name": "Digite o nome da pasta",
+      "create": "Criar",
+      "cancel": "Cancelar",
+      "files": "{count} Arquivos",
+      "empty": "Vazio",
+      "create_project": "Criar Projeto",
+      "create_folder": "Criar Pasta",
+      "success_move": "Imagem movida com sucesso!",
+      "error_move": "Erro ao mover a imagem."
+    },
+    "create_file": {
+      "FSCF-S200": "Arquivo criado com sucesso!",
+      "FSCF-S201": "Ação concluída com sucesso!",
+      "FSCF-S204": "Arquivo atualizado com sucesso!",
+      "FSCF-S205": "Arquivo excluído com sucesso!",
+      "FSCF-D400": "Erro de validação. Verifique os dados fornecidos.",
+      "FSCF-D401": "Você não está autorizado a executar esta ação. Por favor, faça login novamente.",
+      "FSCF-D403": "Acesso negado. Você não tem as permissões necessárias.",
+      "FSCF-D404": "Recurso não encontrado. Verifique os dados e tente novamente.",
+      "FSCF-D409": "Conflito detectado. O nome já existe ou não pode ser utilizado.",
+      "FSCF-D500": "Erro interno no servidor. Por favor, tente novamente mais tarde.",
+      "FSCF-D503": "Serviço temporariamente indisponível. Por favor, tente novamente mais tarde.",
+      "FSCF-D0": "Erro de conexão. Verifique sua internet ou tente novamente mais tarde.",
+      "FSCF-D1": "Erro inesperado. Por favor, tente novamente."
+    },
+    "project_card": {
+      "rename_file": "Renomear arquivo",
+      "delete_file": "Excluir arquivo",
+      "confirm_delete": "Tem certeza que deseja excluir {type}?",
+      "folder_contains_files": "Esta pasta contém {count} arquivos",
+      "project_contains_files": "Este projeto contém {count} arquivos",
+      "folders_count": "{count} Pastas",
+      "single_folder": "1 Pasta",
+      "no_folders": "Sem pasta",
+      "images_count": "{count} Imagens",
+      "single_image": "1 Imagem",
+      "no_images": "Sem imagem",
+      "back": "Voltar",
+      "confirm": "Confirmar",
+      "input_label": "Nome do Projeto",
+      "input_placeholder": "Digite o novo nome do projeto",
+      "dropdown_aria": "Menu de ações para pastas e projetos"
+    },
+    "projects_content": {
+      "folders": "Pastas",
+      "files": "Arquivos",
+      "loading": "Carregando..."
+    },
+    "folder_content": {
+      "files": "Arquivos"
+    }
   }
 }
