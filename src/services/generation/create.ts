@@ -7,7 +7,10 @@ export async function createGeneration(
   createGenerationBody: CreateGenerationBody
 ): Promise<CreateGenerationResponse> {
   try {
-    const response = await axiosClient.post("/generation", createGenerationBody);
+    const response = await axiosClient.post(
+      "/generation",
+      createGenerationBody
+    );
 
     return {
       status: httpStatus.OK,
@@ -16,10 +19,7 @@ export async function createGeneration(
   } catch (error: any) {
     console.log("error", error);
     if (error.response) {
-      return {
-        status: error.status,
-        message: error.response.data.error || "Unknown error",
-      };
+      return error.response.data.message || "Unknown error";
     } else {
       return {
         status: httpStatus.INTERNAL_SERVER_ERROR,

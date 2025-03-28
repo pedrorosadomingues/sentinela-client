@@ -10,9 +10,12 @@ import {
 } from "@nextui-org/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useGenerationStore } from "@/stores";
 
 export default function SortButton() {
   const t = useTranslations("my-generations.filters");
+
+  const { sortGenerations } = useGenerationStore();
 
   const dropdownItems = [
     { key: "newest-editions", label: t("newest_editions") },
@@ -42,6 +45,10 @@ export default function SortButton() {
         disallowEmptySelection
         selectedKeys={sortedKey.key}
         onAction={(key) => {
+          sortGenerations(key as 
+            "newest-editions" | "oldest-editions"
+          );
+          console.log("key", key);
           const selectedItem =
             dropdownItems.find((item) => item.key === key) || dropdownItems[0];
           setSortedKey(selectedItem);

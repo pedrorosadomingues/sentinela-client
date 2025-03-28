@@ -31,6 +31,12 @@ interface IGenerationStore {
   }) => Promise<void>;
   handleMoveSelectedGenerations: () => Promise<void>;
 
+  sortedGenerations: Generations[] | null;
+  setSortedGenerations: (sortedGenerations: Generations[] | null) => void;
+  sortGenerations: (order: "newest-editions" | "oldest-editions") => void;
+
+  filterGenerations: (filter: string) => void;
+
   isCheckedSelectAllBtn: boolean;
   setIsCheckedSelectAllBtn: (isCheckedSelectAllBtn: boolean) => void;
 
@@ -41,7 +47,9 @@ interface IGenerationStore {
 export const useGenerationStore = create<IGenerationStore>((set) => ({
   isFetching: false,
   generations: null,
+  sortedGenerations: null,
   setGenerations: (generations) => set({ generations }),
+  setSortedGenerations: (sortedGenerations) => set({ sortedGenerations }),
   getGenerations: async () => {
     set({ isFetching: true });
 
@@ -50,6 +58,7 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
       if (response.status === 200) {
         set({ generations: response.data });
+        set({ sortedGenerations: response.data });
       } else {
         console.error(response.message);
       }
@@ -173,6 +182,67 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
 
     if (selectedGenerations) {
       console.log("Move selected generations", selectedGenerations);
+    }
+  },
+
+  sortGenerations: (order: "newest-editions" | "oldest-editions") => {
+    const { generations, setSortedGenerations } = useGenerationStore.getState();
+
+    if (generations) {
+      const ssortedGenerations = [...generations].sort((a, b) => {
+        const dateA = new Date(a.id).getTime();
+        const dateB = new Date(b.id).getTime();
+
+        return order === "newest-editions" ? dateB - dateA : dateA - dateB;
+      });
+
+      setSortedGenerations(ssortedGenerations);
+    }
+  },
+
+  filterGenerations: (filter: string) => {
+    const { generations, setGenerations } = useGenerationStore.getState();
+    const now = new Date();
+  
+    const parseBRDate = (brDate: string) => {
+      const [datePart, timePart] = brDate.split(' ');
+      const [day, month, year] = datePart.split('/').map(Number);
+      const [hour, minute, second] = timePart.split(':').map(Number);
+  
+      return new Date(year, month - 1, day, hour, minute, second);
+    };
+  
+    const dateFilterMap: Record<string, Date> = {
+      today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+      yesterday: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1),
+      'last-30-days': new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30),
+      'last-90-days': new Date(now.getFullYear(), now.getMonth(), now.getDate() - 90),
+      'last-year': new Date(now.getFullYear() - 1, now.getMonth(), now.getDate()),
+      'any-time': new Date(0),
+    };
+  
+    const filterDate = dateFilterMap[filter.toLowerCase()];
+  
+    if (generations && filterDate) {
+      const filteredGenerations = generations.map((item) => {
+        const itemDate = parseBRDate(item.started_at);
+        let hidden = itemDate < filterDate;
+  
+        if (filter.toLowerCase() === 'yesterday') {
+          hidden =
+            itemDate < filterDate ||
+            itemDate >= new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        } else if (filter.toLowerCase() === 'today') {
+          hidden = itemDate < filterDate;
+        }
+  
+        return {
+          ...item,
+          hidden,
+        };
+      });
+  
+      setGenerations(filteredGenerations);
     }
   },
 
