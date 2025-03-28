@@ -16,7 +16,7 @@ export default function FolderContent({
 }): JSX.Element {
   const t = useTranslations("projects.folder_content");
   const { pastes, getPaste } = usePasteStore();
-  const { setGenerations, setSelectedGenerations, generations } =
+  const { setGenerations, setSelectedGenerations, generations, sortedGenerations, setSortedGenerations } =
     useGenerationStore();
   const { isLoading } = useProjectStore();
 
@@ -31,8 +31,9 @@ export default function FolderContent({
   useEffect(() => {
     if (pastes) {
       setGenerations(pastes?.generations);
+      setSortedGenerations(pastes?.generations);
     }
-  }, [pastes, isLoading, setGenerations]);
+  }, [pastes, isLoading, setGenerations, setSortedGenerations]);
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function FolderContent({
           </section>
           <div className="mt-4 grid w-full gap-4 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 3xl:grid-cols-8">
             {pastes &&
-              generations?.map((generation: any) => (
+              sortedGenerations?.map((generation: any) => (
                 <ImageCard key={generation.id} data={generation} />
               ))}
           </div>
