@@ -16,10 +16,6 @@ export default function Functions({ fn }: { fn: string }) {
     ? user.plan.available_resources.map((fn) => fn as string)
     : [];
 
-  if (!availableFunctions.includes(fn)) {
-    return `Upgrade your plan to access this feature`;  
-  }
-
   return (
     <>
       {fn === "dress-model" ? (

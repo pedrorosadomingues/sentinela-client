@@ -13,7 +13,11 @@ interface GlobalStoreProps {
   sidebarLayout: "minimized" | "expanded";
   setSidebarLayout: (variant: "minimized" | "expanded") => void;
   toggleSidebarLayout: () => void;
+  imgSize: { width: number; height: number };
 
+  showUploadTipsModal: boolean;
+  setShowUploadTipsModal: (value: boolean) => void;
+  setImgSize: (width: number, height: number) => void;
   // header pathname resources and functions
   currentPathname: CurrentPathnameProps | null;
   setCurrentPathname: (pathname: CurrentPathnameProps) => void;
@@ -39,6 +43,7 @@ interface GlobalStoreProps {
   // login components to show control
   rootControl: string;
   setRootControl: (control: string) => void;
+  openUploadTipsModal: () => void;
 
   // email sent feedback
   emailSended: string;
@@ -55,7 +60,8 @@ interface GlobalStoreProps {
 export const useGlobalStore = create<GlobalStoreProps>((set) => ({
   sidebar: true,
   toggleSidebar: () => set((state) => ({ sidebar: !state.sidebar })),
-
+  imgSize: { width: 0, height: 0 },
+  setImgSize: (width, height) => set({ imgSize: { width, height } }),
   sidebarLayout: "expanded",
   setSidebarLayout: (variant: "minimized" | "expanded") =>
     set({ sidebarLayout: variant }),
@@ -72,7 +78,27 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
       sidebarLayout === "minimized" ? "expanded" : "minimized"
     );
   },
+  showUploadTipsModal: false,
+  setShowUploadTipsModal: (value: boolean) => {
+    set({ showUploadTipsModal: value });
+  },
+  openUploadTipsModal: () => {
+    const expirationDateString = localStorage.getItem(
+      "rdw-upload-pp-expiration"
+    );
 
+    if (!expirationDateString) {
+      set({ showUploadTipsModal: true });
+      return;
+    }
+
+    const expirationDate = new Date(expirationDateString);
+    if (expirationDate <= new Date()) {
+      // Data expirada, modal será exibido novamente
+      localStorage.removeItem("rdw-upload-pp-expiration");
+      set({ showUploadTipsModal: true });
+    }
+  },
   currentPathname: null,
   setCurrentPathname: (pathname) => set({ currentPathname: pathname }),
 
