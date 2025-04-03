@@ -6,6 +6,7 @@ import { analyzeTextWithPerspective } from "@/utils/perspective-api";
 import { bannedKeywords } from "@/lib/perspective/banned-words";
 import { Tables } from "@/lib/supabase/types";
 import { validateImageSize } from "@/utils/image";
+import { useGlobalStore } from "./globalStore";
 
 type Params = {
   style: string;
@@ -55,9 +56,7 @@ interface ImageFromTextProps {
   selectedImage: Image | null;
   setSelectedImage: (selectedImage: Image | null) => void;
 
-  handleSubmitTxt2Img: (
-    formData: any
-  ) => Promise<{
+  handleSubmitTxt2Img: (formData: any) => Promise<{
     generation_id?: string;
     error?: boolean;
     generation_url?: string[];
@@ -77,6 +76,34 @@ interface ImageFromTextProps {
     approved: boolean;
     reason: "blocked" | "error" | "toxic" | null;
   }>;
+
+  handleImageUpload: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.DragEvent<HTMLDivElement>
+      | null,
+    options?: { url?: string; dropped?: boolean; form?: boolean }
+  ) => Promise<void>;
+
+  handleResizeImage: (
+    image: ImageProps,
+    fileReader: string,
+    target?: "reference" | "referenceByColor"
+  ) => { newWidth: number; newHeight: number } | void;
+
+  initialImage?: {
+    url?: string;
+    size?: { width: number; height: number };
+    isLoading?: boolean;
+  };
+
+  referenceImage?: {
+    url?: string;
+    size?: { width: number; height: number };
+    isLoading?: boolean;
+  };
+
+  generateStep?: number;
 }
 
 export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
@@ -307,7 +334,13 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
 
     return { success: false, error: null };
   },
-  handleImageUpload: async (e, options) => {
+  handleImageUpload: async (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.DragEvent<HTMLDivElement>
+      | null,
+    options?: { url?: string; dropped?: boolean; form?: boolean }
+  ) => {
     const { t, toast } = useFnStore.getState();
 
     let file;
@@ -451,7 +484,11 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
     }
   },
 
-  handleResizeImage: (image: ImageProps, fileReader: string, target) => {
+  handleResizeImage: (
+    image: ImageProps,
+    fileReader: string,
+    target?: "reference" | "referenceByColor"
+  ) => {
     const { t, toast } = useFnStore.getState();
 
     const maxDimensionSize = 1920;
