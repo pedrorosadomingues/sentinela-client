@@ -42,7 +42,7 @@ export default function ManageGenerationModal({
     selectedProjectId,
     setSelectedProjectId,
     projects,
-    getProjects,
+    getAllProjects,
     handleCreate,
     isLoading,
     setIsLoading,
@@ -63,9 +63,9 @@ export default function ManageGenerationModal({
 
   useEffect(() => {
     if (user?.id) {
-      getProjects();
+      getAllProjects();
     }
-  }, [getProjects, user?.id]);
+  }, [getAllProjects, user?.id]);
 
   useEffect(() => {
     if (projects) {
