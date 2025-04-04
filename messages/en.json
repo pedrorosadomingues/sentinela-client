@@ -432,6 +432,17 @@
     },
     "folder_content": {
       "files": "Files"
+    },
+    "select_all_button": {
+      "button_label": "Select all"
+    },
+    "sort_button": {
+      "newest_editions": "Edições mais recentes",
+      "oldest_editions": "Edições mais antigas",
+      "alphabetical_asc": "Alfabética (A-Z)",
+      "alphabetical_desc": "Alfabética (Z-A)",
+      "sort_actions": "Ordenar ações",
+      "most_relevant": "Mais relevantes"
     }
   }
 }

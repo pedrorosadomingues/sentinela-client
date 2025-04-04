@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { ImportExportOutlined } from "@mui/icons-material";
@@ -23,11 +24,11 @@ export default function SortButton() {
   const {
     generations,
     setGenerations,
-    setselectedGenerations,
+    setSelectedGenerations,
     setGenerationsWithoutPaste,
   } = useGenerationStore();
 
-  const { project, setProject, projects, setProjects } = useProjectStore();
+  const { project, setProject, projects } = useProjectStore();
 
   const dropdownItems = [
     { key: "newest-editions", label: t("newest_editions") },
@@ -35,19 +36,19 @@ export default function SortButton() {
   ];
 
   const sortAndSetData = (key: string) => {
-    const sortedGenerations = generations.map((item: any) => ({ ...item }));
+    const sortedGenerations = generations?.map((item: any) => ({ ...item }));
     const sortedProjects = projects.map((item: any) => ({ ...item }));
-    let sortedProject = {
+    const sortedProject = {
       ...project,
       pastes: project?.pastes || [],
       generations: project?.generations || [],
     };
 
-    setselectedGenerations([]);
+    setSelectedGenerations([]);
 
     switch (key) {
       case "newest-editions":
-        sortedGenerations.sort(
+        sortedGenerations!.sort(
           (
             a: { started_at: string | Date },
             b: { started_at: string | Date }
@@ -64,7 +65,7 @@ export default function SortButton() {
         break;
 
       case "oldest-editions":
-        sortedGenerations.sort(
+        sortedGenerations!.sort(
           (
             a: { started_at: string | Date },
             b: { started_at: string | Date }
@@ -148,14 +149,14 @@ export default function SortButton() {
     }
 
     setGenerations(
-      sortedGenerations.map((item: any) => ({ ...item, checked: false }))
+      sortedGenerations!.map((item: any) => ({ ...item, checked: false }))
     );
 
     setGenerationsWithoutPaste(
-      sortedGenerations.map((item: any) => ({ ...item, checked: false }))
+      sortedGenerations!.map((item: any) => ({ ...item, checked: false }))
     );
 
-    setProjects(sortedProjects);
+    //setProjects(sortedProjects);
     setProject(sortedProject);
   };
 

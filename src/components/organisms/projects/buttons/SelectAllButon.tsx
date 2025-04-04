@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button, Checkbox } from "@nextui-org/react";
@@ -12,29 +13,29 @@ export default function SelectAllButton(): JSX.Element | null {
   const {
     setGenerations,
     generations,
-    setselectedGenerations,
+    setSelectedGenerations,
     generationsWithoutPaste,
     isCheckedSelectAllBtn,
-    setisCheckedSelectAllBtn,
+    setIsCheckedSelectAllBtn,
   } = useGenerationStore();
   const { generationsObj } = usePasteStore();
   const { isLoading } = useProjectStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
-    setisCheckedSelectAllBtn(!isCheckedSelectAllBtn);
+    setIsCheckedSelectAllBtn(!isCheckedSelectAllBtn);
 
     const updatedGenerations = generations?.map((item: any) => ({
       ...item,
       checked: !isCheckedSelectAllBtn,
     }));
 
-    const selectedGenerationIds = updatedGenerations
+    const selectedGenerationIds = updatedGenerations!
       .filter((item: any) => item.checked)
       .map((item: any) => item.id);
 
-    setselectedGenerations(selectedGenerationIds);
-    setGenerations(updatedGenerations);
+    setSelectedGenerations(selectedGenerationIds);
+    setGenerations(updatedGenerations as any);
   };
 
   useEffect(() => {
@@ -42,9 +43,9 @@ export default function SelectAllButton(): JSX.Element | null {
 
     if ((generationsWithoutPaste?.length ?? 0) > 0) {
       shouldOpen = true;
-    } else if (generations?.length > 0) {
-      const unhidden = generations.filter((item: any) => !item.hidden);
-      shouldOpen = unhidden.length > 0;
+    } else if (generations!.length > 0) {
+      const unhidden = generations?.filter((item: any) => !item.hidden);
+      shouldOpen = unhidden!.length > 0;
     }
 
     setIsOpen(shouldOpen);
