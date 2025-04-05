@@ -9,6 +9,7 @@ import { axiosClient } from "@/lib/axios/axiosClient";
 interface ProjectStoreProps {
   getAllProjects: () => Promise<void>;
   projects: any[];
+  setProjects: (projects: any[]) => void;
   getProjectById: (id: number) => Promise<void>;
   project: any;
   setProject: (project: any) => void;
@@ -66,6 +67,7 @@ export const useProjectStore = create<ProjectStoreProps>((set) => ({
   isLoadingCreate: false,
   setIsLoadingCreate: (isLoadingCreate) => set({ isLoadingCreate }),
   projects: [],
+  setProjects: (projects: any[]) => set({ projects }),
   project: {},
   setProject: (project: any) => set({ project }),
   getAllProjects: async () => {

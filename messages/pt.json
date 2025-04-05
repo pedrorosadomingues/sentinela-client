@@ -420,6 +420,16 @@
       "alphabetical_desc": "Alfabética (Z-A)",
       "sort_actions": "Ordenar ações",
       "most_relevant": "Mais relevantes"
+    },
+    "filter_buttons": {
+      "any_time": "Qualquer momento",
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "last_30_days": "Últimos 30 dias",
+      "last_90_days": "Últimos 90 dias",
+      "last_year": "Ano passado",
+      "edit_date": "Data de edição",
+      "filter_by_date": "Filtrar por data de criação"
     }
   }
 }

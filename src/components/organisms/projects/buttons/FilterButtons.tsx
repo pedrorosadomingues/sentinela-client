@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useGenerationStore } from "@/stores/generationStore";
@@ -27,7 +28,7 @@ export default function FilterButtons() {
     date: "",
   });
 
-  const { generations, setGenerations, setselectedGenerations } =
+  const { generations, setGenerations, setSelectedGenerations } =
     useGenerationStore();
 
   const { projects, setProjects } = useProjectStore();
@@ -36,7 +37,7 @@ export default function FilterButtons() {
     const now = new Date();
     let startDate;
     let endDate = now; // Por padrão, o fim do período é agora
-    setselectedGenerations([]);
+    setSelectedGenerations([]);
 
     const startOfDay = (date: Date) => {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -77,7 +78,7 @@ export default function FilterButtons() {
       return date >= startDate && date <= endDate;
     };
 
-    const updatedGenerations = generations.map(
+    const updatedGenerations = generations?.map(
       (item: { started_at: string | number | Date }) => {
         const date = new Date(item.started_at);
         const shouldHide = !isDateInRange(date);
@@ -89,7 +90,7 @@ export default function FilterButtons() {
       }
     );
 
-    setGenerations(updatedGenerations);
+    setGenerations(updatedGenerations as any);
 
     const updatedProjects = projects.map(
       (item: { created_at: string | number | Date }) => {
