@@ -52,6 +52,11 @@ export default function Sidebar(): JSX.Element {
       icon_path: <HomeOutlined />,
     },
     {
+      key: "my_projects",
+      name: text("my_projects"),
+      icon_path: <HistoryIcon />,
+    },
+    {
       key: "my_generations",
       name: text("my_generations"),
       icon_path: <HistoryIcon />,
@@ -123,12 +128,23 @@ export default function Sidebar(): JSX.Element {
                       active={pathname}
                       onPress={() => {
                         let filteredRoute;
-                        if (item.key === "home") {
-                          filteredRoute = "/main";
-                        } else if (item.key === "my_generations") {
-                          filteredRoute = "/main/generations?category=results";
-                        } else if (item.key === "plans_and_subscriptions") {
-                          filteredRoute = "/main/profile?view=plans";
+
+                        switch (item.key) {
+                          case "home":
+                            filteredRoute = "/main";
+                            break;
+                          case "my_generations":
+                            filteredRoute = "/main/generations?category=results";
+                            break;
+                          case "plans_and_subscriptions":
+                            filteredRoute = "/main/profile?view=plans";
+                            break;
+                          case "my_projects":
+                            filteredRoute = "/main/projects";
+                            break;
+                          default:
+                            filteredRoute = "/main"; // Default route if no match
+                            break;
                         }
 
                         router.push(`${filteredRoute}`);

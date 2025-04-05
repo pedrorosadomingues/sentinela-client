@@ -13,11 +13,11 @@ export default function MyGenerations() {
     useGenerationStore();
 
   useEffect(() => {
+    getGenerations();
+    
     if (generations && generations.length > 0) {
       return;
     }
-
-    getGenerations();
   }, []);
 
   if (isFetching) {

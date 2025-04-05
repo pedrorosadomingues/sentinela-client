@@ -36,6 +36,12 @@ interface IGenerationStore {
   sortGenerations: (order: "newest-editions" | "oldest-editions") => void;
 
   filterGenerations: (filter: string) => void;
+
+  isCheckedSelectAllBtn: boolean;
+  setIsCheckedSelectAllBtn: (isCheckedSelectAllBtn: boolean) => void;
+
+  generationsWithoutPaste: Generations[] | null;
+  setGenerationsWithoutPaste: (generations: Generations[] | null) => void;
 }
 
 export const useGenerationStore = create<IGenerationStore>((set) => ({
@@ -239,4 +245,12 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       setGenerations(filteredGenerations);
     }
   },
+
+  isCheckedSelectAllBtn: false,
+  setIsCheckedSelectAllBtn: (isCheckedSelectAllBtn) =>
+    set({ isCheckedSelectAllBtn }),
+
+  generationsWithoutPaste: null,
+  setGenerationsWithoutPaste: (generations) =>
+    set({ generationsWithoutPaste: generations }),
 }));

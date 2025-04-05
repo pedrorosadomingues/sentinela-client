@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
@@ -109,31 +110,33 @@ export default function Header(): JSX.Element {
   };
 
   function HeaderPageTitle() {
-    const current =
+    const current: any =
       currentPathname?.param?.value ?? currentPathname?.basePathname;
 
-    switch (current) {
-      case "results":
+    switch (true) {
+      case current === "results":
         return <h1 className="text-2xl text-black">{t("my_generations")}</h1>;
 
-      case "models":
+      case current === "models":
         return <h1 className="text-2xl text-black">{t("my_models")}</h1>;
 
-      case "dress-model":
+      case current === "dress-model":
         return <h1 className="text-2xl text-black">{t("dress-model")}</h1>;
 
-      case "txt2img":
+      case current === "txt2img":
         return <h1 className="text-2xl text-black">{t("txt2img")}</h1>;
 
-      case "render-traces":
+      case current === "render-traces":
         return <h1 className="text-2xl text-black">{t("render-traces")}</h1>;
 
-      case "profile":
-      case "plans":
-      case "team":
-      case "personal":
-      case "achievements":
+      case current === "projects" || /^\d+$/.test(current):
+        return <h1 className="text-2xl text-black">{t("my_projects")}</h1>;
+
+      case ["profile", "plans", "team", "personal", "achievements"].includes(
+        current
+      ):
         return <h1 className="text-2xl text-black">{profileT(current)}</h1>;
+
       default:
         return (
           user?.name && (
@@ -194,11 +197,10 @@ export default function Header(): JSX.Element {
             {t("subscribe_now")}
           </Button>
         )}
-        
+
         <div className="text-sm text-gray-400 hidden sm:flex">
           {user?.plan?.name}
         </div>
-
 
         {user && <CoinCounter user={user} />}
 
