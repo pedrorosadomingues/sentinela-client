@@ -5,54 +5,134 @@ import Image from "next/image";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ColorLesnIcon from "@mui/icons-material/ColorLens";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
-
+import { useImageFromTextStore } from "@/stores/imageFromTextStore";
+import { CircularProgress } from "@mui/material";
+import { useUserStore } from "@/stores/userStore";
+import { VestiqCoins } from "../icons/VestiqCoins";
+import { useToast } from "@/hooks/useToast";
 export default function ImageFromText() {
   const [prompt, setPrompt] = useState<string>("");
+  const toast = useToast();
+
   const [aspectRatio, setAspectRatio] = useState<string>("free");
+  const [imageCount, setImageCount] = useState<number>(1);
   const [generatedImages, setGeneratedImages] = useState<string[]>([
     "",
     "",
     "",
     "",
   ]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [, setCurrentGenerationId] = useState<string | null>(
+    null
+  );
+  const { user } = useUserStore();
 
-  const handleGenerate = () => {
-    console.log("Prompt enviado:", prompt);
-    console.log("Formato selecionado:", aspectRatio);
-    setGeneratedImages(["/placeholder.png", "/placeholder.png"]);
+  const handleGenerate = async (e: React.FormEvent) => {
+    e.preventDefault(); // Previne o comportamento padrão do formulário
+    if (
+      user?.v_coins.current &&
+      user?.v_coins?.current < calculateTotalCost()
+    ) {
+      return toast.use(
+        "error",
+        "Você não tem coins suficientes para gerar imagens"
+      );
+    }
+    console.log("Iniciando geração com prompt:", prompt);
+    setIsLoading(true);
+    // Resetar imagens para placeholders vazios
+    setGeneratedImages(Array(4).fill(""));
+
+    const submitFormData = {
+      engine: "cf",
+      fnName: "txt2img",
+      originalPrompt: prompt,
+      suggestions: prompt,
+      format: aspectRatio,
+      extraOpts: { seed: -1, imageCount },
+    };
+
+    try {
+      const result = await useImageFromTextStore
+        .getState()
+        .handleSubmitTxt2Img(submitFormData);
+
+      setCurrentGenerationId(
+        result.generation_id ? result.generation_id : null
+      );
+      if (result && result.generation_id) {
+        console.log("ID da geração recebido:", result.generation_id);
+        setCurrentGenerationId(result.generation_id);
+        setGeneratedImages(result.generation_url || []);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Erro ao gerar imagens:", error);
+      toast.use("error", "Ocorreu um erro ao gerar imagens:");
+
+      setIsLoading(false);
+    }
+  };
+
+  const calculateTotalCost = () => {
+    return imageCount;
   };
 
   return (
-    <div className="flex flex-col gap-4 mx-auto min-h-screen max-w-6xl my-4 md:my-8">
+    <div className="flex flex-col gap-4 mx-auto min-h-screen max-w-6xl px-4 my-4 md:my-8">
       <h1 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-800">
         O que você deseja criar hoje?
       </h1>
+      <div className="bg-white p-4 sm:p-6 w-full rounded-lg shadow-md">
+        <form onSubmit={handleGenerate} className="w-full">
+          <div className="relative w-full">
+            <textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Modelo sorrindo em meio a uma avenida de carros movimentada atravessando a faixa de pedestres"
+              className="w-full h-28 border border-gray-300 rounded-lg p-4 pb-14 sm:pb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              type="submit"
+              disabled={isLoading || !prompt.trim()}
+              className={`absolute flex bg-primary-background items-center justify-center right-[10px] sm:right-[20px] h-[35px] bottom-[10px] w-[35%] xs:w-[30%] sm:w-[25%] md:w-[20%] text-xs xs:text-sm sm:text-base bg-gradient-to-r from-red-500 to-orange-500 text-white py-2 sm:py-3 rounded-lg font-bold ${
+                isLoading || !prompt.trim()
+                  ? "opacity-70 cursor-not-allowed"
+                  : "hover:opacity-90"
+              }`}
+            >
+              {isLoading ? (
+                <CircularProgress size={20} color="inherit" className="mr-2" />
+              ) : (
+                <AutoAwesomeIcon className="mr-[6px] hidden xs:inline" />
+              )}
+              {isLoading ? "Gerando..." : "Gerar"}
+              {!isLoading && (
+                <span className="hidden sm:inline ml-1">imagem</span>
+              )}
+            </button>
+          </div>
+        </form>
 
-      <div className="bg-white p-6 w-full rounded-lg shadow-md">
-        <div className="relative w-full">
-          <textarea
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            placeholder="Modelo sorrindo em meio a uma avenida de carros movimentada atravessando a faixa de pedestres"
-            className="w-full h-28 border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+        <div className="flex flex-wrap items-center mt-4 gap-2">
           <button
-            onClick={handleGenerate}
-            className="absolute flex bg-primary-background items-center justify-center right-[20px] h-[35px] bottom-[15px] mt-6 w-[20%] bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 rounded-lg font-bold hover:opacity-90"
-          >
-            <AutoAwesomeIcon className="mr-[6px]" />
-            Gerar imagem agora!
-          </button>
-        </div>
-        <div className="flex items-center mt-4">
-          <button
-            className={`flex items-center px-4 py-2 mr-4 border rounded-md`}
+            type="button"
+            className={`flex items-center px-3 sm:px-4 py-2 border rounded-md text-sm sm:text-base ${
+              aspectRatio === "free"
+                ? "bg-blue-500 text-white border-blue-500"
+                : "border-gray-300"
+            }`}
             onClick={() => setAspectRatio("free")}
           >
-            <ColorLesnIcon className="mr-[6px]" /> Formato livre
+            <ColorLesnIcon className="mr-[6px] text-sm sm:text-base" /> Formato
+            livre
           </button>
           <button
-            className={`flex items-center px-4 py-2 border rounded-md ${
+            type="button"
+            className={`flex items-center px-3 sm:px-4 py-2 border rounded-md text-sm sm:text-base ${
               aspectRatio === "1:1"
                 ? "bg-blue-500 text-white border-blue-500"
                 : "border-gray-300"
@@ -62,24 +142,66 @@ export default function ImageFromText() {
             <input type="checkbox" className="mr-2" /> 1:1
           </button>
         </div>
+
+        {/* Seletor de quantidade de imagens */}
+        <div className="mt-4">
+          <p className="text-gray-700 font-medium mb-2 text-sm sm:text-base">
+            Quantidade de imagens:
+          </p>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+            {[1, 2, 3, 4].map((count) => (
+              <button
+                type="button"
+                key={count}
+                className={`px-3 sm:px-4 py-2 border rounded-md text-xs sm:text-sm ${
+                  imageCount === count
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : "border-gray-300"
+                }`}
+                onClick={() => setImageCount(count)}
+              >
+                {count} {count === 1 ? "img" : "imgs"} ({count}{" "}
+                <span className="inline-block h-3 w-3 align-text-bottom">
+                  <VestiqCoins />
+                </span>
+                )
+              </button>
+            ))}
+          </div>
+          <div className="text-xs sm:text-sm text-gray-500 mt-2">
+            Custo total: {calculateTotalCost()}{" "}
+            <span className="inline-block h-3 w-3 align-text-bottom">
+              <VestiqCoins />
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Galeria de imagens geradas */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <p className="text-gray-700 font-medium mb-4">
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+        <p className="text-gray-700 font-medium mb-4 text-sm sm:text-base">
           Gere uma roupa bem bonita
         </p>
-        <div className="grid gap-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
           {generatedImages.map((src, index) => (
             <div
               key={index}
-              className="w-full aspect-square bg-gray-200 flex items-center justify-center rounded-lg"
+              className={`w-full aspect-square bg-gray-200 flex items-center justify-center rounded-lg ${
+                index >= imageCount
+                  ? "opacity-30 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                  : "cursor-pointer"
+              }`}
+              onClick={() => src && window.open(src, "_blank")}
             >
-              {src ? (
+              {isLoading && index < imageCount ? (
+                <CircularProgress size={40} color="inherit" />
+              ) : src ? (
                 <Image
                   src={src}
                   alt={`Imagem gerada ${index + 1}`}
                   className="flex-1 object-cover rounded-lg"
+                  width={300}
+                  height={300}
                 />
               ) : (
                 <CheckroomIcon className="text-[#565D6DFF]" />
