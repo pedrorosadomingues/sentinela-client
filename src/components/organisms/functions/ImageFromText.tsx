@@ -23,7 +23,7 @@ export default function ImageFromText() {
     "",
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentGenerationId, setCurrentGenerationId] = useState<string | null>(
+  const [, setCurrentGenerationId] = useState<string | null>(
     null
   );
   const { user } = useUserStore();

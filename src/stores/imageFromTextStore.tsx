@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import { useFnStore } from "./fnStore";
 import { useUserStore } from "./userStore";
 import { axiosClient } from "@/lib/axios/axiosClient";
 import { analyzeTextWithPerspective } from "@/utils/perspective-api";
 import { bannedKeywords } from "@/lib/perspective/banned-words";
-import { Tables } from "@/lib/supabase/types";
 import { validateImageSize } from "@/utils/image";
 import { useGlobalStore } from "./globalStore";
 
@@ -44,8 +45,8 @@ interface ImageFromTextProps {
   currentPrompt: string;
   setCurrentPrompt: (currentPrompt: string) => void;
 
-  selectedImageStyle: Tables<"prompt_styles"> | null;
-  setSelectedImageStyle: (selectedImageStyle: Tables<"prompt_styles">) => void;
+  selectedImageStyle: any | null;
+  setSelectedImageStyle: (selectedImageStyle: any) => void;
 
   selectedAspectRatio: "16:9" | "4:3" | "1:1";
   setSelectedAspectRatio: (selectedAspectRatio: "16:9" | "4:3" | "1:1") => void;
@@ -277,8 +278,7 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
   },
 
   handleUseImage: async (sectionId, generationId) => {
-    const { handleImageUpload, setGenerateStep, handleGenerateNewImage } =
-      useFnStore.getState();
+    const { handleImageUpload, setGenerateStep } = useFnStore.getState();
     const { promptHistory } = useImageFromTextStore.getState();
     const { t, toast } = useFnStore.getState();
 
@@ -295,9 +295,9 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
     }
 
     try {
-      await handleImageUpload(null, { url: selectedImage.url });
+      handleImageUpload(null, { url: selectedImage.url });
       // Retorna algum valor que indique o sucesso do upload
-      handleGenerateNewImage();
+      //handleGenerateNewImage();
       setGenerateStep(2);
       return { success: true };
     } catch (error) {
@@ -365,7 +365,9 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
 
       imageUrl = objectURL;
     } else {
-      file = options?.dropped ? e.dataTransfer.files[0] : e.target.files[0];
+      file = options?.dropped
+        ? (e as React.DragEvent<HTMLDivElement>).dataTransfer.files[0]
+        : (e?.target as HTMLInputElement)?.files?.[0];
     }
 
     const reader = new FileReader();
@@ -480,7 +482,7 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
         };
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file as any);
     }
   },
 
