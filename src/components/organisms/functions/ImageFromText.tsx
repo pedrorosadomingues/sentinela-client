@@ -168,12 +168,12 @@ export default function ImageFromText() {
               </button>
             ))}
           </div>
-          <p className="text-xs sm:text-sm text-gray-500 mt-2">
+          <div className="text-xs sm:text-sm text-gray-500 mt-2">
             Custo total: {calculateTotalCost()}{" "}
             <span className="inline-block h-3 w-3 align-text-bottom">
               <VestiqCoins />
             </span>
-          </p>
+          </div>
         </div>
       </div>
 
