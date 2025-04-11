@@ -29,7 +29,7 @@ export default function ImageFromText() {
   const { user } = useUserStore();
 
   const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault(); // Previne o comportamento padrão do formulário
+    e.preventDefault();
     if (
       user?.v_coins.current &&
       user?.v_coins?.current < calculateTotalCost()
@@ -41,7 +41,6 @@ export default function ImageFromText() {
     }
     console.log("Iniciando geração com prompt:", prompt);
     setIsLoading(true);
-    // Resetar imagens para placeholders vazios
     setGeneratedImages(Array(4).fill(""));
 
     const submitFormData = {
@@ -143,7 +142,6 @@ export default function ImageFromText() {
           </button>
         </div>
 
-        {/* Seletor de quantidade de imagens */}
         <div className="mt-4">
           <p className="text-gray-700 font-medium mb-2 text-sm sm:text-base">
             Quantidade de imagens:
@@ -177,7 +175,6 @@ export default function ImageFromText() {
         </div>
       </div>
 
-      {/* Galeria de imagens geradas */}
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
         <p className="text-gray-700 font-medium mb-4 text-sm sm:text-base">
           Gere uma roupa bem bonita
