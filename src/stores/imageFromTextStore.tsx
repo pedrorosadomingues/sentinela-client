@@ -8,6 +8,7 @@ import { analyzeTextWithPerspective } from "@/utils/perspective-api";
 import { bannedKeywords } from "@/lib/perspective/banned-words";
 import { validateImageSize } from "@/utils/image";
 import { useGlobalStore } from "./globalStore";
+import { updateCoins } from "@/utils/update-coins";
 
 type Params = {
   style: string;
@@ -137,7 +138,6 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
     } = useFnStore.getState();
 
     try {
-      console.log("Iniciando handleSubmitTxt2Img com formData:", formData);
       const { user } = useUserStore.getState();
       const { engine } = formData;
       const { promptHistory, currentPrompt, handleCheckPrompt } =
@@ -154,9 +154,7 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
         ...formData,
       };
 
-      console.log("Verificando prompt:", currentPrompt);
       const checkedPrompt = await handleCheckPrompt(currentPrompt);
-      console.log("Resultado da verificação do prompt:", checkedPrompt);
 
       if (checkedPrompt && !checkedPrompt.approved) {
         // Registra o prompt como tóxico e encerra a função
@@ -186,12 +184,10 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
           isLoading: false,
         });
 
-        console.log("Prompt rejeitado por toxicidade/palavras bloqueadas");
         return { error: true };
       }
 
       // Faz a chamada para geração
-      console.log("Enviando requisição para text-to-img com payload:", payload);
       const result = await axiosClient.post(
         "/generation/text-to-img",
         payload,
@@ -199,12 +195,11 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
           headers: { id: user?.id, engine },
         }
       );
-      console.log("Resposta da API text-to-img:", result.data);
 
       // Atualiza o estado com o resultado da geração
       if (result.status === 200) {
         const { generation_id, original, generated } = result.data;
-        console.log("ID da geração:", generation_id);
+        updateCoins();
 
         if (!generation_id) {
           throw new Error("Generation ID not found");
@@ -246,19 +241,13 @@ export const useImageFromTextStore = create<ImageFromTextProps>((set) => ({
         }));
 
         // Retornar o ID da geração para que o componente possa acompanhar
-        console.log("Retornando generationId:", generation_id);
         return result.data;
       } else {
         // Adicione um retorno explícito para quando o status não for 200
-        console.log(
-          "Resposta da API com status diferente de 200:",
-          result.status
-        );
+
         return { error: true };
       }
     } catch (error: any) {
-      console.error("Erro em handleSubmitTxt2Img:", error);
-
       if (error.status === 402) {
         if (t && toast) toast("warning", t("warning.SUB-SU402"), "SUB-SU402");
       } else {
