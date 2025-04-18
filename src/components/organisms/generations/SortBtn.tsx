@@ -48,7 +48,6 @@ export default function SortButton() {
           sortGenerations(key as 
             "newest-editions" | "oldest-editions"
           );
-          console.log("key", key);
           const selectedItem =
             dropdownItems.find((item) => item.key === key) || dropdownItems[0];
           setSortedKey(selectedItem);

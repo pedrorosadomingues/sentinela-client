@@ -125,7 +125,8 @@
     "render-traces": "Renderizar Trazos",
     "language_switcher": "Cambiar idioma",
     "subscribe_now": "¡Suscríbete ahora!",
-    "plans_and_subscriptions": "Planes y Suscripciones"
+    "plans_and_subscriptions": "Planes y Suscripciones",
+    "my_projects": "Mis Proyectos"
   },
   "sidebar": {
     "my_profile": "Mi Perfil",
@@ -135,7 +136,8 @@
     "dress-model": "Vestir Modelo",
     "txt2img": "Imagen a partir de Texto",
     "render-traces": "Renderizar Trazos",
-    "plans_and_subscriptions": "Planes y Suscripciones"
+    "plans_and_subscriptions": "Planes y Suscripciones",
+    "my_projects": "Mis Proyectos"
   },
   "model_image_area": {
     "step1_send_model_image": "Imagen del Modelo",
@@ -319,5 +321,115 @@
     "get_basic": "Obtener Básico",
     "get_expert": "Obtener Experto",
     "get_business": "Obtener Empresarial"
+  },
+  "functions": {
+    "save-generation-modal": {
+      "title": "Elija la Ubicación de Guardado",
+      "subtitle": "Navegue hasta el proyecto o carpeta deseada y haga clic en Confirmar para guardar.",
+      "save": "Guardar",
+      "back": "Volver",
+      "continue": "Continuar",
+      "confirm": "Confirmar",
+      "create_project": "Crear Nuevo Proyecto",
+      "create-folder": "Crear Nueva Carpeta",
+      "cancel": "Cancelar",
+      "create": "Crear",
+      "project_name": "Nombre del Proyecto",
+      "folder_name": "Nombre de la Carpeta",
+      "placeholder_project": "Ingrese el nombre del proyecto",
+      "placeholder_folder": "Ingrese el nombre de la carpeta",
+      "SVGNM-S200": "¡Imagen guardada con éxito!",
+      "SVGNM-D400": "Error al guardar la imagen. Verifique su conexión o intente nuevamente más tarde.",
+      "SVGNM-G500": "Error inesperado al guardar la imagen.",
+      "empty": "Vacío",
+      "files": "Archivos"
+    },
+    "projects": {
+      "move_generation_button": {
+        "move": "Mover",
+        "move_images": "Mover imágenes",
+        "select_project": "Seleccione un proyecto.",
+        "select_folder": "Seleccione una carpeta para enviar las imágenes.",
+        "back": "Volver",
+        "continue": "Continuar",
+        "confirm": "Confirmar",
+        "create_new_project": "Crear Nuevo Proyecto",
+        "create_new_folder": "Crear Nueva Carpeta",
+        "project_name": "Nombre del Proyecto",
+        "folder_name": "Nombre de la Carpeta",
+        "enter_project_name": "Ingrese el nombre del proyecto",
+        "enter_folder_name": "Ingrese el nombre de la carpeta",
+        "create": "Crear",
+        "cancel": "Cancelar",
+        "files": "{count} Archivos",
+        "empty": "Vacío",
+        "create_project": "Crear Proyecto",
+        "create_folder": "Crear Carpeta",
+        "success_move": "¡Imagen movida con éxito!",
+        "error_move": "Error al mover la imagen."
+      }
+    },
+    "create_file": {
+      "FSCF-S200": "Arquivo criado com sucesso!",
+      "FSCF-S201": "Ação concluída com sucesso!",
+      "FSCF-S204": "Arquivo atualizado com sucesso!",
+      "FSCF-S205": "Arquivo excluído com sucesso!",
+      "FSCF-D400": "Erro de validação. Verifique os dados fornecidos.",
+      "FSCF-D401": "Você não está autorizado a executar esta ação. Por favor, faça login novamente.",
+      "FSCF-D403": "Acesso negado. Você não tem as permissões necessárias.",
+      "FSCF-D404": "Recurso não encontrado. Verifique os dados e tente novamente.",
+      "FSCF-D409": "Conflito detectado. O nome já existe ou não pode ser utilizado.",
+      "FSCF-D500": "Erro interno no servidor. Por favor, tente novamente mais tarde.",
+      "FSCF-D503": "Serviço temporariamente indisponível. Por favor, tente novamente mais tarde.",
+      "FSCF-D0": "Erro de conexão. Verifique sua internet ou tente novamente mais tarde.",
+      "FSCF-D1": "Erro inesperado. Por favor, tente novamente."
+    },
+    "project_card": {
+      "rename_file": "Renombrar archivo",
+      "delete_file": "Eliminar archivo",
+      "confirm_delete": "¿Estás seguro de que deseas eliminar {type}?",
+      "folder_contains_files": "Esta carpeta contiene {count} archivos",
+      "project_contains_files": "Este proyecto contiene {count} archivos",
+      "folders_count": "{count} Carpetas",
+      "single_folder": "1 Carpeta",
+      "no_folders": "Ninguna carpeta",
+      "images_count": "{count} Imágenes",
+      "single_image": "1 Imagen",
+      "no_images": "Ninguna imagen",
+      "back": "Atrás",
+      "confirm": "Confirmar",
+      "input_label": "Nombre del proyecto",
+      "input_placeholder": "Introduce el nuevo nombre del proyecto",
+      "dropdown_aria": "Menú de acciones para carpetas y proyectos"
+    },
+    "projects_content": {
+      "folders": "Carpetas",
+      "files": "Archivos",
+      "loading": "Cargando..."
+    },
+    "folder_content": {
+      "files": "Archivos"
+    },
+    "select_all_button": {
+      "button_label": "Seleccionar todo"
+    },
+    "sort_button": {
+      "newest_editions": "Edições mais recentes",
+      "oldest_editions": "Edições mais antigas",
+      "alphabetical_asc": "Alfabética (A-Z)",
+      "alphabetical_desc": "Alfabética (Z-A)",
+      "sort_actions": "Ordenar ações",
+      "most_relevant": "Mais relevantes"
+    },
+    "filter_buttons": {
+      "any_time": "Qualquer momento",
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "last_30_days": "Últimos 30 dias",
+      "last_90_days": "Últimos 90 dias",
+      "last_year": "Ano passado",
+      "edit_date": "Data de edição",
+      "filter_by_date": "Filtrar por data de criação"
+    }
   }
 }

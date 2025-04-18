@@ -17,7 +17,7 @@ export default function Functions({ fn }: { fn: string }) {
     : [];
 
   if (!availableFunctions.includes(fn)) {
-    return `Upgrade your plan to access this feature`;  
+    return `Upgrade your plan to access this feature`;
   }
 
   return (
