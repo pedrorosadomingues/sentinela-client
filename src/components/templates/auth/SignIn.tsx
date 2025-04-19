@@ -17,6 +17,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/services";
 import { useRouter } from "next/navigation";
+import VestiqLogo from "@/components/atoms/VestiqLogo";
 
 export function SignIn() {
   const t = useTranslations("sign_in_page");
@@ -84,7 +85,10 @@ export function SignIn() {
   };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center gap-4 p-4">
+    <div className="flex w-[60%] flex-col items-center gap-4 p-4">
+      <div className="w-full items-start justify-start">
+        <VestiqLogo className="w-50" />
+      </div>
       <div className="w-full text-left">
         <p className="pb-2 text-xl font-medium">{t("sign_in")}</p>
         <p className="text-small text-default-500">{t("sign_in_message")}</p>

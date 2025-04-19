@@ -89,22 +89,23 @@ export default function Sidebar(): JSX.Element {
         >
           <div className="flex flex-col bg-white h-full justify-between lg:group-hover:px-4 overflow-x-hidden overflow-y-scroll pb-4 px-3 scrollbar-hide">
             <div className="flex flex-col h-full">
-              <div className="flex bg-gradient-to-b h-24 justify-center w-full absolute from-white left-0 mt-2 px-4 to-white/20 top-0">
+              <div className="flex bg-gradient-to-b justify-center w-full absolute from-white left-0 mt-2 px-4 to-white/20 top-0">
                 <div className="flex bg-white h-16 justify-between w-full gap-2 items-center z-[41]">
                   <Image
                     src={"/images/logo-vestiq.png"}
                     alt="Logo"
-                    className="w-12 animate-fade-in aspect-square group-hover:block hidden"
+                    className="flex w-12 group-hover:block hidden object-contain pr-4 "
                     width={70}
-                    height={70}
+                    height={40}
                     priority={true}
+                    layout="responsive"
                   />
                   <Image
                     src={"/icons/logo-vestiq.ico"}
                     alt="Logo"
-                    className="animate-appearance-in block group-hover:hidden"
-                    width={45}
-                    height={45}
+                    className="animate-appearance-in block absolute"
+                    width={50}
+                    height={50}
                     priority={true}
                   />
                   <Button
@@ -118,8 +119,8 @@ export default function Sidebar(): JSX.Element {
                 </div>
               </div>
 
-              <div className="mb-4 space-y-5">
-                <ul className="font-medium mt-6 pt-16 space-y-2">
+              <div className="mb-4 space-y-5 z-[42]">
+                <ul className="font-medium mt-3 pt-16 space-y-2">
                   {MAIN_ITEMS.map((item) => (
                     <SidebarItem
                       key={item.name}
