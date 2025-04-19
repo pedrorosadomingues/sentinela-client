@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import { axiosClient } from "@/lib/axios/axiosClient";
 import { create } from "zustand";
+import { useFnStore } from "./fnStore";
 
 export interface CurrentPathnameProps {
   basePathname: string;
@@ -58,9 +63,114 @@ interface GlobalStoreProps {
 
   hasAlert: boolean;
   setHasAlert: (value: boolean) => void;
+
+  handleShowFeedbackModal: ({ delay }: { delay: boolean }) => Promise<void>;
+
+  handleCheckPrevEvaluated: (generationId: number) => Promise<boolean>;
+
+  generationHasEvaluated: boolean | undefined;
+
+  isOpenFeedbackModal: boolean;
+
+  onOpenFeedbackModalChange: () => void;
+
+  fetchAdvertisement: (locale: string) => Promise<void>;
+  advertisement?: any; // Add this property to the interface
+
+  handleSendFeedback: (feedback: string, rating: number) => Promise<boolean>;
 }
 
 export const useGlobalStore = create<GlobalStoreProps>((set) => ({
+  handleSendFeedback: async (feedback, rating) => {
+    const { currentGenerationIdRef } = useFnStore.getState();
+
+    const body = {
+      generation_id: currentGenerationIdRef.id,
+      rating: Number(rating),
+      feedback: feedback,
+    };
+
+    await axiosClient
+      .put("/api/generation/feedback", body)
+      .then(() => {
+        set({ generationHasEvaluated: true });
+        return true;
+      })
+      .catch((_error) => {
+        return false;
+      });
+
+    return false;
+  },
+  
+  fetchAdvertisement: async (locale) => {
+    const response = await axiosClient.get(`/api/ads?locale=${locale}`);
+
+    if (response.status === 200) {
+      set({
+        advertisement: response.data,
+      });
+    }
+  },
+
+  onOpenFeedbackModalChange: () =>
+    set((state) => ({ isOpenFeedbackModal: !state.isOpenFeedbackModal })),
+
+  isOpenFeedbackModal: false,
+
+  generationHasEvaluated: undefined,
+
+  handleCheckPrevEvaluated: async (generationId) => {
+    // Check if user has already evaluated this image
+
+    await axiosClient
+      .get("/api/generation/feedback", {
+        params: {
+          id: generationId,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          set({ generationHasEvaluated: false });
+          return true;
+        } else if (res.status === 202) {
+          set({ generationHasEvaluated: true });
+          return false;
+        }
+      })
+      .catch((_error) => {
+        console.error("Error checking evaluation:", _error);
+        return false;
+      });
+
+    return false;
+  },
+
+  handleShowFeedbackModal: async ({ delay }: { delay: boolean }) => {
+    const {
+      handleCheckPrevEvaluated,
+      isOpenFeedbackModal,
+      onOpenFeedbackModalChange,
+    } = useGlobalStore.getState();
+    const { currentGenerationIdRef } = useFnStore.getState();
+
+    const wasEvaluated = await handleCheckPrevEvaluated(
+      currentGenerationIdRef.id
+    );
+
+    if (wasEvaluated) {
+      return;
+    }
+
+    const shouldOpen = Math.random() < 0.1;
+
+    if (shouldOpen && !isOpenFeedbackModal) {
+      delay
+        ? setTimeout(onOpenFeedbackModalChange, 10000)
+        : onOpenFeedbackModalChange();
+    }
+  },
+
   sidebar: true,
   toggleSidebar: () => set((state) => ({ sidebar: !state.sidebar })),
   imgSize: { width: 0, height: 0 },

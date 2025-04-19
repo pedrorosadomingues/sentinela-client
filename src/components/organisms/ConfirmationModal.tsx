@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useGlobalStore } from "@/stores";
-import ConfirmationButton from "../atoms/ConfirmationButton";
+import ConfirmationButton from "../atoms/buttons/ConfirmationButton";
 
 export default function ConfirmationModal() {
   const { confirmationModal } = useGlobalStore();

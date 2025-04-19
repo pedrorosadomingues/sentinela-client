@@ -346,6 +346,73 @@
     "get_business": "Get Business"
   },
   "functions": {
+    "inputs": {
+      "not_available_basic_plan_tooltip": "Available in Expert and Business plans",
+      "select_placeholder": "Select...",
+      "no_options_found": "No options found",
+      "day_part_label": "Day Part",
+      "engine_label": "Engine",
+      "environment_label": "Environment",
+      "freedom_label": "Freedom",
+      "mode_label": "Mode",
+      "resolution_label": "Resolution",
+      "scenario_label": "Scenario",
+      "style_label": "Style",
+      "type_label": "Type",
+      "lighting_label": "Lighting",
+      "weather_label": "Weather",
+      "photorealism_intensity_label": "Photorealism Intensity",
+      "animation_style_label": "Animation Style",
+      "suggestion_label": "Detail the characteristics",
+      "suggestion_tip_label": "Write suggestions for the AI.",
+      "suggestion_placeholder": "Type here...",
+      "suggestion_remove_all": "Remove all",
+      "reference_image_label": "Reference Image",
+      "optional_field": "Optional",
+      "new": "New"
+    },
+    "page": {
+      "step": "Step {step}",
+      "tip_upload_best_result": "Upload your image in PNG or JPEG and follow the next steps to generate your images.",
+      "drop_image_area_text": "To start Rendering your image, drag an file",
+      "drop_image_area_subtext": "or click in the button below",
+      "drag_drop_image": "Drag and drop your image here",
+      "send_file": "Send file",
+      "generate_image": "Generate image",
+      "generate_video": "Generate video",
+      "title": "Image Generator",
+      "video_generator": "Video Generator",
+      "original_image": "Original Image",
+      "generated_image": "Generated image",
+      "compare_result": "Compare Result",
+      "send_image": "Send an Image",
+      "history": "Previous Generations",
+      "detail_image_title": "Detail Your Image",
+      "detail_image_subtext": "Describe this image here",
+      "detail_video_subtitle": "Detail your output video",
+      "fullscreen_close": "Exit fullscreen mode",
+      "fullscreen_open": "Enter fullscreen mode",
+      "drop_image": "Drop the image",
+      "download_label": "Download",
+      "format_label": "Format",
+      "crop_image_area": "Crop the reference area",
+      "use_original_btn": "Use original",
+      "crop_btn": "Crop",
+      "enhancement": "With enhancement",
+      "no_enhancement": "Without enhancement",
+      "enhance_image_label": "Apply enhancement",
+      "save_label": "Save",
+      "VWGNM-D000": "An error occurred while making the file available for download. Please contact support.",
+      "VWGNM-S200": "Your file is ready and available for download.",
+      "image_loading_initial": "Please wait, your image is being generated...",
+      "image_loading_message_1": "Please wait. We are warming up our engines, do not refresh the page!",
+      "image_loading_message_2": "We are still processing your image. Thank you for your patience!",
+      "time_format": "{minutes}:{seconds}",
+      "resize_notice_title": "Resizing notice",
+      "resize_notice_message": "The uploaded image is larger than the recommended size (ideal: 1920x1080). We will resize it, but this may reduce the quality. For the best result, upload an image with the ideal size.",
+      "resize_notice_video": "The uploaded image is larger than the recommended size (ideal for video function: 1300x1300). We will resize it, but this may reduce the quality. For the best result, upload an image with the ideal size.",
+      "resize_notice_label": "Got it"
+    },
     "save-generation-modal": {
       "title": "Choose Save Location",
       "subtitle": "Navigate to the desired project or folder and click Confirm to save.",
@@ -366,6 +433,19 @@
       "SVGNM-G500": "Unexpected error saving the image.",
       "empty": "Empty",
       "files": "Files"
+    },
+    "feedback": {
+      "feedback_button": "Give Feedback",
+      "tooltip": "Give feedback",
+      "modal_title": "Help us improve our AI.",
+      "modal_description": "We value your feedback. If you have any ideas or suggestions to improve our product, let us know.",
+      "textarea_placeholder": "Ideas or suggestions to improve our product",
+      "cancel_button": "Cancel",
+      "submit_button": "Submit feedback",
+      "success_message": "Feedback sent successfully!",
+      "error_message": "Error sending feedback. Please try again.",
+      "empty_rating_error": "Please rate the image before sending feedback.",
+      "empty_feedback_error": "Please write a comment before sending feedback."
     }
   },
   "projects": {
@@ -454,5 +534,152 @@
       "edit_date": "Edit date",
       "filter_by_date": "Filter by created date"
     }
+  },
+  "tool-info": {
+    "suggestion": {
+      "title": "Suggestion Tool",
+      "text": "The suggestion should propose the elements present in the image in a simple and straightforward manner, using a few words separated by commas. The best way to use it is after a generation, suggesting changes only where necessary."
+    },
+    "see_more": "See more"
+  },
+  "tools": {
+    "image_composer": {
+      "tool_label": "Embed object",
+      "tool_tooltip": "Create an image composition",
+      "btns": {
+        "add": "Add object",
+        "lights": "Add light source",
+        "hide": "Hide/show object",
+        "block": "Lock movement",
+        "unlock": "Unlock movement",
+        "duplicate": "Duplicate object",
+        "delete": "Delete object",
+        "clear": "Clear composition",
+        "centralize": "Center object",
+        "rotate_left": "Rotate left",
+        "rotate_right": "Rotate right",
+        "rotate_original": "Reset rotation",
+        "save": "View output (dev)",
+        "history_label": "Recent compositions",
+        "history_empty": "You have no previous compositions"
+      },
+      "dropdown": {
+        "rename": "Rename",
+        "hide": "Hide/Show",
+        "centralize": "Center",
+        "reset_rotation": "Reset rotation",
+        "duplicate": "Duplicate object",
+        "block": "Lock/Unlock",
+        "delete": "Delete object"
+      },
+      "confirmation": {
+        "delete_title": "Confirm deletion",
+        "delete_message": "You have a composition with {count} objects. Do you really want to delete?"
+      },
+      "rename": {
+        "title": "Rename object",
+        "label": "Object name",
+        "placeholder": "Type the new name",
+        "error": {
+          "object_name_required": "Please enter a object name",
+          "object_name_error_min": "Object name must be at least 3 characters",
+          "object_name_error_max": "Object name must be a maximum of 15 characters",
+          "object_name_error_special": "Object name cannot contain special characters",
+          "object_name_error_exists": "Object name already exists"
+        }
+      },
+      "errors": {
+        "merge_image_loading": "Assembling created composition...",
+        "merge_image_error": "Error assembling image composition.",
+        "merge_image_success": "Final image created successfully!"
+      }
+    },
+    "mask": {
+      "title": "Mask",
+      "mask_explanation": {
+        "tip": "Tip:",
+        "intro": "When using this version, the mask works as follows:",
+        "importance": "The mask is essential to define which parts of the image will be preserved or altered during generation.",
+        "brush_automatic": {
+          "dark_color": "The dark color represents the areas that will be altered.",
+          "light_color": "The light color represents the visible background."
+        },
+        "brush_comfy": {
+          "dark_color": "The dark color represents the visible background.",
+          "light_color": "The light color represents the areas that will be altered."
+        },
+        "lasso_automatic": {
+          "red_color": "The red color represents the areas that will be altered.",
+          "light_color": "The light color represents the visible background."
+        },
+        "lasso_comfy": {
+          "light_color": "The light color represents the areas that will be altered.",
+          "red_color": "The red color represents the visible background."
+        }
+      },
+      "brush": {
+        "mode": "Brush selection",
+        "undo_event": "Undo the last action",
+        "redo_event": "Redo the last action",
+        "eraser": "Erase",
+        "clear_event": "Clear mask",
+        "toogle_invert_mask_on": "Invert mask - On",
+        "toogle_invert_mask_off": "Invert mask - Off",
+        "decrease_brush_size": "Decrease brush size",
+        "increase_brush_size": "Increase brush size",
+        "decrease_zoom": "Decrease zoom",
+        "increase_zoom": "Increase zoom"
+      },
+      "lasso": {
+        "mode": "Lasso selection",
+        "label": "Select Layer",
+        "layer": "Layer",
+        "delete_layer": "Remove layer",
+        "reset_layers": "Reset layers",
+        "toogle_invert_mask_on": "Invert mask - On",
+        "toogle_invert_mask_off": "Invert mask - Off"
+      }
+    }
+  },
+  "image-score": {
+    "drawer_title": "Image Score",
+    "drawer_description": "This tool allows you to see the chances of your image performing well with AI. Analyze the points and consider improvements.",
+    "final_score_slider": "Final Score",
+    "lightning_slider": {
+      "title": "Lighting",
+      "too_bright": "The lighting is too bright. Reduce it a bit to avoid overexposure.",
+      "too_dark": "The image is too dark. Try increasing the lighting.",
+      "just_right": "The lighting is just right."
+    },
+    "border_slider": {
+      "title": "Border",
+      "too_visible": "The borders are too visible. Try removing or adjusting them.",
+      "good": "The borders are good."
+    },
+    "resolution_slider": {
+      "title": "Resolution",
+      "too_low": "The resolution is too low. Try using a higher quality image.",
+      "good": "The resolution is good."
+    },
+    "shadows_slider": {
+      "title": "Shadows",
+      "missing": "There are not enough shadows in the image.",
+      "too_much": "There are too many shadows. Try softening them a bit.",
+      "just_right": "The shadows are just right."
+    },
+    "academy_tip": "Visit the Academy for more tips!",
+    "academy_learn_more_button": "Learn more",
+    "watch_video": "Watch video"
+  },
+  "download-info-modal": {
+    "tooltip_download": "Download",
+    "modal_title_ready": "Files ready",
+    "modal_title_preparing": "Preparing files",
+    "modal_text_ready": "Your download is ready",
+    "modal_text_preparing": "Your download is being prepared.",
+    "modal_large_package": "We are compressing the files, this may take a while.",
+    "modal_text_large_package": "The compression is taking longer than expected. You can close this manager, but we are still working on compressing the files in the background. Please do not refresh the page...",
+    "modal_text_wait": "Please wait...",
+    "unexpected_error": "An unexpected error occurred. Please try again."
   }
 }

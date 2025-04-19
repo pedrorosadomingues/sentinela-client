@@ -8,7 +8,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { useImageFromTextStore } from "@/stores/imageFromTextStore";
 import { CircularProgress } from "@mui/material";
 import { useUserStore } from "@/stores/userStore";
-import { VestiqCoins } from "../icons/VestiqCoins";
+import { VestiqCoins } from "../../atoms/icons/VestiqCoins";
 import { useToast } from "@/hooks/useToast";
 export default function ImageFromText() {
   const [prompt, setPrompt] = useState<string>("");

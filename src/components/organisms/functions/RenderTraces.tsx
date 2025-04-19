@@ -1,204 +1,298 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import DropImageForm from "@/components/molecules/functions/render-traces/DropImageForm";
+import GenerateImageButton from "@/components/atoms/buttons/GenerateImageButton";
+import SelectEngine from "@/components/atoms/inputs/SelectEngine";
+import SelectEnvironment from "@/components/atoms/inputs/SelectEnviroment";
+import SelectType from "@/components/atoms/inputs/SelectType";
+import SuggestionInput from "@/components/atoms/inputs/SuggestionInput";
+import { FnOptions } from "@/interfaces/FnOptions";
+import { useFnStore } from "@/stores/fnStore";
+//import { useMaskStore } from "@/stores/maskStore";
+import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import SelectStyle from "@/components/atoms/inputs/SelectStyle";
+import SelectMode from "@/components/atoms/inputs/SelectMode";
+import OptionProps from "@/interfaces/OptionProps";
+import ReferenceImage from "@/components/molecules/functions/render-traces/ReferenceImage";
+import { useToast } from "@/hooks/useToast";
+import { SelectOptionsProps } from "@/types/generate-form";
+import { findValueByTitle } from "@/utils/forms";
+import GeneratorTopActions from "@/components/atoms/inputs/GeneratorTopActions";
+import ImageAreaEmpty from "@/components/molecules/functions/render-traces/ImageAreaEmpty";
+import ImageAreaFilled from "@/components/molecules/functions/render-traces/ImageAreaFilled";
+import { usePathname } from "next/navigation";
+import ComposerController from "@/components/molecules/composer/ComposerController";
+import MaskController from "@/components/molecules/MaskController";
+import EnhancementButton from "@/components/atoms/buttons/EnhancementButton";
+import FeedbackGeneration from "@/components/molecules/feedback/FeedbackGeneration";
 
-interface ImageDetails {
-  ambiente: string;
-  estilo: string;
-  modo: string;
-  tipo: string;
-  descricao: string;
-}
+const renderTracesSchema = z.object({
+  engine: z.string().min(1),
+  environment: z.string().min(1),
+  style: z.string().optional(),
+  mode: z.string().optional(),
+  type: z.string().optional(),
+  suggestions: z.array(z.string()),
+});
 
-export default function RenderTraces(): JSX.Element {
-  const [imageDetails, setImageDetails] = useState<ImageDetails>({
-    ambiente: "Interior",
-    estilo: "",
-    modo: "",
-    tipo: "",
-    descricao: "",
+type FormInputs = z.infer<typeof renderTracesSchema>;
+
+const modeOptions: OptionProps[] = [
+  {
+    title: "Modo 1",
+    value: "mode1",
+    tooltip:
+      "Ideal para desenhos que já possuem cores e deseja-se manter estas cores.",
+  },
+  {
+    title: "Modo 2",
+    value: "mode2",
+    tooltip: "Ideal para desenhos que não estão coloridos.",
+  },
+  {
+    title: "Modo 3",
+    value: "mode3",
+    tooltip:
+      "Realize a transformação de um desenho utilizando uma imagem extra como referência.",
+  },
+];
+
+export default function RenderTracesForm() {
+  const t = useTranslations("functions.page");
+  const pathname = usePathname();
+  const fnOptions ={
+    name: "render-traces",
+    params: {
+      engine: [
+        { title: "Stable Diffusion", value: "sd" },
+        { title: "ControlNet", value: "cf" },
+      ],
+      environment: [
+        { title: "Interior", value: "interior" },
+        { title: "Exterior", value: "exterior" },
+      ],
+      style: [
+        { title: "Dia", value: "day" },
+        { title: "Noite", value: "night" },
+      ],
+      type: [
+        { title: "Desenho", value: "drawing" },
+        { title: "Pintura", value: "painting" },
+      ],
+    },
+  }
+  // const initialValues = {
+  //   engine: "sd",
+  //   environment: "interior",
+  //   style: "day",
+  //   mode: "mode1",
+  //   type: "drawing",
+  //   suggestions: [],
+  // }
+
+  const {
+    handleSubmit,
+    register,
+    watch,
+    unregister,
+    setValue,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(renderTracesSchema),
   });
+  const { handleSubmitGenerate, currentGeneration, initialImage } =
+    useFnStore();
+  const [environment, mode, engine] = watch(["environment", "mode", "engine"]);
+  const { referenceImage } = useFnStore();
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setImageDetails((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [isReferenceImageInvalid, setIsReferenceImageInvalid] =
+    useState<boolean>(false);
+  const toast = useToast();
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      console.log("Arquivo selecionado:", file.name);
+  useEffect(() => {
+    if (environment === "exterior") {
+      unregister("type");
+    } else {
+      register("type");
     }
-  };
+  }, [environment, register, unregister]);
 
-  const handleSubmit = () => {
-    console.log("Detalhes da imagem enviados:", imageDetails);
+  useEffect(() => {
+    if (mode === "mode3") {
+      unregister("style");
+    }
+  }, [mode, register, unregister]);
+
+  useEffect(() => {
+    if (engine === "cf") {
+      unregister("mode");
+    } else {
+      register("mode");
+    }
+
+    setIsReferenceImageInvalid(false);
+  }, [engine, register, unregister]);
+
+  const onSubmitGenerate = async (formData: any) => {
+    // const { activeMask } = useMaskStore.getState();
+
+    formData.style = findValueByTitle(fnOptions.params.style, formData.style);
+    formData.type = findValueByTitle(fnOptions.params.type, formData.type);
+
+    if (engine === "cf") {
+      delete formData.mode;
+    }
+
+    if (mode === "mode3" && !referenceImage?.url) {
+      setIsReferenceImageInvalid(true);
+      return toast.use(
+        "warning",
+        "No modo 3 você deve inserir uma imagem de referência."
+      );
+    }
+
+    if (environment === "exterior") {
+      delete formData.type;
+    }
+
+    const submitFormData = {
+      ...formData,
+      fnName: fnOptions.name,
+      suggestions:
+        formData.suggestions.length > 0
+          ? formData.suggestions.join(",").toLowerCase()
+          : "",
+      extraOpts: { seed: -1 },
+    };
+
+    if (referenceImage?.url) {
+      submitFormData.referenceImage = referenceImage.url;
+    }
+
+    await handleSubmitGenerate(submitFormData);
   };
 
   return (
-    <div className="flex justify-center items-start min-h-screen max-w-6xl mx-auto my-4 md:my-8">
-      {/* Seção 1: Upload */}
-      <div className="flex flex-col items-center w-1/2 bg-white p-6 rounded-lg shadow-md mr-4">
-        <div className="flex items-start justify-start gap-[5px]">
-          <Image
-            src="/icons/number-one-red.ico"
-            alt="1"
-            width={24}
-            height={24}
-          />
-          <h2 className="text-lg font-bold text-gray-700 mb-4">
-            Envie seu desenho
-          </h2>
+    <DropImageForm>
+      <div className="flex flex gap-4 w-full h-full">
+        <div className="card min-h-[450px] h-full lg:min-h-min min-w-[300px] !flex-col !justify-between relative w-full p-2">
+          {currentGeneration.generated ? (
+            <GeneratorTopActions />
+          ) : (
+            <div className="w-full flex items-center justify-center mb-2">
+              <div className="flex flex-col gap-2 items-center">
+                <div className="flex gap-2 items-center font-lexend">
+                  <span className="flex items-center justify-center w-6 h-6 border-2 border-primary rounded-full text-primary text-sm">
+                    1
+                  </span>
+                  <h2 className="text-2xl text-font font-medium">
+                    {t("send_image")}
+                  </h2>
+                </div>
+                <p className="text-font-medium text-center text-sm">
+                  {t("tip_upload_best_result")}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {!initialImage?.url ? <ImageAreaEmpty /> : <ImageAreaFilled />}
+
+          {/* <UploadTipsModal /> */}
+
+          {/* <InfoModal
+        isOpen={isOpen}
+        onPress={onOpenChange}
+        label={t("resize_notice_label")}
+        title={t("resize_notice_title")}
+        text={t("resize_notice_message")}
+        src={initialImage?.url as string}
+      /> */}
+
+          {initialImage?.url && !currentGeneration.generated && (
+            <div className="hidden lg:block w-full">
+              {pathname.includes("add-objects") ? (
+                <ComposerController isDisabled={currentGeneration.isLoading} />
+              ) : (
+                <MaskController isDisabled={currentGeneration.isLoading} />
+              )}
+            </div>
+          )}
+          {currentGeneration.generated && (
+            <div className="w-full flex gap-4 items-center justify-end mt-4">
+              <EnhancementButton />
+              <FeedbackGeneration />
+            </div>
+          )}
+
+          {/* <PreviousCarousel /> */}
         </div>
-        <div className="flex flex-col items-center  p-6 rounded-lg w-full text-center h-[639px]">
-          <div className="mb-4">
-            <Image
-              src="/images/render-traces-first-placeholder.png"
-              alt="Placeholder"
-              className="w-[300px] h-[300px]"
-              width={300}
-              height={300}
+        <form
+          onSubmit={handleSubmit(onSubmitGenerate)}
+          className="fn-form-container"
+        >
+          {(mode === "mode3" || engine === "cf") && (
+            <ReferenceImage
+              optional={engine === "cf"}
+              isInvalid={isReferenceImageInvalid}
+              onPress={
+                isReferenceImageInvalid
+                  ? () => setIsReferenceImageInvalid(false)
+                  : undefined
+              }
             />
-          </div>
-          <p className="text-sm text-gray-500 mb-4">
-            Para começar a renderizar a sua imagem, arraste um arquivo
-            <br />
-            ou clique no botão abaixo para enviar
-          </p>
-          <label
-            htmlFor="fileUpload"
-            className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-red-600"
-          >
-            Enviar arquivo
-          </label>
-          <input
-            id="fileUpload"
-            type="file"
-            onChange={handleFileUpload}
-            className="hidden"
-          />
-        </div>
-      </div>
-
-      {/* Seção 2: Detalhes da Imagem */}
-      <div className="flex flex-col items-start w-1/2 bg-white p-6 rounded-lg shadow-md">
-        <div className="flex items-start justify-start gap-[5px]">
-          <Image
-            src="/icons/number-two-red.ico"
-            alt="2"
-            width={24}
-            height={24}
-          />
-          <h2 className="text-lg font-bold text-gray-700 mb-4">
-            Detalhe sua imagem
-          </h2>
-        </div>
-        <form className="w-full space-y-4">
-          <div>
-            <label
-              htmlFor="ambiente"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Ambiente
-            </label>
-            <input
-              type="text"
-              id="ambiente"
-              name="ambiente"
-              value={imageDetails.ambiente}
-              onChange={handleInputChange}
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          )}
+          <div className="flex flex-col items-start gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-1 gap-2">
+              <SelectEngine
+                {...register("engine")}
+                options={fnOptions?.params?.engine}
+                isInvalid={!!errors.engine}
+                setValue={setValue}
+                name="engine"
+              />
+              <SelectEnvironment
+                {...register("environment")}
+                isInvalid={!!errors.environment}
+              />
+              {mode !== "mode3" && (
+                <SelectStyle
+                  {...register("style")}
+                  options={fnOptions?.params?.style as SelectOptionsProps[]}
+                  isInvalid={!!errors.style}
+                />
+              )}
+              {engine !== "cf" && (
+                <SelectMode
+                  options={modeOptions}
+                  {...register("mode")}
+                  isInvalid={!!errors.mode}
+                />
+              )}
+              {environment === "interior" && (
+                <SelectType
+                  {...register("type")}
+                  options={fnOptions?.params?.type as SelectOptionsProps[]}
+                  isInvalid={!!errors.type}
+                />
+              )}
+            </div>
+            <SuggestionInput
+              {...register("suggestions")}
+              setValue={setValue}
+              name="suggestions"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="estilo"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Estilo
-            </label>
-            <input
-              type="text"
-              id="estilo"
-              name="estilo"
-              value={imageDetails.estilo}
-              onChange={handleInputChange}
-              placeholder="Nenhum"
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="modo"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Modo
-            </label>
-            <input
-              type="text"
-              id="modo"
-              name="modo"
-              value={imageDetails.modo}
-              onChange={handleInputChange}
-              placeholder="Selecione"
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="tipo"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Tipo
-            </label>
-            <input
-              type="text"
-              id="tipo"
-              name="tipo"
-              value={imageDetails.tipo}
-              onChange={handleInputChange}
-              placeholder="Selecione"
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="descricao"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Detalhe as características
-            </label>
-            <textarea
-              id="descricao"
-              name="descricao"
-              value={imageDetails.descricao}
-              onChange={handleInputChange}
-              placeholder="Digite aqui..."
-              className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              rows={3}
-            ></textarea>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-          >
-            <AutoAwesomeIcon className="mr-2"/> Gerar imagem agora!
-          </button>
+          <GenerateImageButton />
         </form>
       </div>
-    </div>
+    </DropImageForm>
   );
 }

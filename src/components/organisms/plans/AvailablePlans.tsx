@@ -22,7 +22,7 @@ import { FrequencyEnum } from "./pricing";
 import { frequencies, tiers } from "./pricing";
 import { StarOutline } from "@mui/icons-material";
 import { usePlanStore } from "@/stores";
-import PaymentButton from "@/components/atoms/PaymentButton";
+import PaymentButton from "@/components/atoms/buttons/PaymentButton";
 import { Plan } from "@/interfaces";
 
 export default function AvailablePlans() {

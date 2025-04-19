@@ -12,7 +12,7 @@ import { handleSubmit } from "@/utils/handle-submit";
 import CategoryBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-category-controls";
 import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-type-controls";
 import { useTranslations } from "next-intl";
-import { StarGroup } from "../icons";
+import { StarGroup } from "../../atoms/icons";
 import { Button } from "@heroui/react";
 import RowSteps from "@/components/atoms/RowSteps";
 import { useDressModelStore } from "@/stores/dressModelStore";

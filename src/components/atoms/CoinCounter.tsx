@@ -1,6 +1,6 @@
 import { Card } from "@heroui/react";
 import React from "react";
-import { VestiqCoins } from "../organisms/icons/VestiqCoins";
+import { VestiqCoins } from "./icons/VestiqCoins";
 import { UserProps } from "@/interfaces";
 
 export default function CoinCounter({
