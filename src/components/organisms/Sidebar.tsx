@@ -94,7 +94,7 @@ export default function Sidebar(): JSX.Element {
                   <Image
                     src={"/images/logo-vestiq.png"}
                     alt="Logo"
-                    className="w-12 animate-fade-in aspect-square group-hover:block hidden object-contain p-2"
+                    className="flex w-12 group-hover:block hidden object-contain pr-4 "
                     width={70}
                     height={40}
                     priority={true}
@@ -103,9 +103,9 @@ export default function Sidebar(): JSX.Element {
                   <Image
                     src={"/icons/logo-vestiq.ico"}
                     alt="Logo"
-                    className="animate-appearance-in block group-hover:hidden"
-                    width={45}
-                    height={45}
+                    className="animate-appearance-in block absolute"
+                    width={50}
+                    height={50}
                     priority={true}
                   />
                   <Button
