@@ -3,7 +3,9 @@
  * @param {File} file - O arquivo a ser enviado.
  * @returns {Promise<{ uploadUrl: string; localUrl: string }>} - URLs para upload e visualização local.
  */
-export async function uploadFile(file: File): Promise<{ uploadUrl: string; localUrl: string }> {
+export async function uploadFile(
+  file: File
+): Promise<{ uploadUrl: string; localUrl: string }> {
   try {
     // 🔹 Obtém o token dos cookies
     const token = document.cookie
@@ -23,17 +25,23 @@ export async function uploadFile(file: File): Promise<{ uploadUrl: string; local
     formData.append("file", file);
 
     // 🔹 Criamos os parâmetros da query string
-    const queryParams = new URLSearchParams({ file_name, file_type }).toString();
+    const queryParams = new URLSearchParams({
+      file_name,
+      file_type,
+    }).toString();
 
     // 🔹 Pegamos a URL da API definida no `.env`
     const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}`;
     if (!apiBaseUrl) {
-      throw new Error("A variável de ambiente NEXT_PUBLIC_API_BASE_URL não está definida.");
+      throw new Error(
+        "A variável de ambiente NEXT_PUBLIC_API_BASE_URL não está definida."
+      );
     }
 
-    const absoluteUrl = new URL(`/upload/generate-presigned-url?${queryParams}`, apiBaseUrl).href;
-
-    console.log("🌍 URL Final da Requisição:", absoluteUrl); // Depuração para confirmar a URL correta
+    const absoluteUrl = new URL(
+      `/upload/generate-presigned-url?${queryParams}`,
+      apiBaseUrl
+    ).href;
 
     // 🔹 Fazendo a requisição para obter a pre-signed URL
     const response = await fetch(absoluteUrl, {
@@ -50,8 +58,6 @@ export async function uploadFile(file: File): Promise<{ uploadUrl: string; local
 
     const data = await response.json();
     const { uploadUrl }: { uploadUrl: string } = data;
-
-    console.log("✅ Pre-signed URL recebida:", uploadUrl);
 
     // 🔹 Criamos uma URL local para preview do arquivo
     const localUrl = URL.createObjectURL(file);
