@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import VestiqLogo from "../../atoms/VestiqLogo";
+//import VestiqLogo from "../../atoms/VestiqLogo";
 import { useTranslations } from "next-intl";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import GlobeAnimation from "@/assets/animations/globe.json";
@@ -17,9 +17,7 @@ export default function AuthWrapper({
 
   return (
     <div className="relative flex h-full min-h-screen w-full">
-      <div className="absolute left-2 top-5 lg:left-5">
-        <VestiqLogo className="w-16 lg:w-20" />
-      </div>
+     
 
       <div className="flex w-full items-center justify-center bg-background lg:w-1/2">
         {children}
