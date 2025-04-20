@@ -8,13 +8,15 @@ import { ImageFunctionProps } from "@/interfaces/image-function";
 import { ToastFunction } from "@/hooks/useToast";
 import { useGlobalStore } from "./globalStore";
 //import { Dispatch, SetStateAction } from "react";
-import { validateImageSize } from "@/utils/image";
+import { base64ToFile, validateImageSize } from "@/utils/image";
 import { useUserStore } from "./userStore";
 import crypto from "crypto";
 import { axiosClient } from "@/lib/axios/axiosClient";
 import { MAX_SUGGESTION_CHAR_COUNT } from "@/utils/forms";
 import { newRecord } from "@/types/generation";
 import { useMaskStore } from "./maskStore";
+import { v4 as uuidv4 } from "uuid";
+import { uploadFile } from "@/utils";
 
 interface GenerationProps {
   original: string | null;
@@ -619,6 +621,15 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         }
       }
 
+      // const file = base64ToFile(base64, uuidv4() + "render-traces.png");
+
+      // const { uploadUrl } = await uploadFile(file);
+
+      // console.log("uploadUrl", uploadUrl.uploadUrl);
+
+      // document.cookie = `imageUrl=${encodeURIComponent(uploadUrl)}; path=/; max-age=3600`;
+
+
       // Remove o cabeçalho base64 da imagem
       const imageBuffer = Buffer.from(
         base64.split(";base64,").pop()!,
@@ -656,15 +667,15 @@ export const useFnStore = create<FnStoreProps>((set) => ({
       //   }
       // }
 
-      const urlResponse = await axiosClient.post(
-        "/download/generate-presigned-url",
-        {
-          file_paths,
-        }
-      );
+      // const urlResponse = await axiosClient.post(
+      //   "/download/generate-presigned-url",
+      //   {
+      //     file_paths,
+      //   }
+      // );
 
-      console.log("urlResponse", urlResponse);
-      const uploadUrl = urlResponse.data.url;
+      // console.log("urlResponse", urlResponse);
+      // const uploadUrl = urlResponse.data.url;
 
       const config = {
         headers: {
@@ -676,7 +687,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
       set({ savingImage: false });
 
-      console.log("uploadUrl", uploadUrl);
+      // console.log("uploadUrl", uploadUrl);
 
       return file_paths[0];
     } catch (error) {
@@ -843,10 +854,13 @@ export const useFnStore = create<FnStoreProps>((set) => ({
       delete payload.referenceImage;
 
       // Faz a chamada para geração
-      const result = await axiosClient.post("/api/generation", payload, {
-        headers: { id: user?.id, engine },
-      });
-
+      const result = await axiosClient.post(
+        "/generation/text-to-img",
+        payload,
+        {
+          headers: { id: user?.id, engine },
+        }
+      );
       // Atualiza o estado com o resultado da geração
       if (
         result.status === 200 &&

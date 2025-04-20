@@ -175,7 +175,9 @@ export default function RenderTracesForm() {
       submitFormData.referenceImage = referenceImage.url;
     }
 
-    await handleSubmitGenerate(submitFormData);
+   const res =  await handleSubmitGenerate(submitFormData);
+
+   console.log("🚀 ~ file: RenderTraces.tsx:163 ~ onSubmitGenerate ~ res:", res)
   };
 
   return (
