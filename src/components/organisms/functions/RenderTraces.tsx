@@ -66,7 +66,7 @@ const modeOptions: OptionProps[] = [
 export default function RenderTracesForm() {
   const t = useTranslations("functions.page");
   const pathname = usePathname();
-  const fnOptions ={
+  const fnOptions = {
     name: "render-traces",
     params: {
       engine: [
@@ -86,7 +86,7 @@ export default function RenderTracesForm() {
         { title: "Pintura", value: "painting" },
       ],
     },
-  }
+  };
   // const initialValues = {
   //   engine: "sd",
   //   environment: "interior",
@@ -175,11 +175,7 @@ export default function RenderTracesForm() {
       submitFormData.referenceImage = referenceImage.url;
     }
 
-   const res =  await handleSubmitGenerate(submitFormData);
-
-  
-
-   console.log("🚀 ~ file: RenderTraces.tsx:163 ~ onSubmitGenerate ~ res:", res)
+    const res = await handleSubmitGenerate(submitFormData);
   };
 
   return (

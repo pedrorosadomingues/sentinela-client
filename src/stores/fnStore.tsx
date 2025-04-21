@@ -626,8 +626,6 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
       const { uploadUrl } = await uploadFile(file);
 
-      console.log("uploadUrl", uploadUrl);
-
       document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600`;
 
       // Remove o cabeçalho base64 da imagem
@@ -715,7 +713,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
   handleSubmitGenerate: async (formData: any) => {
     const { user } = useUserStore.getState();
-    console.log("formData", formData);
+  
     const {
       t,
       toast,
@@ -788,8 +786,6 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         savingImage: true,
       }));
 
-      console.log("initialImage", initialImage);
-
       // Função auxiliar para salvar imagem e tratar erro
       const saveImage = async (imageUrl: string, type: string) => {
         try {
@@ -853,8 +849,6 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         initial_image_height: size?.height,
         generation_extras: generationExtras,
       };
-
-      console.log("payload", payload);
 
       // Remove dados desnecessários
       delete payload.activeMask;
