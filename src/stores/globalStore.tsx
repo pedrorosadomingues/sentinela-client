@@ -74,7 +74,7 @@ interface GlobalStoreProps {
 
   onOpenFeedbackModalChange: () => void;
 
-  fetchAdvertisement: (locale: string) => Promise<void>;
+ // fetchAdvertisement: (locale: string) => Promise<void>;
   advertisement?: any; // Add this property to the interface
 
   handleSendFeedback: (feedback: string, rating: number) => Promise<boolean>;
@@ -103,15 +103,15 @@ export const useGlobalStore = create<GlobalStoreProps>((set) => ({
     return false;
   },
   
-  fetchAdvertisement: async (locale) => {
-    const response = await axiosClient.get(`/api/ads?locale=${locale}`);
+  // fetchAdvertisement: async (locale) => {
+  //   const response = await axiosClient.get(`/api/ads?locale=${locale}`);
 
-    if (response.status === 200) {
-      set({
-        advertisement: response.data,
-      });
-    }
-  },
+  //   if (response.status === 200) {
+  //     set({
+  //       advertisement: response.data,
+  //     });
+  //   }
+  // },
 
   onOpenFeedbackModalChange: () =>
     set((state) => ({ isOpenFeedbackModal: !state.isOpenFeedbackModal })),

@@ -31,6 +31,7 @@ interface CurrentGenerationProps extends GenerationProps {
   isLoading: boolean;
   status?: string | null;
   engine?: string;
+  previousGenerated?: string | null;
 }
 
 type UploadOptions = {
@@ -811,6 +812,13 @@ export const useFnStore = create<FnStoreProps>((set) => ({
             : Promise.resolve(null),
         ]);
 
+        set((state) => ({
+          currentGeneration: {
+            ...state.currentGeneration,
+            original: url, // 👈 usar base64 como fallback para comparação visual
+          },
+        }));
+
       if (!originalImagePath) {
         t && toast && toast("warning", t("warning.IMG-LOD411"), "IMG-LOD411");
         return;
@@ -852,6 +860,13 @@ export const useFnStore = create<FnStoreProps>((set) => ({
       delete payload.activeMask;
       delete payload.referenceImage;
 
+      set((state) => ({
+        lastGeneration: {
+          original: originalImagePath,
+          generated: state.currentGeneration.generated, // 👈 A imagem gerada anterior!
+        },
+      }));
+
       // Faz a chamada para geração
       const result = await axiosClient.post(
         "/generation/text-to-img",
@@ -880,6 +895,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
             ...state.currentGeneration,
             isLoading: true,
             status: "QUEUED",
+            previousGenerated: state.currentGeneration.generated ?? null, // 👈 salvar antes de substituir
             generated: result.data.generation_url[0],
           },
           activeEnhancement: false,

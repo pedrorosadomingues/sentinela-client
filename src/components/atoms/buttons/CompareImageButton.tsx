@@ -13,7 +13,11 @@ export default function CompareImageButton() {
     setIsCompare,
     selectedGeneratorButton,
     setSelectedGeneratorButton,
+    currentGeneration,
+    initialImage,
   } = useFnStore();
+
+  const canCompare = currentGeneration.generated && initialImage?.url;
 
   return (
     <div
@@ -21,22 +25,25 @@ export default function CompareImageButton() {
       onMouseEnter={() => setActiveGeneratorButton("compare_result")}
     >
       <button
+        disabled={!canCompare}
+        onClick={() => {
+          if (!canCompare) return;
+          setIsCompare(!isCompare);
+          setShowOriginalImage(false);
+          setSelectedGeneratorButton("compare_result");
+        }}
         className={`btn relative overflow-hidden h-10 border-2 rounded ${
           activeGeneratorButton === "compare_result"
             ? "pr-3 pl-3 sm:px-4"
             : "pr-3 pl-3 sm:pr-0 sm:pl-2.5"
         }
-          ${
-            selectedGeneratorButton === "compare_result"
-              ? "bg-grayscale-600 text-white"
-              : "bg-white hover:bg-grayscale-300/50"
-          }
-          `}
-        onClick={() => {
-          setIsCompare(!isCompare);
-          setShowOriginalImage(false);
-          setSelectedGeneratorButton("compare_result");
-        }}
+    ${
+      selectedGeneratorButton === "compare_result"
+        ? "bg-grayscale-600 text-white"
+        : "bg-white hover:bg-grayscale-300/50"
+    }
+    ${!canCompare ? "opacity-50 cursor-not-allowed" : ""}
+  `}
       >
         <div
           aria-hidden="true"

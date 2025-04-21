@@ -11,9 +11,9 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { DownloadOutlined } from "@mui/icons-material";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useToast } from "@/hooks/useToast";
 import { axiosClient } from "@/lib/axios/axiosClient";
 import { useFnStore } from "@/stores/fnStore";
@@ -31,20 +31,20 @@ export default function DownloadGeneration({
   const dt = useTranslations("download-info-modal");
   const pathname = usePathname();
   const toast = useToast();
-  const locale = useLocale();
+  //const locale = useLocale();
   const { currentGeneration, currentGenerationIdRef } = useFnStore();
   const { user } = useUserStore();
   const { handleShowFeedbackModal, generationHasEvaluated } = useGlobalStore();
   const { isOpen, onOpenChange, onClose } = useDisclosure();
-  const { fetchAdvertisement } = useGlobalStore();
+  //const { fetchAdvertisement } = useGlobalStore();
 
   const [isLoadingDownload, setIsLoadingDownload] = useState(false);
   const [progress, setProgress] = useState<number>(0);
   const [canCloseModal, setCanCloseModal] = useState<boolean>(false);
 
-  useEffect(() => {
-    fetchAdvertisement(locale);
-  }, []);
+  // useEffect(() => {
+  //   fetchAdvertisement(locale);
+  // }, []);
 
   const availableFormats = [
     {
