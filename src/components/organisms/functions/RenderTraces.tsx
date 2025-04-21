@@ -177,6 +177,8 @@ export default function RenderTracesForm() {
 
    const res =  await handleSubmitGenerate(submitFormData);
 
+  
+
    console.log("🚀 ~ file: RenderTraces.tsx:163 ~ onSubmitGenerate ~ res:", res)
   };
 
@@ -208,14 +210,15 @@ export default function RenderTracesForm() {
 
           {/* <UploadTipsModal /> */}
 
-          {/* <InfoModal
-        isOpen={isOpen}
-        onPress={onOpenChange}
-        label={t("resize_notice_label")}
-        title={t("resize_notice_title")}
-        text={t("resize_notice_message")}
-        src={initialImage?.url as string}
-      /> */}
+          {initialImage?.url && !currentGeneration.generated && (
+            <div className="w-full flex gap-4 items-center justify-end mt-4 lg:hidden">
+              {pathname.includes("add-objects") ? (
+                <ComposerController isDisabled={currentGeneration.isLoading} />
+              ) : (
+                <MaskController isDisabled={currentGeneration.isLoading} />
+              )}
+            </div>
+          )}
 
           {initialImage?.url && !currentGeneration.generated && (
             <div className="hidden lg:block w-full">

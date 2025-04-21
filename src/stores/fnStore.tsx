@@ -629,7 +629,6 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
       document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600`;
 
-
       // Remove o cabeçalho base64 da imagem
       const imageBuffer = Buffer.from(
         base64.split(";base64,").pop()!,
@@ -839,7 +838,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
       //   }
       // }
 
-      const payload = {
+      const payload: any = {
         ...formData,
         originalImagePath,
         initial_image_width: size?.width,
@@ -860,8 +859,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         {
           headers: { id: user?.id, engine },
           withCredentials: true,
-        },
-
+        }
       );
       // Atualiza o estado com o resultado da geração
       if (
@@ -871,8 +869,8 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         // const { handleCheckIsGenerated } = useFnStore.getState();
         const { generation_id } = result.data;
 
-        //  handleCheckIsGenerated(generation_id);
-
+        //handleCheckIsGenerated(generation_id);
+        console.log("generation_id", result.data.generation_url[0]);
         set((state) => ({
           currentGenerationIdRef: {
             ...state.currentGenerationIdRef,
@@ -882,10 +880,12 @@ export const useFnStore = create<FnStoreProps>((set) => ({
             ...state.currentGeneration,
             isLoading: true,
             status: "QUEUED",
+            generated: result.data.generation_url[0],
           },
           activeEnhancement: false,
         }));
       }
+      return result.data;
     } catch (error: any) {
       if (error.status === 402) {
         t && toast && toast("warning", t("warning.SUB-SU402"), "SUB-SU402");
