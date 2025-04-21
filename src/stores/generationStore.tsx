@@ -7,6 +7,7 @@ import { Generation } from "@/interfaces";
 import { downloadFiles } from "@/services/download/create";
 
 interface Generations extends Generation {
+  batch_paths: any;
   checked?: boolean;
   hidden?: boolean;
 }
@@ -57,8 +58,18 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       const response = await getAllGenerations();
 
       if (response.status === 200) {
-        set({ generations: response.data });
-        set({ sortedGenerations: response.data });
+        set({
+          generations: response.data?.map((item: Generation) => ({
+            ...item,
+            batch_paths: item.batch_paths || [],
+          })),
+        });
+        set({
+          sortedGenerations: response.data?.map((item: Generation) => ({
+            ...item,
+            batch_paths: item.batch_paths || [],
+          })),
+        });
       } else {
         console.error(response.message);
       }

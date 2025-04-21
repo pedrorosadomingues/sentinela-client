@@ -40,4 +40,5 @@ export interface Generation {
   deleted_at: string | null;
   generation_id: string;
   user_id: number;
+  batch_paths: string[] | null;
 }
