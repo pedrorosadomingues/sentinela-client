@@ -627,7 +627,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
       const { uploadUrl } = await uploadFile(file);
 
-      document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600`;
+      document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600; SameSite=None; Secure`;
 
       // Remove o cabeçalho base64 da imagem
       const imageBuffer = Buffer.from(
