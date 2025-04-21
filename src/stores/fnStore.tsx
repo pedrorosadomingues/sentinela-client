@@ -812,12 +812,12 @@ export const useFnStore = create<FnStoreProps>((set) => ({
             : Promise.resolve(null),
         ]);
 
-        set((state) => ({
-          currentGeneration: {
-            ...state.currentGeneration,
-            original: url, // 👈 usar base64 como fallback para comparação visual
-          },
-        }));
+      set((state) => ({
+        currentGeneration: {
+          ...state.currentGeneration,
+          original: url, // 👈 usar base64 como fallback para comparação visual
+        },
+      }));
 
       if (!originalImagePath) {
         t && toast && toast("warning", t("warning.IMG-LOD411"), "IMG-LOD411");
@@ -881,11 +881,8 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         result.status === 200 &&
         result.data.hasOwnProperty("generation_id")
       ) {
-        // const { handleCheckIsGenerated } = useFnStore.getState();
         const { generation_id } = result.data;
 
-        //handleCheckIsGenerated(generation_id);
-        console.log("generation_id", result.data.generation_url[0]);
         set((state) => ({
           currentGenerationIdRef: {
             ...state.currentGenerationIdRef,
@@ -893,10 +890,10 @@ export const useFnStore = create<FnStoreProps>((set) => ({
           },
           currentGeneration: {
             ...state.currentGeneration,
-            isLoading: true,
-            status: "QUEUED",
-            previousGenerated: state.currentGeneration.generated ?? null, // 👈 salvar antes de substituir
+            isLoading: false, 
+            status: "FINISHED",
             generated: result.data.generation_url[0],
+            previousGenerated: state.currentGeneration.generated ?? null,
           },
           activeEnhancement: false,
         }));
