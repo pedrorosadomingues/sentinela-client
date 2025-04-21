@@ -621,13 +621,13 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         }
       }
 
-      // const file = base64ToFile(base64, uuidv4() + "render-traces.png");
+      const file = base64ToFile(base64, uuidv4() + "render-traces.png");
 
-      // const { uploadUrl } = await uploadFile(file);
+      const { uploadUrl } = await uploadFile(file);
 
-      // console.log("uploadUrl", uploadUrl.uploadUrl);
+      console.log("uploadUrl", uploadUrl);
 
-      // document.cookie = `imageUrl=${encodeURIComponent(uploadUrl)}; path=/; max-age=3600`;
+      document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600`;
 
 
       // Remove o cabeçalho base64 da imagem
@@ -859,7 +859,9 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         payload,
         {
           headers: { id: user?.id, engine },
-        }
+          withCredentials: true,
+        },
+
       );
       // Atualiza o estado com o resultado da geração
       if (
