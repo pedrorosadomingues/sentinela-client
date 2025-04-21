@@ -17,6 +17,7 @@ import { newRecord } from "@/types/generation";
 import { useMaskStore } from "./maskStore";
 import { v4 as uuidv4 } from "uuid";
 import { uploadFile } from "@/utils";
+import { updateCoins } from "@/utils/update-coins";
 
 interface GenerationProps {
   original: string | null;
@@ -875,6 +876,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         result.status === 200 &&
         result.data.hasOwnProperty("generation_id")
       ) {
+        updateCoins();
         const { generation_id } = result.data;
 
         set((state) => ({
