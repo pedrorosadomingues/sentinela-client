@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Tables } from "@/lib/supabase/types";
 import { Button, Image, Spinner, Tooltip } from "@heroui/react";
-import { StarGroup } from "../icons";
+import { StarGroup } from "../../atoms/icons";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 import { useGenerationStore } from "@/stores";

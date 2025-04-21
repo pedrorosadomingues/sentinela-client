@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToggleButton from "@/components/atoms/ToggleButton";
+import ToggleButton from "@/components/atoms/buttons/ToggleButton";
 import { SamplingControlsProps } from "@/interfaces/sampling-controls";
 import { useTranslations } from "next-intl";
 import "./range.css";

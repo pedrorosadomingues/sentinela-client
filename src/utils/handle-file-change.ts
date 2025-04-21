@@ -10,8 +10,8 @@ export async function handleFileChange(
   try {
     const { uploadUrl, localUrl } = await uploadFile(file);
 
-    console.log("uploadUrl", uploadUrl);
     setImagePath(localUrl);
+    
     setFieldValue(name, uploadUrl);
   } catch (error) {
     console.error("Erro ao fazer upload da imagem c:", error);

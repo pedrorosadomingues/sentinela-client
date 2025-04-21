@@ -3,7 +3,7 @@ import {
   ClothesBottom,
   ClothesComplete,
   ClothesTop,
-} from "@/components/organisms/icons";
+} from "@/components/atoms/icons";
 import { SVGProps } from "react";
 import { getLocaleMessages } from "@/lib/i18n/utils";
 

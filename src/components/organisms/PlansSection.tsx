@@ -2,7 +2,7 @@
 "use client";
 import { usePlanStore } from "@/stores";
 import { useEffect } from "react";
-import PaymentButton from "../atoms/PaymentButton";
+import PaymentButton from "../atoms/buttons/PaymentButton";
 import { useTranslations } from "next-intl";
 import CheckIcon from "@mui/icons-material/Check";
 

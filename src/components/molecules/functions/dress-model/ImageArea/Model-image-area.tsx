@@ -9,7 +9,7 @@ import {
   SentimentSatisfiedAltOutlined,
 } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
-import ToolInfo from "@/components/atoms/ToolInfo";
+import ToolInfo from "@/components/molecules/ToolInfo";
 import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface ModelImageAreaProps {
