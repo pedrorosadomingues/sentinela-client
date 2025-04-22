@@ -867,8 +867,6 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         .find((row) => row.startsWith("imageUrl="))
         ?.split("=")[1];
 
-        console.log("uploadUrl do cookie", uploadUrl);
-
       // Faz a chamada para geração
       const result = await axiosClient.post(
         "/generation/text-to-img",
