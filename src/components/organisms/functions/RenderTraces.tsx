@@ -7,7 +7,7 @@ import GenerateImageButton from "@/components/atoms/buttons/GenerateImageButton"
 import SuggestionInput from "@/components/atoms/inputs/SuggestionInput";
 import { useFnStore } from "@/stores/fnStore";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,6 +71,11 @@ export default function RenderTracesForm() {
     const res = await handleSubmitGenerate(submitFormData);
   };
   
+  useEffect(() => {
+    // Remove cookies imageUrl e referenceUrl se existirem
+    document.cookie = "imageUrl=; path=/; max-age=0; SameSite=None; Secure";
+    document.cookie = "referenceUrl=; path=/; max-age=0; SameSite=None; Secure";
+  }, []);
 
   return (
     <DropImageForm>

@@ -627,7 +627,11 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
       const { uploadUrl } = await uploadFile(file);
 
-      document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600; SameSite=None; Secure`;
+      if (target === "initial")
+        document.cookie = `imageUrl=${uploadUrl}; path=/; max-age=3600; SameSite=None; Secure`;
+
+      if (target === "reference")
+        document.cookie = `referenceImageUrl=${uploadUrl}; path=/; max-age=3600; SameSite=None; Secure`;
 
       // Remove o cabeçalho base64 da imagem
       const imageBuffer = Buffer.from(
@@ -714,7 +718,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
 
   handleSubmitGenerate: async (formData: any) => {
     const { user } = useUserStore.getState();
-  
+
     const {
       t,
       toast,
@@ -867,6 +871,15 @@ export const useFnStore = create<FnStoreProps>((set) => ({
         .find((row) => row.startsWith("imageUrl="))
         ?.split("=")[1];
 
+  
+      const referenceUrl = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("referenceImageUrl="))
+        ?.split("=")[1];
+
+      if (!referenceImage?.url) {
+        document.cookie = "referenceImageUrl=; path=/; max-age=0; SameSite=None; Secure";
+      }
       // Faz a chamada para geração
       const result = await axiosClient.post(
         "/generation/text-to-img",
@@ -876,6 +889,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
             id: user?.id,
             engine,
             "x-upload-url": uploadUrl,
+            "x-reference-url": referenceUrl,
           },
           withCredentials: true,
         }
@@ -895,7 +909,7 @@ export const useFnStore = create<FnStoreProps>((set) => ({
           },
           currentGeneration: {
             ...state.currentGeneration,
-            isLoading: false, 
+            isLoading: false,
             status: "FINISHED",
             generated: result.data.generation_url[0],
             previousGenerated: state.currentGeneration.generated ?? null,
