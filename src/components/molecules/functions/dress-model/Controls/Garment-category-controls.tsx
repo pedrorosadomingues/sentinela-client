@@ -3,7 +3,7 @@ import React from "react";
 import { CATEGORIES_GARMENT } from "@/constants/options";
 import { useTranslations } from "next-intl";
 import { Button } from "@heroui/react";
-import ToolInfo from "@/components/atoms/ToolInfo";
+import ToolInfo from "@/components/molecules/ToolInfo";
 import { UseFormSetValue } from "react-hook-form";
 import { FormValues } from "@/interfaces";
 interface CategoryButtonsProps {

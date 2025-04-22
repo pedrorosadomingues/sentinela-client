@@ -12,7 +12,7 @@ import { handleSubmit } from "@/utils/handle-submit";
 import CategoryBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-category-controls";
 import TypeBtnArea from "@/components/molecules/functions/dress-model/Controls/Garment-type-controls";
 import { useTranslations } from "next-intl";
-import { StarGroup } from "../icons";
+import { StarGroup } from "../../atoms/icons";
 import { Button } from "@heroui/react";
 import RowSteps from "@/components/atoms/RowSteps";
 import { useDressModelStore } from "@/stores/dressModelStore";
@@ -78,9 +78,8 @@ export default function DressModel(): JSX.Element {
       model_image: "",
       garment_image: "",
       fn: "dress-model",
-      cover_feet: false,
-      adjust_hands: false,
-      restore_clothes: false,
+      segmentation_free: true,
+      moderation_level: "permissive",
       seed: 42,
       num_samples: 1,
       garment_photo_type: "flat-lay",

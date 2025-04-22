@@ -20,8 +20,8 @@ import {
   MonetizationOnOutlined,
 } from "@mui/icons-material";
 import CoinCouter from "../atoms/CoinCounter";
-import { VestiqCoins } from "./icons/VestiqCoins";
-import ToggleSidebarLayout from "../atoms/ToggleSidebarLayout";
+import { VestiqCoins } from "../atoms/icons/VestiqCoins";
+import ToggleSidebarLayout from "../atoms/buttons/ToggleSidebarLayout";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar(): JSX.Element {

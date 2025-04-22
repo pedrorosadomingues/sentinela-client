@@ -23,7 +23,7 @@ import {
 
 import { LOCALE_TO_FLAG, LOCALES } from "@/constants/locales";
 
-import { StarGroup } from "./icons";
+import { StarGroup } from "../atoms/icons";
 
 import CoinCounter from "../atoms/CoinCounter";
 

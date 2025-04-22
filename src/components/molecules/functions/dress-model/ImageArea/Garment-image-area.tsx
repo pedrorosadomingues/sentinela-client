@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Button, Card, CardBody, CardHeader, Tooltip } from "@heroui/react";
 import { CheckroomOutlined, CloseOutlined } from "@mui/icons-material";
 import StepNumber from "@/components/atoms/StepNumber";
-import ToolInfo from "@/components/atoms/ToolInfo";
+import ToolInfo from "@/components/molecules/ToolInfo";
 import { useDressModelStore } from "@/stores/dressModelStore";
 
 interface GarmentImageAreaProps {

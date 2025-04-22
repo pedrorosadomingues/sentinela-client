@@ -323,6 +323,73 @@
     "get_business": "Obtener Empresarial"
   },
   "functions": {
+    "inputs": {
+      "not_available_basic_plan_tooltip": "Disponible en los planes Expert y Business",
+      "select_placeholder": "Seleccione...",
+      "no_options_found": "Ninguna opción encontrada",
+      "day_part_label": "Parte del día",
+      "engine_label": "Motor",
+      "environment_label": "Ambiente",
+      "freedom_label": "Libertad",
+      "mode_label": "Modo",
+      "resolution_label": "Resolución",
+      "scenario_label": "Escenario",
+      "style_label": "Estilo",
+      "type_label": "Tipo",
+      "lighting_label": "Iluminación",
+      "weather_label": "Clima",
+      "photorealism_intensity_label": "Intensidad del fotorealismo",
+      "animation_style_label": "Estilo de animación",
+      "suggestion_label": "Detalla las características",
+      "suggestion_tip_label": "Escribe sugerencias para la IA.",
+      "suggestion_placeholder": "Escribe aquí...",
+      "suggestion_remove_all": "Eliminar todas",
+      "reference_image_label": "Imagen de referencia",
+      "optional_field": "opcional",
+      "new": "Novedad"
+    },
+    "page": {
+      "step": "Paso {step}",
+      "tip_upload_best_result": "Sube tu imagen en PNG o JPEG y sigue con los siguientes pasos para generar tus imágenes.",
+      "drop_image_area_text": "Para comenzar a renderizar tu imagen arrastra un archivo",
+      "drop_image_area_subtext": "O haz clic en el botón de abajo para subir",
+      "drag_drop_image": "Arrastra o haz clic en el botón de abajo para subir",
+      "send_file": "Enviar archivo",
+      "generate_image": "Generar imagen",
+      "generate_video": "Generar video",
+      "title": "Generador de imágenes",
+      "video_generator": "Generador de videos",
+      "original_image": "Imagen original",
+      "generated_image": "Imagen generada",
+      "compare_result": "Comparar resultado",
+      "send_image": "Envía una imagen",
+      "history": "Generaciones anteriores",
+      "detail_image_title": "Detalla tu imagen",
+      "detail_image_subtext": "Describe esta imagen aquí",
+      "detail_video_subtitle": "Detalla las especificaciones del video",
+      "fullscreen_close": "Salir del modo pantalla completa",
+      "fullscreen_open": "Abrir en pantalla completa",
+      "drop_image": "Suelta la imagen",
+      "download_label": "Descargar",
+      "format_label": "Formato",
+      "crop_image_area": "Recorta el área de referencia",
+      "use_original_btn": "Usar original",
+      "crop_btn": "Recortar",
+      "enhancement": "Con mejora",
+      "no_enhancement": "Sin mejora",
+      "enhance_image_label": "Mejorar imagen",
+      "save_label": "Guardar",
+      "VWGNM-D000": "Ocurrió un error al preparar el archivo para descarga. Por favor, contacta al soporte.",
+      "VWGNM-S200": "Tu archivo está listo y disponible para descargar.",
+      "image_loading_initial": "Espera, tu imagen se está generando...",
+      "image_loading_message_1": "Por favor, espera. Estamos calentando nuestros motores, ¡no recargues la página!",
+      "image_loading_message_2": "Seguimos procesando tu imagen. ¡Gracias por tu paciencia!",
+      "time_format": "{minutes}:{seconds}",
+      "resize_notice_title": "Aviso de redimensionamiento",
+      "resize_notice_message": "La imagen enviada es más grande de lo recomendado (ideal: 1920x1080). Vamos a redimensionarla, pero esto puede reducir la calidad. Para mejores resultados, sube una imagen con el tamaño ideal.",
+      "resize_notice_video": "La imagen enviada es más grande de lo recomendado (ideal para función de video: 1300x1300). Vamos a redimensionarla, pero esto puede reducir la calidad. Para mejores resultados, sube una imagen con el tamaño ideal.",
+      "resize_notice_label": "Entendido"
+    },
     "save-generation-modal": {
       "title": "Elija la Ubicación de Guardado",
       "subtitle": "Navegue hasta el proyecto o carpeta deseada y haga clic en Confirmar para guardar.",
@@ -430,6 +497,166 @@
       "last_year": "Ano passado",
       "edit_date": "Data de edição",
       "filter_by_date": "Filtrar por data de criação"
+    },
+    "feedback": {
+      "feedback_button": "Enviar comentarios",
+      "tooltip": "Enviar comentarios",
+      "modal_title": "Ayúdanos a mejorar nuestra IA.",
+      "modal_description": "Valoramos tus comentarios. Si tienes ideas o sugerencias para mejorar nuestro producto, háznoslo saber.",
+      "textarea_placeholder": "Ideas o sugerencias para mejorar nuestro producto",
+      "cancel_button": "Cancelar",
+      "submit_button": "Enviar comentarios",
+      "success_message": "¡Comentarios enviados con éxito!",
+      "error_message": "Error al enviar los comentarios. Por favor, inténtalo de nuevo.",
+      "empty_rating_error": "Por favor, califica la imagen antes de enviar los comentarios.",
+      "empty_feedback_error": "Por favor, escribe un comentario antes de enviar los comentarios."
     }
+  },
+  "tool-info": {
+    "suggestion": {
+      "title": "Herramienta de Sugerencia",
+      "text": "La sugerencia debe proponer los elementos presentes en la imagen de forma simple y directa, usando pocas palabras separadas por comas. La mejor forma de utilizarla es después de una generación, sugiriendo cambios solo donde sea necesario."
+    },
+    "see_more": "Ver más"
+  },
+  "image-score": {
+    "drawer_title": "Puntuación de la Imagen",
+    "drawer_description": "Esta herramienta te permite visualizar las probabilidades de que tu imagen tenga un buen rendimiento con la IA. Analiza los puntos y considera posibles mejoras.",
+    "final_score_slider": "Puntuación Final",
+    "lightning_slider": {
+      "title": "Iluminación",
+      "too_bright": "La iluminación es demasiado fuerte. Redúcela un poco para evitar sobreexposición.",
+      "too_dark": "La imagen está oscura. Intenta aumentar la iluminación.",
+      "just_right": "La iluminación es la adecuada."
+    },
+    "border_slider": {
+      "title": "Borde",
+      "too_visible": "Los bordes son demasiado visibles. Intenta eliminarlos o ajustarlos.",
+      "good": "Los bordes están bien."
+    },
+    "resolution_slider": {
+      "title": "Resolución",
+      "too_low": "La resolución es baja. Intenta usar una imagen de mayor calidad.",
+      "good": "La resolución es buena."
+    },
+    "shadows_slider": {
+      "title": "Sombras",
+      "missing": "Faltan sombras en la imagen.",
+      "too_much": "Hay demasiadas sombras. Intenta suavizarlas un poco.",
+      "just_right": "Las sombras son adecuadas."
+    },
+    "academy_tip": "¡Accede al Academy para más consejos!",
+    "academy_learn_more_button": "Saber más",
+    "watch_video": "Ver video"
+  },
+  "tools": {
+    "image_composer": {
+      "tool_label": "Incorporar objeto",
+      "tool_tooltip": "Crea una composición de imágenes",
+      "btns": {
+        "add": "Agregar objeto",
+        "lights": "Agregar punto de luz",
+        "hide": "Ocultar/mostrar objeto",
+        "block": "Bloquear movimiento",
+        "unlock": "Desbloquear movimiento",
+        "duplicate": "Duplicar objeto",
+        "delete": "Eliminar objeto",
+        "clear": "Limpiar composición",
+        "centralize": "Centrar objeto",
+        "rotate_left": "Girar a la izquierda",
+        "rotate_right": "Girar a la derecha",
+        "rotate_original": "Restablecer rotación",
+        "save": "Ver salida (dev)",
+        "history_label": "Últimas composiciones",
+        "history_empty": "No tienes composiciones anteriores"
+      },
+      "dropdown": {
+        "rename": "Renombrar",
+        "hide": "Ocultar/mostrar",
+        "centralize": "Centrar",
+        "reset_rotation": "Restablecer rotación",
+        "duplicate": "Duplicar objeto",
+        "block": "Bloquear/Desbloquear",
+        "delete": "Eliminar objeto"
+      },
+      "confirmation": {
+        "delete_title": "Confirmar eliminación",
+        "delete_message": "Tienes una composición con {count} objetos. ¿Realmente deseas eliminarla?"
+      },
+      "rename": {
+        "title": "Renombrar objeto",
+        "label": "Nombre del objeto",
+        "placeholder": "Escribe un nombre para el objeto",
+        "error": {
+          "object_name_required": "Por favor, ingresa un nombre para el objeto",
+          "object_name_error_min": "El nombre debe tener al menos 3 caracteres",
+          "object_name_error_max": "El nombre debe tener como máximo 15 caracteres",
+          "object_name_error_special": "El nombre no puede contener caracteres especiales",
+          "object_name_error_exists": "El nombre del objeto ya existe"
+        }
+      },
+      "errors": {
+        "merge_image_loading": "Generando la composición creada...",
+        "merge_image_error": "Error al generar la composición de imagen.",
+        "merge_image_success": "¡Imagen final creada con éxito!"
+      }
+    },
+    "mask": {
+      "title": "Máscara",
+      "mask_explanation": {
+        "tip": "Consejo:",
+        "intro": "Al utilizar esta versión, la máscara funciona de la siguiente manera:",
+        "importance": "La máscara es esencial para definir qué partes de la imagen se conservarán o se modificarán durante la generación.",
+        "brush_automatic": {
+          "dark_color": "El color oscuro representa las áreas que serán modificadas.",
+          "light_color": "El color claro representa el fondo visible."
+        },
+        "brush_comfy": {
+          "dark_color": "El color oscuro representa el fondo visible.",
+          "light_color": "El color claro representa las áreas que serán modificadas."
+        },
+        "lasso_automatic": {
+          "red_color": "El color rojo representa las áreas que serán modificadas.",
+          "light_color": "El color claro representa el fondo visible."
+        },
+        "lasso_comfy": {
+          "light_color": "El color claro representa las áreas que serán modificadas.",
+          "red_color": "El color rojo representa el fondo visible."
+        }
+      },
+      "brush": {
+        "mode": "Selección de pincel",
+        "undo_event": "Deshacer última acción",
+        "redo_event": "Rehacer última acción",
+        "eraser": "Borrador",
+        "clear_event": "Limpiar máscara",
+        "toogle_invert_mask_on": "Invertir máscara - Activado",
+        "toogle_invert_mask_off": "Invertir máscara - Desactivado",
+        "decrease_brush_size": "Reducir pincel",
+        "increase_brush_size": "Aumentar pincel",
+        "decrease_zoom": "Reducir zoom",
+        "increase_zoom": "Aumentar zoom"
+      },
+      "lasso": {
+        "mode": "Selección de lazo",
+        "label": "Seleccionar capa",
+        "layer": "Capa",
+        "delete_layer": "Eliminar capa",
+        "reset_layers": "Restablecer capas",
+        "toogle_invert_mask_on": "Invertir máscara - Activado",
+        "toogle_invert_mask_off": "Invertir máscara - Desactivado"
+      }
+    }
+  },
+  "download-info-modal": {
+    "tooltip_download": "Descargar",
+    "modal_title_ready": "Archivos listos",
+    "modal_title_preparing": "Preparando archivos",
+    "modal_text_ready": "Tu descarga está lista",
+    "modal_text_preparing": "Tu descarga está siendo preparada.",
+    "modal_large_package": "Estamos comprimiendo los archivos, esto puede tardar un poco.",
+    "modal_text_large_package": "La compresión está tardando más de lo esperado. Puedes cerrar este gestor, pero seguimos trabajando en segundo plano. Por favor, no actualices la página...",
+    "modal_text_wait": "Por favor, espera...",
+    "unexpected_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
   }
 }

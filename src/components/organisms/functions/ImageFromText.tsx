@@ -8,7 +8,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { useImageFromTextStore } from "@/stores/imageFromTextStore";
 import { CircularProgress } from "@mui/material";
 import { useUserStore } from "@/stores/userStore";
-import { VestiqCoins } from "../icons/VestiqCoins";
+import { VestiqCoins } from "../../atoms/icons/VestiqCoins";
 import { useToast } from "@/hooks/useToast";
 export default function ImageFromText() {
   const [prompt, setPrompt] = useState<string>("");
@@ -23,9 +23,7 @@ export default function ImageFromText() {
     "",
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [, setCurrentGenerationId] = useState<string | null>(
-    null
-  );
+  const [, setCurrentGenerationId] = useState<string | null>(null);
   const { user } = useUserStore();
 
   const handleGenerate = async (e: React.FormEvent) => {
@@ -39,7 +37,7 @@ export default function ImageFromText() {
         "Você não tem coins suficientes para gerar imagens"
       );
     }
-    console.log("Iniciando geração com prompt:", prompt);
+
     setIsLoading(true);
     setGeneratedImages(Array(4).fill(""));
 
@@ -61,7 +59,6 @@ export default function ImageFromText() {
         result.generation_id ? result.generation_id : null
       );
       if (result && result.generation_id) {
-        console.log("ID da geração recebido:", result.generation_id);
         setCurrentGenerationId(result.generation_id);
         setGeneratedImages(result.generation_url || []);
         setIsLoading(false);
