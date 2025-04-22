@@ -4,9 +4,11 @@ export interface FormValues {
   model_image: string;
   garment_image: string;
   fn: string;
-  cover_feet: boolean;
-  adjust_hands: boolean;
-  restore_clothes: boolean;
+  segmentation_free: boolean;
+  moderation_level: string;
+  //cover_feet: boolean;
+  //adjust_hands: boolean;
+  //restore_clothes: boolean;
   seed: number;
   num_samples: number;
   garment_photo_type: string;

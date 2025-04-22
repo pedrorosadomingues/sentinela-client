@@ -58,17 +58,30 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
       const response = await getAllGenerations();
 
       if (response.status === 200) {
-        set({
-          generations: response.data?.map((item: Generation) => ({
+        const flatGenerations = response.data?.flatMap((item: Generation) => {
+          const baseItem: Generations = {
             ...item,
-            batch_paths: item.batch_paths || [],
-          })),
+            batch_paths: [],
+            checked: false,
+            hidden: false,
+          };
+
+          // const batchItems: Generations[] =
+          //   item.batch_paths?.map((path: string, index: number) => ({
+          //     ...item,
+          //     id: Number(`${item.id}${index + 1}`), // Gera ID derivado único
+          //     path,
+          //     batch_paths: [],
+          //     checked: false,
+          //     hidden: false,
+          //   })) || [];
+
+          return [baseItem, ];
         });
+
         set({
-          sortedGenerations: response.data?.map((item: Generation) => ({
-            ...item,
-            batch_paths: item.batch_paths || [],
-          })),
+          generations: flatGenerations,
+          sortedGenerations: flatGenerations,
         });
       } else {
         console.error(response.message);
@@ -214,45 +227,58 @@ export const useGenerationStore = create<IGenerationStore>((set) => ({
   filterGenerations: (filter: string) => {
     const { generations, setGenerations } = useGenerationStore.getState();
     const now = new Date();
-  
+
     const parseBRDate = (brDate: string) => {
-      const [datePart, timePart] = brDate.split(' ');
-      const [day, month, year] = datePart.split('/').map(Number);
-      const [hour, minute, second] = timePart.split(':').map(Number);
-  
+      const [datePart, timePart] = brDate.split(" ");
+      const [day, month, year] = datePart.split("/").map(Number);
+      const [hour, minute, second] = timePart.split(":").map(Number);
+
       return new Date(year, month - 1, day, hour, minute, second);
     };
-  
+
     const dateFilterMap: Record<string, Date> = {
       today: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
       yesterday: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1),
-      'last-30-days': new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30),
-      'last-90-days': new Date(now.getFullYear(), now.getMonth(), now.getDate() - 90),
-      'last-year': new Date(now.getFullYear() - 1, now.getMonth(), now.getDate()),
-      'any-time': new Date(0),
+      "last-30-days": new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 30
+      ),
+      "last-90-days": new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 90
+      ),
+      "last-year": new Date(
+        now.getFullYear() - 1,
+        now.getMonth(),
+        now.getDate()
+      ),
+      "any-time": new Date(0),
     };
-  
+
     const filterDate = dateFilterMap[filter.toLowerCase()];
-  
+
     if (generations && filterDate) {
       const filteredGenerations = generations.map((item) => {
         const itemDate = parseBRDate(item.started_at);
         let hidden = itemDate < filterDate;
-  
-        if (filter.toLowerCase() === 'yesterday') {
+
+        if (filter.toLowerCase() === "yesterday") {
           hidden =
             itemDate < filterDate ||
-            itemDate >= new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        } else if (filter.toLowerCase() === 'today') {
+            itemDate >=
+              new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        } else if (filter.toLowerCase() === "today") {
           hidden = itemDate < filterDate;
         }
-  
+
         return {
           ...item,
           hidden,
         };
       });
-  
+
       setGenerations(filteredGenerations);
     }
   },
