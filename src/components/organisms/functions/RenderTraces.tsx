@@ -52,7 +52,7 @@ export default function RenderTracesForm() {
     const { referenceImage } = useFnStore.getState();
   
     // 🔧 Define valores padrão obrigatórios ausentes
-    formData.engine = "sd"; // ou "cf", se for o padrão do projeto
+    formData.engine = "cf"; // ou "cf", se for o padrão do projeto
   
     const submitFormData = {
       ...formData,
