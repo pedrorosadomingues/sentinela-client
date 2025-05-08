@@ -126,7 +126,7 @@ export default function RenderTracesForm() {
           {currentGeneration.generated && (
             <div className="w-full flex gap-4 items-center justify-end mt-4">
               <EnhancementButton />
-              <FeedbackGeneration />
+             <FeedbackGeneration />
             </div>
           )}
         </div>

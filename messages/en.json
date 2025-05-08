@@ -373,7 +373,7 @@
     },
     "page": {
       "step": "Step {step}",
-      "tip_upload_best_result": "Upload your image in PNG or JPEG and follow the next steps to generate your images.",
+      "tip_upload_best_result": "Upload your image in JPEG and follow the next steps to generate your images.",
       "drop_image_area_text": "To start Rendering your image, drag an file",
       "drop_image_area_subtext": "or click in the button below",
       "drag_drop_image": "Drag and drop your image here",

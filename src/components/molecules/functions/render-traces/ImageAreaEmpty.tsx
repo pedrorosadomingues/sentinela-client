@@ -80,7 +80,7 @@ export default function ImageAreaEmpty() {
         hidden
         name="image"
         id="input-image"
-        accept="image/png,image/jpeg"
+        accept="image/jpeg"
         required
         onChange={resetInput}
       />

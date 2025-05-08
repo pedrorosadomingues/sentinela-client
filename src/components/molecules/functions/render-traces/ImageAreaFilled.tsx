@@ -95,9 +95,19 @@ export default function ImageAreaFilled() {
         hidden
         name="image"
         id="input-image"
-        accept="image/png,image/jpeg"
+        accept="image/jpeg"
         required={true}
         onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+      
+          // ✅ Verificação do tipo MIME
+          if (file.type !== "image/jpeg") {
+            alert("Apenas imagens .jpg são suportadas no momento.");
+            e.target.value = ""; // limpa o input
+            return;
+          }
+      
           handleImageUpload(e);
           e.target.value = "";
         }}
