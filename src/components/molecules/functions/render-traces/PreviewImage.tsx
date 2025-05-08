@@ -8,7 +8,7 @@ import { useMaskStore } from "@/stores/maskStore";
 import { getImageLuminosity } from "@/utils/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
-import ImageRanking from "./ImageRanking";
+//import ImageRanking from "./ImageRanking";
 
 export default function PreviewImage({ src }: { src?: string }) {
   const t = useTranslations("functions.page");
@@ -17,7 +17,7 @@ export default function PreviewImage({ src }: { src?: string }) {
   const [isTextDark, setIsTextDark] = useState(false);
   const [message, setMessage] = useState(t("image_loading_initial"));
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { currentGeneration, currentImageScore } = useFnStore();
+  const { currentGeneration } = useFnStore();
   const { setImageContainerDimensions } = useMaskStore();
 
   const preventDragHandler: React.DragEventHandler<HTMLImageElement> = (event) => {
@@ -115,7 +115,7 @@ export default function PreviewImage({ src }: { src?: string }) {
 
   return (
     <div className="relative inset-0 flex items-center justify-center h-full w-full">
-      <ImageRanking isDisabled={!currentImageScore} />
+      {/* <ImageRanking isDisabled={!currentImageScore} /> */}
       {isLoading && (
         <div className="flex flex-col gap-4 text-center justify-center align-middle items-center font-medium absolute z-10 text-sm pointer-events-none">
           <img src="/logo.ico" alt="logo" className="h-12 transition-all ease-in animate-pulse redraw-loading-logo" />

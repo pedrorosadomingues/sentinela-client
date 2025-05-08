@@ -350,7 +350,7 @@
     },
     "page": {
       "step": "Paso {step}",
-      "tip_upload_best_result": "Sube tu imagen en PNG o JPEG y sigue con los siguientes pasos para generar tus imágenes.",
+      "tip_upload_best_result": "Sube tu imagen en JPEG y sigue con los siguientes pasos para generar tus imágenes.",
       "drop_image_area_text": "Para comenzar a renderizar tu imagen arrastra un archivo",
       "drop_image_area_subtext": "O haz clic en el botón de abajo para subir",
       "drag_drop_image": "Arrastra o haz clic en el botón de abajo para subir",
