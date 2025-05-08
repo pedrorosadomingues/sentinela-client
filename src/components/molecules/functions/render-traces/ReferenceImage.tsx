@@ -331,7 +331,7 @@ export default function ReferenceImage({
                   <input
                     type="file"
                     hidden
-                    accept="image/png,image/jpeg"
+                    accept="image/jpeg"
                     onChange={handleFileChange}
                     ref={fileInputRef}
                   />
