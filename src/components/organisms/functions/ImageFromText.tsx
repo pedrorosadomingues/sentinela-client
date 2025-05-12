@@ -173,9 +173,11 @@ export default function ImageFromText() {
       </div>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
-        <p className="text-gray-700 font-medium mb-4 text-sm sm:text-base">
-          Gere uma roupa bem bonita
-        </p>
+      {generatedImages[0].length > 0  && (
+          <p className="text-gray-700 font-medium mb-4 text-sm sm:text-base">
+            {prompt}
+          </p>
+        )}
         <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
           {generatedImages.map((src, index) => (
             <div
