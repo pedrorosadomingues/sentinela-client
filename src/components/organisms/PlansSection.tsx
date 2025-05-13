@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import PaymentButton from "../atoms/buttons/PaymentButton";
 import { useTranslations } from "next-intl";
 import CheckIcon from "@mui/icons-material/Check";
+import { CancelSubscriptionButton } from "../atoms/buttons/CancelSubscription";
 
 export default function PlansSection(): JSX.Element {
   const { plans, getPlans } = usePlanStore();
@@ -67,7 +68,7 @@ export default function PlansSection(): JSX.Element {
                   </span>
                 </div>
 
-                <PaymentButton plan={plan}>                 
+                <PaymentButton plan={plan}>
                   <div className="font-sans">
                     {text(`get_${plan.key}` as any)}
                   </div>
@@ -90,6 +91,9 @@ export default function PlansSection(): JSX.Element {
             </div>
           );
         })}
+      </div>
+      <div >
+        <CancelSubscriptionButton />
       </div>
     </div>
   );

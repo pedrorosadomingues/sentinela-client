@@ -24,6 +24,7 @@ import { StarOutline } from "@mui/icons-material";
 import { usePlanStore } from "@/stores";
 import PaymentButton from "@/components/atoms/buttons/PaymentButton";
 import { Plan } from "@/interfaces";
+import { CancelSubscriptionButton } from "@/components/atoms/buttons/CancelSubscription";
 
 export default function AvailablePlans() {
   const { getPlans } = usePlanStore();
@@ -173,13 +174,8 @@ export default function AvailablePlans() {
       </div>
       <Spacer y={12} />
 
-      <div className="flex py-2">
-        <p className="text-default-400">
-          Are you an open source developer?&nbsp;
-          <Link color="foreground" href="#" underline="always">
-            Get a discount
-          </Link>
-        </p>
+      <div>
+        <CancelSubscriptionButton />
       </div>
     </>
   );
