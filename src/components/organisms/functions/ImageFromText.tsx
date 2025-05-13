@@ -112,33 +112,6 @@ export default function ImageFromText() {
             </button>
           </div>
         </form>
-
-        <div className="flex flex-wrap items-center mt-4 gap-2">
-          <button
-            type="button"
-            className={`flex items-center px-3 sm:px-4 py-2 border rounded-md text-sm sm:text-base ${
-              aspectRatio === "free"
-                ? "bg-blue-500 text-white border-blue-500"
-                : "border-gray-300"
-            }`}
-            onClick={() => setAspectRatio("free")}
-          >
-            <ColorLesnIcon className="mr-[6px] text-sm sm:text-base" /> Formato
-            livre
-          </button>
-          <button
-            type="button"
-            className={`flex items-center px-3 sm:px-4 py-2 border rounded-md text-sm sm:text-base ${
-              aspectRatio === "1:1"
-                ? "bg-blue-500 text-white border-blue-500"
-                : "border-gray-300"
-            }`}
-            onClick={() => setAspectRatio("1:1")}
-          >
-            <input type="checkbox" className="mr-2" /> 1:1
-          </button>
-        </div>
-
         <div className="mt-4">
           <p className="text-gray-700 font-medium mb-2 text-sm sm:text-base">
             Quantidade de imagens:
