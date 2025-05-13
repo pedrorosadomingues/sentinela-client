@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import ColorLesnIcon from "@mui/icons-material/ColorLens";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { useImageFromTextStore } from "@/stores/imageFromTextStore";
 import { CircularProgress } from "@mui/material";
@@ -14,7 +13,7 @@ export default function ImageFromText() {
   const [prompt, setPrompt] = useState<string>("");
   const toast = useToast();
 
-  const [aspectRatio, setAspectRatio] = useState<string>("free");
+  const [aspectRatio] = useState<string>("free");
   const [imageCount, setImageCount] = useState<number>(1);
   const [generatedImages, setGeneratedImages] = useState<string[]>([
     "",
@@ -146,7 +145,7 @@ export default function ImageFromText() {
       </div>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
-      {generatedImages[0].length > 0  && (
+        {generatedImages[0].length > 0 && (
           <p className="text-gray-700 font-medium mb-4 text-sm sm:text-base">
             {prompt}
           </p>
