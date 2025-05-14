@@ -658,5 +658,12 @@
     "modal_text_large_package": "A compactação está demorando mais do que o esperado. Você pode fechar este gerenciador, mas continuamos trabalhando para compactar os arquivos em segundo plano. Não atualize a página...",
     "modal_text_wait": "Aguarde um momento...",
     "unexpected_error": "Erro inesperado ao compactar os arquivos. Por favor, tente novamente mais tarde."
+  },
+  "my-profile": {
+    "plans": {
+      "pricing_title": "Preços",
+      "pricing_heading": "Tenha acesso ilimitado.",
+      "pricing_description": "Desbloqueie recursos premium por menos de US$19 por semana — invista no seu sucesso hoje!"
+    }
   }
 }

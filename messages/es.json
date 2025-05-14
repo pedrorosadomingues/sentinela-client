@@ -658,5 +658,12 @@
     "modal_text_large_package": "La compresión está tardando más de lo esperado. Puedes cerrar este gestor, pero seguimos trabajando en segundo plano. Por favor, no actualices la página...",
     "modal_text_wait": "Por favor, espera...",
     "unexpected_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+  },
+  "my-profile": {
+    "plans": {
+      "pricing_title": "Precios",
+      "pricing_heading": "Obtén acceso ilimitado.",
+      "pricing_description": "Desbloquea funciones premium por menos de $19 por semana: ¡invierte en tu éxito hoy!"
+    }
   }
 }

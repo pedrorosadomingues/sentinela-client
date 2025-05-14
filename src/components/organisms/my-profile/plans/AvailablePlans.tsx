@@ -18,13 +18,13 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { cn } from "@heroui/react";
-import { FrequencyEnum } from "./pricing";
 import { frequencies, tiers } from "./pricing";
 import { StarOutline } from "@mui/icons-material";
 import { usePlanStore } from "@/stores";
 import PaymentButton from "@/components/atoms/buttons/PaymentButton";
 import { Plan } from "@/interfaces";
 import { CancelSubscriptionButton } from "@/components/atoms/buttons/CancelSubscription";
+import { useTranslations } from "next-intl";
 
 export default function AvailablePlans() {
   const { getPlans } = usePlanStore();
@@ -32,6 +32,7 @@ export default function AvailablePlans() {
   const { isOpen, onOpenChange } = useDisclosure();
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const availablePlans = tiers();
+  const t = useTranslations("my-profile.plans");
 
   const onFrequencyChange = (selectedKey: React.Key) => {
     const frequencyIndex = frequencies.findIndex((f) => f.key === selectedKey);
@@ -46,14 +47,13 @@ export default function AvailablePlans() {
   return (
     <>
       <div className="flex max-w-xl flex-col text-center">
-        <h2 className="font-medium text-secondary">Pricing</h2>
+        <h2 className="font-medium text-secondary">{t("pricing_title")}</h2>
         <h1 className="text-4xl font-medium tracking-tight">
-          Get unlimited access.
+          {t("pricing_heading")}
         </h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Unlock premium features for less than $19 a week—invest in your
-          success today!
+          {t("pricing_description")}
         </h2>
       </div>
       <Spacer y={8} />
@@ -65,7 +65,7 @@ export default function AvailablePlans() {
         size="lg"
         onSelectionChange={onFrequencyChange}
       >
-        <Tab
+        {/* <Tab
           key={FrequencyEnum.Yearly}
           aria-label="Pay Yearly"
           className="pr-1.5"
@@ -75,8 +75,8 @@ export default function AvailablePlans() {
               <Chip color="secondary">Save 25%</Chip>
             </div>
           }
-        />
-        <Tab key={FrequencyEnum.Monthly} title="Pay Monthly" />
+        /> */}
+        {/* <Tab key={FrequencyEnum.Monthly} title="Pay Monthly" /> */}
       </Tabs>
       <Spacer y={12} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -86,10 +86,10 @@ export const tiers = () => {
       href: "#",
       featured: plan.name.toLowerCase().includes("team"),
       mostPopular: isRecommended,
-      description: `Includes ${plan.available_resources.length} features with ${plan.storage_limit} GB storage.`,
+      description: `Includes ${plan.available_resources.length} features`,
       features: [
         ...plan.available_resources,
-        `${plan.storage_limit} GB of storage`,
+        // `${plan.storage_limit} GB of storage`,
         `${plan.coins} coins`,
       ],
       ...buttonProps,

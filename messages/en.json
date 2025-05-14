@@ -681,5 +681,12 @@
     "modal_text_large_package": "The compression is taking longer than expected. You can close this manager, but we are still working on compressing the files in the background. Please do not refresh the page...",
     "modal_text_wait": "Please wait...",
     "unexpected_error": "An unexpected error occurred. Please try again."
+  },
+  "my-profile": {
+    "plans": {
+      "pricing_title": "Pricing",
+      "pricing_heading": "Get unlimited access.",
+      "pricing_description": "Unlock premium features for less than $19 a week—invest in your success today!"
+    }
   }
 }

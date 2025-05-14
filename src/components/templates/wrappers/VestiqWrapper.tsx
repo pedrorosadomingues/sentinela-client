@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Header from "@/components/organisms/Header";
-import UpgradePlanModal from "@/components/organisms/plans/UpgradePlanModal";
+import UpgradePlanModal from "@/components/organisms/my-profile/plans/UpgradePlanModal";
 import Sidebar from "@/components/organisms/Sidebar";
 import VestiqLoading from "@/components/organisms/VestiqLoading";
 import { useFnStore, useUserStore } from "@/stores";

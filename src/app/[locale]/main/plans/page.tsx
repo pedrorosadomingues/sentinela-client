@@ -1,4 +1,4 @@
-import AvailablePlans from "@/components/organisms/plans/AvailablePlans";
+import AvailablePlans from "@/components/organisms/my-profile/plans/AvailablePlans";
 
 export default function page() {
   return <AvailablePlans />;

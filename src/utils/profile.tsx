@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import PlansAndSubscriptions from "@/components/organisms/plans/PlansAndSubscriptions";
+import PlansAndSubscriptions from "@/components/organisms/my-profile/plans/PlansAndSubscriptions";
 import Achievements from "@/components/organisms/profile/tabs/Achievements";
 import PersonalInfo from "@/components/organisms/profile/tabs/PersonalInfo";
 import Profile from "@/components/organisms/profile/tabs/Profile";
