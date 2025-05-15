@@ -661,9 +661,23 @@
   },
   "my-profile": {
     "plans": {
+      "most_popular": "Mais Popular",
       "pricing_title": "Preços",
       "pricing_heading": "Tenha acesso ilimitado.",
-      "pricing_description": "Desbloqueie recursos premium por menos de US$19 por semana — invista no seu sucesso hoje!"
+      "pricing_description": "Desbloqueie recursos premium por menos de R$120,00 por semana — invista no seu sucesso hoje!",
+      "basic": "Plano Básico",
+      "expert": "Plano Expert",
+      "business": "Plano Empresarial",
+      "includes": "Inclui",
+      "features": "recursos",
+       "dress-model": "Vestir Modelo",
+      "txt2model": "Modelo a a partir de Texto",
+      "4x-dress-model": "Vestir Modelo 4x",
+      "multi-users": "Múltiplos Usuários",
+      "txt2img": "Texto para Imagem",
+      "render-traces": "Renderizar Traços",
+      "per_year": "por ano",
+      "per_month": "por mês"
     }
   }
 }

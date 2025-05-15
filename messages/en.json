@@ -684,9 +684,23 @@
   },
   "my-profile": {
     "plans": {
+      "most_popular": "Most Popular",
       "pricing_title": "Pricing",
       "pricing_heading": "Get unlimited access.",
-      "pricing_description": "Unlock premium features for less than $19 a week—invest in your success today!"
+      "pricing_description": "Unlock premium features for less than $19 a week—invest in your success today!",
+      "basic": "Basic Plan",
+      "expert": "Expert Plan",
+      "business": "Business Plan",
+      "includes": "Includes",
+      "features": "resources",
+      "dress-model": "Dress Model",
+      "txt2model": "Text to Model",
+      "4x-dress-model": "4x Dress Model",
+      "multi-users": "Multi Users",
+      "txt2img": "Text to Image",
+      "render-traces": "Render Traces",
+      "per_year": "per year",
+      "per_month": "per month"
     }
   }
 }

@@ -51,7 +51,7 @@ export default function PaymentButton({
       <div className="flex flex-wrap gap-3 ">
         <Button
           className={`${
-            plan.key === "expert"
+            plan?.key === "expert"
               ? "bg-secondary-foreground font-medium text-secondary shadow-sm shadow-default-500/50"
               : "bg-white text-secondary"
           } h-[52px] p-[20px] flex items-center justify-center font-inter text-lg leading-[28px] font-normal rounded-[12px] mt-4 mb-2 mr-auto ml-auto border border-secondary`}
