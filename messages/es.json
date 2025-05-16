@@ -658,5 +658,26 @@
     "modal_text_large_package": "La compresión está tardando más de lo esperado. Puedes cerrar este gestor, pero seguimos trabajando en segundo plano. Por favor, no actualices la página...",
     "modal_text_wait": "Por favor, espera...",
     "unexpected_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+  },
+  "my-profile": {
+    "plans": {
+      "most_popular": "Más Popular",
+      "pricing_title": "Precios",
+      "pricing_heading": "Obtén acceso ilimitado.",
+      "pricing_description": "Desbloquea funciones premium por menos de $19 por semana: ¡invierte en tu éxito hoy!",
+      "basic": "Plan Básico",
+      "expert": "Plan Experto",
+      "business": "Plan Empresarial",
+      "includes": "Incluye",
+      "features": "recursos",
+      "dress-model": "Vestir Modelo",
+      "txt2model": "Modelo a a partir de Texto",
+      "4x-dress-model": "Vestir Modelo 4x",
+      "multi-users": "Múltiples Usuarios",
+      "txt2img": "Texto a Imagen",
+      "render-traces": "Renderizar Trazos",
+      "per_year": "por año",
+      "per_month": "por mes"
+    }
   }
 }
