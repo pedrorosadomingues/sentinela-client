@@ -658,5 +658,26 @@
     "modal_text_large_package": "A compactação está demorando mais do que o esperado. Você pode fechar este gerenciador, mas continuamos trabalhando para compactar os arquivos em segundo plano. Não atualize a página...",
     "modal_text_wait": "Aguarde um momento...",
     "unexpected_error": "Erro inesperado ao compactar os arquivos. Por favor, tente novamente mais tarde."
+  },
+  "my-profile": {
+    "plans": {
+      "most_popular": "Mais Popular",
+      "pricing_title": "Preços",
+      "pricing_heading": "Tenha acesso ilimitado.",
+      "pricing_description": "Desbloqueie recursos premium por menos de R$120,00 por semana — invista no seu sucesso hoje!",
+      "basic": "Plano Básico",
+      "expert": "Plano Expert",
+      "business": "Plano Empresarial",
+      "includes": "Inclui",
+      "features": "recursos",
+       "dress-model": "Vestir Modelo",
+      "txt2model": "Modelo a a partir de Texto",
+      "4x-dress-model": "Vestir Modelo 4x",
+      "multi-users": "Múltiplos Usuários",
+      "txt2img": "Texto para Imagem",
+      "render-traces": "Renderizar Traços",
+      "per_year": "por ano",
+      "per_month": "por mês"
+    }
   }
 }

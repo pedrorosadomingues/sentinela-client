@@ -21,6 +21,7 @@ export async function fetchClientSecret(
         quantity: 1,
       },
     ],
+    allow_promotion_codes: true,
     mode: "subscription",
     return_url: `${origin}/checkout/payment-confirmation`,
   });

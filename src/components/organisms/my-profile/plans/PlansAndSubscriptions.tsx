@@ -3,7 +3,8 @@
 import React from "react";
 import CurrentPlan from "./CurrentPlan";
 import { useTranslations } from "next-intl";
-import AvailablePlans from "./AvailablePlans";
+import PlansSection from "./PlansSection";
+import CancelSubscriptionButton from "@/components/atoms/buttons/CancelSubscription";
 
 export default function PlansAndSubscriptions() {
   const t = useTranslations("profile.plan_and_billing");
@@ -15,8 +16,9 @@ export default function PlansAndSubscriptions() {
         <CurrentPlan />
       </section>
       <section className="w-full flex flex-col items-center gap-4 select-none">
-        <AvailablePlans />
+        <PlansSection />
       </section>
+      <CancelSubscriptionButton />
     </main>
   );
 }
