@@ -1,5 +1,5 @@
-import AvailablePlans from "@/components/organisms/my-profile/plans/AvailablePlans";
+// import AvailablePlans from "@/components/organisms/my-profile/plans/AvailablePlans";
 
-export default function page() {
-  return <AvailablePlans />;
-}
+// export default function page() {
+//   return <AvailablePlans />;
+// }
