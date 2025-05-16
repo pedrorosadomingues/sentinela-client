@@ -1,20 +1,14 @@
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
-type CancelSubscriptionButtonProps = {
-  onClick?: () => void;
-};
-
-export function CancelSubscriptionButton({
-  onClick,
-}: CancelSubscriptionButtonProps) {
+export default function CancelSubscriptionButton() {
   return (
     <motion.button
       type="button"
       aria-label="Cancelar assinatura"
       whileTap={{ scale: 0.95 }}        // feedback tátil
       whileHover={{ y: -2 }}            // leve “flutuar”
-      onClick={onClick ?? (() => alert("CANCEL"))}
+      onClick={(() => alert("CANCEL"))}
       className="
         group relative inline-flex items-center justify-center gap-2
         rounded-3xl border-2 border-red-600

@@ -22,6 +22,8 @@ export default function PlansSection() {
   const { user } = useUserStore();
   const t = useTranslations("my-profile.plans");
 
+  console.log("user:", user)
+
   useEffect(() => {
     getPlans();
   }, [getPlans]);

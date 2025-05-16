@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatLocaleDate } from "@/utils/date";
 import { useLocale, useTranslations } from "next-intl";
+import { useUserStore } from "@/stores";
 
 export default function CurrentPlan() {
+  const { user } = useUserStore();
   const t = useTranslations("profile.plan_and_billing");
+  const t2 = useTranslations("my-profile.plans");
   const locale = useLocale();
 
   const planStatusMap = {
@@ -13,14 +17,6 @@ export default function CurrentPlan() {
     trialing: t("status.trialing"),
   };
 
-  // Mocked currentPlan object
-  const currentPlan = {
-    title: "Plano Premium",
-    locale: locale, // Assuming locale is set correctly
-    price: 29.99, // Mock price
-    is_annual: true, // Mocked as annual
-  };
-
   // Mocked subscription object
   const subscription = {
     is_canceled: false,
@@ -28,38 +24,40 @@ export default function CurrentPlan() {
     is_delayed: false,
     date_next_charge: "2023-12-01T00:00:00Z", // Mocked next charge date
   };
-
   return (
-      <div className="w-full flex flex-col gap-1 shadow-xs !border-medium border-default-100 bg-transparent rounded-xl p-6">
-        <div className="w-full flex items-center justify-between">
-          <p className="text-sm 2xl:text-lg font-medium">
-            {currentPlan?.title}
-          </p>
-          <p className="text-xs 2xl:text-sm bg-secondary px-2 py-1 text-white font-medium rounded-md">
-            {subscription?.is_canceled
-              ? planStatusMap.canceled
-              : subscription?.is_refunded
-              ? planStatusMap.refunded
-              : subscription?.is_delayed
-              ? planStatusMap.delayed
-              : planStatusMap.active}
-          </p>
-        </div>
-        <p className="text-sm md:text-lg font-semibold">
-          {currentPlan?.locale === "en" ? "$" : "R$"}
-          {currentPlan?.price}
-          <span className="font-medium text-xs md:text-sm">
-            /{currentPlan?.is_annual ? t("annual") : t("monthly")}
-          </span>
+    <div className="w-full flex flex-col gap-1 shadow-xs !border-medium border-default-100 bg-transparent rounded-xl p-6">
+      <div className="w-full flex items-center justify-between">
+        <p className="text-sm 2xl:text-lg font-medium">
+          {t2(user?.plan.key as any)}
         </p>
-        <p className="text-xs 2xl:text-sm text-font-lighter">
-          {`${t("next_billing", {
-            date: formatLocaleDate(
-              subscription?.date_next_charge as string,
-              locale
-            ),
-          })}`}
+        <p className="text-xs 2xl:text-sm bg-secondary px-2 py-1 text-white font-medium rounded-md">
+          {subscription?.is_canceled
+            ? planStatusMap.canceled
+            : subscription?.is_refunded
+            ? planStatusMap.refunded
+            : subscription?.is_delayed
+            ? planStatusMap.delayed
+            : planStatusMap.active}
         </p>
       </div>
+      <p className="text-sm md:text-lg font-semibold">
+        {  new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                        minimumFractionDigits: 2,
+                      }).format(Number(user?.plan.price_br))}
+        <span className="font-medium text-xs md:text-sm">
+          /{user?.plan.period === "yearly" ? t("annual") : t("monthly")}
+        </span>
+      </p>
+      <p className="text-xs 2xl:text-sm text-font-lighter">
+        {`${t("next_billing", {
+          date: formatLocaleDate(
+            user?.subscription?.expires_at as string,
+            locale
+          ),
+        })}`}
+      </p>
+    </div>
   );
 }

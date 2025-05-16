@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-
-import MenuProfile from "../organisms/my-profile/MenuLeft";
-import PersonalData from "../organisms/my-profile/Personal-Data";
-import UserProfile from "../organisms/my-profile/User-Profile";
-import MenuUp from "../organisms/my-profile/MenuUp";
-import { useGlobalStore, useProfileStore } from "@/stores";
+import { useGlobalStore } from "@/stores";
 import { useTranslations } from "next-intl";
 import TabList from "../organisms/profile/TabList";
 import TabContent from "../organisms/profile/TabContent";

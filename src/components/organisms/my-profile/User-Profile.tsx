@@ -1,5 +1,6 @@
 import React from "react";
 import { useUserStore } from "@/stores";
+import CurrentPlan from "./plans/CurrentPlan";
 
 export default function UserProfile(): JSX.Element {
   const { user } = useUserStore();
@@ -29,26 +30,7 @@ export default function UserProfile(): JSX.Element {
           Fazer upgrade
         </button>
       </div>
-
-      <div className="mt-6">
-        <h3 className="text-lg font-bold text-gray-800">Meu plano</h3>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <h4 className="text-gray-800 font-semibold">PLANO GRATUITO</h4>
-              <p className="text-gray-600">R$00,00/mes</p>
-              <p className="text-gray-500 text-sm">
-                Próximo pagamento: ??/??/????
-              </p>
-            </div>
-            <div>
-              <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-                status do plano
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <CurrentPlan />
     </div>
   );
 }
