@@ -42,7 +42,7 @@ export default function CurrentPlan() {
         </span>
       </p>
       <p className="text-xs 2xl:text-sm text-font-lighter">
-        {user?.plan.key !== "free-trial" ? `${t("next_billing", {
+        {(user?.plan.key !== "free-trial" && user?.subscription.stripe_status !== "canceled") ? `${t("next_billing", {
           date: formatLocaleDate(
             user?.subscription?.expires_at as string,
             locale
