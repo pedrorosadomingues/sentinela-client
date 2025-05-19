@@ -703,5 +703,31 @@
       "per_month": "per month",
       "free-trial": "Free Trial"
     }
+  },
+  "cancel-subscription": {
+    "cancel_button": "Cancel subscription",
+    "step1_title": "Need help?",
+    "step1_text": "How about talking to our team to resolve your questions about Vestiq? You can also contact support via WhatsApp to get expert image consulting.",
+    "talk_to_support": "Talk to support",
+    "continue_cancellation": "Continue cancellation",
+    "step2_title": "A special gift for you",
+    "step2_text": "Before you leave, we want to offer you a gift: +10 coins so you can keep exploring Vestiq and create amazing new images. How about enjoying the platform a little more?",
+    "accept_bonus": "Accept coins and continue",
+    "still_cancel": "I still want to cancel",
+    "step3_title": "Cancellation",
+    "step3_text": "We’re sorry to hear you’re thinking of leaving Vestiq. Before finalizing, could you tell us the reason? Your feedback is very important for us to improve the platform.",
+    "reason_placeholder": "Cancellation reason",
+    "reason_result": "Not satisfied with the result",
+    "reason_inactive": "Not using Vestiq",
+    "reason_technical": "Technical issues",
+    "reason_price": "Price is too high for me",
+    "reason_other": "Other",
+    "custom_reason_placeholder": "Enter your cancellation reason",
+    "back": "Back",
+    "submit_feedback": "Submit feedback",
+    "bonus_success_title": "Bonus granted!",
+    "bonus_success_description": "Your bonus of +10 coins has been successfully added to your account. Enjoy creating amazing images with Vestiq!",
+    "step2_title_bonus": "Cancel subscription",
+    "step2_text_bonus": "Are you sure you want to cancel your subscription?"
   }
 }

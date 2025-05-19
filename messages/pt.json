@@ -670,7 +670,7 @@
       "business": "Plano Empresarial",
       "includes": "Inclui",
       "features": "recursos",
-       "dress-model": "Vestir Modelo",
+      "dress-model": "Vestir Modelo",
       "txt2model": "Modelo a a partir de Texto",
       "4x-dress-model": "Vestir Modelo 4x",
       "multi-users": "Múltiplos Usuários",
@@ -680,5 +680,31 @@
       "per_month": "por mês",
       "free-trial": "Plano de Teste"
     }
+  },
+  "cancel-subscription": {
+    "cancel_button": "Cancelar assinatura",
+    "step1_title": "Podemos ajudar?",
+    "step1_text": "Que tal conversar com nossa equipe para resolver suas dúvidas sobre a Vestiq? Você também pode entrar em contato com o suporte via WhatsApp para receber consultoria especializada em imagens.",
+    "talk_to_support": "Falar com o suporte",
+    "continue_cancellation": "Continuar com cancelamento",
+    "step2_title": "Presente especial para você",
+    "step2_text": "Antes de você sair, queremos te oferecer um presente: +10 coins para você continuar explorando a Vestiq e gerar novas imagens incríveis. Que tal aproveitar mais um pouco da plataforma?",
+    "accept_bonus": "Aceitar coins e continuar",
+    "still_cancel": "Ainda quero cancelar",
+    "step3_title": "Cancelamento",
+    "step3_text": "Poxa, sentimos muito em saber que você está pensando em sair da Vestiq. Antes de finalizar, você poderia nos contar o motivo? Seu feedback é muito importante para que possamos melhorar a plataforma.",
+    "reason_placeholder": "Motivo do cancelamento",
+    "reason_result": "Não estou satisfeito com o resultado",
+    "reason_inactive": "Não estou usando a Vestiq",
+    "reason_technical": "Problemas técnicos",
+    "reason_price": "O valor está alto para mim",
+    "reason_other": "Outro",
+    "custom_reason_placeholder": "Digite o motivo do cancelamento",
+    "back": "Voltar",
+    "submit_feedback": "Enviar feedback",
+    "bonus_success_title": "Coins adicionadas com sucesso!",
+    "bonus_success_description": "Você recebeu +10 coins para continuar explorando a Vestiq. Aproveite!",
+    "step2_text_bonus": "Tem certeza que vai cancelar sua assinatura?",
+    "step2_title_bonus": "Cancelar assinatura"
   }
 }

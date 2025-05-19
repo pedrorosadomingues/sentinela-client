@@ -13,6 +13,7 @@ export interface UserProps extends Tables<"user"> {
   watched_tours: WatchedTours[] | [];
   plan: Tables<"plan">;
   subscription: Tables<"subscription">;
+  coin_receipts: Tables<"coin_receipt">[];
 }
 
 export interface SessionUserProps {
