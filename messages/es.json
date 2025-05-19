@@ -680,5 +680,33 @@
       "per_month": "por mes",
       "free_trial": "Prueba gratuita"
     }
+  },
+  "cancel-sucbription": {
+    "cancel_button": "Cancelar suscripción",
+    "step1_title": "¿Necesitas ayuda?",
+    "step1_text": "¿Qué tal si hablas con nuestro equipo para resolver tus dudas sobre Vestiq? También puedes contactar al soporte vía WhatsApp para recibir asesoría especializada en imágenes.",
+    "talk_to_support": "Hablar con soporte",
+    "continue_cancellation": "Continuar con la cancelación",
+    "step2_title": "Un regalo especial para ti",
+    "step2_text": "Antes de que te vayas, queremos ofrecerte un regalo: +10 coins para que sigas explorando Vestiq y generando imágenes increíbles. ¿Qué tal si aprovechas un poco más la plataforma?",
+    "accept_bonus": "Aceptar coins y continuar",
+    "still_cancel": "Aún quiero cancelar",
+    "step3_title": "Cancelación",
+    "step3_text": "Lamentamos saber que estás pensando en salir de Vestiq. Antes de finalizar, ¿podrías contarnos el motivo? Tu opinión es muy importante para que podamos mejorar la plataforma.",
+    "reason_placeholder": "Motivo de la cancelación",
+    "reason_result": "No estoy satisfecho con el resultado",
+    "reason_inactive": "No estoy usando Vestiq",
+    "reason_technical": "Problemas técnicos",
+    "reason_price": "El precio es alto para mí",
+    "reason_other": "Otro",
+    "custom_reason_placeholder": "Escribe el motivo de la cancelación",
+    "back": "Volver",
+    "submit_feedback": "Enviar comentarios",
+    "bonus_success_title": "¡Éxito!",
+    "bonus_success_description": "¡Has recibido +10 coins para usar en Vestiq! Puedes seguir explorando la plataforma y generando imágenes increíbles.",
+    "step2_title_bonus": "Cancelar suscripción",
+    "step2_text_bonus": "¿Estás seguro de que deseas cancelar tu suscripción?",
+    "cancel_success": "¡Suscripción cancelada con éxito!",
+    "cancel_error": "Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde."
   }
 }

@@ -31,7 +31,7 @@ export function useToast(): { use: ToastFunction } {
         toast(message, { icon: "🏆" });
         break;
       case "loading":
-        toast.loading(message, { position: "bottom-right", duration: 1000 });
+        toast.loading(message, { position: "bottom-right", duration: 3000 });
         break;
       default:
         toast(message);
