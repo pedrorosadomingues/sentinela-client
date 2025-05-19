@@ -187,7 +187,7 @@ export default function Header(): JSX.Element {
       <aside className="flex items-center gap-2">
         {(user?.plan?.id === 1 || !user?.plan?.id) && (
           <Button
-            onPress={() => router.push("/main/plans")}
+            onPress={() => router.push("/main/profile?view=plans")}
             color="secondary"
             size="sm"
             radius="sm"
