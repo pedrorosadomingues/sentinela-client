@@ -677,7 +677,8 @@
       "txt2img": "Texto a Imagen",
       "render-traces": "Renderizar Trazos",
       "per_year": "por año",
-      "per_month": "por mes"
+      "per_month": "por mes",
+      "free_trial": "Prueba gratuita"
     }
   }
 }
