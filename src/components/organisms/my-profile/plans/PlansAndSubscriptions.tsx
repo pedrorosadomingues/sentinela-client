@@ -5,8 +5,10 @@ import CurrentPlan from "./CurrentPlan";
 import { useTranslations } from "next-intl";
 import PlansSection from "./PlansSection";
 import CancelSubscriptionButton from "@/components/atoms/buttons/CancelSubscription";
+import { useUserStore } from "@/stores";
 
 export default function PlansAndSubscriptions() {
+  const { user } = useUserStore();
   const t = useTranslations("profile.plan_and_billing");
 
   return (
@@ -18,7 +20,10 @@ export default function PlansAndSubscriptions() {
       <section className="w-full flex flex-col items-center gap-4 select-none">
         <PlansSection />
       </section>
-      <CancelSubscriptionButton />
+
+      {user?.subscription?.stripe_status === "active" && (
+        <CancelSubscriptionButton />
+      )}
     </main>
   );
 }

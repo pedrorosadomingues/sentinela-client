@@ -115,6 +115,7 @@ export default function PlansSection() {
                     /{t("per_year")}
                   </span>
                 </p>
+                
 
                 <ul className="flex flex-col gap-2">
                   {plan.available_resources.map((feature) => (
