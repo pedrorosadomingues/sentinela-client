@@ -32,13 +32,13 @@ export default function CurrentPlan() {
         </p>
       </div>
       <p className="text-sm md:text-lg font-semibold">
-        {new Intl.NumberFormat("pt-BR", {
+        {user?.plan.key !== "free-trial" && new Intl.NumberFormat("pt-BR", {
           style: "currency",
           currency: "BRL",
           minimumFractionDigits: 2,
         }).format(Number(user?.plan.price_br))}
         <span className="font-medium text-xs md:text-sm">
-          /{user?.plan.period === "yearly" ? t("annual") : t("monthly")}
+          {user?.plan.period === "yearly" ? `/${t("annual")}` : user?.plan.period === "monthly" && `/${t("monthly")}`}
         </span>
       </p>
       <p className="text-xs 2xl:text-sm text-font-lighter">
