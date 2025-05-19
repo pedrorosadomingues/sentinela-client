@@ -2,12 +2,16 @@
 import { formatLocaleDate } from "@/utils/date";
 import { useLocale, useTranslations } from "next-intl";
 import { useUserStore } from "@/stores";
+import { useEffect } from "react";
 
 export default function CurrentPlan() {
   const { user } = useUserStore();
   const t = useTranslations("profile.plan_and_billing");
   const t2 = useTranslations("my-profile.plans");
   const locale = useLocale();
+
+  useEffect(() => {
+  }, [user]);
 
   return (
     <div className="w-full flex flex-col gap-1 shadow-xs !border-medium border-default-100 bg-transparent rounded-xl p-6">

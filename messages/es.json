@@ -705,6 +705,8 @@
     "bonus_success_title": "¡Éxito!",
     "bonus_success_description": "¡Has recibido +10 coins para usar en Vestiq! Puedes seguir explorando la plataforma y generando imágenes increíbles.",
     "step2_title_bonus": "Cancelar suscripción",
-    "step2_text_bonus": "¿Estás seguro de que deseas cancelar tu suscripción?"
+    "step2_text_bonus": "¿Estás seguro de que deseas cancelar tu suscripción?",
+    "cancel_success": "¡Suscripción cancelada con éxito!",
+    "cancel_error": "Error al cancelar la suscripción. Por favor, inténtalo de nuevo más tarde."
   }
 }

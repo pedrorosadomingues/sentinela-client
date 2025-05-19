@@ -13,11 +13,10 @@ import {
   Textarea,
 } from "@heroui/react";
 import { useTranslations } from "next-intl";
-import { createCoinReceiptService } from "@/services";
+import { createCoinReceiptService, cancelSubscription } from "@/services";
 import { useUserStore } from "@/stores";
 import { useToast } from "@/hooks/useToast";
 
-// Componentes de select simples para simular funcionalidade
 function Select({ onValueChange, children }: any) {
   return <div className="space-y-2">{children}</div>;
 }
@@ -63,6 +62,7 @@ export default function CancelSubscriptionButton() {
   const [offeredBonus, setOfferedBonus] = useState(false);
   const [showSelectContent, setShowSelectContent] = useState(false);
   const [cancelBonus, setCancelBonus] = useState(false);
+  const { setUser } = useUserStore.getState(); // ou useUserStore()
 
   const handleInitialCancel = () => {
     setStep(1);
@@ -98,10 +98,27 @@ export default function CancelSubscriptionButton() {
       console.error("Erro inesperado ao criar recibo de coins:", error);
     }
   };
-  const handleFinalCancel = () => {
+  const handleFinalCancel = async () => {
     const reason =
       cancelReason === t("reason_other") ? customReason : cancelReason;
-    console.log("Cancelamento enviado:", reason);
+    try {
+      await cancelSubscription(user?.subscription?.stripe_id as string, reason);
+      toast.use("success", t("cancel_success"));
+      if (user) {
+        setUser({
+          ...user,
+          avatar: user.avatar ?? "",
+          subscription: {
+            ...user.subscription,
+            stripe_status: "canceled",
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao cancelar a assinatura:", error);
+      toast.use("error", t("cancel_error"));
+    }
+
     setOpen(false);
     setStep(0);
   };
@@ -168,12 +185,14 @@ export default function CancelSubscriptionButton() {
           {step === 2 && (
             <>
               <ModalHeader className="text-lg font-semibold">
-               {!cancelBonus ? t("step2_title") :
-                t("step2_title_bonus")}
+                {!cancelBonus ? t("step2_title") : t("step2_title_bonus")}
               </ModalHeader>
               <ModalBody>
-               {!cancelBonus ? <p className="mb-4">{t("step2_text")}</p> :
-                <p className="mb-4">{t("step2_text_bonus")}</p>}
+                {!cancelBonus ? (
+                  <p className="mb-4">{t("step2_text")}</p>
+                ) : (
+                  <p className="mb-4">{t("step2_text_bonus")}</p>
+                )}
               </ModalBody>
               <ModalFooter className="flex justify-end gap-3">
                 <Button variant="bordered" onPress={() => setStep(3)}>
@@ -182,9 +201,9 @@ export default function CancelSubscriptionButton() {
                 {!cancelBonus ? (
                   <Button onPress={handleBonus}>{t("accept_bonus")}</Button>
                 ) : (
-                   <Button variant="bordered" onPress={() => setStep(1)}>
-                  {t("back")}
-                </Button>
+                  <Button variant="bordered" onPress={() => setStep(1)}>
+                    {t("back")}
+                  </Button>
                 )}
               </ModalFooter>
             </>

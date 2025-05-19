@@ -705,6 +705,8 @@
     "bonus_success_title": "Coins adicionadas com sucesso!",
     "bonus_success_description": "Você recebeu +10 coins para continuar explorando a Vestiq. Aproveite!",
     "step2_text_bonus": "Tem certeza que vai cancelar sua assinatura?",
-    "step2_title_bonus": "Cancelar assinatura"
+    "step2_title_bonus": "Cancelar assinatura",
+    "cancel_success": "Assinatura cancelada com sucesso!",
+    "cancel_error": "Erro ao cancelar a assinatura. Por favor, tente novamente mais tarde."
   }
 }
