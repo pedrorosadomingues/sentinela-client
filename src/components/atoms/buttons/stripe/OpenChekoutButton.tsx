@@ -29,15 +29,15 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
 );
 
-type PaymentButtonProps = {
+type OpenCheckoutButtonProps = {
   children: React.ReactNode;
   plan: Plan;
 };
 
-export default function PaymentButton({
+export default function OpenCheckoutButton({
   children,
   plan,
-}: PaymentButtonProps): JSX.Element {
+}: OpenCheckoutButtonProps): JSX.Element {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { user } = useUserStore();
@@ -60,14 +60,21 @@ export default function PaymentButton({
           {children}
         </Button>
       </div>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="xl"
+        className="bg-black rounded-lg mt-[600px] h-[800px] overflow-y-auto"
+      >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                {plan.name}
-              </ModalHeader>
-              <ModalBody>
+              <ModalBody >
+                <ModalHeader className="bg-black">
+                  <h2 className="text-white text-2xl font-bold">
+                    {plan?.name}
+                  </h2>
+                </ModalHeader>
                 <EmbeddedCheckoutProvider
                   stripe={stripePromise}
                   options={{
@@ -78,15 +85,12 @@ export default function PaymentButton({
                       ),
                   }}
                 >
-                  <EmbeddedCheckout />
+                  <EmbeddedCheckout className="bg-black rounded-lg" />
                 </EmbeddedCheckoutProvider>
               </ModalBody>
-              <ModalFooter>
+              <ModalFooter className="bg-black">
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
                 </Button>
               </ModalFooter>
             </>

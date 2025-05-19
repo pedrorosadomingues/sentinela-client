@@ -700,7 +700,8 @@
       "txt2img": "Text to Image",
       "render-traces": "Render Traces",
       "per_year": "per year",
-      "per_month": "per month"
+      "per_month": "per month",
+      "free-trial": "Free Trial"
     }
   }
 }

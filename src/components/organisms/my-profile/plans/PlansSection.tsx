@@ -13,7 +13,7 @@ import {
 } from "@heroui/react";
 import { StarOutline } from "@mui/icons-material";
 import { cn } from "@heroui/react";
-import PaymentButton from "@/components/atoms/buttons/PaymentButton";
+import OpenCheckoutButton from "@/components/atoms/buttons/stripe/OpenChekoutButton";
 import { useTranslations } from "next-intl";
 import { usePlanStore, useUserStore } from "@/stores";
 
@@ -21,8 +21,6 @@ export default function PlansSection() {
   const { plans, getPlans } = usePlanStore();
   const { user } = useUserStore();
   const t = useTranslations("my-profile.plans");
-
-  console.log("user:", user)
 
   useEffect(() => {
     getPlans();
@@ -44,7 +42,10 @@ export default function PlansSection() {
       <Spacer y={12} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {plans?.map((plan) => (
+        {plans?.filter((plan) => plan.period !== "monthly").map((plan) => 
+       
+        (
+   
           <Card
             key={plan.key}
             className={cn("relative p-3 z-0", {
@@ -139,13 +140,13 @@ export default function PlansSection() {
             </CardBody>
 
             <CardFooter>
-              <PaymentButton plan={plan}>
+              <OpenCheckoutButton plan={plan}>
                 {user?.plan.id === plan.id
                   ? "Current plan"
                   : plan.key === "free-trial"
                   ? "Join for free"
                   : `Get ${plan.name}`}
-              </PaymentButton>
+              </OpenCheckoutButton>
             </CardFooter>
           </Card>
         ))}
