@@ -5,12 +5,14 @@ import CurrentPlan from "./CurrentPlan";
 import { useTranslations } from "next-intl";
 import PlansSection from "./PlansSection";
 import CancelSubscriptionButton from "@/components/atoms/buttons/CancelSubscription";
+import { useUserStore } from "@/stores";
 
 export default function PlansAndSubscriptions() {
+  const { user } = useUserStore();
   const t = useTranslations("profile.plan_and_billing");
 
   return (
-    <main className="flex flex-col items-center space-y-8 max-w-5xl mx-auto mb-16">
+    <main className="flex flex-col items-center space-y-8 max-w-5xl mx-auto mb-16 ">
       <section className="w-full flex flex-col gap-4 select-none">
         <h3 className="text-xl font-semibold">{t("current_plan")}</h3>
         <CurrentPlan />
@@ -18,7 +20,10 @@ export default function PlansAndSubscriptions() {
       <section className="w-full flex flex-col items-center gap-4 select-none">
         <PlansSection />
       </section>
-      <CancelSubscriptionButton />
+
+      {user?.subscription?.stripe_status === "active" && (
+        <CancelSubscriptionButton />
+      )}
     </main>
   );
 }
