@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import Image from "next/image";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -54,6 +57,14 @@ export default function HomeTemplate() {
         >
           Encontrar Dispositivo
         </button>
+         <Image
+                src={"/img/logo.png"}
+                alt="Redraw logo"
+                width={150}
+                height={250}
+                priority={true}
+                style={{ objectFit: "contain", borderRadius: "50%" }}
+              />
       </div>
 
       <div className="flex-1 z-0">

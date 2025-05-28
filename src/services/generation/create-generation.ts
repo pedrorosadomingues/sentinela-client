@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import api from "@/config/server";
 import httpStatus from "http-status";
 
