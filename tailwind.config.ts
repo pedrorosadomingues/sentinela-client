@@ -1,94 +1,19 @@
 import type { Config } from "tailwindcss";
-import { heroui } from "@heroui/react";
 
 const config: Config = {
-  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      maxWidth: {
-        "8xl": "1366px",
-        "9xl": "1440px",
-        "10xl": "1536px",
-      },
-      fontFamily: {
-        //lexend: ["var(--font-lexend)"],
-        sans: ["var(--font-inter)", "sans-serif"],
-        primary: ["Archivo", "sans-serif"],
-      },
-      backgroundImage: {
-        "primary-background": "linear-gradient(135deg, #F10641FF, #F83A14FF)",
-      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        secondary: "#F10641",
-        tertiary: "#F83A14FF",
-        "neutral-900": "#171A1FFF",
-        "primary-100": "#FFF0F4FF",
-        "neutral-600": "#565D6DFF",
-        "neutral-700": "#323743FF",
-        "tertiary3-500": "#05B8EFFF"
       },
-      transitionTimingFunction: {
-        "smooth-return-end": "cubic-bezier(0, 0, 0.27, 1.55)",
-      },
-      animation: {
-        "fade-in": "fade-in 0.3s ease-in-out forwards",
-        "spin-bounce": "spinBounce 0.9s linear infinite",
-        "coin-spin": "coinSpin 1s linear normal",
-      },
-      keyframes: {
-        "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        spinBounce: {
-          "0%": {
-            transform: "rotateY(0deg) translateY(0%)",
-          },
-          "25%": {
-            transform: "rotateY(90deg) translateY(-40%)",
-          },
-          "50%": {
-            transform: "rotateY(180deg) translateY(-80%)",
-          },
-          "75%": {
-            transform: "rotateY(270deg) translateY(-40%)",
-          },
-          "100%": {
-            transform: "rotateY(360deg) translateY(0%)",
-          },
-        },
-        coinSpin: {
-          "0%": { transform: "rotateY(0deg)" },
-          "30%": { transform: "rotateY(130deg)" },
-          "70%": { transform: "rotateY(240deg)" },
-          "100%": { transform: "rotateY(360deg)" },
-        },
-      },
-    },
-    screens: {
-      xs: "400px",
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-      "3xl": "1920px",
-      "4xl": "2560px",
-      max515: { max: "1030px" },
-      max1030: { max: "1030px" },
-      max765: { max: "765px" },
-      min765: { min: "765px" },
-      min935: { min: "935px" },
     },
   },
-  plugins: [heroui()],
+  plugins: [],
 };
 export default config;

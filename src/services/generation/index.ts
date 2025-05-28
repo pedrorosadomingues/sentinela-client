@@ -1,3 +1,1 @@
-export * from "./create";
-export * from "./get-all";
-export * from "./delete";
+export * from "./create-generation";

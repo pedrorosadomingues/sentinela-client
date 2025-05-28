@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
 import "./global.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
-  title: "Vestiq",
-  description: "Vestiq",
+  title: "NetSentinela",
+  description: "NetSentinela",
   icons: [
     {
-      url: "/icons/logo-vestiq.ico",
-      href: "/icons/logo-vestiq.ico",
+      url: "/img/logo.png",
+      href: "/img/logo.png",
     },
   ],
 };
@@ -24,10 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
-      <body className={`antialiased font-sans`} suppressHydrationWarning>
-        {children}
-      </body>
+    <html lang="en">
+      <body className={`antialiased`}>{children}</body>
     </html>
   );
 }

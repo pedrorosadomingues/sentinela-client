@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { axiosClient } from "@/lib/axios/axiosClient";
+import api from "@/config/server";
 import httpStatus from "http-status";
 
-export interface SignInParams {
+interface SignInParams {
   email: string;
   password: string;
 }
@@ -18,21 +18,26 @@ export async function login({
   password,
 }: SignInParams): Promise<SignInResponse> {
   try {
-    const response = await axiosClient.post("auth/sign-in", { email, password });
-
-    if (response.data && response.data.token) {
-      // 🔹 Armazena o token nos cookies
-      document.cookie = `vq-access-token=${response.data.token}; path=/; Secure; HttpOnly SameSite=Strict`;
-    }
-
+    console.log(email, password);
+    const response = await api.post("/auth/sign-in", {
+      email,
+      password,
+    });
     return {
       status: httpStatus.OK,
       data: response.data,
     };
   } catch (error: any) {
-    return {
-      status: error.response?.status || httpStatus.INTERNAL_SERVER_ERROR,
-      message: error.response?.data || "Erro ao conectar com o servidor",
-    };
+    if (error.response) {
+      return {
+        status: error.response.status,
+        message: error.response.data || "Unknown error",
+      };
+    } else {
+      return {
+        status: httpStatus.INTERNAL_SERVER_ERROR,
+        message: "Server connection error",
+      };
+    }
   }
 }

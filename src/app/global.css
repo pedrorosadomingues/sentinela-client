@@ -3,43 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff; /* Cor de fundo no modo claro */
-  --foreground: #000000; /* Cor do texto no modo claro */
-
-  /* Apenas a cor secondary e sua versão transparente para animação */
-  --step-color: rgba(241, 6, 65, 1); /* Vermelho sólido */
-  --step-color-transparent: rgba(241, 6, 65, 0); /* Transparente */
+  --background: #3C4854;
+  --foreground: #171717;
 }
 
-
-/* .dark {
-  --background: #000000;
-  --foreground: #ffffff;
-} */
-/* 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-} */
-
-body {
-  font-family: Inter;
 }
 
 body {
-  @apply bg-background w-screen overflow-x-hidden;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-}
-
-@media (max-width: 515px) {
-  .hide-when-515 {
-    display: none !important;
   }
 }

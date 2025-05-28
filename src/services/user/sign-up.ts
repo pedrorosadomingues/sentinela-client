@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+import api from "@/config/server";
 import httpStatus from "http-status";
-import { SignUpBody, SignUpResponse } from "@/interfaces";
-import { axiosClient } from "@/lib/axios/axiosClient";
+
+interface SignUpParams {
+  email: string;
+  password: string;
+  name: string;
+}
+
+interface SignUpResponse {
+  status: number;
+  data?: any;
+  message?: any;
+}
 
 export async function signUp({
   email,
   password,
   name,
-  locale,
-}: SignUpBody & { locale: string }): Promise<SignUpResponse> {
+}: SignUpParams): Promise<SignUpResponse> {
   try {
-    const response = await axiosClient.post(
-      "/user/sign-up",
-      {
-        email,
-        password,
-        name,
-      },
-      {
-        headers: {
-          "Accept-Language": locale,
-        },
-      }
-    );
+    const response = await api.post("/user/sign-up", {
+      email,
+      password,
+      name,
+    });
     return {
       status: httpStatus.OK,
       data: response.data,
