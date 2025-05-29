@@ -2,19 +2,20 @@
 
 "use client";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import dynamic from "next/dynamic";
+// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Image from "next/image";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "/leaflet/marker.svg",
-  iconUrl: "/leaflet/marker.svg",
-});
+// import L from "leaflet";
+// import "leaflet/dist/leaflet.css";
+const MapContainer = dynamic(() => import("react-leaflet").then(mod => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then(mod => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import("react-leaflet").then(mod => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import("react-leaflet").then(mod => mod.Popup), { ssr: false });
 
 export default function HomeTemplate() {
-  const [devicePosition, setDevicePosition] = useState<[number, number] | null>(null);
+  const [devicePosition, setDevicePosition] = useState<[number, number] | null>(
+    null
+  );
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: "", token: "" });
 
@@ -29,19 +30,33 @@ export default function HomeTemplate() {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setDevicePosition([latitude, longitude]);
-      },
-      (error) => {
-        console.error("Erro ao obter localização:", error);
-      },
-      { enableHighAccuracy: true }
-    );
-  }, []);
+ useEffect(() => {
+    let L: typeof import("leaflet") | undefined;
+    if (typeof window !== "undefined") {
+      (async () => {
+        L = (await import("leaflet")).default;
+       await import("leaflet/dist/leaflet.css");
+        delete (L.Icon.Default.prototype as any)._getIconUrl;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: "/leaflet/marker.svg",
+          iconUrl: "/leaflet/marker.svg",
+        });
+      })();
 
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setDevicePosition([latitude, longitude]);
+          },
+          (error) => {
+            console.error("Erro ao obter localização:", error);
+          },
+          { enableHighAccuracy: true }
+        );
+      }
+    }
+  }, []);
   return (
     <div className="h-screen w-full flex flex-col relative">
       <div className="p-4 bg-white shadow-md z-10 gap-4 flex items-center">
@@ -57,14 +72,14 @@ export default function HomeTemplate() {
         >
           Encontrar Dispositivo
         </button>
-         <Image
-                src={"/img/logo.png"}
-                alt="Redraw logo"
-                width={150}
-                height={250}
-                priority={true}
-                style={{ objectFit: "contain", borderRadius: "50%" }}
-              />
+        <Image
+          src={"/img/logo.png"}
+          alt="Redraw logo"
+          width={150}
+          height={250}
+          priority={true}
+          style={{ objectFit: "contain", borderRadius: "50%" }}
+        />
       </div>
 
       <div className="flex-1 z-0">
