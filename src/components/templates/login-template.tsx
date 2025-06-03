@@ -27,7 +27,9 @@ export default function LoginTemplate() {
         });
 
         if (response.status === 200) {
+          console.log("Login bem-sucedido:", response.data);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", JSON.stringify(response.data.user.id));
           window.location.href = "/pages/home";
         } else {
           alert(
