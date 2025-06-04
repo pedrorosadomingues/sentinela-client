@@ -1,27 +1,74 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Image from "next/image";
-// import L from "leaflet";
-// import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.css";
 import api from "@/config/server";
 import { useMap } from "react-leaflet";
+import { Capacitor } from "@capacitor/core";
+import { Geolocation } from "@capacitor/geolocation";
+
+export const getUserLocation = async (): Promise<[number, number] | null> => {
+  try {
+    const platform = Capacitor.getPlatform();
+
+    if (platform === "web") {
+      return new Promise((resolve) => {
+        if (!("geolocation" in navigator)) {
+          alert("Geolocalização não suportada neste navegador.");
+          return resolve(null);
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            resolve([pos.coords.latitude, pos.coords.longitude]);
+          },
+          (err) => {
+            console.error("Erro ao obter localização web:", err);
+            alert("Erro ao obter localização. Permissão negada?");
+            resolve(null);
+          },
+          { enableHighAccuracy: true }
+        );
+      });
+    } else {
+      // App nativo (iOS/Android via Capacitor)
+      const permResult = await Geolocation.requestPermissions();
+
+      if (permResult.location !== "granted") {
+        alert("Permissão de localização negada no app.");
+        return null;
+      }
+
+      const pos = await Geolocation.getCurrentPosition({
+        enableHighAccuracy: true,
+      });
+
+      return [pos.coords.latitude, pos.coords.longitude];
+    }
+  } catch (error) {
+    console.error("Erro ao obter localização:", error);
+    alert("Erro ao obter localização.");
+    return null;
+  }
+};
 
 function FlyToLocation({ position }: { position: [number, number] }) {
   const map = useMap();
 
   useEffect(() => {
     if (position) {
-      map.flyTo(position, 16); // ou map.setView(position, zoom)
+      map.flyTo(position, 16);
     }
   }, [position]);
 
   return null;
 }
+
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
@@ -46,9 +93,7 @@ export default function HomeTemplate() {
   const [selectedDevicePosition, setSelectedDevicePosition] = useState<
     [number, number] | null
   >(null);
-
   const [selectedDevice, setSelectedDevice] = useState<any | null>(null);
-
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: "", token: "" });
   const [showDeviceListModal, setShowDeviceListModal] = useState(false);
@@ -56,11 +101,9 @@ export default function HomeTemplate() {
 
   function SetMapRef({ onReady }: { onReady: (map: L.Map) => void }) {
     const map = useMap();
-
     useEffect(() => {
       onReady(map);
     }, [map]);
-
     return null;
   }
 
@@ -74,7 +117,7 @@ export default function HomeTemplate() {
 
       const { lat, lng } = response.data.position;
       setSelectedDevicePosition([lat, lng]);
-      setShowDeviceListModal(false); // fecha o modal opcionalmente
+      setShowDeviceListModal(false);
     } catch (error) {
       alert("Não foi possível localizar o dispositivo.");
       console.error("Erro ao localizar dispositivo:", error);
@@ -89,7 +132,7 @@ export default function HomeTemplate() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    window.location.href = "/pages/sign-in"; // redireciona para login
+    window.location.href = "/pages/sign-in";
   };
 
   const fetchDevices = async () => {
@@ -115,15 +158,11 @@ export default function HomeTemplate() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Dispositivo cadastrado:", formData);
     const { name, token } = formData;
     const tokenFromStorage = localStorage.getItem("token");
     const response = await api.post(
       "/device",
-      {
-        name,
-        token,
-      },
+      { name, token },
       {
         headers: {
           Authorization: `Bearer ${tokenFromStorage}`,
@@ -142,59 +181,58 @@ export default function HomeTemplate() {
   };
 
   useEffect(() => {
-    let L: typeof import("leaflet") | undefined;
-    if (typeof window !== "undefined") {
-      (async () => {
-        L = (await import("leaflet")).default;
-        // await import("leaflet/dist/leaflet.css");
-        delete (L.Icon.Default.prototype as any)._getIconUrl;
-        L.Icon.Default.mergeOptions({
-          iconRetinaUrl: "/leaflet/marker.svg",
-          iconUrl: "/leaflet/marker.svg",
-        });
-      })();
-
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setDevicePosition([latitude, longitude]);
-          },
-          (error) => {
-            console.error("Erro ao obter localização:", error);
-          },
-          { enableHighAccuracy: true }
-        );
+    const setupLeafletIcons = async () => {
+      let L: typeof import("leaflet") | undefined;
+      if (typeof window !== "undefined") {
+        (async () => {
+          L = (await import("leaflet")).default;
+          delete (L.Icon.Default.prototype as any)._getIconUrl;
+          L.Icon.Default.mergeOptions({
+            iconRetinaUrl: "/leaflet/marker.svg",
+            iconUrl: "/leaflet/marker.svg",
+          });
+        })();
       }
-    }
+    };
+
+    const fetchLocation = async () => {
+      const location = await getUserLocation();
+      if (location) {
+        setDevicePosition(location);
+      }
+    };
+
+    setupLeafletIcons();
+    fetchLocation();
   }, []);
 
   return (
     <div className="h-screen w-full flex flex-col relative">
-      <div className="p-4 bg-white shadow-md z-10 gap-4 flex items-center">
+      <div className="p-4 bg-white shadow-md z-10 gap-4 flex flex-wrap md:flex-nowrap items-center justify-between">
         <Image
           src={"/img/logo.png"}
           alt="Sentinela logo"
-          width={150}
-          height={250}
+          width={0}
+          height={0}
+          sizes="(max-width: 768px) 100px, 150px"
+          className="w-[100px] md:w-[150px] h-auto object-contain rounded-full"
           priority={true}
-          style={{ objectFit: "contain", borderRadius: "50%" }}
         />
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          className=" md:w-auto bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
           Cadastrar Dispositivo
         </button>
         <button
           onClick={fetchDevices}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          className=" md:w-auto bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
           Encontrar Dispositivo
         </button>
         <button
           onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+          className=" md:w-auto bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
         >
           Sair
         </button>
@@ -206,7 +244,7 @@ export default function HomeTemplate() {
                 mapRef.current.flyTo(devicePosition, 16);
               }
             }}
-            className="absolute bottom-6 right-6 z-100 bg-white px-4 py-2 border border-gray-300 rounded-md shadow-md hover:bg-gray-100"
+            className="fixed bottom-6 right-4 md:right-6 z-50 bg-white px-4 py-2 border border-gray-300 rounded-md shadow-md hover:bg-gray-100"
           >
             Centralizar em mim
           </button>
@@ -239,18 +277,13 @@ export default function HomeTemplate() {
                 <Popup>Você está aqui</Popup>
               </Marker>
             )}
-            {selectedDevicePosition && (
-              <Marker position={selectedDevicePosition}>
-                <Popup>Chaveiro localizado</Popup>
-              </Marker>
-            )}
           </MapContainer>
         )}
       </div>
 
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
             <h2 className="text-xl font-semibold mb-4 text-gray-800">
               Cadastrar Dispositivo
             </h2>
@@ -303,7 +336,7 @@ export default function HomeTemplate() {
 
       {showDeviceListModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto mx-4">
             <h2 className="text-xl font-semibold mb-4 text-gray-800">
               Dispositivos Cadastrados
             </h2>
@@ -341,7 +374,7 @@ export default function HomeTemplate() {
 
       {selectedDevice && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm mx-4">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
               Ações para: {selectedDevice.name}
             </h2>
@@ -349,7 +382,7 @@ export default function HomeTemplate() {
               <button
                 onClick={() => {
                   locateDevice(selectedDevice.token);
-                  setSelectedDevice(null); // Fecha modal após ação
+                  setSelectedDevice(null);
                 }}
                 className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
               >
@@ -369,7 +402,7 @@ export default function HomeTemplate() {
                     alert("Erro ao emitir sinal sonoro.");
                     console.error("Erro ao emitir sinal sonoro:", err);
                   } finally {
-                    setSelectedDevice(null); // Fecha modal
+                    setSelectedDevice(null);
                   }
                 }}
                 className="w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"

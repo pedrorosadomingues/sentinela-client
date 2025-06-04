@@ -1,10 +1,12 @@
+import Link from "next/link";
+
 export default function Login() {
     return (
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-       <h1 className="text-4xl font-bold text-center">NetSentinela</h1>
-       <a
+       <h1 className="text-4xl font-bold text-center">Keyring</h1>
+       <Link
        href="/pages/sign-in"
-       >Go to Login</a>
+       >Go to Login</Link>
       </div>
     );
   }

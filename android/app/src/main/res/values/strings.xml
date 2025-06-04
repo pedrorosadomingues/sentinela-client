@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Net Sentinela</string>
+    <string name="title_activity_main">Net Sentinela</string>
+    <string name="package_name">com.netsentinela.app</string>
+    <string name="custom_url_scheme">com.netsentinela.app</string>
+</resources>

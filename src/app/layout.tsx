@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./global.css";
 
 export const metadata: Metadata = {
-  title: "NetSentinela",
-  description: "NetSentinela",
+  title: "Keyring",
+  description: "Keyring",
   icons: [
     {
       url: "/img/logo.png",

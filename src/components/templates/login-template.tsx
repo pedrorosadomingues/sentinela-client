@@ -5,13 +5,15 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { login } from "@/services";
-// import en from "../../public/locales/en/login.json";
-// import ptBR from "../../public/locales/pt-br/login.json";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginTemplate() {
   // const locale = router.locale;
   // const t = locale === "pt-br" ? ptBR : en;
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -27,10 +29,9 @@ export default function LoginTemplate() {
         });
 
         if (response.status === 200) {
-          console.log("Login bem-sucedido:", response.data);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("userId", JSON.stringify(response.data.user.id));
-          window.location.href = "/pages/home";
+          router.push("/pages/home");
         } else {
           alert(
             "Erro ao fazer login:" + JSON.stringify(response.message?.error)
@@ -85,9 +86,9 @@ export default function LoginTemplate() {
             </Button>
           </div>
         </form>
-        <a className="flex justify-center mt-5 text-sm" href="/pages/sign-up">
+        <Link className="flex justify-center mt-5 text-sm" href="/pages/sign-up">
           Não tem uma conta? Cadastre-se aqui.
-        </a>
+        </Link>
       </div>
     </div>
   );
