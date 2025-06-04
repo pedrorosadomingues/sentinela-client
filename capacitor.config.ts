@@ -4,10 +4,10 @@ const config: CapacitorConfig = {
   appId: "com.keyring.app",
   appName: "Keyring",
   webDir: "out",
-  server: {
-    url: "https://sentinela-client.vercel.app",
-    cleartext: true,
-  },
+  // server: {
+  //   url: "https://sentinela-client.vercel.app",
+  //   cleartext: true,
+  // },
   android: {
     useLegacyBridge: true,
   },
