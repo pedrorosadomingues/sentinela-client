@@ -77,6 +77,7 @@ export default function HomeTemplate() {
       setShowDeviceListModal(false); // fecha o modal opcionalmente
     } catch (error) {
       alert("Não foi possível localizar o dispositivo.");
+      console.error("Erro ao localizar dispositivo:", error);
     }
   };
 
@@ -366,6 +367,7 @@ export default function HomeTemplate() {
                     alert("Sinal enviado com sucesso!");
                   } catch (err) {
                     alert("Erro ao emitir sinal sonoro.");
+                    console.error("Erro ao emitir sinal sonoro:", err);
                   } finally {
                     setSelectedDevice(null); // Fecha modal
                   }
