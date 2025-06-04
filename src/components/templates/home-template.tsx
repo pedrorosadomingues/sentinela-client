@@ -17,7 +17,7 @@ export const getUserLocation = async (): Promise<[number, number] | null> => {
     const platform = Capacitor.getPlatform();
 
     if (platform === "web") {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (!("geolocation" in navigator)) {
           alert("Geolocalização não suportada neste navegador.");
           return resolve(null);
