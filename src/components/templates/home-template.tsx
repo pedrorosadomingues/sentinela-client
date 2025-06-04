@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 // import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Image from "next/image";
@@ -9,7 +9,19 @@ import Image from "next/image";
 // import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.css";
 import api from "@/config/server";
+import { useMap } from "react-leaflet";
 
+function FlyToLocation({ position }: { position: [number, number] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (position) {
+      map.flyTo(position, 16); // ou map.setView(position, zoom)
+    }
+  }, [position]);
+
+  return null;
+}
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
@@ -27,13 +39,46 @@ const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
 });
 
 export default function HomeTemplate() {
+  const mapRef = useRef<L.Map | null>(null);
   const [devicePosition, setDevicePosition] = useState<[number, number] | null>(
     null
   );
+  const [selectedDevicePosition, setSelectedDevicePosition] = useState<
+    [number, number] | null
+  >(null);
+
+  const [selectedDevice, setSelectedDevice] = useState<any | null>(null);
+
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: "", token: "" });
   const [showDeviceListModal, setShowDeviceListModal] = useState(false);
   const [devices, setDevices] = useState<any[]>([]);
+
+  function SetMapRef({ onReady }: { onReady: (map: L.Map) => void }) {
+    const map = useMap();
+
+    useEffect(() => {
+      onReady(map);
+    }, [map]);
+
+    return null;
+  }
+
+  const locateDevice = async (token: string) => {
+    try {
+      const response = await api.post(`/device-position/${token}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      const { lat, lng } = response.data.position;
+      setSelectedDevicePosition([lat, lng]);
+      setShowDeviceListModal(false); // fecha o modal opcionalmente
+    } catch (error) {
+      alert("Não foi possível localizar o dispositivo.");
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -152,9 +197,22 @@ export default function HomeTemplate() {
         >
           Sair
         </button>
+
+        {devicePosition && (
+          <button
+            onClick={() => {
+              if (mapRef.current) {
+                mapRef.current.flyTo(devicePosition, 16);
+              }
+            }}
+            className="absolute bottom-6 right-6 z-100 bg-white px-4 py-2 border border-gray-300 rounded-md shadow-md hover:bg-gray-100"
+          >
+            Centralizar em mim
+          </button>
+        )}
       </div>
 
-      <div className="flex-1 z-0">
+      <div className="flex-1 relative z-0">
         {devicePosition && (
           <MapContainer
             center={devicePosition}
@@ -166,9 +224,25 @@ export default function HomeTemplate() {
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={devicePosition}>
-              <Popup>Você está aqui</Popup>
-            </Marker>
+            {selectedDevicePosition && (
+              <>
+                <FlyToLocation position={selectedDevicePosition} />
+                <Marker position={selectedDevicePosition}>
+                  <Popup>Chaveiro localizado</Popup>
+                </Marker>
+              </>
+            )}
+            <SetMapRef onReady={(map) => (mapRef.current = map)} />
+            {devicePosition && (
+              <Marker position={devicePosition}>
+                <Popup>Você está aqui</Popup>
+              </Marker>
+            )}
+            {selectedDevicePosition && (
+              <Marker position={selectedDevicePosition}>
+                <Popup>Chaveiro localizado</Popup>
+              </Marker>
+            )}
           </MapContainer>
         )}
       </div>
@@ -239,7 +313,8 @@ export default function HomeTemplate() {
                 {devices.map((device, index) => (
                   <li
                     key={index}
-                    className="border border-gray-200 p-3 rounded-md shadow-sm bg-gray-50"
+                    onClick={() => setSelectedDevice(device)}
+                    className="cursor-pointer border border-gray-200 p-3 rounded-md shadow-sm bg-gray-50 hover:bg-blue-50 transition"
                   >
                     <p className="text-sm font-medium text-gray-800">
                       Nome: {device.name}
@@ -257,6 +332,53 @@ export default function HomeTemplate() {
                 className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
               >
                 Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selectedDevice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Ações para: {selectedDevice.name}
+            </h2>
+            <div className="space-y-3">
+              <button
+                onClick={() => {
+                  locateDevice(selectedDevice.token);
+                  setSelectedDevice(null); // Fecha modal após ação
+                }}
+                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              >
+                Mostrar no mapa
+              </button>
+              <button
+                onClick={async () => {
+                  try {
+                    const token = localStorage.getItem("token");
+                    await api.post(`/beep/${selectedDevice.token}`, null, {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                    });
+                    alert("Sinal enviado com sucesso!");
+                  } catch (err) {
+                    alert("Erro ao emitir sinal sonoro.");
+                  } finally {
+                    setSelectedDevice(null); // Fecha modal
+                  }
+                }}
+                className="w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+              >
+                Emitir som
+              </button>
+              <button
+                onClick={() => setSelectedDevice(null)}
+                className="w-full bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400"
+              >
+                Cancelar
               </button>
             </div>
           </div>
