@@ -180,27 +180,31 @@ export default function HomeTemplate() {
     setShowModal(false);
   };
 
-useEffect(() => {
-  let L: typeof import("leaflet") | undefined;
-    if (typeof window !== "undefined") {
-      (async () => {
-        L = (await import("leaflet")).default;
+  useEffect(() => {
+    const setupLeafletIcons = async () => {
+      if (typeof window !== "undefined") {
+        const L = (await import("leaflet")).default;
+
+        // Garante que os ícones funcionem corretamente no Next.js
         delete (L.Icon.Default.prototype as any)._getIconUrl;
         L.Icon.Default.mergeOptions({
-          iconRetinaUrl: "/leaflet/marker.svg",
-          iconUrl: "/leaflet/marker.svg",
+          iconRetinaUrl: "/leaflet/marker-icon-2x.png",
+          iconUrl: "/leaflet/marker-icon.png",
+          shadowUrl: "/leaflet/marker-shadow.png",
         });
-      })();
-    }
-  const fetchLocation = async () => {
-    const location = await getUserLocation();
-    if (location) {
-      setDevicePosition(location);
-    }
-  };
+      }
+    };
 
-  fetchLocation();
-}, []);
+    const fetchLocation = async () => {
+      const location = await getUserLocation();
+      if (location) {
+        setDevicePosition(location);
+      }
+    };
+
+    setupLeafletIcons();
+    fetchLocation();
+  }, []);
 
   return (
     <div className="h-screen w-full flex flex-col relative">
