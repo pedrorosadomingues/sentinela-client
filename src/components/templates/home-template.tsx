@@ -182,16 +182,16 @@ export default function HomeTemplate() {
 
   useEffect(() => {
     const setupLeafletIcons = async () => {
+      let L: typeof import("leaflet") | undefined;
       if (typeof window !== "undefined") {
-        const L = (await import("leaflet")).default;
-
-        // Garante que os ícones funcionem corretamente no Next.js
-        delete (L.Icon.Default.prototype as any)._getIconUrl;
-        L.Icon.Default.mergeOptions({
-          iconRetinaUrl: "/leaflet/marker-icon-2x.png",
-          iconUrl: "/leaflet/marker-icon.png",
-          shadowUrl: "/leaflet/marker-shadow.png",
-        });
+        (async () => {
+          L = (await import("leaflet")).default;
+          delete (L.Icon.Default.prototype as any)._getIconUrl;
+          L.Icon.Default.mergeOptions({
+            iconRetinaUrl: "/leaflet/marker.svg",
+            iconUrl: "/leaflet/marker.svg",
+          });
+        })();
       }
     };
 
